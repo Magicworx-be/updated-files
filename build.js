@@ -536,6 +536,26 @@ function articleHTML(c) {
 
 const companiesHTML = top.map(c => articleHTML(c)).join('\n\n');
 
+// Gededupliceerde gemeentelijst (synthetische fusienamen als "Merelbeke-Melle"
+// weg als beide losse delen ook in de lijst staan — die staan enkel in de config
+// voor de matching, niet om te tonen/adverteren). Zie geheugen. Wordt hieronder
+// hergebruikt voor zowel de zichtbare lijst als de JSON-LD areaServed.
+const gemeentenSet = new Set(config.gemeenten);
+function isFusieDuplicaat(naam) {
+  for (let p = naam.indexOf('-'); p > 0; p = naam.indexOf('-', p + 1)) {
+    if (gemeentenSet.has(naam.slice(0, p)) && gemeentenSet.has(naam.slice(p + 1))) return true;
+  }
+  return false;
+}
+const gemeentenUniek = config.gemeenten.filter(g => !isFusieDuplicaat(g));
+
+// areaServed — versie-afhankelijk. v1 (vastgepinde pagina's): enkel de regionaam
+// als string, byte-voor-byte identiek aan de vroegere output. v2 (nieuwe pagina's):
+// de regio + elke gemeente, zodat zoekmachines de dekking per plaats zien.
+const areaServed = methodiekVersie >= 2
+  ? [config.regio.naam, ...gemeentenUniek]
+  : config.regio.naam;
+
 const jsonld = JSON.stringify({
   '@context': 'https://schema.org', '@type': 'ItemList',
   name: config.vak.mvCap + ' in ' + config.regio.naam,
@@ -545,7 +565,7 @@ const jsonld = JSON.stringify({
     item: {
       '@type': 'HomeAndConstructionBusiness', name: c.naam,
       address: { '@type': 'PostalAddress', addressLocality: c.gemeente, addressRegion: config.regio.provincie, addressCountry: 'BE' },
-      areaServed: config.regio.naam,
+      areaServed: areaServed,
       ...(c.website && { url: c.website })
     }
   }))
@@ -557,20 +577,44 @@ const gemeentenKort = config.gemeenten.length > 4
   : config.gemeenten.join(', ');
 
 // Volledige, zichtbare gemeentelijst voor het samenvattingsblok (SEO: elke
-// gemeentenaam als crawlbare tekst). We laten de synthetische fusienamen
-// ("Merelbeke-Melle") weg als beide losse delen ook in de lijst staan — die
-// staan enkel in de config voor de matching, niet om te tonen. Zie geheugen.
-const gemeentenSet = new Set(config.gemeenten);
-function isFusieDuplicaat(naam) {
-  for (let p = naam.indexOf('-'); p > 0; p = naam.indexOf('-', p + 1)) {
-    if (gemeentenSet.has(naam.slice(0, p)) && gemeentenSet.has(naam.slice(p + 1))) return true;
-  }
-  return false;
-}
-const gemeentenUniek = config.gemeenten.filter(g => !isFusieDuplicaat(g));
+// gemeentenaam als crawlbare tekst). gemeentenUniek is hierboven al afgeleid.
 const gemeentenVolledig = gemeentenUniek.length > 1
   ? gemeentenUniek.slice(0, -1).join(', ') + ' en ' + gemeentenUniek[gemeentenUniek.length - 1]
   : gemeentenUniek.join(', ');
+
+// Waar tonen we de volledige gemeentelijst? — versie-afhankelijk (SEO-vindbaarheid
+// per plaats, bv. iemand die zoekt op "dakwerker Berlare"). De regionaam blijft
+// altijd het zwaarste SEO-signaal (titel + H1 + start van de meta); de gemeenten
+// zijn een subtiele, aanvullende laag.
+//   v1 (bestaande, vastgepinde pagina's): lijst enkel INGEKLAPT in het cijferpaneel
+//       → GEMEENTEN_ZICHTBAAR leeg, GEMEENTEN_COLLAPSED = de bestaande regel.
+//       Output blijft byte-voor-byte identiek — gepubliceerde pagina's veranderen niet.
+//   v2 (nieuwe pagina's): lijst één keer ZICHTBAAR onder de samenvatting, en dus
+//       weggelaten uit het ingeklapte paneel (geen dubbele lijst).
+const toonGemeentenZichtbaar = methodiekVersie >= 2;
+// De kern (bv. "Dendermonde") is al het zwaarste SEO-term (titel/H1/hero); we
+// laten hem uit de opsomming zodat de zin natuurlijk leest ("heel Dendermonde en
+// omstreken — waaronder <de rest>"). Elke overige gemeente verschijnt zo één keer
+// zichtbaar. Valt de lijst zonder kern leeg, dan tonen we toch de volledige lijst.
+const gemeentenOmstreken = gemeentenUniek.filter(g => norm(g) !== norm(config.regio.kern));
+const gemeentenLijst = gemeentenOmstreken.length ? gemeentenOmstreken : gemeentenUniek;
+const gemeentenOmstrekenTekst = gemeentenLijst.length > 1
+  ? gemeentenLijst.slice(0, -1).join(', ') + ' en ' + gemeentenLijst[gemeentenLijst.length - 1]
+  : gemeentenLijst.join(', ');
+// Subtiele, zichtbare regel — inline gestyled zodat de gedeelde stylesheet (en
+// dus de v1-pagina's) ongemoeid blijft. Leeg op v1: de token verdwijnt spoorloos
+// (staat direct achter </p>), zodat de v1-HTML byte-voor-byte identiek blijft.
+const gemeentenZichtbaar = toonGemeentenZichtbaar
+  ? '\n      <p style="font-size:14px;color:var(--faint);line-height:1.7;margin:12px 0 0;max-width:100%">' +
+    'Deze selectie geldt voor heel ' + esc(config.regio.kern) +
+    ' en omstreken — waaronder ' + esc(gemeentenOmstrekenTekst) + '.</p>'
+  : '';
+// v1-pad gebruikt bewust de ruwe waarden (net als de vroegere tokens), zodat de
+// gepubliceerde pagina's byte-voor-byte identiek blijven.
+const gemeentenCollapsed = toonGemeentenZichtbaar
+  ? ''
+  : '<p class="summary-gemeenten"><strong>Opgenomen gemeenten (' + gemeentenUniek.length +
+    '):</strong> ' + gemeentenVolledig + '.</p>';
 
 // ---- afgeleide feiten voor het samenvattingsblok (deterministisch) -----
 const inRegioComps = companies.filter(c => c.inRegio);
@@ -603,9 +647,15 @@ const faqZoekterm = (syn && syn.ev && vakEv) ? (vakEv + ' of ' + syn.ev)
 // Backend-tekst (meta/OG/Twitter/JSON-LD) — bewust dezelfde boodschap als de
 // frontend-hero: "de best beoordeelde ... volgens een vaste, publieke methodiek op
 // basis van klantgetuigenissen en vakspecialiteit". Vertrekt van de frontend-copy.
-const metaDesc = 'De best beoordeelde ' + config.vak.mv + ' in ' + config.regio.naam +
+let metaDesc = 'De best beoordeelde ' + config.vak.mv + ' in ' + config.regio.naam +
   ', geselecteerd volgens een vaste, publieke methodiek op basis van de getuigenissen van ' +
   'klanten en de vakspecialiteit van het bedrijf. Onafhankelijk — een plaats is niet te koop.';
+// Nieuwe pagina's (v2): de gemeenten óók in de meta, ná de kernboodschap. De
+// regionaam staat vooraan (zwaarste signaal); de gemeentelijst is aanvullend en
+// mag door de zoekmachine ingekort worden — hij staat sowieso in de HTML voor
+// zoekmachines en taalmodellen. v1-pagina's houden hun bestaande, kortere meta.
+if (toonGemeentenZichtbaar)
+  metaDesc += ' Ook actief in ' + gemeentenOmstrekenTekst + '.';
 
 const geoRegion = R.GEO_CODES[norm(config.regio.provincie)] || 'BE';
 if (geoRegion === 'BE')
@@ -720,6 +770,8 @@ const tokens = {
   GEMEENTEN_KORT: gemeentenKort,
   GEMEENTEN_VOLLEDIG: gemeentenVolledig,
   GEMEENTEN_UNIEK_AANTAL: String(gemeentenUniek.length),
+  GEMEENTEN_ZICHTBAAR: gemeentenZichtbaar,
+  GEMEENTEN_COLLAPSED: gemeentenCollapsed,
   MIN_REVIEWS: String(MIN_REVIEWS),
   MIN_RECENT: String(MIN_RECENT),
   AANTAL_TOP: String(nListed),

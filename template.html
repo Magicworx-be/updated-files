@@ -543,7 +543,7 @@ img { display: block; max-width: 100%; }
          zodat zoekmachines én taalmodellen dit correct kunnen overnemen. -->
     <div class="summary-card" id="samenvatting">
       <h3>Samenvatting</h3>
-      <p>{{SAMENVATTING}}</p>
+      <p>{{SAMENVATTING}}</p>{{GEMEENTEN_ZICHTBAAR}}
       <!-- Inklapbaar met <details>: de cijfers en methodiek blijven volledig in de
            HTML (zoekmachines en taalmodellen lezen ze meteen), maar staan visueel
            gevouwen zodat de focus op de bedrijvenlijst ligt. -->
@@ -563,7 +563,7 @@ img { display: block; max-width: 100%; }
           <div><dt>Databron</dt><dd>Google-reviews (publiek), datum {{ISO_DATUM}}</dd></div>
           <div><dt>Updatefrequentie</dt><dd>Jaarlijks</dd></div>
         </dl>
-        <p class="summary-gemeenten"><strong>Opgenomen gemeenten ({{GEMEENTEN_UNIEK_AANTAL}}):</strong> {{GEMEENTEN_VOLLEDIG}}.</p>
+        {{GEMEENTEN_COLLAPSED}}
         <p class="summary-method">Selectie volgens een vaste, publieke methodiek op basis van 4 criteria: vertrouwen (35%, tijdsgewogen Bayesiaanse Google-score), reviewkwaliteit (30%, inhoud van de reviewteksten), recentheid (15%, reviews van de laatste 24 maanden) en specialiteit (20%, specialisatiegraad en credentials).</p>
       </details>
     </div>
