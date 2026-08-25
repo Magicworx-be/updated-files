@@ -79,6 +79,13 @@ h1,h2,h3 { font-family:var(--display); font-weight:700; line-height:1.12; letter
 .hubcard-meta { display:block; margin-top:3px; font-size:13px; color:var(--faint); }
 .hubcard-arr { color:var(--primary-d); font-weight:700; font-size:16px; transition:transform .15s ease; }
 .hubcard:hover .hubcard-arr { transform:translateX(4px); }
+
+/* nog niet gebouwde regio: zichtbaar maar bewust niet klikbaar (geen 404's) */
+.hubcard-soon { background:var(--bg-soft); border-style:dashed; border-color:var(--line-2); box-shadow:none; cursor:default; }
+.hubcard-soon:hover { transform:none; box-shadow:none; border-color:var(--line-2); }
+.hubcard-soon .hubcard-name { color:var(--muted); font-weight:600; }
+.hubcard-soon .hubcard-meta { color:var(--faint); }
+.soon-pill { flex:none; font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--faint); background:var(--bg); border:1px solid var(--line-2); border-radius:var(--pill); padding:4px 10px; white-space:nowrap; }
 @media (max-width:900px){ .hubgrid { grid-template-columns:repeat(2,1fr); } }
 @media (max-width:600px){ .hubgrid { grid-template-columns:1fr; } }
 
@@ -168,6 +175,28 @@ h1,h2,h3 { font-family:var(--display); font-weight:700; line-height:1.12; letter
   function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
   function plural(n, ev, mv) { return n + ' ' + (n === 1 ? ev : mv); }
 
+  var ORIGIN = 'https://keurwijzer.be';
+
+  // JSON-LD ItemList clientside injecteren, uit dezelfde registry als de kaarten.
+  // Bewust NIET statisch in de pagina gebakken: die lijst verouderde bij elke
+  // nieuwe regio, wat betekende dat de hub telkens opnieuw in GHL geplakt moest
+  // worden. Nu klopt de structured data altijd en blijft de hub write-once.
+  // Enkel LIVE pagina's — een ItemList mag nooit naar een 404 verwijzen.
+  function injectItemList(items) {
+    if (!items.length) return;
+    var el = document.createElement('script');
+    el.type = 'application/ld+json';
+    el.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: document.title,
+      itemListElement: items.map(function(it, i){
+        return { '@type': 'ListItem', position: i + 1, name: it.name, url: ORIGIN + it.url };
+      }),
+    });
+    document.head.appendChild(el);
+  }
+
   function hubCard(url, name, meta) {
     return '<a class="hubcard" href="' + esc(url) + '">' +
       '<span class="hubcard-body"><span class="hubcard-name">' + esc(name) + '</span>' +
@@ -175,21 +204,58 @@ h1,h2,h3 { font-family:var(--display); font-weight:700; line-height:1.12; letter
       '<span class="hubcard-arr" aria-hidden="true">→</span></a>';
   }
 
+  // Regio die nog niet gebouwd is: wel tonen, bewust GEEN link (een link zou een
+  // 404 opleveren, en dat is een slecht signaal naar Google én naar bezoekers).
+  function soonCard(name, meta) {
+    return '<div class="hubcard hubcard-soon">' +
+      '<span class="hubcard-body"><span class="hubcard-name">' + esc(name) + '</span>' +
+      (meta ? '<span class="hubcard-meta">' + esc(meta) + '</span>' : '') + '</span>' +
+      '<span class="soon-pill">Binnenkort</span></div>';
+  }
+
   function renderNicheHub(data) {
-    // Toon alle regio's voor deze niche, gegroepeerd per provincie
+    // Toon alle regio's voor deze niche, gegroepeerd per provincie.
     var pages = data.pages.filter(function(p){ return p.niche === hubKey; });
+    var liveSlugs = {};
+    pages.forEach(function(p){ liveSlugs[p.regioSlug] = true; });
+
+    // "Binnenkort" = de volledige regio-indeling MIN wat live staat. Puur
+    // afgeleid, nooit opgeslagen: gaat een regio live, dan valt ze vanzelf uit
+    // deze lijst en wordt haar kaart klikbaar — zonder de hub aan te raken.
+    var planned = (data.planned || []).filter(function(r){ return !liveSlugs[r.regioSlug]; });
+
+    // Onder de drempel oogt 1 live + 28 grijze kaarten verlaten i.p.v. ambitieus.
+    var drempel = typeof data.plannedMinLive === 'number' ? data.plannedMinLive : 3;
+    if (pages.length < drempel) planned = [];
+
     var perProv = {};
+    function bucket(prov) {
+      var k = prov || 'Overig';
+      if (!perProv[k]) perProv[k] = [];
+      return perProv[k];
+    }
     pages.forEach(function(p){
-      var prov = p.provincie || 'Overig';
-      if (!perProv[prov]) perProv[prov] = [];
-      perProv[prov].push(p);
+      bucket(p.provincie).push({
+        kern: p.regioKern || p.regioNaam, live: true,
+        html: hubCard(p.url, p.regioNaam, plural(p.gemeenten, 'gemeente', 'gemeenten')),
+      });
     });
+    planned.forEach(function(r){
+      bucket(r.provincie).push({
+        kern: r.regioKern || r.regioNaam, live: false,
+        html: soonCard(r.regioNaam, plural(r.gemeenten, 'gemeente', 'gemeenten')),
+      });
+    });
+
     var provs = Object.keys(perProv).sort();
     var meerdereProv = provs.length > 1;
     var html = '';
     provs.forEach(function(prov){
-      var groep = perProv[prov].sort(function(a,b){ return (a.regioKern||'').localeCompare(b.regioKern||''); });
-      var grid = groep.map(function(p){ return hubCard(p.url, p.regioNaam, plural(p.gemeenten, 'gemeente', 'gemeenten')); }).join('\n');
+      // live eerst, daarna alfabetisch — beschikbare regio's bovenaan
+      var groep = perProv[prov].sort(function(a,b){
+        return (b.live - a.live) || a.kern.localeCompare(b.kern);
+      });
+      var grid = groep.map(function(x){ return x.html; }).join('\n');
       if (meerdereProv) {
         html += '<div class="hub-provincie"><h2 class="hub-prov-h">' + esc(prov) + '</h2><div class="hubgrid">' + grid + '</div></div>\n';
       } else {
@@ -197,7 +263,13 @@ h1,h2,h3 { font-family:var(--display); font-weight:700; line-height:1.12; letter
       }
     });
     container.innerHTML = html;
-    if (countEl) countEl.textContent = plural(pages.length, 'regio beschikbaar', "regio’s beschikbaar");
+
+    if (countEl) {
+      countEl.textContent = planned.length
+        ? pages.length + ' van ' + (pages.length + planned.length) + ' regio’s beschikbaar'
+        : plural(pages.length, 'regio beschikbaar', 'regio’s beschikbaar');
+    }
+    injectItemList(pages.map(function(p){ return { name: p.vakMvCap + ' in ' + p.regioNaam, url: p.url }; }));
   }
 
   function renderRegioHub(data) {
@@ -207,6 +279,7 @@ h1,h2,h3 { font-family:var(--display); font-weight:700; line-height:1.12; letter
     var grid = pages.map(function(p){ return hubCard(p.url, p.vakMvCap, 'in ' + p.regioNaam); }).join('\n');
     container.innerHTML = '<div class="hubgrid">' + grid + '</div>';
     if (countEl) countEl.textContent = plural(pages.length, 'vakgebied beschikbaar', 'vakgebieden beschikbaar');
+    injectItemList(pages.map(function(p){ return { name: p.vakMvCap + ' in ' + p.regioNaam, url: p.url }; }));
   }
 
   function render(data) {

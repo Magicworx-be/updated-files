@@ -90,8 +90,8 @@ function schrijfGhlBundle(rel) {
   const dir = path.join(GHL, ghlNaam(rel));
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'SEO-velden.txt'), seoVelden(rel, extractMeta(html)));
-  fs.writeFileSync(path.join(dir, 'header-code.html'), jsonld + '\n');
-  fs.writeFileSync(path.join(dir, 'body.html'), block + '\n');
+  fs.writeFileSync(path.join(dir, 'header-code.txt'), jsonld + '\n');
+  fs.writeFileSync(path.join(dir, 'body.txt'), block + '\n');
 }
 // Altijd-actueel naslagwerk: metadata van ÁLLE live pagina's op één plek.
 function schrijfMetadataOverzicht() {
@@ -134,6 +134,7 @@ execFileSync('node', [path.join(ROOT, 'build-site.js')], { stdio: ['ignore', 'ig
 // 2b) registry.json genereren — compacte JSON-export van alle navigatiedata,
 //     zodat hub- en homepage-navigatie clientside uit dit bestand kan laden.
 console.log('› registry.json genereren...');
+const gepland = R.loadPlannedRegions(ROOT);
 const registryJson = {
   _generated: new Date().toISOString().slice(0, 10),
   _origin: R.SITE_ORIGIN,
@@ -166,10 +167,17 @@ const registryJson = {
     provincie: r.provincie,
     count:     r.count,
   })),
+  // Volledige regio-indeling uit regions.txt (alle 29, óók de al gebouwde).
+  // De hub trekt hier clientside `pages` van af; wat overblijft toont hij als
+  // "Binnenkort". Zo verdwijnt dat label vanzelf zodra een regio live gaat —
+  // er is geen label om weg te halen. Zie lib/registry.js § loadPlannedRegions.
+  planned: gepland,
+  plannedMinLive: R.PLANNED_MIN_LIVE,
 };
 fs.writeFileSync(path.join(OUT, 'registry.json'), JSON.stringify(registryJson));
 console.log('✓ output/registry.json  (' + registry.length + ' pagina\'s, ' +
-  registryJson.niches.length + ' niches, ' + registryJson.regios.length + ' regio\'s)');
+  registryJson.niches.length + ' niches, ' + registryJson.regios.length + ' regio\'s, ' +
+  gepland.length + ' geplande regio\'s)');
 
 // 2c) weesbadges opruimen — badges/<slug> voor slugs die niet meer in de
 //     registry zitten (bv. na verwijderen/hernoemen van een regio). Analoog aan
@@ -233,8 +241,8 @@ fs.writeFileSync(path.join(GHL, '_LEES-MIJ.txt'),
   '_METADATA-overzicht.txt → metadata (SEO-velden) van ÁLLE live pagina\'s, altijd actueel.\n\n' +
   'Per pagina die je moet aanmaken/bijwerken staat er ook een mapje met drie bestanden:\n' +
   '  SEO-velden.txt   → GHL Path + titel + meta-description + canonical + OG (SEO-tab van de pagina)\n' +
-  '  header-code.html → in de Header/Tracking-code van de pagina plakken (JSON-LD schema)\n' +
-  '  body.html        → in één Custom HTML/Code-element op de pagina plakken (bevat ook de CSS)\n\n' +
+  '  header-code.txt  → in de Header/Tracking-code van de pagina plakken (JSON-LD schema)\n' +
+  '  body.txt         → in één Custom HTML/Code-element op de pagina plakken (bevat ook de CSS)\n\n' +
   'Let op: title/description/canonical MOETEN in de SEO-tab (niet in de body — daar leest GHL ze niet).\n' +
   'sitemap.xml en robots.txt staan in output/ en publiceer je apart (zie WIJZIGINGEN.md).\n');
 
@@ -253,11 +261,22 @@ console.log('  → Metadata van álle pagina\'s:   ghl/_METADATA-overzicht.txt')
 console.log('');
 
 // 6) registry.json pushen naar GitHub (zodat jsDelivr de nieuwe navigatie serveert)
+let pushMislukt = false;
 try {
   execFileSync('node', [path.join(ROOT, 'lib', 'push-registry.js')], { stdio: 'inherit' });
-} catch { /* fout wordt al gemeld door push-registry.js */ }
+} catch {
+  pushMislukt = true;
+  console.error('\n  !! registry.json NIET gepusht naar GitHub.');
+  console.error('     → Run handmatig: node lib/push-registry.js');
+  console.error('     → Zonder push zien bezoekers de binnenkort-kaarten NIET.');
+}
 
 // 7) badge-PNG's pushen naar dezelfde data-repo (jsDelivr serveert de badges)
 try {
   execFileSync('node', [path.join(ROOT, 'lib', 'push-badges.js')], { stdio: 'inherit' });
 } catch { /* fout wordt al gemeld door push-badges.js */ }
+
+if (pushMislukt) {
+  console.error('\n⚠⚠  ACTIE VEREIST: node lib/push-registry.js  (zie boven)\n');
+  process.exitCode = 1;
+}
