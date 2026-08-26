@@ -1,0 +1,30 @@
+Region	                Cities
+Gent			Gent, Merelbeke-Melle, Destelbergen, Evergem, Lochristi, Nazareth-De Pinte, Sint-Martens-Latem, Wetteren, Laarne, Lievegem, Deinze, Oosterzele, Zelzate, Aalter
+Meetjesland		Eeklo, Maldegem, Sint-Laureins, Assenede, Kaprijke, Lievegem, Aalter, Zelzate
+Aalst			Aalst, Erpe-Mere, Lede, Haaltert, Denderleeuw, Ninove, Herzele, Sint-Lievens-Houtem, Geraardsbergen, Zottegem
+Dendermonde		Dendermonde, Lebbeke, Buggenhout, Hamme, Zele, Berlare, Wichelen, Waasmunster, Opwijk
+Sint-Niklaas		Sint-Niklaas, Beveren-Kruibeke-Zwijndrecht, Temse, Stekene, Sint-Gillis-Waas, Lokeren
+Oudenaarde		Oudenaarde, Ronse, Brakel, Horebeke, Kluisbergen, Kruisem, Lierde, Maarkedal, Wortegem-Petegem, Zwalm, Gavere
+Brugge			Brugge, Beernem, Blankenberge, Damme, Jabbeke, Knokke-Heist, Oostkamp, Torhout, Zedelgem, Zuienkerke
+Oostende		Oostende, Bredene, De Haan, Gistel, Ichtegem, Middelkerke, Oudenburg
+Veurne-Diksmuide	Veurne, De Panne, Koksijde, Nieuwpoort, Alveringem, Diksmuide, Houthulst, Koekelare, Kortemark, Lo-Reninge
+Ieper			Ieper, Poperinge, Wervik, Zonnebeke, Langemark-Poelkapelle, Heuvelland, Mesen, Vleteren
+Roeselare		Roeselare, Izegem, Hooglede, Ingelmunster, Ledegem, Lichtervelde, Moorslede, Staden
+Tielt			Tielt, Ardooie, Dentergem, Oostrozebeke, Pittem, Wielsbeke, Wingene
+Kortrijk		Kortrijk, Kuurne, Harelbeke, Deerlijk, Zwevegem, Menen, Wevelgem, Lendelede, Anzegem, Avelgem, Spiere-Helkijn, Waregem, Zulte
+Antwerpen		Antwerpen, Aartselaar, Edegem, Mortsel, Hove, Boechout, Kontich, Lint, Wommelgem, Wijnegem, Hemiksem, Schelle, Niel, Boom, Rumst
+Brasschaat		Brasschaat, Schoten, Kapellen, Stabroek, Kalmthout, Essen, Wuustwezel, Brecht, Schilde, Zoersel, Malle, Ranst, Zandhoven
+Mechelen		Mechelen, Lier, Berlaar, Bonheiden, Duffel, Heist-op-den-Berg, Nijlen, Putte, Sint-Katelijne-Waver, Willebroek, Bornem, Puurs-Sint-Amands
+Turnhout		Turnhout, Oud-Turnhout, Vosselaar, Beerse, Merksplas, Hoogstraten, Rijkevorsel, Baarle-Hertog, Ravels, Arendonk, Retie
+Geel-Mol		Geel, Mol, Balen, Dessel, Meerhout, Laakdal, Kasterlee, Lille, Olen
+Herentals-Westerlo	Herentals, Herenthout, Grobbendonk, Vorselaar, Westerlo, Herselt, Hulshout
+Leuven			Leuven, Herent, Bertem, Oud-Heverlee, Huldenberg, Tervuren, Kortenberg, Bierbeek, Boutersem, Holsbeek, Rotselaar, Haacht, Boortmeerbeek, Keerbergen, Tremelo, Overijse, Hoeilaart
+Aarschot-Diest		Aarschot, Begijnendijk, Scherpenheuvel-Zichem, Diest, Tielt-Winge, Glabbeek, Kortenaken, Bekkevoort
+Tienen			Tienen, Hoegaarden, Linter, Zoutleeuw, Landen, Geetbets, Lubbeek
+Vilvoorde		Vilvoorde, Zaventem, Grimbergen, Machelen, Kampenhout, Steenokkerzeel, Meise, Kraainem, Wezembeek-Oppem, Wemmel, Zemst, Kapelle-op-den-Bos
+Halle			Halle, Beersel, Sint-Pieters-Leeuw, Lennik, Pepingen, Bever, Pajottegem, Roosdaal, Liedekerke, Sint-Genesius-Rode, Drogenbos, Linkebeek
+Asse			Asse, Dilbeek, Ternat, Affligem, Merchtem, Londerzeel
+Hasselt-Genk		Hasselt, Genk, Diepenbeek, Zonhoven, Zutendaal, Houthalen-Helchteren, Heusden-Zolder, Lummen, Herk-de-Stad, Halen, As
+Noord-Limburg		Lommel, Pelt, Hamont-Achel, Hechtel-Eksel, Peer, Bocholt, Beringen, Tessenderlo-Ham, Leopoldsburg
+Maasland		Maaseik, Dilsen-Stokkem, Kinrooi, Bree, Oudsbergen, Maasmechelen, Lanaken, Bilzen-Hoeselt
+Sint-Truiden-Tongeren	Sint-Truiden, Gingelom, Nieuwerkerken, Alken, Wellen, Heers, Tongeren-Borgloon, Riemst, Voeren, Herstappe

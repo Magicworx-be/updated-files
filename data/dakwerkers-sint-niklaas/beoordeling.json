@@ -1,0 +1,2130 @@
+{
+  "bedrijven": [
+    {
+      "bedrijf": "Mark De Caluwe | dakwerken | schrijnwerken",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakgoten",
+        "dakramen",
+        "renovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Duidelijke communicatie"
+      ],
+      "synthese": "Vakbedrijf uit Stekene. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "MV Dak - MV Solar",
+      "reviewkwaliteit": 4,
+      "vakfocus": 3.5,
+      "vakfocusBron": "website",
+      "websiteBezocht": "http://www.mvdak.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "dakrenovatie",
+        "zonnepanelen",
+        "dakisolatie",
+        "platte-daken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Nette werf",
+        "Eerlijke afrekening"
+      ],
+      "synthese": "Familiebedrijf uit Sint-Niklaas dat dakwerken combineert met zonnepanelen en thuisbatterijen. Klanten roemen de nette afwerking, vlotte communicatie en eerlijke, correcte afrekening.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Renovacleaning",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken",
+        "dakisolatie",
+        "dakgoten",
+        "gevelbekleding"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Laarne. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Tectura Groep B.V. - Dakwerken & Renovaties",
+      "reviewkwaliteit": 4.5,
+      "vakfocus": 4.5,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.tectura-groep.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "dakrenovatie",
+        "hellende-daken",
+        "platte-daken",
+        "dakisolatie"
+      ],
+      "chipsSite": [
+        "15 jaar garantie"
+      ],
+      "chipsReview": [
+        "Offerte nagekomen",
+        "Nette werf"
+      ],
+      "synthese": "Relatief jonge dakwerkersfirma uit Sint-Niklaas, gespecialiseerd in volledige dakrenovaties met isolatie en nieuwe pannen. Klanten vermelden consequent de transparante offerte, correcte facturatie en professionele opvolging.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Van Rijsseghem",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Lokeren. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "De Cock G",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Lokeren. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Tecto dakwerken Lokeren",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "gevelbekleding"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Lokeren. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "MKB Dakwerken Sint Niklaas",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Duidelijke communicatie"
+      ],
+      "synthese": "Vakbedrijf uit Sint-Gillis-Waas. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "PGRB",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken",
+        "dakisolatie",
+        "dakgoten",
+        "gevelbekleding"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Vakbedrijf uit Sint-Niklaas. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Thomas Mariman",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Lokeren. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Mariman BVBA",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Vakbedrijf uit Lokeren. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Omni-Roof",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "hellende-daken",
+        "renovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Sint-Niklaas. De reviews zijn gemengd: naast tevreden klanten staan meldingen over opvolging of afspraken.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "VDC Dakwerken bv",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakgoten",
+        "dakramen"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Duidelijke communicatie"
+      ],
+      "synthese": "Vakbedrijf uit Lokeren. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Schrijn en dakwerken Rooms bv",
+      "reviewkwaliteit": 4,
+      "vakfocus": 3,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.roomsmathias.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "hellende-daken",
+        "platte-daken",
+        "schrijnwerk",
+        "gevelbekleding"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Nette werf",
+        "Duidelijke communicatie"
+      ],
+      "synthese": "Lokerse zaak van Mathias Rooms die schrijn- en dakwerken combineert met isolatie en gevelbekleding. Klanten beschrijven hem als een bereikbare vakman die afspraken correct nakomt en proper afwerkt.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "VK Dakwerken - Van Keer Alain",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Lokeren. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Meuleman",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken",
+        "dakramen",
+        "renovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Lokeren. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Opdorp Donny",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakgoten"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service"
+      ],
+      "synthese": "Vakbedrijf uit Lokeren. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "VT Dakwerken Sint Niklaas",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Sint-Niklaas. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Boba Dakwerker Sint-Niklaas",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": 5,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://dakwerkersintniklaas.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "hellende-daken",
+        "platte-daken",
+        "dakrenovatie",
+        "velux"
+      ],
+      "chipsSite": [
+        "Erkend Velux-plaatser"
+      ],
+      "chipsReview": [
+        "Nette werf",
+        "Stipt"
+      ],
+      "synthese": "Dakwerker uit de regio Sint-Niklaas (Beveren-Kruibeke-Zwijndrecht), toegespitst op hellende en platte daken en Velux. De recente reviews zijn overwegend kort maar consequent positief over de nette, vlotte uitvoering.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Johann",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "renovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Bornem. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "BF Dakwerken",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakgoten"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Antwerpen. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Colman Dak & Gevel",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken",
+        "gevelbekleding"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Vakbedrijf uit Bornem. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Kristof Korsak",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Waasmunster. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Evarist Lossie",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Bornem. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Stefan Van Bogaert Kruibeke",
+      "reviewkwaliteit": 4,
+      "vakfocus": 1,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.stefanvbo.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "zonwering",
+        "rolluiken",
+        "vliegenramen",
+        "terrasoverkapping"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Nette afwerking",
+        "Correcte afspraken"
+      ],
+      "synthese": "Zaak uit Bazel (Kruibeke) die zich toelegt op zonwering, rolluiken, vliegenramen en terrasoverkappingen — geen eigenlijke dakwerken. De vele reviews prijzen de showroom, de vakkundige plaatsing en de service.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "BMD Dakwerken Sint-Niklaas",
+      "reviewkwaliteit": 3,
+      "vakfocus": 5,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.bmddakwerken-sintniklaas.be/",
+      "actiefSinds": 2000,
+      "specialties": [
+        "dakrenovatie",
+        "dakisolatie",
+        "waterdichting",
+        "herstellingen"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service"
+      ],
+      "synthese": "Dakwerkersbedrijf uit Sint-Niklaas, actief sinds 2000 en volledig toegespitst op dakwerk. Naast lovende reviews over vakwerk en snelle service staan enkele klachten over bereikbaarheid en afhandeling.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Vision Dakwerken Lokeren",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken",
+        "dakgoten",
+        "renovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Nette werf",
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Vakbedrijf uit Lokeren. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "JLB Dakwerken & Gevelbekleding",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Duidelijke communicatie"
+      ],
+      "synthese": "Vakbedrijf uit Lier. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "FK Dakwerken",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Bornem. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Van Houtte BVBA",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Bornem. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "SteBo Dakwerken",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken",
+        "hellende-daken",
+        "dakisolatie",
+        "gevelbekleding"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Londerzeel. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Timmer- en dakwerken Zoli BV",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken",
+        "dakisolatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Antwerpen. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Gevel en dakwerken Tempels",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "hellende-daken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Deinze. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "D.C.A dakwerken",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Les Bons Villers. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dak en Woning",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakisolatie",
+        "dakramen",
+        "renovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Duidelijke communicatie"
+      ],
+      "synthese": "Vakbedrijf uit Haacht. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Pro ACTIVE Dakwerken",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakgoten",
+        "gevelbekleding"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Bornem. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Chapewerken De Graef",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Nette werf",
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Vakbedrijf uit Beveren-Kruibeke-Zwijndrecht. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Renovla | Algemene Renovatiewerken",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "renovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Beveren-Kruibeke-Zwijndrecht. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "dakwerken jhp",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Antwerpen. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "bvba cordeel glen",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "renovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Nette werf",
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Vakbedrijf uit Beveren-Kruibeke-Zwijndrecht. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Toon De Soomer BVBA",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "schrijnwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Beveren-Kruibeke-Zwijndrecht. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Ramenarchitect.be",
+      "reviewkwaliteit": 4,
+      "vakfocus": 1,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.ramenarchitect.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "ramen",
+        "deuren",
+        "beglazing"
+      ],
+      "chipsSite": [
+        "15 jaar garantie"
+      ],
+      "chipsReview": [
+        "Snelle levering",
+        "Duidelijke communicatie"
+      ],
+      "synthese": "Specialist in ramen en deuren uit Zwijndrecht (Beveren-Kruibeke-Zwijndrecht) — geen dakwerkersbedrijf. De reviews zijn talrijk en positief over de kwaliteit van de profielen, de plaatsing en de prijs-kwaliteit.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Steve",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "hellende-daken",
+        "renovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Bornem. De reviews zijn gemengd: naast tevreden klanten staan meldingen over opvolging of afspraken.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Wingyp Dakwerken",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Antwerpen. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "DE LEO bouwt",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakisolatie",
+        "renovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Duidelijke communicatie"
+      ],
+      "synthese": "Vakbedrijf uit Beveren-Kruibeke-Zwijndrecht. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Wan Build B.V",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": 2.5,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.wanbuild.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "badkamerrenovatie",
+        "tegelwerken",
+        "totaalrenovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Nette afwerking",
+        "Snelle uitvoering"
+      ],
+      "synthese": "Renovatie-aannemer uit Beveren die totaalrenovaties, badkamers en tegelwerk aanbiedt, met dakwerken als één van de diensten. De reviews gaan vooral over badkamer- en tegelprojecten; enkele klachten over niet-nagekomen afspraken.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Van Der Vorst",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken",
+        "renovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Bornem. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "ALN Projects BV",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Nette werf",
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Vakbedrijf uit Berlare. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Viktor Algemene Renovatie",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "renovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Duidelijke communicatie"
+      ],
+      "synthese": "Vakbedrijf uit Beveren-Kruibeke-Zwijndrecht. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Sani Solutions",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Beveren-Kruibeke-Zwijndrecht. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "OM Dakwerken",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "gevelbekleding"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Antwerpen. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Jero dak en schoorsteentechniek",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Duidelijke communicatie"
+      ],
+      "synthese": "Vakbedrijf uit Hilvarenbeek. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "ISO Dakwerken Lokeren",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service"
+      ],
+      "synthese": "Vakbedrijf uit Lokeren. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Versa Dakwerken",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Sint-Niklaas. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "RB Dak",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Laarne. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "De Bruyn Gunter",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": 1,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.gunterdebruyn.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "tuinaanleg",
+        "snoeiwerken",
+        "bomen"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Proper werk",
+        "Flexibel"
+      ],
+      "synthese": "Tuin- en bosbouwbedrijf uit de regio Beveren-Kruibeke-Zwijndrecht (tuinaanleg, snoeiwerken, terras en hekwerk) — geen dakwerkersactiviteit. Klanten zijn tevreden over het nette, vakkundige tuinwerk.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "H-water",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "renovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Beveren-Kruibeke-Zwijndrecht. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakservice",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Beveren-Kruibeke-Zwijndrecht. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Dave Bal",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken",
+        "dakgoten",
+        "dakramen",
+        "dakreiniging"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Antwerpen. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Kenny Govaerts",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service"
+      ],
+      "synthese": "Vakbedrijf uit Beveren-Kruibeke-Zwijndrecht. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dak & Gevel Experts",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "hellende-daken",
+        "gevelbekleding"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Bornem. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "A&M Dakwerken",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Les Bons Villers. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "AM Roofs",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Vakbedrijf uit Haasdonk. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Mc Dak En Schrijnwerkerij",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakgoten",
+        "dakramen"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Sint-Gillis-Waas. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Wilrijkse Dakwerken",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Vakbedrijf uit Antwerpen. De reviews zijn gemengd: naast tevreden klanten staan meldingen over opvolging of afspraken.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken de kleine",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakgoten"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Les Bons Villers. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "WEM",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": 2.5,
+      "vakfocusBron": "website",
+      "websiteBezocht": "http://wem-renovatie.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "totaalrenovatie",
+        "elektriciteit",
+        "sanitair",
+        "verwarming"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Bereikbaar"
+      ],
+      "synthese": "Renovatie-generalist uit Kruibeke die uiteenlopende bouwtechnische klussen aanpakt (elektriciteit, sanitair, verwarming, dak- en gevelwerken). Klanten waarderen vooral de snelle, brede service; dakwerk is één onderdeel van het aanbod.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Baert / Erik",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service"
+      ],
+      "synthese": "Vakbedrijf uit Sint-Gillis-Waas. De reviews zijn gemengd: naast tevreden klanten staan meldingen over opvolging of afspraken.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Daktotaal",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakgoten"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service"
+      ],
+      "synthese": "Vakbedrijf uit Sint-Gillis-Waas. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dak Ontmossen Antwerpen",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakreiniging"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Duidelijke communicatie"
+      ],
+      "synthese": "Vakbedrijf uit Beveren-Kruibeke-Zwijndrecht. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerker Antwerpen Boba",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Vakbedrijf uit Beveren-Kruibeke-Zwijndrecht. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken en karweien Van der Jonckheyd",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakgoten"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Sint-Gillis-Waas. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken De Clerck - Dakteam",
+      "reviewkwaliteit": 4,
+      "vakfocus": 4.5,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.dakteam.be/",
+      "actiefSinds": 1992,
+      "specialties": [
+        "platte-daken",
+        "roofing",
+        "lichtkoepels",
+        "dakisolatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Deskundig advies"
+      ],
+      "synthese": "Roofingspecialist actief sinds 1992, met de zetel in Zwijndrecht (Beveren-Kruibeke-Zwijndrecht) en toegespitst op platte daken en isolatie. Klanten prijzen de snelle interventies, het deskundige advies en de jarenlange ervaring.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "MVN - Dak, - Timmer, - Gevelwerken",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Beveren. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "BILLY'S DAKWERKEN EPDM - Sint-Niklaas",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": 4.5,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://dakwerkenbilly.be",
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken",
+        "epdm",
+        "loodwerken",
+        "dakherstellingen"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Vakkennis"
+      ],
+      "synthese": "Ervaren dakwerker uit de regio Sint-Niklaas (Sint-Gillis-Waas), gespecialiseerd in platte daken, EPDM, lood- en herstelwerk. Klanten roemen de vakkennis; één recente kritische review over een herstelling werd uitgebreid beantwoord.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Flexible Solutions Dakwerken",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Sint-Gillis-Waas. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken felix Dieter BV",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "hellende-daken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Sint-Gillis-Waas. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Govaert",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Vakbedrijf uit Beveren-Kruibeke-Zwijndrecht. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "VD-Build Gevel- & Dakwerken - Beveren",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakisolatie",
+        "dakgoten",
+        "gevelbekleding",
+        "renovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Beveren-Kruibeke-Zwijndrecht. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "DMK GROUP DAKWERKEN",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "renovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Hamme. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "VDV Dakwerken bv",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Beveren-Kruibeke-Zwijndrecht. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Claes bvba",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken",
+        "hellende-daken",
+        "renovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Vakbedrijf uit Melsele. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Baert G.E. Nv",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Vakbedrijf uit Sint-Gillis-Waas. De reviews zijn gemengd: naast tevreden klanten staan meldingen over opvolging of afspraken.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "KDS dak en gevel",
+      "reviewkwaliteit": 4.5,
+      "vakfocus": 3,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://kds.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "dakrenovatie",
+        "dakisolatie",
+        "gevelbekleding",
+        "zolderinrichting"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Nette werf",
+        "Duidelijke communicatie"
+      ],
+      "synthese": "Familiebedrijf uit het Waasland (Beveren) dat dak- en schrijnwerk, gevelbekleding en zolderinrichting combineert. De vele reviews zijn uitgesproken positief over de communicatie, netheid en professionele opvolging van dakrenovaties.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "WASE DAKWERKEN BV",
+      "reviewkwaliteit": 4,
+      "vakfocus": 4,
+      "vakfocusBron": "website",
+      "websiteBezocht": "http://wasedakwerken.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "dakbedekking",
+        "dakrenovatie",
+        "gevelwerken",
+        "zonnepanelen"
+      ],
+      "chipsSite": [
+        "Geld-terug-garantie"
+      ],
+      "chipsReview": [
+        "Nette afwerking",
+        "Vlotte uitvoering"
+      ],
+      "synthese": "Dakwerkersbedrijf uit Beveren met dakbedekking als kern, aangevuld met gevelwerken en zonnepanelen. De recente reviews zijn consequent positief over de nette, vlotte uitvoering en kwaliteit van de materialen.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Bracke",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Laarne. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Youri's Dakwerken Bv",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "hellende-daken",
+        "dakisolatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Beveren-Kruibeke-Zwijndrecht. De reviews zijn gemengd: naast tevreden klanten staan meldingen over opvolging of afspraken.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "D&D Dakwerken",
+      "reviewkwaliteit": 4.5,
+      "vakfocus": 4,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.dd-dakwerken.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "hellende-daken",
+        "platte-daken",
+        "asbestverwijdering",
+        "dakisolatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Duidelijke communicatie",
+        "Nette werf"
+      ],
+      "synthese": "Dakwerker (Christophe) uit de regio Beveren-Kruibeke-Zwijndrecht voor hellende en platte daken, asbestverwijdering en isolatie. Klanten, waaronder syndici, benadrukken de grondige aanpak en het duidelijke fotoverslag na elke fase.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "KD Dak",
+      "reviewkwaliteit": 4.5,
+      "vakfocus": 4,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://kddak.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken",
+        "epdm",
+        "dakisolatie",
+        "gevelbekleding"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Nette werf",
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Dakwerkersbedrijf uit Vrasene (Beveren-Kruibeke-Zwijndrecht) met sterke focus op platte daken met EPDM, isolatie, koepels en gevelbekleding. De talrijke reviews prijzen de transparante offerte, nette uitvoering en correcte facturatie.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Gunther Lapage",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Lokeren. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Wase Roofingwerken -Wase Epdmwerken-Wase Rubberwerken",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Temse. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Vercauteren",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Stekene. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Samay",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Nette werf",
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Vakbedrijf uit Temse. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Rooftec",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Temse. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Skydak",
+      "reviewkwaliteit": 4,
+      "vakfocus": 4.5,
+      "vakfocusBron": "website",
+      "websiteBezocht": "http://www.skydak.be/",
+      "actiefSinds": 2006,
+      "specialties": [
+        "platte-daken",
+        "hellende-daken",
+        "dakisolatie",
+        "asbestverwijdering"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Correcte offerte",
+        "Nette werf"
+      ],
+      "synthese": "Dakwerkersbedrijf uit Sint-Niklaas, opgericht in 2006 en gespecialiseerd in algemene dakwerken en isolatie. Klanten waarderen het advies bij complexe daken, de correcte facturatie volgens offerte en de nette afwerking.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Aldak",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": 4.5,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.aldak.be/",
+      "actiefSinds": 1977,
+      "specialties": [
+        "hellende-daken",
+        "platte-daken",
+        "dakrenovatie",
+        "gevelbekleding"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle herstelling",
+        "Duidelijke communicatie"
+      ],
+      "synthese": "Dakwerkersbedrijf uit Beveren met een lange staat van dienst (sinds 1977), actief in dakrenovatie, leien, dakgoten en gevelbekleding. Naast veel lof over vakwerk en snelle herstellingen staan enkele klachten over trage offertes.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Ferket bvba Sint-Niklaas Stekene",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Stekene. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Vercauteren Jimmy",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Stekene. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Mariman Dak & Wand B.V.B.A.",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Stekene. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Prodak",
+      "reviewkwaliteit": 4,
+      "vakfocus": 4,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://prodak.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "pannendaken",
+        "dakrenovatie",
+        "dakgoten",
+        "gevelbekleding"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Nette werf",
+        "Correcte prijs"
+      ],
+      "synthese": "Familiaal dakwerkersbedrijf uit Temse voor pannen, leien, EPDM, dakgoten en gevelbekleding. De reviews zijn consequent positief over het vakmanschap, de klantgerichtheid en de nette, propere uitvoering.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Plat dak EPDMshop Sint-Niklaas Stekene",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": 4.5,
+      "vakfocusBron": "website",
+      "websiteBezocht": "http://epdmshop.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "epdm",
+        "platte-daken"
+      ],
+      "chipsSite": [
+        "ATG-gekeurd"
+      ],
+      "chipsReview": [
+        "Deskundig advies",
+        "Correcte prijs"
+      ],
+      "synthese": "Gespecialiseerde EPDM-zaak uit Stekene die materialen levert en platte daken plaatst. Klanten waarderen het deskundige advies op maat, de correcte prijs en de vlotte service.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Gery Van Esbroeck",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "epdm",
+        "platte-daken",
+        "dakisolatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Hamme. De reviews zijn gemengd: naast tevreden klanten staan meldingen over opvolging of afspraken.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "DD Worx",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Vrasene. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Jp dak & gevel",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Laarne. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Daklo",
+      "reviewkwaliteit": 4,
+      "vakfocus": 4,
+      "vakfocusBron": "website",
+      "websiteBezocht": "http://www.daklo.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "dakrenovatie",
+        "asbestverwijdering",
+        "dakisolatie",
+        "gevelbekleding"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Nette werf",
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Dakwerker uit Stekene voor dakrenovatie, asbestverwijdering, isolatie en gevelbekleding. Klanten beschrijven een klein, hardwerkend team dat snel schakelt, afspraken nakomt en de werf proper achterlaat.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "DAKMANSCHAP BVBA",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service"
+      ],
+      "synthese": "Vakbedrijf uit Sint-Niklaas. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "roofing specialist",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Sint-Niklaas. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Stroobandt",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vakbedrijf uit Stekene. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Franks Dakwerken Sint-Niklaas",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken",
+        "dakramen"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Sint-Niklaas. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Steenssens",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Afspraken nagekomen",
+        "Duidelijke communicatie"
+      ],
+      "synthese": "Vakbedrijf uit Stekene. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Joos",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "epdm",
+        "platte-daken",
+        "hellende-daken",
+        "dakisolatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Laarne. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dak/timmerwerken arnoud",
+      "reviewkwaliteit": 4,
+      "vakfocus": 3.5,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.dak-timmerwerken-arnoud.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken",
+        "dakrenovatie",
+        "buitenschrijnwerk",
+        "sandwichpanelen"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Oog voor detail",
+        "Nette afwerking"
+      ],
+      "synthese": "Zaak van Arnoud uit de regio Beveren-Kruibeke-Zwijndrecht die dakwerken en buitenschrijnwerk combineert (platte daken, EPDM, sandwichpanelen, tuinhuizen). Klanten roemen het oog voor detail en de propere, snelle uitvoering.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Willems Renovatiewerken",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Duidelijke communicatie"
+      ],
+      "synthese": "Vakbedrijf uit Beveren-Kruibeke-Zwijndrecht. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "RVD dak-gevelwerken",
+      "reviewkwaliteit": 4.5,
+      "vakfocus": 4,
+      "vakfocusBron": "website",
+      "websiteBezocht": "http://rvddakwerken.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "dakrenovatie",
+        "epdm",
+        "dakgoten",
+        "gevelbekleding"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Correcte offerte",
+        "Nette werf"
+      ],
+      "synthese": "Dakwerker Roel Van Dyck uit Stekene voor volledige dakrenovaties, EPDM, dakgoten, sandwichpanelen en gevelbekleding. De reviews zijn uitgesproken positief over de transparante offerte, het vakwerk en de correcte afhandeling van meerwerk.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Van Dyck Dakwerken",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken",
+        "dakisolatie",
+        "dakgoten",
+        "gevelbekleding"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service",
+        "Nette werf"
+      ],
+      "synthese": "Vakbedrijf uit Stekene. De reviews zijn gemengd: naast tevreden klanten staan meldingen over opvolging of afspraken.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Van Camp & Zoon",
+      "reviewkwaliteit": 3,
+      "vakfocus": 4.5,
+      "vakfocusBron": "website",
+      "websiteBezocht": "http://vancampenzoon.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "hellende-daken",
+        "platte-daken",
+        "dakgoten",
+        "dakisolatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Nette afwerking"
+      ],
+      "synthese": "Dakwerkersbedrijf uit De Klinge (Sint-Gillis-Waas) met ruime ervaring in hellende en platte daken, dakconstructies, goten en isolatie. De reviews zijn overwegend positief maar vaak kort; enkele oudere klachten over opvolging.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Ingels bv",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Nette werf",
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Vakbedrijf uit Beveren-Kruibeke-Zwijndrecht. De reviews zijn overwegend positief over de uitvoering; het aantal is nog beperkt voor een uitgesproken beeld.",
+      "breuk": null
+    }
+  ]
+}

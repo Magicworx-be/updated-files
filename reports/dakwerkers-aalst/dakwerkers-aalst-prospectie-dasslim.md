@@ -1,6 +1,6 @@
 # Prospectielijst — Dakwerkers in regio Aalst
 
-_Intern document voor dasslim.be. Niet publiceren. Gegenereerd op 2026-08-20 · peildatum 2026-07-23._
+_Intern document voor dasslim.be. Niet publiceren. Gegenereerd op 2026-08-25 · peildatum 2026-07-23._
 
 Deze bedrijven staan **niet** op de publieke Keurwijzer-pagina, maar zijn waardevolle prospects. De publieke pagina toont enkel de Top 10.
 

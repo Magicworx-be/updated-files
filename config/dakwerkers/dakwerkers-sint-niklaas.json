@@ -1,0 +1,32 @@
+{
+  "slug": "dakwerkers-sint-niklaas",
+  "vak": {
+    "mv": "dakwerkers",
+    "mvCap": "Dakwerkers",
+    "ev": "dakwerker",
+    "kort": "dakwerken",
+    "syn": { "mv": "dakdekkers", "ev": "dakdekker" }
+  },
+  "regio": {
+    "naam": "regio Sint-Niklaas",
+    "kern": "Sint-Niklaas",
+    "provincie": "Oost-Vlaanderen"
+  },
+  "gemeenten": [
+    "Sint-Niklaas", "Belsele", "Nieuwkerken-Waas",
+    "Beveren-Kruibeke-Zwijndrecht", "Beveren", "Kruibeke", "Zwijndrecht",
+    "Bazel", "Rupelmonde", "Haasdonk", "Melsele", "Vrasene",
+    "Kallo", "Verrebroek", "Kieldrecht", "Doel",
+    "Temse", "Elversele", "Steendorp", "Tielrode",
+    "Sint-Gillis-Waas", "Sint-Pauwels", "De Klinge", "Meerdonk",
+    "Stekene", "Kemzeke", "Klein-Sinaai",
+    "Lokeren", "Moerbeke", "Eksaarde", "Daknam"
+  ],
+  "zoektermen": ["dakwerker Sint-Niklaas", "dakdekker Sint-Niklaas", "dakwerken Sint-Niklaas"],
+  "peildatum": "2026-08-19",
+  "updateDatum": "augustus 2026",
+  "hero": {
+    "img": "https://assets.cdn.filesafe.space/fgbjON9EFqwVMZW3nImb/media/6a56552b524a3ec4c67a7cac.png",
+    "alt": "Dakwerker aan het werk op een dak in regio Sint-Niklaas"
+  }
+}

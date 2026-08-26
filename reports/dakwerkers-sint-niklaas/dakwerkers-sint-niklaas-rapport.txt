@@ -1,0 +1,116 @@
+KEURWIJZER CONTROLERAPPORT — dakwerkers-sint-niklaas  (variant: Top 10-concept, geen zichtbare score)
+Peildatum: 2026-08-19 · Prior C (regiogemiddelde, tijdsgewogen): 4.794
+Methodiek-versie: 2 (nieuwste, standaard)  ·  vertrouwen-vloer 4.0→0, 5.0→1  ·  recentheid vol bij 10 reviews/24m  ·  publicatiedrempel ≥15 reviews
+Opnamecriteria: gemeente in lijst, ≥10 reviews, ≥3 in 24m
+Gewichten: 35% vertrouwen / 30% reviewkwaliteit / 15% recentheid / 20% vakfocus
+Eligible bedrijven: 24 (waarvan 19 publicabel, ≥15 reviews) → gepubliceerd: Top 10 (10 bedrijven)
+
+⚠ DATA-INTEGRITEIT — MOGELIJK AFGEKAPTE REVIEW-EXPORT (exact 100 bruikbare reviews)
+  Vermoedelijke exportlimiet. Dit vertekent het VERTROUWEN van grote spelers naar beneden.
+  Actie: her-scrape zonder limiet en draai normalize opnieuw vóór publicatie.
+    Stefan Van Bogaert Kruibeke — 100 van 106 reviews gebruikt  (eligible, niet gepubliceerd)
+
+TOP 10  (dit staat op de site — zonder cijfer)
+pos  comp   trust  rq    rec   focus  bayes  Rw    v_w    n24  reviews  bedrijf
+ #1  0.863  0.787  0.88  1.00  0.88   4.79   4.78   39.3   54       54  Tectura Groep B.V. - Dakwerken & Renovaties
+ #2  0.856  0.837  0.88  1.00  0.75   4.84   4.87   23.4   24       43  KD Dak
+ #3  0.849  0.890  0.63  1.00  1.00   4.89   5.00   13.9   18       18  Boba Dakwerker Sint-Niklaas
+ #4  0.842  0.842  0.88  0.90  0.75   4.84   4.93    8.4    9       15  D&D Dakwerken
+ #5  0.840  0.830  0.75  1.00  0.88   4.83   4.89   10.0   11       15  Dakwerken De Clerck - Dakteam
+ #6  0.813  0.751  0.75  1.00  0.88   4.75   4.72   24.2   27       45  Skydak
+ #7  0.797  0.814  0.88  1.00  0.50   4.81   4.82   37.9   36       74  KDS dak en gevel
+ #8  0.781  0.840  0.88  0.50  0.75   4.84   4.93    8.2    5       24  RVD dak-gevelwerken
+ #9  0.752  0.791  0.75  1.00  0.50   4.79   4.79    9.0   10       20  Schrijn en dakwerken Rooms bv
+#10  0.734  0.848  0.63  0.50  0.88   4.85   4.98    6.7    5       18  Plat dak EPDMshop Sint-Niklaas Stekene
+
+VAKFOCUS-AUDIT (bron van de specialiteitsdimensie, per gerankt bedrijf)
+    Tectura Groep B.V. - Dakwerken & Renovaties — 4.5 via https://www.tectura-groep.be/
+    KD Dak — 4.0 via https://kddak.be/
+    Boba Dakwerker Sint-Niklaas — 5.0 via https://dakwerkersintniklaas.be/
+    D&D Dakwerken — 4.0 via https://www.dd-dakwerken.be/
+    Dakwerken De Clerck - Dakteam — 4.5 via https://www.dakteam.be/
+    Skydak — 4.5 via http://www.skydak.be/
+    KDS dak en gevel — 3.0 via https://kds.be/
+    RVD dak-gevelwerken — 4.0 via http://rvddakwerken.be/
+    Schrijn en dakwerken Rooms bv — 3.0 via https://www.roomsmathias.be/
+    Plat dak EPDMshop Sint-Niklaas Stekene — 4.5 via http://epdmshop.be/
+
+ROBUUSTHEID VAN DE SELECTIE (±0,5 op reviewkwaliteit + vakfocus, 5000 trials, vaste seed)
+  kans = P(blijft in Top 10)   ·   band = 5e–95e percentiel van de positie
+  #1  kans 100%   band #1–#5   vast          Tectura Groep B.V. - Dakwerken & Renovaties
+  #2  kans 100%   band #1–#6   vast          KD Dak
+  #3  kans 100%   band #1–#6   vast          Boba Dakwerker Sint-Niklaas
+  #4  kans 100%   band #1–#7   vast          D&D Dakwerken
+  #5  kans 100%   band #1–#7   vast          Dakwerken De Clerck - Dakteam
+  #6  kans 100%   band #3–#8   vast          Skydak
+  #7  kans  99%   band #4–#9   vast          KDS dak en gevel
+  #8  kans  96%   band #5–#10   vast          RVD dak-gevelwerken
+  #9  kans  72%   band #7–#12   WANKEL        Schrijn en dakwerken Rooms bv
+ #10  kans  48%   band #8–#14   WANKEL        Plat dak EPDMshop Sint-Niklaas Stekene
+  Samengevat: 8 vast, 0 waarschijnlijk, 2 wankel (van 10).
+  Marge #10 → eerstvolgende publicabele (Aldak): 0.001.
+
+BEDRIJVEN 11–20 — NIET OP DE SITE (zie prospectiedocument voor dasslim.be)
+    #11  comp 0.829  WASE DAKWERKEN BV  [< 15 reviews: eligible, niet publicabel]
+    #12  comp 0.799  Dak/timmerwerken arnoud  [< 15 reviews: eligible, niet publicabel]
+    #13  comp 0.795  Dakwerken Prodak  [< 15 reviews: eligible, niet publicabel]
+    #14  comp 0.756  Dakwerken Daklo  [< 15 reviews: eligible, niet publicabel]
+    #15  comp 0.733  Aldak
+    #16  comp 0.728  MV Dak - MV Solar
+    #17  comp 0.689  Ramenarchitect.be
+    #18  comp 0.683  Stefan Van Bogaert Kruibeke
+    #19  comp 0.678  WEM  [< 15 reviews: eligible, niet publicabel]
+    #20  comp 0.671  Van Camp & Zoon
+
+ELIGIBLE MAAR VOORBIJ PLEK 20 (niet getoond, niet in prospectie)
+    comp 0.659  BILLY'S DAKWERKEN EPDM - Sint-Niklaas
+    comp 0.639  Wan Build B.V
+    comp 0.637  De Bruyn Gunter
+    comp 0.621  BMD Dakwerken Sint-Niklaas
+
+NOG NIET ELIGIBLE — NIET OP DE SITE (wél in prospectiedocument, max 10)
+    Van Dyck Dakwerken — Nog te weinig recente reviews (2 in de laatste 24 maanden, min. 3) voor een actuele beoordeling.
+    Youri's Dakwerken Bv — Nog te weinig recente reviews (2 in de laatste 24 maanden, min. 3) voor een actuele beoordeling.
+    Dakwerken Ferket bvba Sint-Niklaas Stekene — Nog te weinig recente reviews (1 in de laatste 24 maanden, min. 3) voor een actuele beoordeling.
+    Dakwerken Claes bvba — Nog te weinig recente reviews (2 in de laatste 24 maanden, min. 3) voor een actuele beoordeling.
+    PGRB — Nog te weinig Google-reviews (9 van min. 10) om betrouwbaar te beoordelen.
+    DAKMANSCHAP BVBA — Nog te weinig Google-reviews (8 van min. 10) om betrouwbaar te beoordelen.
+    Dakwerken felix Dieter BV — Nog te weinig Google-reviews (8 van min. 10) om betrouwbaar te beoordelen.
+    Omni-Roof — Nog te weinig Google-reviews (8 van min. 10) om betrouwbaar te beoordelen.
+    VD-Build Gevel- & Dakwerken - Beveren — Nog te weinig Google-reviews (8 van min. 10) om betrouwbaar te beoordelen.
+    Dakwerken Meuleman — Nog te weinig Google-reviews (7 van min. 10) om betrouwbaar te beoordelen.
+
+BUITEN DE GEMEENTELIJST (volledig weggelaten)
+    Renovacleaning (Laarne)
+    Dakwerken Johann (Bornem)
+    BF Dakwerken (Antwerpen)
+    Colman Dak & Gevel (Bornem)
+    Dakwerken Kristof Korsak (Waasmunster)
+    Evarist Lossie (Bornem)
+    JLB Dakwerken & Gevelbekleding (Lier)
+    FK Dakwerken (Bornem)
+    Dakwerken Van Houtte BVBA (Bornem)
+    SteBo Dakwerken (Londerzeel)
+    Timmer- en dakwerken Zoli BV (Antwerpen)
+    Gevel en dakwerken Tempels (Deinze)
+    D.C.A dakwerken (Les Bons Villers)
+    Dak en Woning (Haacht)
+    Pro ACTIVE Dakwerken (Bornem)
+    dakwerken jhp (Antwerpen)
+    Dakwerken Steve (Bornem)
+    Wingyp Dakwerken (Antwerpen)
+    Dakwerken Van Der Vorst (Bornem)
+    ALN Projects BV (Berlare)
+    OM Dakwerken (Antwerpen)
+    Jero dak en schoorsteentechniek (Hilvarenbeek)
+    RB Dak (Laarne)
+    Dakwerken Dave Bal (Antwerpen)
+    Dak & Gevel Experts (Bornem)
+    A&M Dakwerken (Les Bons Villers)
+    Wilrijkse Dakwerken (Antwerpen)
+    Dakwerken de kleine (Les Bons Villers)
+    DMK GROUP DAKWERKEN (Hamme)
+    Dakwerken Bracke (Laarne)
+    Gery Van Esbroeck (Hamme)
+    Jp dak & gevel (Laarne)
+    Dakwerken Joos (Laarne)

@@ -34,7 +34,25 @@ Dat document is ook wat Cowork leest.
   uit `registry.json` (gehost op GitHub via jsDelivr CDN). `build-all.js` genereert
   en pusht dit bestand automatisch. Daardoor hoeven hubs en homepage niet meer in
   GHL bijgewerkt te worden bij een nieuwe regio — enkel de nieuwe detailpagina zelf.
+  **Ook de JSON-LD ItemList wordt clientside geïnjecteerd** (`hub.html`), zodat de
+  hubs écht write-once zijn: één keer plakken, daarna nooit meer aanraken.
+- **"Binnenkort"-kaarten zijn afgeleid, nooit opgeslagen.** De niche-hub toont naast
+  de live regio's ook de nog niet gebouwde, als grijze, **niet-klikbare** kaart
+  (nooit een link — dat zou een 404 zijn). De lijst ontstaat door aftrekken:
+  alle regio's uit `new page - how to/regions.txt` (29, bindend) **min** wat live
+  staat in `registry.json`. Gaat een regio live, dan valt ze vanzelf uit die
+  verzameling en wordt haar kaart klikbaar — er is geen label om weg te halen en
+  geen GHL-actie voor nodig. Onder `PLANNED_MIN_LIVE` (3) live regio's toont een
+  niche enkel wat bestaat. Voeg je een regio toe aan `regions.txt`, vul dan ook
+  `PROVINCIE_PER_REGIO` in `lib/registry.js` aan — anders faalt de build hard.
 - **Geen gemeente in de data → bedrijf altijd weglaten.**
+- **Pagina-output en outreach-mails zijn altijd Nederlands.** De werkproces-prompt
+  (zie hieronder) staat in het Engels, maar alles wat op de publieke pagina of in
+  een mail aan een bedrijf terechtkomt niet: `synthese`/chips komen uit
+  `prompts/scoring-prompt.md` (Nederlands, expliciet zo voorgeschreven) en de twee
+  outreach-mailteksten in Fase 6 van de werkproces-prompt staan zelf al in het
+  Nederlands. Zie je Engelse tekst verschijnen in `beoordeling.json`,
+  `output/<slug>/index.html` of een Gmail-draft, dan is dat een fout — stoppen en melden.
 
 ## Congruentieregel — METHODIEK.md meebijwerken
 
@@ -52,7 +70,8 @@ datum "Laatst gelijkgezet met de code" bovenaan op vandaag:**
 - de eligibility-, selectie- (`pickTop`, publicatiedrempel) of compositeberekening
   in `build.js`;
 - een rubriek, ijkpunt of regel in `prompts/scoring-prompt.md`;
-- het werkproces in `prompts/directory-pagina-prompt.md`.
+- het werkproces of de outreach-mailteksten in
+  `prompts/directory-page-emails-prompt.md`.
 
 Meld het expliciet in je antwoord als je `METHODIEK.md` hebt bijgewerkt — en ook
 als je het bewust niet nodig vond.
@@ -69,15 +88,15 @@ hetzelfde zeggen.
 | `build.js` | Rekenmotor + paginagenerator. Bindende bron voor alle getallen. |
 | `build-all.js` | Bouwt alles (pagina's, hubs, sitemap, GHL-blokken) + genereert en pusht `registry.json` én de badges. Veilig eindcommando. |
 | `build-site.js` | Homepage/hubs (kaarten worden clientside geladen uit `registry.json`). |
-| `lib/registry.js` | Leidt navigatie en sitemap af uit de configs. |
+| `lib/registry.js` | Leidt navigatie en sitemap af uit de configs. Bevat ook `loadPlannedRegions()` (leest `regions.txt`) + `PROVINCIE_PER_REGIO` en `PLANNED_MIN_LIVE` voor de "binnenkort"-kaarten. |
+| `new page - how to/regions.txt` | **Bindende lijst van alle 29 Keurwijzer-regio's** (tab-gescheiden). Voedt de "binnenkort"-kaarten op de niche-hubs. `regio-overzicht.md` is de leesbare werkversie hiervan. |
 | `lib/push-registry.js` | Pusht `registry.json` naar GitHub (`Magicworx-be/keurwijzer-data`) + purget jsDelivr-cache. |
 | `scripts/genereer-badges.js` | Rendert kwaliteitsbadges (PNG, donker/licht) per gepubliceerd bedrijf uit `badges/<slug>/badges.json` (sharp + opentype.js). Zegel: `assets/zegel.png` of `SEAL_MODE=vector`. |
 | `lib/push-badges.js` | Pusht de badge-PNG's (`badges/`) naar dezelfde data-repo + purget jsDelivr per bestand. |
 | `.env` | `GITHUB_TOKEN` en `GITHUB_REPO` voor de automatische push (niet in versiebeheer). |
 | `scripts/normalize.js` | Apify-export → `data/<slug>/reviews.json` (+ `recent24`, `rankbaar`). |
-| `prompts/scoring-prompt.md` | Rubrieken voor de LLM-beoordeling, incl. de website-/vakfocuscheck. |
-| `prompts/directory-pagina-prompt.md` | Volledig werkproces voor een nieuwe niche × regio. |
-| `new page - how to/outreach-email-prompt.md` | Gmail-conceptmails klaarzetten voor bedrijven in de selectie (incl. badge-embed). |
+| `prompts/scoring-prompt.md` | Rubrieken voor de LLM-beoordeling, incl. de website-/vakfocuscheck. Wordt letterlijk aangeroepen vanuit Fase 3 van de werkproces-prompt hieronder. |
+| `prompts/directory-page-emails-prompt.md` | **Canonieke Fase 0–6 werkproces-prompt** — config aanmaken t/m outreach-mails. Instructies in het Engels; de twee outreach-mailteksten in Fase 6 staan bewust in het Nederlands (gaan naar Vlaamse bedrijven). Stond eerder als Google Doc (`doc_id 1cB_MeCzx0KB_pHISE_o6mfs9cT4It51ju3HmSrWzgFY`); dat Doc is **buiten gebruik** — bewerk het niet meer en lees het niet meer, dit bestand is de enige bron. |
 | `config/<niche>/<slug>.json` | Vak, regio, gemeentelijst, peildatum. De gemeentelijst is de eerste selectiefilter. |
 | `METHODIEK.md` | Leesbare uitleg van selectie en ranking. Gedeeld met Cowork. |
 | `WIJZIGINGEN.md` | Waarom-beslissingen (o.a. Top 10-concept i.p.v. score op 10). |
@@ -92,4 +111,7 @@ hetzelfde zeggen.
   verzinnen.
 - **GHL per nieuwe pagina:** bij een nieuwe regio in een bestaande niche is er nog
   maar 1 GHL-actie nodig: de detailpagina zelf plakken. De hubs en homepage laden
-  de nieuwe link automatisch uit `registry.json`.
+  de nieuwe link automatisch uit `registry.json` — inclusief het omklappen van de
+  "binnenkort"-kaart naar een klikbare kaart en het bijwerken van de JSON-LD
+  ItemList. Flagt `build-all` tóch een hub als gewijzigd, dan is dat een
+  echte template-wijziging (CSS/JS), geen nieuwe regio.

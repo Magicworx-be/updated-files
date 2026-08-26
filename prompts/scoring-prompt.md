@@ -49,6 +49,8 @@ Beoordeel wat klanten daadwerkelijk SCHRIJVEN, niet hoeveel sterren ze geven. We
 - omgang met problemen: klacht of fout erkend en netjes rechtgezet
 - professionele, inhoudelijke reacties van het bedrijf op reviews (zeker op negatieve)
 
+Elk review-object in `reviews.json` kan nu een veld `reactie` dragen: de publieke reactie van het bedrijf op die review (leeg als er geen reactie is). Een professionele, ter zake doende reactie — zeker op een kritische review — telt mee als substantie-signaal; een standaard-copy-paste of defensieve reactie niet.
+
 Lege signalen (tellen nauwelijks mee): "top", "aanrader", "super", losse sterren zonder tekst, reviews die duidelijk over iets anders gaan.
 
 IJkpunten:

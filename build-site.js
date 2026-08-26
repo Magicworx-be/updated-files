@@ -64,22 +64,19 @@ function breadcrumb(levels) {
 
 // ---------------- niche-hubs ------------------------------------------
 for (const n of R.niches(registry)) {
-  const pages = R.pagesForNiche(registry, n.niche);
   const canonical = origin + n.url;
   const crumb = breadcrumb([{ name: 'Keurwijzer', href: '/' }, { name: n.vakMvCap, canonical }]);
+  // Bewust ZONDER ItemList: die lijst veranderde bij elke nieuwe regio, waardoor
+  // deze hub telkens opnieuw in GHL geplakt moest worden — en een statische kopie
+  // veroudert bovendien zodra je een regio toevoegt. hub.html injecteert de
+  // ItemList nu clientside uit registry.json (altijd actueel, enkel live pagina's).
+  // Wat hier overblijft is stabiel per hub en hoeft dus nooit meer bijgewerkt.
   const jsonld = JSON.stringify({
     '@context': 'https://schema.org', '@type': 'CollectionPage',
     '@id': canonical + '#collection', url: canonical,
     name: n.vakMvCap + ' per regio — Keurwijzer',
     inLanguage: 'nl-BE',
     breadcrumb: { '@type': 'BreadcrumbList', itemListElement: JSON.parse(crumb.items) },
-    mainEntity: {
-      '@type': 'ItemList',
-      name: n.vakMvCap + ' per regio',
-      itemListElement: pages.map((p, i) => ({
-        '@type': 'ListItem', position: i + 1, name: p.vakMvCap + ' in ' + p.regioNaam, url: origin + p.url,
-      })),
-    },
   }, null, 1);
 
   const metaDesc = 'Ontdek de best beoordeelde ' + n.vakMv + ' per regio in België. ' +
@@ -103,25 +100,17 @@ for (const n of R.niches(registry)) {
 
 // ---------------- regio-hubs ------------------------------------------
 for (const r of R.regios(registry)) {
-  const pages = R.pagesForRegio(registry, r.regioSlug)
-    .sort((a, b) => a.vakMvCap.localeCompare(b.vakMvCap));
-
   const canonical = origin + r.url;
   const crumb = breadcrumb([{ name: 'Keurwijzer', href: '/' }, { name: 'Regio ' + r.regioKern, canonical }]);
   const geo = GEO_CODES[R.norm(r.provincie || '')] || 'BE';
+  // Zelfde reden als bij de niche-hub: ItemList clientside (zie hub.html), zodat
+  // deze hub niet opnieuw geplakt hoeft te worden als er een niche bijkomt.
   const jsonld = JSON.stringify({
     '@context': 'https://schema.org', '@type': 'CollectionPage',
     '@id': canonical + '#collection', url: canonical,
     name: 'Vakspecialisten in ' + r.regioNaam + ' — Keurwijzer',
     inLanguage: 'nl-BE',
     breadcrumb: { '@type': 'BreadcrumbList', itemListElement: JSON.parse(crumb.items) },
-    mainEntity: {
-      '@type': 'ItemList',
-      name: 'Vakspecialisten in ' + r.regioNaam,
-      itemListElement: pages.map((p, i) => ({
-        '@type': 'ListItem', position: i + 1, name: p.vakMvCap + ' in ' + p.regioNaam, url: origin + p.url,
-      })),
-    },
   }, null, 1);
 
   const metaDesc = 'De best beoordeelde vakspecialisten in ' + r.regioNaam + ', per vakgebied. ' +

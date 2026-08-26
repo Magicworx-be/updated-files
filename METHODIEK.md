@@ -12,10 +12,10 @@ dit document verouderd — zie [Onderhoud](#onderhoud-1-bron-2-lezers).
 |---|---|
 | **Bindende bron voor alle berekeningen** | `build.js` (constanten bovenaan, regels 52–112) |
 | **Bindende bron voor de LLM-beoordeling** | `prompts/scoring-prompt.md` |
-| **Bindende bron voor het werkproces** | `prompts/directory-pagina-prompt.md` |
+| **Bindende bron voor het werkproces** | `prompts/directory-page-emails-prompt.md` |
 | **Waarom-beslissingen** | `WIJZIGINGEN.md` |
 | **Nieuwste methodiek-versie** | v2 (zie [Methodiek-versies](#methodiek-versies)) |
-| **Laatst gelijkgezet met de code** | 19 augustus 2026 |
+| **Laatst gelijkgezet met de code** | 25 augustus 2026 |
 
 ---
 
@@ -197,6 +197,11 @@ Wat meetelt als substantie:
 - omgang met problemen: klacht erkend en netjes rechtgezet;
 - professionele, inhoudelijke reacties van het bedrijf op reviews (zeker op negatieve).
 
+De publieke reacties van het bedrijf op reviews horen bij het bewijs: elke review in
+`reviews.json` draagt een veld `reactie` met de publieke reactie van het bedrijf (leeg
+als er geen is). Een professionele, ter zake doende reactie — zeker op een kritische
+review — telt mee als substantie; een copy-paste of defensieve reactie niet.
+
 Wat nauwelijks meetelt: "top", "aanrader", "super", losse sterren zonder tekst.
 
 IJkpunten: 5,0 = ruime meerderheid concrete vakinhoud én proces-signalen ·
@@ -332,6 +337,33 @@ altijd zelf en negeert ze.
   en een **robuustheidstest** die per gepubliceerd bedrijf toont hoe zeker zijn
   plek is (zie hieronder).
 - `reports/<slug>/<slug>-prospectie-dasslim.md` — intern prospectiedocument
+- `badges/<slug>/badges.json` — badgegegevens per gepubliceerd bedrijf (naam,
+  tier, slug, badge-URL's), plus per bedrijf één **aandachtspunt** (zie hieronder)
+
+**Het aandachtspunt (outreach, niet publiek).** `badges.json` draagt per
+gepubliceerd bedrijf één Nederlandse zin die benoemt wélke van de vier dimensies
+zijn positie het meest vooruit zou helpen. Die zin gaat mee in de outreach-mail
+(fase 6 van de werkproces-prompt) en verschijnt **nooit op de publieke pagina**.
+
+Hij wordt **deterministisch afgeleid** uit de al berekende dimensies — er komt
+géén tweede LLM-run aan te pas. Gekozen wordt de dimensie met de grootste
+*gewogen speelruimte* (`gewicht × (1 − score)`): daar levert verbetering het
+meeste op. Bij exact gelijke speelruimte beslist een vaste volgorde, zodat de
+uitkomst reproduceerbaar is. Twee gevolgen die er toe doen:
+
+- **Bevroren beoordelingen blijven bevroren.** Bestaande regio's krijgen hun
+  aandachtspunt zonder dat `beoordeling.json` herdraaid wordt en zonder dat één
+  cijfer op een gepubliceerde pagina wijzigt.
+- **Het voedt niets.** De zin leest al berekende waarden; composite, selectie en
+  volgorde blijven onaangeroerd.
+
+De zin verwijst uitsluitend naar **publieke** getallen (de vier gewichten, de
+halveringstijd van 2 jaar) en nooit naar interne kalibratie zoals de
+publicatiedrempel of de vertrouwen-vloer. De percentages komen rechtstreeks uit
+`WEIGHTS`, zodat de tekst niet kan gaan afwijken van de methodiek. De toon volgt
+§6: feitelijk en constructief, nooit een negatief kwaliteitsoordeel.
+
+> Bron: `build.js` — `aandachtspuntVoor()` in stap 8b (badge-export).
 
 Het **controlerapport is het beste startpunt bij elke vraag** over waarom een
 bedrijf ergens staat: het toont per bedrijf composite, trust, reviewkwaliteit,

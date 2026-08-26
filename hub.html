@@ -19,7 +19,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <script type="application/ld+json">
 {{JSONLD}}
@@ -47,6 +47,43 @@ h1,h2,h3 { font-family:var(--display); font-weight:700; line-height:1.12; letter
 .nav { background:var(--dark,#26382E); }
 .nav-in { display:flex; align-items:center; justify-content:space-between; gap:14px; height:70px; }
 .brand .name { font-family:var(--display); font-weight:700; font-size:21px; letter-spacing:-0.03em; color:#fff; }
+
+/* ===== KW-LOGO — zegel + gesplitst woordmerk =====================
+   Fredoka (rond, geometrisch). Het woordmerk splitst in "Keur" +
+   "wijzer" via een licht gewichts- en kleurverschil plus een
+   haardunne optische spatie — zo leest het als "Keur wijzer".
+   De zegel zit als data-URI in de CSS (variabele --kw-seal): één
+   plek, geen externe CDN, geen adblocker-risico, werkt op elke
+   gedeployde GHL-pagina zonder extra assets-map.
+   ================================================================ */
+:root { --kw-seal: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE8AAABOCAYAAABhaEsjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA1IDc5LjE2NDU5MCwgMjAyMC8xMi8wOS0xMTo1Nzo0NCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjEgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjEzQzYzM0REOUM3QzExRjFCOUFDQUNFQzlENTA1RjQ0IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjEzQzYzM0RFOUM3QzExRjFCOUFDQUNFQzlENTA1RjQ0Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MTNDNjMzREI5QzdDMTFGMUI5QUNBQ0VDOUQ1MDVGNDQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MTNDNjMzREM5QzdDMTFGMUI5QUNBQ0VDOUQ1MDVGNDQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz76TYdkAAAI9ElEQVR42uxcCYwU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"); }
+.brand.kw-logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; vertical-align: middle; }
+.brand.kw-logo .kw-seal { width: 40px; height: 40px; flex: none; display: inline-block; vertical-align: middle; background: var(--kw-seal) center/contain no-repeat; }
+.brand.kw-logo .kw-seal--sm { width: 34px; height: 34px; }
+.brand.kw-logo .name {
+  font-family: 'Fredoka','Nunito', system-ui, sans-serif;
+  font-weight: 500; font-size: 28px; line-height: 1;
+  letter-spacing: .01em; color: #fff;
+  display: inline-flex; align-items: baseline; transition: opacity .18s;
+}
+/* header — donkere achtergrond: "Keur" pale groen, "wijzer" wit */
+.brand.kw-logo .name .lo-keur   { font-weight: 500; color: #B7D4BF; transition: color .2s; }
+.brand.kw-logo .name .lo-wijzer { font-weight: 600; color: #fff; margin-left: .04em; }
+.brand.kw-logo .name .lo-tld    { font-weight: 600; color: var(--primary); margin-left: .04em; transition: color .2s; }
+.brand.kw-logo:hover .name .lo-keur { color: #D4E8DA; }
+.brand.kw-logo:hover .name .lo-tld  { color: #fff; }
+/* footer-variant — witte achtergrond */
+.brand.kw-logo.on-light .name             { color: var(--ink); }
+.brand.kw-logo.on-light .name .lo-keur    { color: var(--primary); }
+.brand.kw-logo.on-light .name .lo-wijzer  { color: var(--ink); }
+.brand.kw-logo.on-light .name .lo-tld     { color: var(--primary-d); }
+.brand.kw-logo.on-light:hover .name .lo-keur { color: var(--primary-d); }
+.brand.kw-logo.on-light:hover .name .lo-tld  { color: var(--primary); }
+@media (max-width: 640px){
+  .brand.kw-logo .kw-seal { width: 34px; height: 34px; }
+  .brand.kw-logo .name { font-size: 24px; }
+}
+
 .brand { text-decoration:none; }
 .nav-mid { display:flex; align-items:center; gap:24px; font-size:14px; font-weight:500; }
 .nav-mid a { text-decoration:none; color:rgba(255,255,255,.75); transition:color .15s; }
@@ -103,7 +140,10 @@ h1,h2,h3 { font-family:var(--display); font-weight:700; line-height:1.12; letter
 
 <header class="nav">
   <div class="container nav-in">
-    <a class="brand" href="/" aria-label="Keurwijzer.be — startpagina"><span class="name">Keurwijzer.be</span></a>
+    <a class="brand kw-logo" href="/" aria-label="Keurwijzer — startpagina">
+      <span class="kw-seal" aria-hidden="true"></span>
+      <span class="name" aria-label="Keurwijzer"><span class="lo-keur" aria-hidden="true">Keur</span><span class="lo-wijzer" aria-hidden="true">wijzer</span></span>
+    </a>
     <nav class="nav-mid" aria-label="Navigatie">
       {{NAV_LINKS}}
     </nav>
@@ -139,7 +179,7 @@ h1,h2,h3 { font-family:var(--display); font-weight:700; line-height:1.12; letter
   <div class="container">
     <div class="foot-in">
       <div>
-        <a class="brand" href="/" style="text-decoration:none"><span style="font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-0.03em;color:var(--ink)">Keurwijzer.be</span></a>
+        <a class="brand kw-logo on-light" href="/" style="text-decoration:none"><span class="kw-seal kw-seal--sm" aria-hidden="true"></span><span class="name" aria-label="Keurwijzer.be" style="font-size:22px"><span class="lo-keur" aria-hidden="true">Keur</span><span class="lo-wijzer" aria-hidden="true">wijzer</span><span class="lo-tld" aria-hidden="true">.be</span></span></a>
         <p class="disc">Keurwijzer is een onafhankelijke kwaliteitsselectie van vakspecialisten per niche en regio, die bezoekers helpt de juiste vakman in hun buurt te vinden.</p>
       </div>
       <div class="foot-col">

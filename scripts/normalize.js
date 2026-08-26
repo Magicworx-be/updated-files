@@ -147,7 +147,7 @@ if (mode === 'apify') {
       const datum = r.publishedAtDate ? String(r.publishedAtDate).slice(0, 10)
         : (r.publishAt ? parseRelativeDate(r.publishAt) : null);
       if (r.stars != null && datum) {
-        p.reviews.push({ score: r.stars, datum, tekst: r.text || '', auteur: r.name || '' });
+        p.reviews.push({ score: r.stars, datum, tekst: r.text || '', auteur: r.name || '', reactie: r.responseFromOwnerText || '' });
       }
     }
     result = [...byPlace.values()];
@@ -157,7 +157,7 @@ if (mode === 'apify') {
         const datum = r.publishedAtDate ? String(r.publishedAtDate).slice(0, 10)
           : (r.publishAt ? parseRelativeDate(r.publishAt) : null);
         return (r.stars != null && datum)
-          ? { score: r.stars, datum, tekst: r.text || '', auteur: r.name || '' }
+          ? { score: r.stars, datum, tekst: r.text || '', auteur: r.name || '', reactie: r.responseFromOwnerText || '' }
           : null;
       }).filter(Boolean);
       result.push({
