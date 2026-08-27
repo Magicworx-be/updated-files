@@ -1,6 +1,6 @@
 {
   "slug": "dakwerkers-dendermonde",
-  "methodiek": 2,
+  "methodiek": 3,
   "vak": {
     "mv": "dakwerkers",
     "mvCap": "Dakwerkers",
@@ -18,7 +18,7 @@
     "Berlare", "Wichelen", "Waasmunster", "Opwijk"
   ],
   "zoektermen": ["dakwerker Dendermonde", "dakdekker Dendermonde", "dakwerken Dendermonde"],
-  "peildatum": "2026-08-19",
+  "peildatum": "2026-08-27",
   "updateDatum": "augustus 2026",
   "hero": {
     "img": "https://assets.cdn.filesafe.space/fgbjON9EFqwVMZW3nImb/media/6a56552b524a3ec4c67a7cac.png",

@@ -327,7 +327,14 @@ for (const c of reviewData) {
     inRegio, beo,
     vw, Rw, n24, nOK,
     recency: vw > 0 ? Math.min(n24 / P.RECENCY_ANCHOR, 1) : 0,
-    eligible: inRegio && rawCount >= MIN_REVIEWS && n24 >= MIN_RECENT && vw > 0 && !!beo
+    // v3+: opname vereist óók een geverifieerde eigen website. Het signaal is
+    // beo.vakfocusBron === 'website' (de LLM heeft een échte, aan het bedrijf
+    // gekoppelde site bezocht en beoordeeld). Bedrijven zonder betrouwbare site —
+    // geen site, enkel social media, of een onbereikbare/kapotte site — horen niet
+    // op de publieke pagina. v1/v2-pagina's (vastgepind) kennen deze eis NIET en
+    // blijven byte-voor-byte identiek.
+    eligible: inRegio && rawCount >= MIN_REVIEWS && n24 >= MIN_RECENT && vw > 0 && !!beo &&
+      (methodiekVersie < 3 || (beo && beo.vakfocusBron === 'website'))
   });
 }
 
@@ -660,12 +667,19 @@ const gScores = inRegioComps.filter(c => c.googleScore != null).map(c => c.googl
 const regioGemiddelde = gScores.length
   ? nlNum(gScores.reduce((s, x) => s + x, 0) / gScores.length, 1) : '—';
 
+// Opnamecriteria in de publiekstekst — versie-afhankelijk. v3 voegt de
+// website-eis toe (zie de eligible-berekening hierboven); v1/v2 houden hun
+// bestaande, kortere formulering zodat hun output identiek blijft.
+const opnameCriteria = methodiekVersie >= 3
+  ? 'minstens ' + MIN_REVIEWS + ' Google-reviews, minstens ' + MIN_RECENT +
+    ' reviews in de laatste 24 maanden én een eigen website'
+  : 'minstens ' + MIN_REVIEWS + ' Google-reviews én minstens ' + MIN_RECENT +
+    ' reviews in de laatste 24 maanden';
 const samenvatting =
   'Keurwijzer analyseerde ' + totaalReviews + ' Google-reviews van ' +
   inRegioComps.length + ' ' + config.vak.mv + ' in ' + config.regio.naam +
   ' (peildatum ' + config.peildatum + '). ' + eligible.length +
-  ' bedrijven voldoen aan de opnamecriteria (minstens ' + MIN_REVIEWS +
-  ' Google-reviews én minstens ' + MIN_RECENT + ' reviews in de laatste 24 maanden). ' +
+  ' bedrijven voldoen aan de opnamecriteria (' + opnameCriteria + '). ' +
   'De ' + nListed + ' sterkste daarvan vormen de selectie die op deze pagina verschijnt, ' +
   'geselecteerd volgens onze vaste, publieke kwaliteitsmethodiek.';
 

@@ -1,1173 +1,276 @@
 {
   "bedrijven": [
     {
-      "bedrijf": "Maes Dakwerken bv",
-      "reviewkwaliteit": 3.5,
-      "vakfocus": 3,
-      "vakfocusBron": "website",
-      "websiteBezocht": "http://www.dakwerkenmaes.be/",
-      "actiefSinds": null,
-      "specialties": [
-        "dakrenovatie",
-        "isolatie",
-        "zonnepanelen",
-        "gevelbekleding"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Snelle service",
-        "Punctueel"
-      ],
-      "synthese": "Bedrijf uit Buggenhout dat dakwerken combineert met isolatie, zonnepanelen, gevelbekleding en gyprocwerk. Tevreden klanten benadrukken de punctuele, nette uitvoering van dakrenovaties en de snelle hulp bij stormschade.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dakwerken Feyaerts",
-      "reviewkwaliteit": 3,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Snelle hulp"
-      ],
-      "synthese": "Dakwerker uit Buggenhout, aangesloten bij het Eternit-dakdekkersnetwerk. Het beperkte aantal reviews laat nog geen uitgesproken beeld toe.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dakwerken Buys",
-      "reviewkwaliteit": 3,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakrenovatie"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Vlotte communicatie"
-      ],
-      "synthese": "Kleine dakzaak uit Buggenhout rond Kim Buys. Een recente klant is tevreden over de vlotte communicatie en het geleverde werk; een andere miste opvolging na een offerte.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dakwerken Bekker",
-      "reviewkwaliteit": 4,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "epdm",
-        "platte-daken",
-        "isolatie"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Duidelijke offerte",
-        "Oog voor detail"
-      ],
-      "synthese": "Dakwerker (Jellen) die platte daken in EPDM, zadeldakvernieuwing en isolatie uitvoert. Een uitgebreide klantreview prijst de duidelijke offertes, de correcte prijs en het kwaliteitsvolle werk. Ligt volgens de pin-coördinaten in Aalst, buiten regio Dendermonde.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Gery Van Esbroeck",
-      "reviewkwaliteit": 3.75,
+      "bedrijf": "Dakalex BVBA",
+      "reviewkwaliteit": 4.67,
       "vakfocus": 4.5,
       "vakfocusBron": "website",
-      "websiteBezocht": "https://plattedaken-dakwerken.be/",
+      "websiteBezocht": "http://www.dakalex.be/",
       "actiefSinds": null,
-      "specialties": [
-        "platte-daken",
-        "epdm",
-        "isolatie",
-        "dakgoten"
-      ],
+      "specialties": ["dakrenovatie", "hellende-daken", "isolatie", "dakgoten"],
       "chipsSite": [],
-      "chipsReview": [
-        "Snelle interventie",
-        "Propere afwerking"
-      ],
-      "synthese": "Vakman uit Hamme met naar eigen zeggen 35 jaar ervaring en een uitgesproken specialisatie in platte daken met EPDM, aangevuld met isolatie en gootwerk. Reviews prijzen de snelle interventie en de propere, degelijke afwerking.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dakwerken Dujo",
-      "reviewkwaliteit": 3.5,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakrenovatie"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Snelle reactie",
-        "Goede prijs"
-      ],
-      "synthese": "Dakzaak uit Berlare. Een tevreden klant vermeldt een volledig nieuw dak aan een goede prijs, met snelle reactie en vriendelijke zaakvoerder.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "R & T Dakwerken Baeyens",
-      "reviewkwaliteit": 3.5,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Volgens afspraak"
-      ],
-      "synthese": "Dakwerker uit Dendermonde. Klanten prijzen de correcte, betrouwbare uitvoering en de prijs-kwaliteit; een klant had een minder aangenaam contact.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Grembergse dakwerken van Walsem",
-      "reviewkwaliteit": 4.75,
-      "vakfocus": 4.5,
-      "vakfocusBron": "website",
-      "websiteBezocht": "http://www.dakwerkenvanwalsem.be/",
-      "actiefSinds": null,
-      "specialties": [
-        "hellende-daken",
-        "platte-daken",
-        "dakgoten",
-        "gevelbekleding"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Duidelijke communicatie",
-        "Oog voor detail"
-      ],
-      "synthese": "Lokaal familiebedrijf uit Grembergen (Dendermonde) dat hellende en platte daken, dakgoten en gevelbekleding verzorgt, met naar eigen zeggen decennia ervaring. Klanten roemen consequent de uitzonderlijk vlotte communicatie, het oog voor detail en het correct nakomen van planning en offerte.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "C.s.d.",
-      "reviewkwaliteit": 4,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Punctueel",
-        "Nette afwerking"
-      ],
-      "synthese": "Dakzaak uit Waasmunster. Het beperkte aantal reviews is uitgesproken positief over het knappe, propere en punctuele werk.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "MM Construct",
-      "reviewkwaliteit": 4,
-      "vakfocus": 4.5,
-      "vakfocusBron": "website",
-      "websiteBezocht": "https://www.mm-construct.eu/",
-      "actiefSinds": null,
-      "specialties": [
-        "platte-daken",
-        "hellende-daken",
-        "asbestverwijdering"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Snelle offerte",
-        "Afspraken nagekomen"
-      ],
-      "synthese": "Jonge zaak uit Grembergen (Dendermonde) rond zaakvoerder met bouwkundige opleiding, gespecialiseerd in platte en hellende dakwerken en asbestverwijdering. De recente reviews zijn unaniem positief over de snelle offerte, het correct nakomen van afspraken en het vakwerk zonder onverwachte meerprijs.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Adak Nv",
-      "reviewkwaliteit": 2,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken",
-        "nieuwbouw"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Nieuwbouwdaken"
-      ],
-      "synthese": "Groter dakbedrijf uit Dendermonde, actief in nieuwbouw. De recente reviews wijzen op terugkerende moeilijkheden met opvolging en communicatie na de werken.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dendermondse dakwerken",
-      "reviewkwaliteit": 3.5,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakrenovatie",
-        "leien",
-        "veluxen"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Volgens offerte"
-      ],
-      "synthese": "Dakrenovatiebedrijf uit Dendermonde dat o.a. leiendaken, Trespa en veluxen plaatst. Reviews zijn wisselend: verschillende klanten zijn tevreden over de professionele uitvoering, andere misten opvolging.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dakwerken vdc",
-      "reviewkwaliteit": 4,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken",
-        "noodherstellingen"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Komt afspraken na",
-        "Correcte prijs"
-      ],
-      "synthese": "Vader-en-zoon-dakzaak uit Dendermonde. Klanten prijzen de correcte, klantvriendelijke service, de eerlijke prijs en de snelle noodherstellingen.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Leybo Dakwerken",
-      "reviewkwaliteit": 4,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakrenovatie",
-        "dakvensters",
-        "lichtstraten"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Snelle communicatie",
-        "Oog voor detail"
-      ],
-      "synthese": "Dakzaak uit Dendermonde die dakrenovaties, dakvensters en lichtstraten verzorgt. De overwegend recente reviews prijzen de nauwkeurige uitvoering, de snelle communicatie en de hands-on aanpak bij bijzondere projecten.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dakwerken Bogaert",
-      "reviewkwaliteit": 3,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Snelle hulp"
-      ],
-      "synthese": "Dakwerker uit Berlare, aangesloten bij het Eternit-dakdekkersnetwerk. Klanten vermelden snelle hulp bij storm- en waterschade; één klant miste opvolging.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dakwerken YDM",
-      "reviewkwaliteit": 3.5,
-      "vakfocus": 3,
-      "vakfocusBron": "website",
-      "websiteBezocht": "https://www.ydmdakwerken.be/",
-      "actiefSinds": 2021,
-      "specialties": [
-        "platte-daken",
-        "dakrenovatie",
-        "schilderwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Snelle uitvoering",
-        "Vlotte communicatie"
-      ],
-      "synthese": "Jong bedrijf (opgericht in 2021) uit Dendermonde dat naast dakwerken ook schilder- en karweiwerken aanbiedt. Reviews benadrukken de snelle uitvoering en vlotte bereikbaarheid, met vooral lof voor platte daken die op korte tijd vernieuwd worden.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Rw Projects",
-      "reviewkwaliteit": 3.5,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken",
-        "renovatie"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Nette werf"
-      ],
-      "synthese": "Dak- en renovatiezaak uit Zele waar de zaakvoerders zelf mee op de werf staan. De inhoudelijke reviews prijzen het propere, professionele werk en de nette werf.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "king power dak",
-      "reviewkwaliteit": 3,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Stipt",
-        "Proper"
-      ],
-      "synthese": "Dakzaak uit Zele. Het beperkte aantal reviews is positief over de professionele, propere en stipte uitvoering.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Deis construct bv",
-      "reviewkwaliteit": 3.5,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken",
-        "veluxen"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Correcte prijs",
-        "Nette afwerking"
-      ],
-      "synthese": "Bouw- en dakzaak uit Zele die o.a. veluxen plaatst. Reviews zijn positief over de propere afwerking en de correcte prijs.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dakwerken Kristof Korsak",
-      "reviewkwaliteit": 3,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Tevreden klanten"
-      ],
-      "synthese": "Dakwerker uit Waasmunster. De eerste, recente reviews zijn tevreden over het geleverde werk.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Nelis Dakwerken",
-      "reviewkwaliteit": 2,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [],
-      "synthese": "Dakzaak uit Zele met slechts één, negatieve review; de data laten geen representatief beeld toe.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "BV Dakwerken Bombeeck",
-      "reviewkwaliteit": 3.5,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "veluxen",
-        "dakwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Komt afspraken na"
-      ],
-      "synthese": "Dakwerker (Kurt) uit Wichelen die o.a. veluxen plaatst en ook voor kleine werken langskomt. Reviews prijzen het nakomen van afspraken en de nette installatie. Met 5 Google-reviews is de zaak voorlopig nog niet rankbaar.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "De Smet Dakwerken",
-      "reviewkwaliteit": 2,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakrenovatie"
-      ],
-      "chipsSite": [],
-      "chipsReview": [],
-      "synthese": "Dakrenovatiebedrijf uit Wichelen. De recente reviews wijzen op ontevredenheid over uitvoering en afwerking; er is weinig positief tegengewicht in de data.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Drt-Dakwerken & Zn",
-      "reviewkwaliteit": 4,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "platte-daken",
-        "dakwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Stipt",
-        "Betrouwbaar"
-      ],
-      "synthese": "Tweede Google-vermelding van Drt-Dakwerken (Tom en Sybren), met de pin in Berlare — wellicht dezelfde zaak als het rankbare Drt-Dakwerken Bv. De reviews prijzen de stipte, betrouwbare uitvoering en de goede prijs-kwaliteit; met 6 reviews blijft deze vermelding voorlopig niet-rankbaar.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Sartec Bouwgroep",
-      "reviewkwaliteit": 3.5,
-      "vakfocus": 3,
-      "vakfocusBron": "website",
-      "websiteBezocht": "http://sartecbouwgroep.be/",
-      "actiefSinds": null,
-      "specialties": [
-        "platte-daken",
-        "epdm",
-        "gevelwerken",
-        "renovatie"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Volgens afspraak",
-        "Nette afwerking"
-      ],
-      "synthese": "Bouwgroep uit Serskamp (Wichelen) die dakwerken, gevelwerken, isolatie en volledige renovaties als totaaloplossing aanbiedt. Tevreden klanten prijzen de gedetailleerde offerte en de nette, correcte uitvoering van o.a. EPDM-platte daken.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dakwerken Lowie Kurt",
-      "reviewkwaliteit": 3,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [],
-      "synthese": "Dakwerker uit Wichelen met slechts één review zonder tekst; de data laten nog geen beeld toe.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Algemene dak & verbouwingen Nelis Albert",
-      "reviewkwaliteit": 3,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken",
-        "verbouwingen"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Denkt mee"
-      ],
-      "synthese": "Dak- en verbouwingsbedrijf uit Zele. Een klant prijst de kwaliteit en het meedenken; een andere miste een beloofde herstelling.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dakwerken De Rycke Peter",
-      "reviewkwaliteit": 4,
-      "vakfocus": 5,
-      "vakfocusBron": "website",
-      "websiteBezocht": "http://www.dakwerkenderycke.be/",
-      "actiefSinds": 1996,
-      "specialties": [
-        "hellende-daken",
-        "platte-daken",
-        "dakrenovatie"
-      ],
-      "chipsSite": [
-        "Sinds 1996"
-      ],
-      "chipsReview": [
-        "Vakkundig team",
-        "Snelle interventie"
-      ],
-      "synthese": "Zuivere dakspecialist uit Schellebelle (Wichelen), actief sinds 1996, met focus op nieuwbouw, renovatie en platte daken. Reviews benadrukken het vakkundige team, de tot in de puntjes verzorgde afwerking en de snelle interventie bij problemen.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dakwerken Hofman bvba",
-      "reviewkwaliteit": 4.25,
-      "vakfocus": 5,
-      "vakfocusBron": "website",
-      "websiteBezocht": "http://www.dakwerkenhofman.be/",
-      "actiefSinds": null,
-      "specialties": [
-        "zinkwerk",
-        "epdm",
-        "veluxen",
-        "isolatie"
-      ],
-      "chipsSite": [
-        "Master Roofer Award"
-      ],
-      "chipsReview": [
-        "Duidelijke communicatie",
-        "Complexe daken"
-      ],
-      "synthese": "Zuivere dakspecialist uit Zele met ruim twee decennia ervaring en een breed gamma dakoplossingen: groendaken, zinkwerk, EPDM, pannen, veluxen en isolatie. Klanten prijzen de aanpak van complexe daken, de heldere communicatie en de correcte facturatie.",
+      "chipsReview": ["Stipt nagekomen", "Nette werf"],
+      "synthese": "Dakspecialist uit Waasmunster voor volledige dakrenovaties, van opmeting met drone tot in de eigen toonzaal gekozen materialen. Klanten prijzen consequent de professionele aanpak, de stipte planning en de nette afwerking.",
       "breuk": null
     },
     {
       "bedrijf": "Drt-Dakwerken Bv",
-      "reviewkwaliteit": 4.25,
-      "vakfocus": 4,
+      "reviewkwaliteit": 4.17,
+      "vakfocus": 4.0,
       "vakfocusBron": "website",
       "websiteBezocht": "https://www.drt-dakwerken-zn.be/",
       "actiefSinds": null,
-      "specialties": [
-        "zinkwerk",
-        "platte-daken",
-        "dakgoten",
-        "epdm"
-      ],
-      "chipsSite": [
-        "Erkend EPDM-plaatser"
-      ],
-      "chipsReview": [
-        "Snelle service",
-        "Komt afspraken na"
-      ],
-      "synthese": "Familiebedrijf (vader en zoon) uit Wichelen met ruim 25 jaar ervaring in dak-, zink- en gootwerk, van kleine herstellingen tot volledige dakvernieuwing. Reviews benadrukken de snelle respons, de correcte prijs-kwaliteit en het nakomen van afspraken.",
+      "specialties": ["hellende-daken", "platte-daken", "zinkwerk", "gevelwerken"],
+      "chipsSite": ["Erkend EPDM-plaatser"],
+      "chipsReview": ["Correcte prijs", "Van hun woord"],
+      "synthese": "Familiebedrijf (Tom en zoon Sybren) uit Wichelen dat naast dakwerken ook zink- en koperwerk, gevel en isolatie aanbiedt. Reviews vermelden een vlotte communicatie, correcte prijzen en kwalitatief afgewerkt zink- en dakwerk.",
       "breuk": null
     },
     {
-      "bedrijf": "H&G Algemene Dakwerken",
-      "reviewkwaliteit": 3,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Goede service"
-      ],
-      "synthese": "Dakzaak met enkele positieve reviews over de service en de materiaalkwaliteit. Ligt volgens de pin-coördinaten in Lede, buiten regio Dendermonde.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "BV Dakwerken Renaat Rogiers",
-      "reviewkwaliteit": 3,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Vlotte communicatie"
-      ],
-      "synthese": "Dakwerker uit Wichelen. Reviews zijn wisselend: verschillende klanten prijzen de correcte, snelle service, andere melden dat afspraken niet nagekomen werden.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dak & Renovatiewerken Nobels wij maken u dak",
-      "reviewkwaliteit": 3.5,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakrenovatie"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Transparante offerte",
-        "Nette werf"
-      ],
-      "synthese": "Dak- en renovatiezaak uit Waasmunster. De recente reviews prijzen de duidelijke, transparante offerte, de stipte uitvoering en de nette werf aan een betaalbare prijs.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Cleemput - De Visscher",
-      "reviewkwaliteit": 3,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakrenovatie",
-        "asbestverwijdering"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Volgens timing"
-      ],
-      "synthese": "Dakrenovatiebedrijf uit Buggenhout dat o.a. asbestdaken vervangt. Klanten die de werken lieten uitvoeren, prijzen de prachtige afwerking en het respect voor timing; verschillende prospecten misten echter een offerte of opvolging.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Smekens Constructors",
+      "bedrijf": "Grembergse dakwerken van Walsem",
       "reviewkwaliteit": 4.5,
-      "vakfocus": 3,
+      "vakfocus": 4.5,
       "vakfocusBron": "website",
-      "websiteBezocht": "http://www.smekensconstructors.be/",
+      "websiteBezocht": "http://www.dakwerkenvanwalsem.be/",
       "actiefSinds": null,
-      "specialties": [
-        "hellende-daken",
-        "platte-daken",
-        "gevelwerken",
-        "schrijnwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Duidelijke communicatie",
-        "Afspraken nagekomen"
-      ],
-      "synthese": "Bouwbedrijf uit Moerzeke (Hamme) met ruim 30 jaar ervaring dat dak-, schrijn- en gevelwerken onder één dak aanbiedt. De uitsluitend recente reviews zijn onverdeeld positief over de gedetailleerde offertes, de vlotte planning en de magnifieke afwerking.",
+      "specialties": ["dakrenovatie", "dakgoten", "gevelbekleding", "isolatie"],
+      "chipsSite": ["40 jaar ervaring"],
+      "chipsReview": ["Oog voor detail", "Nette werf"],
+      "synthese": "Familiebedrijf uit Grembergen (Dendermonde) met 40 jaar ervaring in dakrenovatie, dakgoten, gevelbekleding en isolatie. Klanten prijzen consequent de duidelijke communicatie, het oog voor detail en de propere werf.",
       "breuk": null
     },
     {
-      "bedrijf": "Dakwerken Adams J.",
-      "reviewkwaliteit": 3.5,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
+      "bedrijf": "Optek | Dak- en bouwwerken",
+      "reviewkwaliteit": 4.5,
+      "vakfocus": 3.5,
+      "vakfocusBron": "website",
+      "websiteBezocht": "http://www.op-tek.be/",
       "actiefSinds": null,
-      "specialties": [
-        "dakwerken",
-        "isolatie",
-        "dakgoten"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Stipt",
-        "Precies"
-      ],
-      "synthese": "Dakwerker (Jerry Adams) uit Wichelen. De reviews prijzen de precieze, stipte uitvoering en de betrouwbare herstelling van o.a. lekkende dakgoten.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Colman Dak & Gevel",
-      "reviewkwaliteit": 3.5,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "platte-daken",
-        "gevelwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Transparante offerte",
-        "Snelle service"
-      ],
-      "synthese": "Dak- en gevelbedrijf (Dominiek) dat o.a. platte daken en begeleiding van zelfbouwers verzorgt. Reviews prijzen de transparante offerte en de snelle, propere uitvoering. Ligt volgens de pin-coördinaten in Bornem (provincie Antwerpen), buiten regio Dendermonde.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dender Construct B.V.B.A.",
-      "reviewkwaliteit": 4,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "totaalrenovatie",
-        "algemene-aanneming"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Vlotte planning",
-        "Hoge kwaliteit"
-      ],
-      "synthese": "Bouw- en renovatiebedrijf uit de regio Dendermonde/Zele dat algemene aanneming en totaalrenovaties verzorgt. Architecten en klanten prijzen de goede organisatie, het tempo en de hoge kwaliteit, ook bij uitdagende projecten.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dakwerken De kegel",
-      "reviewkwaliteit": 3.5,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken",
-        "dakkapellen"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Duidelijke communicatie",
-        "Proper"
-      ],
-      "synthese": "Dakwerker die o.a. dakkapellen afwerkt. De recente reviews prijzen de correcte afspraken, de duidelijke communicatie en het propere werk. Ligt volgens de pin-coördinaten in Laarne (regio Gent), buiten regio Dendermonde.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dakwerken Thierry",
-      "reviewkwaliteit": 2,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [],
-      "synthese": "Dakwerker met wisselende, overwegend negatieve reviews; de data laten geen positief beeld toe. Ligt volgens de pin-coördinaten in Les Bons Villers (Henegouwen, Wallonië), ver buiten regio Dendermonde.",
+      "specialties": ["dakrenovatie", "platte-daken", "dakramen", "zonnepanelen"],
+      "chipsSite": ["Asbest-gecertificeerd", "RESCert"],
+      "chipsReview": ["Stipt nagekomen", "Nette werf"],
+      "synthese": "Opwijks bedrijf voor dak- en bouwwerken, van dakrenovatie en dakramen tot platte daken en zonnepanelen. Reviews benadrukken de duidelijke communicatie, de stipte planning en de propere uitvoering; de zaakvoerder is goed bereikbaar.",
       "breuk": null
     },
     {
       "bedrijf": "Algemene Dakwerken Wim Van Den Bossche/Gebr.Van Den Bossche",
       "reviewkwaliteit": 3.5,
-      "vakfocus": 5,
+      "vakfocus": 5.0,
       "vakfocusBron": "website",
       "websiteBezocht": "http://www.dakwerkenvandenbosschewim.be/",
       "actiefSinds": 1994,
-      "specialties": [
-        "dakrenovatie",
-        "veluxen",
-        "platte-daken",
-        "leien"
-      ],
-      "chipsSite": [
-        "10 jaar garantie",
-        "Sinds 1994"
-      ],
-      "chipsReview": [
-        "Ervaren vakmannen",
-        "Snelle uitvoering"
-      ],
-      "synthese": "Dakrenovatie-specialist uit Sint-Gillis (Dendermonde), actief sinds 1994 en uitsluitend gericht op dakwerken — van leien en pannen tot platte daken, veluxen en lichtkoepels. De positieve reviews benadrukken de jarenlange ervaring en de snelle uitvoering; een deel van de klanten meldt daarnaast moeizame opvolging bij kleinere opdrachten.",
+      "specialties": ["dakrenovatie", "zinkwerk", "veluxen", "gevelbekleding"],
+      "chipsSite": ["Sinds 1994", "10 jaar garantie"],
+      "chipsReview": ["Snelle uitvoering", "Nette werf"],
+      "synthese": "Dakrenovatie-specialist uit Dendermonde, actief sinds 1994 en met 10 jaar garantie op de werken. Klanten vermelden vooral de snelle uitvoering, de nette werf en het nakomen van de prijsafspraak.",
       "breuk": null
     },
     {
-      "bedrijf": "MKB Dakwerken Aalst",
-      "reviewkwaliteit": 3,
+      "bedrijf": "Dakwerken April",
+      "reviewkwaliteit": 4.0,
       "vakfocus": null,
       "vakfocusBron": "geen-website",
       "websiteBezocht": null,
       "actiefSinds": null,
-      "specialties": [
-        "dakwerken"
-      ],
+      "specialties": ["platte-daken", "epdm", "dakrenovatie"],
       "chipsSite": [],
-      "chipsReview": [
-        "Vriendelijk",
-        "Goede uitleg"
-      ],
-      "synthese": "Dakzaak waarvan de recente reviews vooral het offertecontact prijzen: vriendelijk, op tijd en met duidelijke uitleg. Ligt volgens de pin-coördinaten (en de naam) in Aalst, buiten regio Dendermonde.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dakwerken Van den Bergh",
-      "reviewkwaliteit": 3,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Goede service"
-      ],
-      "synthese": "Dakzaak met een enkele positieve review over de service. Ligt volgens de pin-coördinaten in Les Bons Villers (Henegouwen, Wallonië), ver buiten regio Dendermonde.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "SteBo Dakwerken",
-      "reviewkwaliteit": 4.5,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakrenovatie",
-        "zonnepanelen",
-        "veluxen",
-        "isolatie"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Zelf op het dak",
-        "Nette werf"
-      ],
-      "synthese": "Jong en dynamisch dakbedrijf (Stef en Isabeau) waarvan de zaakvoerders elke dag zelf mee op het dak staan; ze doen dakrenovaties, isolatie, veluxen en zonnepanelen. De talrijke, overwegend recente reviews zijn uitgesproken positief over de betrouwbaarheid, communicatie en nette werf. Ligt volgens de pin-coördinaten in Londerzeel (Vlaams-Brabant), buiten regio Dendermonde.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Optek | Dak- en bouwwerken",
-      "reviewkwaliteit": 4.75,
-      "vakfocus": 3.5,
-      "vakfocusBron": "website",
-      "websiteBezocht": "http://www.op-tek.be/",
-      "actiefSinds": null,
-      "specialties": [
-        "platte-daken",
-        "hellende-daken",
-        "zonnepanelen",
-        "dakrenovatie"
-      ],
-      "chipsSite": [
-        "RESCert-gecertificeerd"
-      ],
-      "chipsReview": [
-        "Propere werf",
-        "Afspraken nagekomen"
-      ],
-      "synthese": "Bedrijf uit Opwijk dat dakwerken en dakrenovatie combineert met algemene bouwwerken en zonnepanelen. De recente reviews zijn talrijk en uitgesproken positief over de propere uitvoering, de correcte prijsafspraken en het stipt nakomen van de planning.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dakwerken Joos",
-      "reviewkwaliteit": 5,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "zinkwerk",
-        "dakrenovatie",
-        "platte-daken",
-        "lichtstraten"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Duidelijke communicatie",
-        "Vakmanschap"
-      ],
-      "synthese": "Familiebedrijf (Brecht Joos) dat dakrenovaties, zinken daken, platte daken en lichtstraten verzorgt en waarvan de klanten al jarenlang terugkeren. De talrijke, inhoudelijke reviews prijzen consequent de transparante communicatie, het uitzonderlijke vakmanschap en de correcte facturatie. Ligt volgens de pin-coördinaten in Laarne (regio Gent), buiten regio Dendermonde — een kandidaat om na te kijken op de Gent-pagina.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dakwerken Saerens Bart & Brent",
-      "reviewkwaliteit": 3,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakrenovatie",
-        "isolatie"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Volgens afspraak"
-      ],
-      "synthese": "Dakzaak uit Lebbeke. Verschillende klanten zijn tevreden over de correcte, propere uitvoering; een enkele klant was ontevreden over de isolatie van een plat dak.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dakwerken Matthys",
-      "reviewkwaliteit": 3.5,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakrenovatie"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Kwaliteit",
-        "Communicatie"
-      ],
-      "synthese": "Dakwerker uit Lebbeke. De enige, zeer lovende review prijst het vakmanschap, de kwaliteit en de communicatie bij een nieuw dak.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "GM Derde",
-      "reviewkwaliteit": 3.5,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakrenovatie",
-        "isolatie",
-        "asbestverwijdering"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Veilig werken",
-        "Vriendelijk"
-      ],
-      "synthese": "Familiebedrijf uit Wichelen dat o.a. asbestdaken vervangt door pannen, met aandacht voor veiligheid en isolatie. Reviews zijn overwegend positief; een klant meldde aanhoudende problemen met lekkende koperen goten.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dakwerken Guy Smet",
-      "reviewkwaliteit": 4,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakrenovatie",
-        "hellende-daken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Verzorgd",
-        "Oog voor detail"
-      ],
-      "synthese": "Dakzaak (Guy Smet) uit Hamme die in de wijde regio bekendstaat om verzorgd werk. Een uitgebreide review prijst de professionele, detailgerichte uitvoering van een complexe dakrenovatie.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Dak en renovatiewerken Vermeir",
-      "reviewkwaliteit": 2.5,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "totaalrenovatie",
-        "dakrenovatie"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Volgens afspraak"
-      ],
-      "synthese": "Renovatiebedrijf uit Lebbeke dat totaalrenovaties incl. daken coördineert. Verschillende klanten zijn tevreden over de correcte uitvoering; er is daarnaast een zware klacht over een betalingsgeschil.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "dakwerken Marc Moesick",
-      "reviewkwaliteit": 3,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
-      "actiefSinds": null,
-      "specialties": [
-        "dakwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [
-        "Deskundig advies"
-      ],
-      "synthese": "Dakwerker uit Hamme. De enige review prijst de goede communicatie en het eerlijke, deskundige advies.",
-      "breuk": null
-    },
-    {
-      "bedrijf": "Algemene Dak & Schrijnwerken MB Construction BV",
-      "reviewkwaliteit": 3.25,
-      "vakfocus": 4,
-      "vakfocusBron": "website",
-      "websiteBezocht": "https://www.mb-construction.eu/",
-      "actiefSinds": null,
-      "specialties": [
-        "hellende-daken",
-        "epdm",
-        "zinkwerk",
-        "schrijnwerken"
-      ],
-      "chipsSite": [
-        "10 jaar garantie"
-      ],
-      "chipsReview": [
-        "Snelle service",
-        "Vriendelijk"
-      ],
-      "synthese": "Dak- en schrijnwerkbedrijf uit Berlare dat hellende en platte daken, lood- en zinkwerk, isolatie en timmerwerk uitvoert, met garantie op de werken. Veel klanten zijn tevreden over de vlotte service en de nette uitvoering; een deel meldt moeizame opvolging bij herstellingen.",
+      "chipsReview": ["Duidelijke offerte", "Afspraken nagekomen"],
+      "synthese": "Opwijks dakwerkersbedrijf dat vooral platte daken, EPDM en dakrenovaties uitvoert. Klanten vermelden een duidelijke offerte, vriendelijke service en het correct nakomen van afspraken.",
       "breuk": null
     },
     {
       "bedrijf": "Venco dak- en gevelwerken",
-      "reviewkwaliteit": 3.5,
+      "reviewkwaliteit": 3.83,
       "vakfocus": 3.5,
       "vakfocusBron": "website",
       "websiteBezocht": "https://www.venco.be/",
       "actiefSinds": null,
-      "specialties": [
-        "dakrenovatie",
-        "gevelwerken",
-        "veluxen",
-        "isolatie"
-      ],
+      "specialties": ["dakrenovatie", "gevelwerken", "isolatie", "veluxen"],
       "chipsSite": [],
-      "chipsReview": [
-        "Proper afgewerkt",
-        "Stipte uitvoering"
-      ],
-      "synthese": "Dak- en gevelbedrijf uit Hamme dat dakvernieuwing, isolatie, veluxen en gevelreiniging aanbiedt. Klanten die grotere renovaties lieten uitvoeren, zijn tevreden over de stipte start en de propere afwerking.",
+      "chipsReview": ["Stipte start", "Nette werf"],
+      "synthese": "Hamme-bedrijf voor dak- en gevelwerken (renovatie, isolatie, veluxen, gevelreiniging), sinds kort onderdeel van de Gust Groep. Klanten vermelden een stipte start van de werken en een propere afwerking.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken YDM",
+      "reviewkwaliteit": 4.0,
+      "vakfocus": 3.0,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.ydmdakwerken.be/",
+      "actiefSinds": 2021,
+      "specialties": ["dakrenovatie", "platte-daken", "epdm"],
+      "chipsSite": [],
+      "chipsReview": ["Snelle opvolging", "Nette werf"],
+      "synthese": "Jong Dendermonds bedrijf (sinds 2021) dat dakwerken combineert met schilder- en karweiwerken. Reviews benadrukken de snelle opvolging, de vlotte offertes en het nette, vakkundige dakwerk.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Gery Van Esbroeck",
+      "reviewkwaliteit": 4.0,
+      "vakfocus": 4.5,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://plattedaken-dakwerken.be/",
+      "actiefSinds": null,
+      "specialties": ["platte-daken", "epdm", "isolatie", "dakgoten"],
+      "chipsSite": ["30 jaar ervaring"],
+      "chipsReview": ["Snelle interventie", "Proper afgewerkt"],
+      "synthese": "Zelfstandig dakspecialist uit Hamme met ruim 30 jaar ervaring, toegespitst op platte daken in EPDM, isolatie en dakgoten. Klanten prijzen de snelle interventie en de propere, degelijke afwerking.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Maes Dakwerken bv",
+      "reviewkwaliteit": 3.67,
+      "vakfocus": 3.0,
+      "vakfocusBron": "website",
+      "websiteBezocht": "http://www.dakwerkenmaes.be/",
+      "actiefSinds": null,
+      "specialties": ["dakrenovatie", "isolatie", "zonnepanelen", "gevelbekleding"],
+      "chipsSite": [],
+      "chipsReview": ["Snelle service", "Nette werf"],
+      "synthese": "Buggenhouts bedrijf dat naast dakwerken ook isolatie, zonnepanelen, gevelbekleding en gyproc-afwerking aanbiedt. Klanten vermelden de snelle service bij stormschade en de vakkundige, nette dakrenovaties.",
       "breuk": null
     },
     {
       "bedrijf": "Dakwerken SD Projects",
-      "reviewkwaliteit": 4.5,
-      "vakfocus": 4,
+      "reviewkwaliteit": 4.33,
+      "vakfocus": 4.0,
       "vakfocusBron": "website",
       "websiteBezocht": "http://www.mysdprojects.be/",
       "actiefSinds": null,
-      "specialties": [
-        "platte-daken",
-        "dakherstellingen",
-        "dakgoten",
-        "schrijnwerken"
-      ],
+      "specialties": ["platte-daken", "dakherstelling", "dakgoten", "schrijnwerk"],
       "chipsSite": [],
-      "chipsReview": [
-        "Duidelijke communicatie",
-        "Betrouwbaar"
-      ],
-      "synthese": "Zaak uit Berlare rond zaakvoerder Dylan, gespecialiseerd in dakwerken, dakherstellingen en aanverwant schrijnwerk, met ruim 15 jaar ervaring. De overwegend recente reviews zijn zeer positief over de eerlijke aanpak, de duidelijke communicatie en het correct nakomen van budget en afspraken.",
+      "chipsReview": ["Correcte afspraken", "Snelle oplossing"],
+      "synthese": "Berlaars bedrijf (zaakvoerder Dylan) dat dakwerken combineert met schrijnwerk en dakherstellingen. Klanten prijzen de correcte afspraken, de snelle oplossingen bij lekken en de propere uitvoering; velen keren terug voor volgende werken.",
       "breuk": null
     },
     {
-      "bedrijf": "Dakwerken Rombaut Jurgen",
-      "reviewkwaliteit": 2.5,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
+      "bedrijf": "Dakwerken Hofman bvba",
+      "reviewkwaliteit": 4.17,
+      "vakfocus": 5.0,
+      "vakfocusBron": "website",
+      "websiteBezocht": "http://www.dakwerkenhofman.be/",
       "actiefSinds": null,
-      "specialties": [
-        "dakwerken",
-        "dakgoten"
-      ],
-      "chipsSite": [],
-      "chipsReview": [],
-      "synthese": "Dakzaak uit Hamme. De reviews zijn wisselend: enkele klanten zijn tevreden, andere melden dat afspraken bij herstellingen niet nagekomen werden.",
+      "specialties": ["groendaken", "zinkwerk", "epdm", "veluxen"],
+      "chipsSite": ["Master Roofer Award", "5 jaar garantie"],
+      "chipsReview": ["Duidelijke communicatie", "Kwaliteitsmaterialen"],
+      "synthese": "Zuivere dakspecialist uit Zele (groendaken, zinkwerk, EPDM, veluxen), bekroond met een Master Roofer Award in 2025 en met minstens 5 jaar garantie op de werken. Klanten prijzen de transparante communicatie en de kwaliteit van materialen en afwerking.",
       "breuk": null
     },
     {
-      "bedrijf": "Buggenhoutse Dakwerken Bvba",
-      "reviewkwaliteit": 2.5,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
+      "bedrijf": "Algemene Dak & Schrijnwerken MB Construction BV",
+      "reviewkwaliteit": 3.83,
+      "vakfocus": 4.0,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.mb-construction.eu/",
       "actiefSinds": null,
-      "specialties": [
-        "dakwerken"
-      ],
-      "chipsSite": [],
-      "chipsReview": [],
-      "synthese": "Dakzaak (gevestigd in de regio Dendermonde). De reviews wijzen vooral op moeilijke bereikbaarheid en uitblijvende opvolging bij herstellingen.",
+      "specialties": ["hellende-daken", "platte-daken", "zinkwerk", "timmerwerk"],
+      "chipsSite": ["10 jaar garantie"],
+      "chipsReview": ["Duidelijke communicatie", "Nette werf"],
+      "synthese": "Berlaars dak- en schrijnwerkbedrijf (hellende en platte daken, lood- en zinkwerk, timmerwerk) dat zich als dakspecialist in Oost-Vlaanderen profileert, met 10 jaar garantie op de werken. Klanten vermelden de duidelijke communicatie en de snelle hulp bij stormschade.",
       "breuk": null
     },
     {
-      "bedrijf": "Roofing Concept",
-      "reviewkwaliteit": 2.5,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
+      "bedrijf": "EKO-Huis",
+      "reviewkwaliteit": 4.17,
+      "vakfocus": 3.0,
+      "vakfocusBron": "website",
+      "websiteBezocht": "http://eko-huis.com/",
       "actiefSinds": null,
-      "specialties": [
-        "platte-daken",
-        "roofing"
-      ],
+      "specialties": ["dakrenovatie", "gevelwerken", "isolatie", "crepi"],
       "chipsSite": [],
-      "chipsReview": [],
-      "synthese": "Dakzaak uit Buggenhout, gericht op platte daken en roofing. Verschillende prospecten melden dat ze lang of vergeefs op een offerte of antwoord wachtten.",
+      "chipsReview": ["Goede opvolging", "Kwaliteitsmaterialen"],
+      "synthese": "Dendermonds renovatiebedrijf dat dak, gevel, ramen en isolatie als totaalpakket aanbiedt. Reviews benadrukken de goede opvolging vanuit het bureau, de kwaliteit van de materialen en het advies bij de keuze.",
       "breuk": null
     },
     {
-      "bedrijf": "Den Board",
+      "bedrijf": "DMK GROUP DAKWERKEN",
       "reviewkwaliteit": 3.5,
       "vakfocus": null,
       "vakfocusBron": "geen-website",
       "websiteBezocht": null,
       "actiefSinds": null,
-      "specialties": [
-        "platte-daken"
-      ],
+      "specialties": ["dakreparatie", "dakrenovatie"],
       "chipsSite": [],
-      "chipsReview": [
-        "Kennis van zaken",
-        "Betrouwbaar"
-      ],
-      "synthese": "Dakwerker (Dimitri, \"Den Board\") uit Hamme, gespecialiseerd in platte daken. Een uitgebreide review prijst de kennis, de aanpak en het vertrouwenwekkende resultaat.",
+      "chipsReview": ["Professioneel", "Nette afwerking"],
+      "synthese": "Jong dakwerkersbedrijf uit Hamme dat dakreparatie en -renovatie in verschillende steden uitvoert. De reviews vermelden professioneel, netjes afgewerkt werk en heldere communicatie.",
       "breuk": null
     },
     {
-      "bedrijf": "Van fotsing Dakwerken",
-      "reviewkwaliteit": 3,
-      "vakfocus": null,
-      "vakfocusBron": "geen-website",
-      "websiteBezocht": null,
+      "bedrijf": "Smekens Constructors",
+      "reviewkwaliteit": 4.17,
+      "vakfocus": 3.0,
+      "vakfocusBron": "website",
+      "websiteBezocht": "http://www.smekensconstructors.be/",
       "actiefSinds": null,
-      "specialties": [
-        "dakrenovatie"
-      ],
+      "specialties": ["hellende-daken", "platte-daken", "schrijnwerk", "gevelwerken"],
       "chipsSite": [],
-      "chipsReview": [
-        "Oog voor detail"
-      ],
-      "synthese": "Dakwerker uit Hamme die zowel Nederlands- als Franstalige klanten bedient. De recente reviews prijzen de zorgvuldige, detailgerichte uitvoering van renovatieprojecten.",
+      "chipsReview": ["Meedenkend", "Stipte planning"],
+      "synthese": "Hamme-bedrijf (vader en zoon) dat dakwerken combineert met schrijn- en gevelwerken. Klanten prijzen de meedenkende aanpak, de stipte planning en de verzorgde afwerking; de zaakvoerder is vaak zelf op de werf.",
       "breuk": null
     },
     {
       "bedrijf": "Dakwerken SG",
-      "reviewkwaliteit": 4,
-      "vakfocus": 4,
+      "reviewkwaliteit": 4.0,
+      "vakfocus": 5.0,
       "vakfocusBron": "website",
       "websiteBezocht": "https://dakwerkensg.be/",
       "actiefSinds": null,
-      "specialties": [
-        "hellende-daken",
-        "platte-daken",
-        "zinkwerk",
-        "veluxen"
-      ],
+      "specialties": ["hellende-daken", "platte-daken", "zinkwerk", "veluxen"],
       "chipsSite": [],
-      "chipsReview": [
-        "Correcte prijs",
-        "Komt afspraken na"
-      ],
-      "synthese": "Tweetalige dakzaak uit Opwijk rond zaakvoerder Jeremy, met een breed dakaanbod: hellende en platte daken, zinkwerk, schoorstenen, veluxen en isolatie. Zowel Nederlands- als Franstalige klanten prijzen het verzorgde werk, de correcte prijs en het nakomen van afspraken.",
+      "chipsReview": ["Proper werk", "Goed advies"],
+      "synthese": "Opwijkse dakspecialist (zaakvoerder Jeremy) voor hellende en platte daken, zinkwerk, veluxen en schoorstenen, tweetalig NL/FR. Klanten prijzen het propere werk, het eerlijke advies en het nakomen van afspraken.",
       "breuk": null
     },
     {
-      "bedrijf": "Dakalex BVBA",
-      "reviewkwaliteit": 4.75,
+      "bedrijf": "Dakwerken De Rycke Peter",
+      "reviewkwaliteit": 4.17,
       "vakfocus": 4.5,
       "vakfocusBron": "website",
-      "websiteBezocht": "http://www.dakalex.be/",
+      "websiteBezocht": "http://www.dakwerkenderycke.be/",
+      "actiefSinds": 1996,
+      "specialties": ["platte-daken", "epdm", "gevelbekleding", "dakrenovatie"],
+      "chipsSite": ["Sinds 1996"],
+      "chipsReview": ["Snelle interventie", "Perfecte afwerking"],
+      "synthese": "Dakspecialist uit Schellebelle (Wichelen), actief sinds 1996, voor platte daken, pannen en EPDM. Klanten roemen de vakkundige, perfect afgewerkte daken en de opvallend snelle interventie bij problemen.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Dykadak",
+      "reviewkwaliteit": 3.17,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
       "actiefSinds": null,
-      "specialties": [
-        "dakrenovatie",
-        "asbestverwijdering",
-        "zinkwerk",
-        "natuurleien"
-      ],
+      "specialties": ["dakrenovatie", "kroonlijsten", "dakvensters"],
       "chipsSite": [],
-      "chipsReview": [
-        "Nette werf",
-        "Sterke nazorg"
-      ],
-      "synthese": "Gevestigde dakspecialist uit Waasmunster met een eigen toonzaal, die volledige dakrenovaties uitvoert incl. veilige asbestverwijdering, isolatie en zink- en loodwerk. Klanten prijzen consequent de drone-opmeting, de duidelijke planning, de nette werf en de opvallend sterke nazorg, ook jaren na de oplevering.",
+      "chipsReview": ["Vakkennis", "Netjes opgeruimd"],
+      "synthese": "Opwijks dakwerkersbedrijf voor dakrenovatie, kroonlijsten en dakvensters. De recente reviews vermelden vakkundig, netjes opgeruimd werk en een goede prijs-kwaliteit.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Sartec Bouwgroep",
+      "reviewkwaliteit": 3.83,
+      "vakfocus": 2.75,
+      "vakfocusBron": "website",
+      "websiteBezocht": "http://sartecbouwgroep.be/",
+      "actiefSinds": null,
+      "specialties": ["platte-daken", "epdm", "gevelwerken", "dakconstructie"],
+      "chipsSite": [],
+      "chipsReview": ["Gedetailleerde offerte", "Nette afwerking"],
+      "synthese": "Wichelense bouwgroep die dakwerken (o.a. EPDM platte daken en dakconstructies) combineert met gevel-, renovatie- en bouwwerken. Klanten vermelden de gedetailleerde offerte, de vlotte communicatie en de nette afwerking.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "MM Construct",
+      "reviewkwaliteit": 3.83,
+      "vakfocus": 4.5,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.mm-construct.eu/",
+      "actiefSinds": null,
+      "specialties": ["platte-daken", "hellende-daken", "asbestverwijdering", "dakrenovatie"],
+      "chipsSite": [],
+      "chipsReview": ["Snelle offerte", "Afspraken nagekomen"],
+      "synthese": "Jong Dendermonds bedrijf (zaakvoerder Morgan Moeseke) gespecialiseerd in platte en hellende dakwerken, met asbestverwijdering. Klanten vermelden de snelle offerte en inspectie, en het correct nakomen van afspraken.",
       "breuk": null
     }
   ]

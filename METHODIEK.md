@@ -71,15 +71,28 @@ gepubliceerde pagina te breken.
 | Publicatiedrempel | geen (= opname, ≥10) | **≥15 reviews** | Opname (meedingen) blijft ≥10, maar "een van de beste van de regio" mag niet op 10 reviews steunen. Zie §2. |
 | LLM-deelscores | één run, 0,5-stappen | **gemiddelde van 2–3 runs** | Middelen halveert de effectieve stapgrootte en middelt toevallige beoordelaarsruis uit → de subjectieve dimensies worden fijner en stabieler. Zie §5. |
 
-**v3 (nieuw, standaard) — uitsluitend presentatie, rekenkalibratie identiek aan v2.**
-v3 verandert **geen enkel getal**: dezelfde vier kalibratiewaarden als v2, dus op
-dezelfde data geeft v3 exact dezelfde selectie, score en volgorde als v2. Wat v3
-toevoegt, zit enkel in de **JSON-LD structured data** — de machineleesbare laag voor
-zoekmachines én AI-antwoordmachines (ChatGPT, Perplexity, Google AI Overviews):
+**v3 (nieuw, standaard).** De vier **kalibratiewaarden** (vertrouwen-vloer,
+recentheid-anker, publicatiedrempel, LLM-run-middeling) zijn **identiek aan v2** —
+op bedrijven die aan de opnamecriteria voldoen geeft v3 exact dezelfde score en
+volgorde als v2. v3 voegt één **opname-eis** en een rijkere **presentatielaag** toe.
+
+**1 — Website verplicht voor opname (nieuw t.o.v. v2).** Een bedrijf komt op de
+publieke pagina alleen als het een **geverifieerde eigen website** heeft — een
+échte, aan het bedrijf gekoppelde site die de beoordelaar effectief bezocht en op
+vakfocus beoordeelde (`vakfocusBron: "website"`). Bedrijven **zonder betrouwbare
+site** — geen website, enkel een social-media-pagina (bv. alleen Instagram), of een
+onbereikbare/kapotte site — worden **weggelaten**, ook al halen ze de review-drempels.
+Reden: zonder website is de vakfocus (nichezuiverheid) niet controleerbaar, en een
+vindbare eigen site is een basissignaal van een professioneel, bereikbaar vakbedrijf.
+De review-drempels (≥10 reviews, ≥3 recent) en de publicatiedrempel (≥15 reviews)
+blijven onveranderd; de website-eis komt er als extra voorwaarde bij. In de
+publiekstekst staat de eis expliciet bij de opnamecriteria.
+
+**2 — Rijkere JSON-LD structured data** — de machineleesbare laag voor zoekmachines
+én AI-antwoordmachines (ChatGPT, Perplexity, Google AI Overviews):
 
 - een eerste-klas **`Organization`**-uitgever (Keurwijzer / Magicworx bv) met een
-  eigen `@id`, waar `WebSite` en `WebPage` via `@id` naar verwijzen — zo is de
-  uitgever een gedefinieerde entiteit i.p.v. losse tekst;
+  eigen `@id`, waar `WebSite` en `WebPage` via `@id` naar verwijzen;
 - de `WebPage` koppelt `breadcrumb` en `mainEntity` (de bedrijvenlijst `#selectie`)
   via `@id`, zodat de coveragegraaf machine-duidelijk is;
 - een **vak-specifiek schema.org-subtype** voor de bedrijven (bv.
@@ -88,11 +101,12 @@ zoekmachines én AI-antwoordmachines (ChatGPT, Perplexity, Google AI Overviews):
   `vak.schemaType` in de config; onbekende niches vallen veilig terug op het
   generieke type.
 
-Bestaande v1- en v2-pagina's blijven byte-voor-byte identiek (geverifieerd): de
-oude, statische graph is verplaatst naar een versie-gestuurd blok in `build.js` dat
-voor v1/v2 exact de oude output reproduceert.
+Bestaande v1- en v2-pagina's blijven byte-voor-byte identiek (geverifieerd): zowel de
+website-eis als de rijkere graph zijn versie-gestuurd (`methodiekVersie >= 3`), dus
+v1/v2 reproduceren exact hun oude output. **v3 is de standaard voor élke nieuwe én
+elke herbouwde pagina.**
 
-> Bron: `build.js` — `METHODIEK_PARAMS` (net onder de publieke constanten) en de
+> Bron: `build.js` — `METHODIEK_PARAMS`, de `eligible`-berekening (website-eis) en de
 > `JSONLD_GRAPH`-opbouw (tweede JSON-LD-blok).
 
 ---
@@ -109,9 +123,11 @@ voldoet:
 | Reviews in de laatste 24 maanden | **≥ 3** | Een bedrijf dat 5 jaar stilligt, is geen actuele aanbeveling |
 | Er is een LLM-beoordeling voor het bedrijf | aanwezig in `beoordeling.json` | Zonder beoordeling ontbreken twee van de vier dimensies |
 | Minstens één bruikbare review (datum + score) | > 0 | Anders valt er niets te wegen |
+| **Geverifieerde eigen website** (alleen v3+) | `vakfocusBron: "website"` | Zonder controleerbare site is de vakfocus niet te meten; een vindbare site is een basissignaal van een professioneel vakbedrijf. Enkel social media of een kapotte site telt niet mee |
 
 > Bron: `build.js` — `MIN_REVIEWS = 10`, `MIN_RECENT = 3`, en het veld `eligible`
-> in stap 1.
+> in stap 1. De website-eis geldt vanaf **methodiek v3** (zie
+> [Methodiek-versies](#methodiek-versies)); vastgepinde v1/v2-pagina's kennen ze niet.
 
 **Geen gemeente én geen coördinaten = altijd weglaten.** Zonder locatiegegevens
 kunnen we niet vaststellen dat het bedrijf in de regio actief is. Dat is een harde
