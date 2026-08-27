@@ -322,7 +322,7 @@ and the email text:
 | Top 5 | in de top 5 | `staat in de <b>top 5</b>` |
 | Top 10 | in de top 10 | `staat in de <b>top 10</b>` |
 
-**Subject:** `{niche} {regio} vergeleken - resultaat  {naam bedrijf} {plaatsing-onderwerp} {niche}`
+**Subject:** `{niche} {regio} vergeleken - resultaat`
 
 (e.g. "Dakwerkers regio Dendermonde vergeleken — resultaat")
 
