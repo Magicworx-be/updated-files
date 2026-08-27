@@ -376,32 +376,7 @@ altijd zelf en negeert ze.
   plek is (zie hieronder).
 - `reports/<slug>/<slug>-prospectie-dasslim.md` — intern prospectiedocument
 - `badges/<slug>/badges.json` — badgegegevens per gepubliceerd bedrijf (naam,
-  tier, slug, badge-URL's), plus per bedrijf één **aandachtspunt** (zie hieronder)
-
-**Het aandachtspunt (outreach, niet publiek).** `badges.json` draagt per
-gepubliceerd bedrijf één Nederlandse zin die benoemt wélke van de vier dimensies
-zijn positie het meest vooruit zou helpen. Die zin gaat mee in de outreach-mail
-(fase 6 van de werkproces-prompt) en verschijnt **nooit op de publieke pagina**.
-
-Hij wordt **deterministisch afgeleid** uit de al berekende dimensies — er komt
-géén tweede LLM-run aan te pas. Gekozen wordt de dimensie met de grootste
-*gewogen speelruimte* (`gewicht × (1 − score)`): daar levert verbetering het
-meeste op. Bij exact gelijke speelruimte beslist een vaste volgorde, zodat de
-uitkomst reproduceerbaar is. Twee gevolgen die er toe doen:
-
-- **Bevroren beoordelingen blijven bevroren.** Bestaande regio's krijgen hun
-  aandachtspunt zonder dat `beoordeling.json` herdraaid wordt en zonder dat één
-  cijfer op een gepubliceerde pagina wijzigt.
-- **Het voedt niets.** De zin leest al berekende waarden; composite, selectie en
-  volgorde blijven onaangeroerd.
-
-De zin verwijst uitsluitend naar **publieke** getallen (de vier gewichten, de
-halveringstijd van 2 jaar) en nooit naar interne kalibratie zoals de
-publicatiedrempel of de vertrouwen-vloer. De percentages komen rechtstreeks uit
-`WEIGHTS`, zodat de tekst niet kan gaan afwijken van de methodiek. De toon volgt
-§6: feitelijk en constructief, nooit een negatief kwaliteitsoordeel.
-
-> Bron: `build.js` — `aandachtspuntVoor()` in stap 8b (badge-export).
+  tier, slug, badge-URL's)
 
 Het **controlerapport is het beste startpunt bij elke vraag** over waarom een
 bedrijf ergens staat: het toont per bedrijf composite, trust, reviewkwaliteit,

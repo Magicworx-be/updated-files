@@ -284,11 +284,6 @@ company. Look up the company by its `naam` field and read:
   rank, not the total number on the page. This drives the placement sentence (see step
   6a).
 - `{bedrijf-slug}` = the `bedrijfSlug` field (for the badge file name).
-- `{aandachtspunt}` = the `aandachtspunt` field — one Dutch sentence, generated
-  deterministically by `build.js`, naming the dimension that would improve this
-  company's position most. **Paste it verbatim:** do not rewrite it, shorten it, split
-  it, or add a second sentence — and never add a URL to it (email 1 must contain
-  exactly one link). It is outreach-only and must never appear on the public page.
 
 The badges live on jsDelivr (the same CDN as `registry.json`). Build the URLs —
 **these only go in email 2 (follow-up), not in email 1:**
@@ -301,7 +296,7 @@ The badges live on jsDelivr (the same CDN as `registry.json`). Build the URLs �
 ### 5 — Clean up the URL
 
 Make sure `{landingspagina url}` looks like this:
-`https://www.keurwijzer.be/{{SLUG}}` — as short and clean as possible.
+`keurwijzer.be/{{SLUG}}` — as short and clean as possible. Make it not clickable.
 
 ### 6a — Email 1: contact email to the company
 
@@ -327,31 +322,32 @@ and the email text:
 | Top 5 | in de top 5 | `staat in de <b>top 5</b>` |
 | Top 10 | in de top 10 | `staat in de <b>top 10</b>` |
 
-**Subject:** `{naam bedrijf} {plaatsing-onderwerp} {niche} | Keurwijzer.be`
+**Subject:** `{niche} {regio} vergeleken - resultaat  {naam bedrijf} {plaatsing-onderwerp} {niche}`
 
-(e.g. "Dakwerken Elewaut in de top 5 dakwerkers | Keurwijzer.be")
+(e.g. "Dakwerkers regio Dendermonde vergeleken — resultaat")
 
 **Email:**
 
 ```
 Goedemiddag,
 
-Op {landingspagina url} vind je een overzicht van de beste {niche} in de {regio}.
+Goed nieuws: we hebben alle {niche} in de {regio} vergeleken, en {naam bedrijf} {plaatsing-mail} van de {aantal gecontroleerde bedrijven} {niche}! Knap.  
 
-{naam bedrijf} {plaatsing-mail} van {aantal gecontroleerde bedrijven} {niche}.
+Zie hier: {landingspagina url}.
 
-Eén puntje om in de gaten te houden voor later: {aandachtspunt}
+Kleine tip voor de toekomst: probeer klanten te stimuleren om in hun Google review concreet te vermelden welk werk je deed en hoe het verliep. Dat weegt zwaarder dan "super tevreden".
 
-Ik kan je je gratis 'Keurwijzer kwaliteitsbadge' bezorgen voor op je website of offertes.
+Ik kan je je Keurwijzer-kwaliteitsbadge bezorgen voor op je site of in offertes.
 
-Stuur ik die door?
+Wil je die? Is gratis.
+
 
 
 Groeten, Olivier
 0470 12 44 61
 
 -
-Keurwijzer.be - Berlare (O-Vl)
+Keurwijzer.be - Olivier Muys - Dorp 81 - Berlare (O-Vl)
 ```
 
 ### 6b — Email 2: follow-up draft for yourself

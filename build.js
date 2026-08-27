@@ -1002,72 +1002,6 @@ function uniekBedrijfSlug(naam) {
   return n === 1 ? base : base + '-' + n;
 }
 // Eén Nederlandse zin per gepubliceerd bedrijf: wélke van de vier dimensies zijn
-// positie het meest vooruit zou helpen. Bedoeld voor de outreach-mail (fase 6 van
-// de werkproces-prompt) — NIET voor de publieke pagina.
-//
-// Deterministisch afgeleid uit de hierboven al berekende dimensies: geen tweede
-// LLM-run en geen tweede bron van waarheid. Dat is bewust:
-//   - "welke dimensie weegt het zwaarst door" is een vergelijking van getallen,
-//     dus rekenwerk, en hoort hier — niet bij de LLM (projectregel bovenaan);
-//   - bevroren beoordeling.json-bestanden hoeven er niet voor herdraaid te worden,
-//     dus bestaande regio's krijgen hun aandachtspunt zonder dat er één cijfer op
-//     een gepubliceerde pagina wijzigt.
-//
-// Gekozen wordt de dimensie met de grootste GEWOGEN speelruimte
-// (gewicht × (1 − score)): daar levert verbetering het meeste op. De volgorde in
-// `kandidaten` staat op gewicht aflopend en beslist bij exact gelijke speelruimte,
-// zodat de uitkomst reproduceerbaar is.
-//
-// Toon: feitelijk en constructief, nooit een negatief kwaliteitsoordeel (zie
-// METHODIEK.md §6). Er wordt uitsluitend naar PUBLIEKE getallen verwezen (de vier
-// gewichten, de halveringstijd) — nooit naar interne kalibratie zoals de
-// publicatiedrempel of de vertrouwen-vloer. De percentages en de halveringstijd
-// komen uit de constanten, zodat de zin niet kan gaan afwijken van de methodiek.
-const vakKort = config.vak.kort || config.vak.mv;
-function gewichtPct(w) { return Math.round(w * 100) + '%'; }
-function aandachtspuntVoor(c) {
-  const kandidaten = [
-    { dim: 'trust',   ruimte: WEIGHTS.trust         * (1 - c.trust)   },
-    { dim: 'rq',      ruimte: WEIGHTS.reviewQuality * (1 - c.rq)      },
-    { dim: 'focus',   ruimte: WEIGHTS.focus         * (1 - c.focus)   },
-    { dim: 'recency', ruimte: WEIGHTS.recency       * (1 - c.recency) },
-  ];
-  const winnaar = kandidaten.reduce((a, b) => (b.ruimte > a.ruimte ? b : a));
-  const revs = c.googleReviews + ' Google-review' + (c.googleReviews === 1 ? '' : 's');
-  switch (winnaar.dim) {
-    case 'trust':
-      return 'Je staat op ' +
-        (typeof c.googleScore === 'number'
-          ? nlNum(c.googleScore, 1) + ' sterren uit ' + revs
-          : revs) +
-        '. Die score weegt het zwaarst mee (' + gewichtPct(WEIGHTS.trust) + ') en ' +
-        'recente reviews tellen daarin dubbel zo zwaar als die van ' +
-        HALFLIFE_JAREN + ' jaar geleden — nieuwe positieve reviews helpen je ' +
-        'positie op dit moment dus het meest vooruit.';
-    case 'rq':
-      return 'Wat klanten schrijven weegt voor ' + gewichtPct(WEIGHTS.reviewQuality) +
-        ' mee, los van het aantal sterren. Bij jouw ' + revs + ' zit de ' +
-        'grootste winst in reviews die concreet benoemen wélk werk je deed en ' +
-        'hoe het verliep — die tellen zwaarder dan korte lof zonder details.';
-    case 'focus':
-      return c.website
-        // Bewust GEEN URL in deze zin: de outreach-mail mag exact één link
-        // bevatten (de landingspagina). Een tweede URL zou in Gmail auto-linken.
-        ? 'Vakfocus weegt voor ' + gewichtPct(WEIGHTS.focus) + ' mee en lezen we af ' +
-          'van je website. Hoe duidelijker je homepage meteen toont dat ' +
-          vakKort + ' je kernactiviteit is — en niet één dienst tussen vele — ' +
-          'hoe hoger die score.'
-        : 'Vakfocus weegt voor ' + gewichtPct(WEIGHTS.focus) + ' mee en lezen we af ' +
-          'van je website. We vonden er geen die we betrouwbaar aan je bedrijf ' +
-          'konden koppelen, dus je kreeg hier het regiogemiddelde in plaats van ' +
-          'je eigen score.';
-    default:
-      return 'Recentheid weegt voor ' + gewichtPct(WEIGHTS.recency) + ' mee: ' + c.n24 +
-        ' van je ' + revs + ' dateren uit de laatste 24 maanden. Klanten kort ' +
-        'na oplevering om een review vragen is hier de snelste winst.';
-  }
-}
-
 const badgesData = {
   slug,
   niche,
@@ -1089,8 +1023,6 @@ const badgesData = {
       naam:        c.naam,
       bedrijfSlug: bslug,
       gemeente:    c.gemeente,
-      // Eén zin voor de outreach-mail; nooit voor de publieke pagina.
-      aandachtspunt: aandachtspuntVoor(c),
       // Kant-en-klare URL's — dit is wat je in een mail plakt.
       badgeDonker: basis + '--donker.png',
       badgeLicht:  basis + '--licht.png',
