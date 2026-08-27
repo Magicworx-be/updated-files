@@ -71,7 +71,7 @@ const MIN_RECENT = 3;         // min. reviews in de laatste 24 maanden — publi
 // veranderen dus nooit. Nieuwe configs zonder veld krijgen automatisch de
 // nieuwste versie. Zo blijft "zelfde data = zelfde resultaat" gelden én kan de
 // methodiek verbeteren zonder één gepubliceerde pagina te breken.
-const METHODIEK_LATEST = 2;
+const METHODIEK_LATEST = 3;
 const METHODIEK_PARAMS = {
   1: {
     TRUST_FLOOR: 3.5,           // Bayes-score die op 0 genormaliseerd wordt
@@ -90,7 +90,31 @@ const METHODIEK_PARAMS = {
                                 // ≥15 reviews. Vult terug uit de eligible bedrijven
                                 // als een dunne regio anders te weinig lijst heeft.
     EXPECT_HALF_STEPS: false    // v2-LLM middelt 2–3 runs → fijnere, niet-0,5 waarden
+  },
+  3: {
+    // v3 = PRESENTATIE-only verbetering t.o.v. v2. De rekenkalibratie is IDENTIEK
+    // aan v2 (zelfde vier waarden hieronder), dus "zelfde data = zelfde selectie,
+    // score en volgorde" als v2 — een v2- en een v3-pagina op dezelfde data
+    // rangschikken exact gelijk. Wat v3 toevoegt zit uitsluitend in de JSON-LD:
+    // een rijkere entiteitengraph (eerste-klas Organization-uitgever met @id,
+    // publisher/breadcrumb/mainEntity gekoppeld via @id) en een vak-specifiek
+    // schema.org-subtype voor de bedrijven (bv. RoofingContractor voor dakwerkers).
+    // Zie SCHEMA_TYPE_BY_NICHE en de JSONLD_GRAPH-opbouw verderop.
+    TRUST_FLOOR: 4.0,
+    RECENCY_ANCHOR: 10,
+    PUBLISH_MIN_REVIEWS: 15,
+    EXPECT_HALF_STEPS: false
   }
+};
+
+// Vak-specifiek schema.org-subtype voor de bedrijven in de JSON-LD ItemList (v3+).
+// Elk subtype is een afstammeling van HomeAndConstructionBusiness (de veilige
+// fallback), dus onbekende niches blijven geldig gemarkeerd. Voeg een niche toe
+// zodra je zeker bent van het juiste schema.org-type (bij twijfel: fallback laten
+// staan — nooit een type verzinnen). Een config kan dit overrulen via vak.schemaType.
+const SCHEMA_TYPE_BY_NICHE = {
+  dakwerkers: 'RoofingContractor',
+  dakdekkers: 'RoofingContractor'
 };
 
 // --- Hoeveel bedrijven tonen we? (Top 10 vs Top 5) -----------------------
@@ -556,14 +580,27 @@ const areaServed = methodiekVersie >= 2
   ? [config.regio.naam, ...gemeentenUniek]
   : config.regio.naam;
 
+// v3-only presentatie. v1/v2 blijven byte-voor-byte identiek: alle v3-sleutels
+// worden voorwaardelijk toegevoegd, dus voor v1/v2 is het object ongewijzigd.
+const isV3 = methodiekVersie >= 3;
+// Vak-specifiek schema.org-subtype (v3): config-override → niche-map → veilige
+// generieke fallback. v1/v2 houden bewust HomeAndConstructionBusiness.
+const bedrijfType = (config.vak && config.vak.schemaType) ||
+  SCHEMA_TYPE_BY_NICHE[niche] || 'HomeAndConstructionBusiness';
+// Canonical alvast hier (ook nodig voor de @id-verwijzingen in de entiteitengraph
+// verderop). De latere const is verwijderd; dit is dezelfde waarde.
+const canonical = config.canonical || ('https://keurwijzer.be/' + slug + '/');
+
 const jsonld = JSON.stringify({
   '@context': 'https://schema.org', '@type': 'ItemList',
+  ...(isV3 && { '@id': canonical + '#selectie' }),
   name: config.vak.mvCap + ' in ' + config.regio.naam,
   description: config.vak.mvCap + ' in ' + config.regio.naam + ', geselecteerd volgens de Keurwijzer-kwaliteitsmethodiek.',
+  ...(isV3 && { numberOfItems: top.length, itemListOrder: 'https://schema.org/ItemListOrderDescending' }),
   itemListElement: top.map((c, i) => ({
     '@type': 'ListItem', position: i + 1,
     item: {
-      '@type': 'HomeAndConstructionBusiness', name: c.naam,
+      '@type': isV3 ? bedrijfType : 'HomeAndConstructionBusiness', name: c.naam,
       address: { '@type': 'PostalAddress', addressLocality: c.gemeente, addressRegion: config.regio.provincie, addressCountry: 'BE' },
       areaServed: areaServed,
       ...(c.website && { url: c.website })
@@ -632,7 +669,7 @@ const samenvatting =
   'De ' + nListed + ' sterkste daarvan vormen de selectie die op deze pagina verschijnt, ' +
   'geselecteerd volgens onze vaste, publieke kwaliteitsmethodiek.';
 
-const canonical = config.canonical || ('https://keurwijzer.be/' + slug + '/');
+// canonical is hierboven al gedefinieerd (bij de JSON-LD ItemList).
 const heroImg = (config.hero && config.hero.img) || ('img/' + config.vak.mv + '.jpg');
 const heroAlt = (config.hero && config.hero.alt) ||
   (config.vak.ev ? 'Een ' + config.vak.ev + ' aan het werk in ' + config.regio.naam
@@ -738,6 +775,130 @@ if (pageEntry) {
   FOOT_SECTOR_LINKS = '<a href="#register">' + esc(sector) + '</a>';
 }
 
+// ===== Tweede JSON-LD-blok: entiteitengraph (WebSite/WebPage/Breadcrumb/FAQ) ====
+// Stond vroeger statisch in template.html. Nu versie-gestuurd zodat nieuwe pagina's
+// een rijkere graph krijgen ZONDER dat bestaande (v1/v2) pagina's veranderen:
+//   • v1/v2 → GRAPH_LEGACY: byte-voor-byte identiek aan het oude statische blok.
+//   • v3    → een eerste-klas Organization-uitgever met @id, en WebPage die
+//             publisher/breadcrumb/mainEntity via @id koppelt (mainEntity wijst
+//             naar de ItemList #selectie in het eerste blok). Rijkere entiteiten =
+//             beter leesbaar voor zoekmachines én AI-antwoordmachines (GEO).
+// De FAQ is in beide versies identiek en wordt één keer gedefinieerd.
+const escCanon = esc(canonical);
+const FAQ_MAINENTITY = `[
+    {
+     "@type": "Question",
+     "name": "Hoe bepaalt Keurwijzer welke bedrijven geselecteerd worden?",
+     "acceptedAnswer": { "@type": "Answer", "text": "De selectie wordt bepaald op basis van vier criteria: vertrouwen (35%), reviewkwaliteit (30%), recentheid (15%) en specialiteit (20%). De bedrijven met de hoogste gecombineerde beoordeling vormen samen de selectie van een regio. Alle gegevens waarop we ons baseren zijn publiek: Google-reviews en de eigen website van het bedrijf. Dezelfde methode geldt voor elk bedrijf in elke regio. Onze methodologie en de AI-prompt die gebruikt wordt om bedrijven te beoordelen kunnen op eenvoudig verzoek opgevraagd worden." }
+    },
+    {
+     "@type": "Question",
+     "name": "Kan een bedrijf betalend opgenomen worden op Keurwijzer?",
+     "acceptedAnswer": { "@type": "Answer", "text": "Nee. Een betaalde opname bestaat niet." }
+    },
+    {
+     "@type": "Question",
+     "name": "Hoe vaak wordt de lijst met bedrijven geüpdatet?",
+     "acceptedAnswer": { "@type": "Answer", "text": "We herberekenen jaarlijks alles opnieuw met verse data. Een plaats in de selectie is dus nooit verworven." }
+    },
+    {
+     "@type": "Question",
+     "name": "Is Keurwijzer gratis?",
+     "acceptedAnswer": { "@type": "Answer", "text": "Ja. Keurwijzer is en blijft een gratis initiatief, dat bezoekers wil helpen een geschikte vakspecialist in hun buurt te vinden. Keurwijzer is een initiatief van Magicworx bv, dat ook het marketingbureau dasslim.be uitbaat. Bedrijven kunnen ervoor kiezen om, los van hun opname, met ons samen te werken voor hun marketing; zo'n samenwerking heeft geen enkele invloed op hun opname." }
+    }
+   ]`;
+
+// v1/v2 — verbatim reproductie van het oude statische blok. Wijzig deze string
+// NIET: hij houdt de gepubliceerde pagina's byte-voor-byte identiek.
+const GRAPH_LEGACY = `{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebSite",
+   "@id": "https://keurwijzer.be/#website",
+   "url": "https://keurwijzer.be/",
+   "name": "Keurwijzer",
+   "description": "Onafhankelijke kwaliteitsselectie van vakspecialisten per regio in België.",
+   "inLanguage": "nl-BE",
+   "publisher": { "@type": "Organization", "name": "Magicworx bv" }
+  },
+  {
+   "@type": "WebPage",
+   "@id": "${escCanon}#webpage",
+   "url": "${escCanon}",
+   "name": "De best beoordeelde ${config.vak.mv} in ${config.regio.naam} — Keurwijzer",
+   "description": "${esc(metaDesc)}",
+   "isPartOf": { "@id": "https://keurwijzer.be/#website" },
+   "inLanguage": "nl-BE",
+   "datePublished": "${config.peildatum}",
+   "dateModified": "${config.peildatum}"
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": ${BREADCRUMB_ITEMS}
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": ${FAQ_MAINENTITY}
+  }
+ ]
+}`;
+
+// v3 — rijkere entiteitengraph. Organization is een eerste-klas node met @id;
+// WebSite/WebPage verwijzen ernaar als publisher; WebPage koppelt breadcrumb en
+// mainEntity (de ItemList #selectie) via @id.
+const GRAPH_V3 = `{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "@id": "https://keurwijzer.be/#organization",
+   "name": "Keurwijzer",
+   "legalName": "Magicworx bv",
+   "url": "https://keurwijzer.be/",
+   "description": "Onafhankelijke kwaliteitsselectie van vakspecialisten per regio in België, op basis van Google-reviews en de eigen website van elk bedrijf."
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://keurwijzer.be/#website",
+   "url": "https://keurwijzer.be/",
+   "name": "Keurwijzer",
+   "description": "Onafhankelijke kwaliteitsselectie van vakspecialisten per regio in België.",
+   "inLanguage": "nl-BE",
+   "publisher": { "@id": "https://keurwijzer.be/#organization" }
+  },
+  {
+   "@type": "WebPage",
+   "@id": "${escCanon}#webpage",
+   "url": "${escCanon}",
+   "name": "De best beoordeelde ${config.vak.mv} in ${config.regio.naam} — Keurwijzer",
+   "description": "${esc(metaDesc)}",
+   "isPartOf": { "@id": "https://keurwijzer.be/#website" },
+   "publisher": { "@id": "https://keurwijzer.be/#organization" },
+   "breadcrumb": { "@id": "${escCanon}#breadcrumb" },
+   "mainEntity": { "@id": "${escCanon}#selectie" },
+   "inLanguage": "nl-BE",
+   "datePublished": "${config.peildatum}",
+   "dateModified": "${config.peildatum}"
+  },
+  {
+   "@type": "BreadcrumbList",
+   "@id": "${escCanon}#breadcrumb",
+   "itemListElement": ${BREADCRUMB_ITEMS}
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": ${FAQ_MAINENTITY}
+  }
+ ]
+}`;
+
+// De literals hierboven gebruiken LF; het template-bestand is CRLF (Windows).
+// Emit de graph met exact dezelfde regeleinde als het template, zodat het oude
+// statische blok byte-voor-byte gereproduceerd wordt (v1/v2 blijven identiek).
+const graphEOL = template.includes('\r\n') ? '\r\n' : '\n';
+const JSONLD_GRAPH = (isV3 ? GRAPH_V3 : GRAPH_LEGACY).replace(/\n/g, graphEOL);
+
 const tokens = {
   SLUG: slug,
   BREADCRUMB_ITEMS: BREADCRUMB_ITEMS,
@@ -777,7 +938,8 @@ const tokens = {
   AANTAL_TOP: String(nListed),
   VIGNET: esc(vignet),
   COMPANIES: companiesHTML,
-  JSONLD: jsonld
+  JSONLD: jsonld,
+  JSONLD_GRAPH: JSONLD_GRAPH
 };
 let out = template;
 for (const [k, v] of Object.entries(tokens)) out = out.split('{{' + k + '}}').join(v);

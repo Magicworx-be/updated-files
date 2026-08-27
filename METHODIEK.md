@@ -14,8 +14,8 @@ dit document verouderd — zie [Onderhoud](#onderhoud-1-bron-2-lezers).
 | **Bindende bron voor de LLM-beoordeling** | `prompts/scoring-prompt.md` |
 | **Bindende bron voor het werkproces** | `prompts/directory-page-emails-prompt.md` |
 | **Waarom-beslissingen** | `WIJZIGINGEN.md` |
-| **Nieuwste methodiek-versie** | v2 (zie [Methodiek-versies](#methodiek-versies)) |
-| **Laatst gelijkgezet met de code** | 25 augustus 2026 |
+| **Nieuwste methodiek-versie** | v3 (zie [Methodiek-versies](#methodiek-versies)) |
+| **Laatst gelijkgezet met de code** | 27 augustus 2026 |
 
 ---
 
@@ -71,7 +71,29 @@ gepubliceerde pagina te breken.
 | Publicatiedrempel | geen (= opname, ≥10) | **≥15 reviews** | Opname (meedingen) blijft ≥10, maar "een van de beste van de regio" mag niet op 10 reviews steunen. Zie §2. |
 | LLM-deelscores | één run, 0,5-stappen | **gemiddelde van 2–3 runs** | Middelen halveert de effectieve stapgrootte en middelt toevallige beoordelaarsruis uit → de subjectieve dimensies worden fijner en stabieler. Zie §5. |
 
-> Bron: `build.js` — `METHODIEK_PARAMS` (net onder de publieke constanten).
+**v3 (nieuw, standaard) — uitsluitend presentatie, rekenkalibratie identiek aan v2.**
+v3 verandert **geen enkel getal**: dezelfde vier kalibratiewaarden als v2, dus op
+dezelfde data geeft v3 exact dezelfde selectie, score en volgorde als v2. Wat v3
+toevoegt, zit enkel in de **JSON-LD structured data** — de machineleesbare laag voor
+zoekmachines én AI-antwoordmachines (ChatGPT, Perplexity, Google AI Overviews):
+
+- een eerste-klas **`Organization`**-uitgever (Keurwijzer / Magicworx bv) met een
+  eigen `@id`, waar `WebSite` en `WebPage` via `@id` naar verwijzen — zo is de
+  uitgever een gedefinieerde entiteit i.p.v. losse tekst;
+- de `WebPage` koppelt `breadcrumb` en `mainEntity` (de bedrijvenlijst `#selectie`)
+  via `@id`, zodat de coveragegraaf machine-duidelijk is;
+- een **vak-specifiek schema.org-subtype** voor de bedrijven (bv.
+  `RoofingContractor` voor dakwerkers i.p.v. het generieke
+  `HomeAndConstructionBusiness`), via `SCHEMA_TYPE_BY_NICHE` in `build.js` of een
+  `vak.schemaType` in de config; onbekende niches vallen veilig terug op het
+  generieke type.
+
+Bestaande v1- en v2-pagina's blijven byte-voor-byte identiek (geverifieerd): de
+oude, statische graph is verplaatst naar een versie-gestuurd blok in `build.js` dat
+voor v1/v2 exact de oude output reproduceert.
+
+> Bron: `build.js` — `METHODIEK_PARAMS` (net onder de publieke constanten) en de
+> `JSONLD_GRAPH`-opbouw (tweede JSON-LD-blok).
 
 ---
 

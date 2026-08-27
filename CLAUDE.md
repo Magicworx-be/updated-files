@@ -23,7 +23,7 @@ Dat document is ook wat Cowork leest.
   (vertrouwen-vloer, recentheid-anker, publicatiedrempel, LLM-run-middeling) staat
   in `METHODIEK_PARAMS` in `build.js`, per versie. Elke config draagt `"methodiek": N`;
   ontbreekt het veld → nieuwste versie. **Bestaande pagina's staan vastgepind (v1) en
-  mogen nooit veranderen; nieuwe pagina's krijgen automatisch de nieuwste versie (v2).**
+  mogen nooit veranderen; nieuwe pagina's krijgen automatisch de nieuwste versie (v3).**
   Verhoog `METHODIEK_LATEST` en voeg een nieuw versieblok toe om de logica te
   verbeteren — pin bestaande configs nooit los. Zie METHODIEK.md § Methodiek-versies.
 - **URL-structuur:** detailpagina's plat in de root (`/<slug>/`), hubs in mappen.
