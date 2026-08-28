@@ -1,0 +1,146 @@
+KEURWIJZER CONTROLERAPPORT — dakwerkers-ieper  (variant: Top 10-concept, geen zichtbare score)
+Peildatum: 2026-08-28 · Prior C (regiogemiddelde, tijdsgewogen): 4.711
+Methodiek-versie: 4 (nieuwste, standaard)  ·  vertrouwen-vloer 4.0→0, 5.0→1  ·  recentheid vol bij 10 reviews/24m  ·  publicatiedrempel ≥15 reviews
+Opnamecriteria: gemeente in lijst, ≥10 reviews, ≥3 in 24m
+Gewichten: 35% vertrouwen / 30% reviewkwaliteit / 15% recentheid / 20% vakfocus
+Eligible bedrijven: 4 (waarvan 1 publicabel, ≥15 reviews) → gepubliceerd: Top 4 (4 bedrijven)
+
+TOP 4  (dit staat op de site — zonder cijfer)
+pos  comp   trust  rq    rec   focus  bayes  Rw    v_w    n24  reviews  bedrijf
+ #1  0.880  0.795  0.92  0.90  0.96   4.80   4.98    7.3    9       14  Zink- en Dakwerken Verhaeghe BV
+ #2  0.866  0.772  0.96  1.00  0.79   4.77   4.80   31.7   34       55  Dakwerken EPDM Construct BV
+ #3  0.744  0.786  0.71  0.60  0.83   4.79   5.00    5.7    6       13  Vanrobaeys Panels
+ #4  0.670  0.537  0.67  0.60  0.96   4.54   4.06    5.8    6       13  Dakwerken Descamps
+
+VAKFOCUS-AUDIT (bron van de specialiteitsdimensie, per gerankt bedrijf)
+    Zink- en Dakwerken Verhaeghe BV — 4.8 via http://www.zinkendakwerkenverhaeghe.be/
+    Dakwerken EPDM Construct BV — 4.2 via https://epdmconstruct.be/
+    Vanrobaeys Panels — 4.3 via http://www.vanrobaeyspanels.be/
+    Dakwerken Descamps — 4.8 via http://www.dakwerken-descamps.be/
+
+BREUKSIGNALEN (tijdspatroon gedetecteerd door de LLM)
+    Dakwerken Descamps — Reviews uit 2022 en 2024 meldden trage opvolging en moeizame communicatie; de reviews vanaf 2025 zijn consistent positief over uitvoering en bereikbaarheid.
+
+ROBUUSTHEID VAN DE SELECTIE (±0,5 op reviewkwaliteit + vakfocus, 5000 trials, vaste seed)
+  kans = P(blijft in Top 4)   ·   band = 5e–95e percentiel van de positie
+  #1  kans 100%   band #1–#2   vast          Zink- en Dakwerken Verhaeghe BV
+  #2  kans 100%   band #1–#2   vast          Dakwerken EPDM Construct BV
+  #3  kans 100%   band #3–#3   vast          Vanrobaeys Panels
+  #4  kans 100%   band #4–#4   vast          Dakwerken Descamps
+  Samengevat: 4 vast, 0 waarschijnlijk, 0 wankel (van 4).
+
+NOG NIET ELIGIBLE — NIET OP DE SITE (wél in prospectiedocument, max 10)
+    Eskimoo — Geen vakspecialist voor deze niche (vakfocus 1,83 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    Gedimat Vandenberghe — Geen vakspecialist voor deze niche (vakfocus 1,17 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    Cleandak — Geen vakspecialist voor deze niche (vakfocus 1,83 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    Net'antwerk Ferm — Geen geverifieerde eigen website — vereist voor opname (methodiek v3+).
+    Corpuss — Geen vakspecialist voor deze niche (vakfocus 1,33 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    Dakwerken Plaisier: Uw dak onze zorg — Nog te weinig recente reviews (0 in de laatste 24 maanden, min. 3) voor een actuele beoordeling.
+    Cavan BV — Geen geverifieerde eigen website — vereist voor opname (methodiek v3+).
+    Dakwerken Wattel bv — Nog te weinig recente reviews (1 in de laatste 24 maanden, min. 3) voor een actuele beoordeling.
+    Bouw MV Consulting BV — Geen geverifieerde eigen website — vereist voor opname (methodiek v3+).
+    Cardinael / Johnny — Nog te weinig Google-reviews (9 van min. 10) om betrouwbaar te beoordelen.
+
+BUITEN DE GEMEENTELIJST (volledig weggelaten)
+    Entrereno (Boeschepe)
+    Van De Slycke Pedro bvba (Houthulst)
+    Algemene Dakwerken Gianni Bulcke (Houthulst)
+    Dak En Renovatie Steelandt Bvba (Staden)
+    Dejonckheere (Houthulst)
+    Deleu Marino (Moorslede)
+    Asrevo (Moorslede)
+    Cleaning by Kate (Moorslede)
+    Vergote Danny (Ledegem)
+    P&D Dak forever (Moorslede)
+    Wavan bv (Moorslede)
+    Davy Vermeulen (Staden)
+    Isoroof Bv (Roeselare)
+    Timmer- en Schrijnwerk Couvreur Eli🔨 (Houthulst)
+    Mario Scheldeman (Ledegem)
+    Piteljon Bâtiment sprl (Komen-Waasten)
+    Algemene Dakwerken Dendauw (Menen)
+    Toiture Dav SRL (Komen-Waasten)
+    Deda Projects Bv (Houthulst)
+    JH. Rénov Bâtiment Toiturier (Komen-Waasten)
+    dakwerken A+Roof (Menen)
+    Vandesteene / Didier (Komen-Waasten)
+    Leander Fieu - Bouw en totaalrenovatie (Alveringem)
+    Vlieghe Renovatiewerken (Alveringem)
+    Studiovis (Alveringem)
+    Dvh-Roof Bv (Staden)
+    Dakwerken Delcroix (Komen-Waasten)
+    DD Roofing BV (Menen)
+    Batilex (Komen-Waasten)
+    Rooftech (Staden)
+    Huyghe Daksystemen (Staden)
+    Emmanuel Heemeryck BV (Staden)
+    Dakwerken Bruneel BV - Lieven Claus : dakwerken & installateur zonnepanelen, laadpalen en thuisbatterijen (Houthulst)
+    DERYNCK Houtrealisaties (Houthulst)
+    Bouwwerken Herman (Roeselare)
+    Del'Haye Jacques bv (Menen)
+    Cauwelier Welding (Staden)
+    Fré Vandamme BV (Menen)
+    EB Construct Bv (Menen)
+    Hazebrouck Sprl (Komen-Waasten)
+    Xavier Covemaeker (Komen-Waasten)
+    Maes Kristof Sandwichpanelen (Menen)
+    Horik (Houthulst)
+    De Saedeleer Jean-Luc (Menen)
+    GD-Reiniging - Schoonmaakbedrijf (Menen)
+    Bocket Interieur (Houthulst)
+    Sebbe (Menen)
+    Depoortere Björn (Menen)
+    HURO NV (Staden)
+    Franky Hostens (Houthulst)
+
+WAARSCHUWINGEN
+  ! geen beoordeling.json-entry voor "Entrereno" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Van De Slycke Pedro bvba" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Algemene Dakwerken Gianni Bulcke" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dak En Renovatie Steelandt Bvba" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dejonckheere" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Deleu Marino" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Asrevo" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Cleaning by Kate" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Vergote Danny" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "P&D Dak forever" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Wavan bv" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Davy Vermeulen" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Isoroof Bv" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Timmer- en Schrijnwerk Couvreur Eli🔨" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Mario Scheldeman" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Piteljon Bâtiment sprl" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Algemene Dakwerken Dendauw" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Toiture Dav SRL" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Deda Projects Bv" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "JH. Rénov Bâtiment Toiturier" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "dakwerken A+Roof" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Vandesteene / Didier" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Leander Fieu - Bouw en totaalrenovatie" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Vlieghe Renovatiewerken" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Studiovis" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dvh-Roof Bv" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Delcroix" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "DD Roofing BV" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Batilex" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Rooftech" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Huyghe Daksystemen" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Emmanuel Heemeryck BV" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Bruneel BV - Lieven Claus : dakwerken & installateur zonnepanelen, laadpalen en thuisbatterijen" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "DERYNCK Houtrealisaties" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Bouwwerken Herman" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Del'Haye Jacques bv" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Cauwelier Welding" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Fré Vandamme BV" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "EB Construct Bv" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Hazebrouck Sprl" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Xavier Covemaeker" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Maes Kristof Sandwichpanelen" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Horik" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "De Saedeleer Jean-Luc" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "GD-Reiniging - Schoonmaakbedrijf" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Bocket Interieur" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Sebbe" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Depoortere Björn" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "HURO NV" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Franky Hostens" (reviewkwaliteit/vakfocus/synthese ontbreken)

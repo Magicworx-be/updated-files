@@ -136,7 +136,14 @@ execFileSync('node', [path.join(ROOT, 'build-site.js')], { stdio: ['ignore', 'ig
 console.log('› registry.json genereren...');
 const gepland = R.loadPlannedRegions(ROOT);
 const registryJson = {
-  _generated: new Date().toISOString().slice(0, 10),
+  // VOLLEDIGE tijdstempel, niet enkel de datum. De hubs halen registry.json bij
+  // twee bronnen op (jsDelivr + raw GitHub) en kiezen de VERSTE op dit veld; met
+  // dagprecisie zijn twee versies van dezelfde dag niet te onderscheiden — precies
+  // het geval op 2026-08-28, toen jsDelivr een oudere kopie van diezelfde dag
+  // serveerde. Bijkomend voordeel: registry.json verschilt nu bij élke build, dus
+  // push-registry.js commit + purget altijd (voorheen sloeg hij bij identieke
+  // inhoud over, waardoor de CDN-cache nooit ververst werd).
+  _generated: new Date().toISOString(),
   _origin: R.SITE_ORIGIN,
   pages: registry.map(p => ({
     slug:       p.slug,

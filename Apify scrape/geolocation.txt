@@ -1,0 +1,133 @@
+!pip install -q requests shapely pyproj
+
+import json, time, requests
+from shapely.geometry import shape, mapping
+from shapely.ops import unary_union, transform
+from pyproj import Transformer
+
+# ---- 1. definieer AL je regio's hier (regio : lijst gemeenten) ----
+REGIONS = {
+    "dendermonde": ["Dendermonde","Lebbeke","Buggenhout","Hamme","Zele","Berlare","Wichelen","Waasmunster","Opwijk","Wetteren","Laarne"],
+
+    "Oudenaarde": ["Oudenaarde","Ronse","Brakel","Horebeke","Kluisbergen","Kruisem","Lierde","Maarkedal","Wortegem-Petegem","Zwalm","Gavere"],
+
+    "Gent": ["Gent","Merelbeke","Melle","Destelbergen","Evergem","Lochristi","Nazareth","De Pinte","Sint-Martens-Latem","Deinze","Oosterzele"],
+
+    "Meetjesland": ["Eeklo","Maldegem","Sint-Laureins","Assenede","Kaprijke","Lievegem","Aalter","Zelzate"],
+
+    "Aalst": ["Aalst","Erpe-Mere","Lede","Haaltert","Denderleeuw","Ninove","Herzele","Sint-Lievens-Houtem","Geraardsbergen","Zottegem"],
+
+    "Sint-Niklaas": ["Sint-Niklaas","Temse","Stekene","Sint-Gillis-Waas","Beveren","Kruibeke","Zwijndrecht","Lokeren"],
+
+    "Brugge": ["Brugge","Beernem","Blankenberge","Damme","Jabbeke","Knokke-Heist","Oostkamp","Torhout","Zedelgem","Zuienkerke"],
+
+    "Oostende": ["Oostende","Bredene","De Haan","Gistel","Ichtegem","Middelkerke","Oudenburg"],
+
+    "Veurne-Diksmuide": ["Veurne","De Panne","Koksijde","Nieuwpoort","Alveringem","Diksmuide","Houthulst","Koekelare","Kortemark","Lo-Reninge"],
+
+    "Ieper": ["Ieper","Poperinge","Wervik","Zonnebeke","Langemark-Poelkapelle","Heuvelland","Mesen","Vleteren"],
+
+    "Roeselare": ["Roeselare","Izegem","Hooglede","Ingelmunster","Ledegem","Lichtervelde","Moorslede","Staden"],
+
+    "Tielt": ["Tielt","Ardooie","Dentergem","Oostrozebeke","Pittem","Wielsbeke","Wingene"],
+
+    "Kortrijk": ["Kortrijk","Kuurne","Harelbeke","Deerlijk","Zwevegem","Menen","Wevelgem","Lendelede","Anzegem","Avelgem","Spiere-Helkijn","Waregem","Zulte"],
+
+    "Antwerpen": ["Antwerpen","Aartselaar","Edegem","Mortsel","Hove","Boechout","Kontich","Lint","Wommelgem","Wijnegem","Hemiksem","Schelle","Niel","Boom","Rumst"],
+
+    "Brasschaat": ["Brasschaat","Schoten","Kapellen","Stabroek","Kalmthout","Essen","Wuustwezel","Brecht","Schilde","Zoersel","Malle","Ranst","Zandhoven"],
+
+    "Mechelen": ["Mechelen","Lier","Berlaar","Bonheiden","Duffel","Heist-op-den-Berg","Nijlen","Putte","Sint-Katelijne-Waver","Willebroek","Bornem","Puurs-Sint-Amands"],
+
+    "Turnhout": ["Turnhout","Oud-Turnhout","Vosselaar","Beerse","Merksplas","Hoogstraten","Rijkevorsel","Baarle-Hertog","Ravels","Arendonk","Retie"],
+
+    "Geel-Mol": ["Geel","Mol","Balen","Dessel","Meerhout","Laakdal","Kasterlee","Lille","Olen"],
+
+    "Herentals-Westerlo": ["Herentals","Herenthout","Grobbendonk","Vorselaar","Westerlo","Herselt","Hulshout"],
+
+    "Leuven": ["Leuven","Herent","Bertem","Oud-Heverlee","Huldenberg","Tervuren","Kortenberg","Bierbeek","Boutersem","Holsbeek","Rotselaar","Haacht","Boortmeerbeek","Keerbergen","Tremelo","Overijse","Hoeilaart"],
+
+    "Aarschot-Diest": ["Aarschot","Begijnendijk","Scherpenheuvel-Zichem","Diest","Tielt-Winge","Glabbeek","Kortenaken","Bekkevoort"],
+
+    "Tienen": ["Tienen","Hoegaarden","Linter","Zoutleeuw","Landen","Geetbets","Lubbeek"],
+
+    "Vilvoorde": ["Vilvoorde","Zaventem","Grimbergen","Machelen","Kampenhout","Steenokkerzeel","Meise","Kraainem","Wezembeek-Oppem","Wemmel","Zemst","Kapelle-op-den-Bos"],
+
+    "Halle": ["Halle","Beersel","Sint-Pieters-Leeuw","Lennik","Pepingen","Bever","Pajottegem","Roosdaal","Liedekerke","Sint-Genesius-Rode","Drogenbos","Linkebeek"],
+
+    "Asse": ["Asse","Dilbeek","Ternat","Affligem","Merchtem","Londerzeel"],
+
+    "Hasselt-Genk": ["Hasselt","Genk","Diepenbeek","Zonhoven","Zutendaal","Houthalen-Helchteren","Heusden-Zolder","Lummen","Herk-de-Stad","Halen","As"],
+
+    "Noord-Limburg": ["Lommel","Pelt","Hamont-Achel","Hechtel-Eksel","Peer","Bocholt","Beringen","Tessenderlo-Ham","Leopoldsburg"],
+
+    "Maasland": ["Maaseik","Dilsen-Stokkem","Kinrooi","Bree","Oudsbergen","Maasmechelen","Lanaken","Bilzen","Hoeselt"],
+
+    "Sint-Truiden-Tongeren": ["Sint-Truiden","Gingelom","Nieuwerkerken","Alken","Wellen","Heers","Tongeren","Borgloon","Riemst","Voeren","Herstappe"],
+}
+BUFFER_M = 3000                        # 3 km buffer
+CONTACT_EMAIL = "olivier@magicworx.be" # <-- jouw echte e-mail
+# -------------------------------------------------------------------
+
+HEADERS = {"User-Agent": f"magicworx-geo/1.0 ({CONTACT_EMAIL})"}
+to_l72 = Transformer.from_crs(4326, 31370, always_xy=True).transform
+to_wgs = Transformer.from_crs(31370, 4326, always_xy=True).transform
+
+def boundary(town):
+    r = requests.get("https://nominatim.openstreetmap.org/search",
+        params={"q": f"{town}, Belgium","format":"json","polygon_geojson":1,"limit":5},
+        headers=HEADERS, timeout=30)
+    r.raise_for_status()
+    for x in r.json():
+        g = x.get("geojson", {})
+        if g.get("type") in ("Polygon","MultiPolygon") and x.get("class")=="boundary":
+            return shape(g), x.get("display_name")
+    for x in r.json():
+        g = x.get("geojson", {})
+        if g.get("type") in ("Polygon","MultiPolygon"):
+            return shape(g), x.get("display_name")
+    return None, None
+
+rows, problems, counts = {}, [], {}
+print("========== CONTROLE (elke gemeente moet 'ok' zijn) ==========")
+for regio, towns in REGIONS.items():
+    print(f"\n--- {regio} ---")
+    polys = []
+    for t in towns:
+        geom, name = boundary(t)
+        if geom:
+            print(f"  ok    {t:<24} -> {name}")
+            polys.append(geom)
+        else:
+            print(f"  MISS  {t:<24} -> NIET GEVONDEN")
+            problems.append((regio, t))
+        time.sleep(1.1)
+    counts[regio] = (len(polys), len(towns))
+    if not polys:                               # beveiliging: geen enkele gemeente gevonden
+        print(f"  !! GEEN gemeenten gevonden voor {regio} — overgeslagen")
+        continue
+    merged = unary_union(polys)
+    buffered = transform(to_wgs, transform(to_l72, merged).buffer(BUFFER_M))
+    buffered = buffered.simplify(0.0005, preserve_topology=True)
+    rows[regio] = (", ".join(towns), json.dumps(mapping(buffered)))
+    print(f"  => {len(polys)}/{len(towns)} gemeenten gevonden, {len(rows[regio][1])} tekens")
+
+print("\n\n#####  PLAK-BLOK — kopieer alles hieronder, plak in cel A2  #####")
+print("#####  (kolom A=regio, B=gemeenten, C=geolocation)          #####\n")
+for regio, (gem, poly) in rows.items():
+    print(f"{regio}\t{gem}\t{poly}")
+
+print("\n\n========== SAMENVATTING (scan deze eerst) ==========")
+for regio, (found, exp) in counts.items():
+    length = len(rows[regio][1]) if regio in rows else 0
+    flags = []
+    if found != exp:      flags.append("GEMEENTE ONTBREEKT")
+    if length > 45000:    flags.append("TE LANG — verhoog simplify naar 0.001")
+    if found == 0:        flags.append("LEEG")
+    flag = ("   <-- " + ", ".join(flags)) if flags else ""
+    print(f"  {regio:<24} {found}/{exp} gem   {length:>6} tekens{flag}")
+
+if problems:
+    print("\n!!!!! NIET GEVONDEN — laat me weten, we fixen de spelling:")
+    for regio, t in problems:
+        print(f"   {regio}: {t}")

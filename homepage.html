@@ -960,7 +960,7 @@ a.niche:hover .niche-arrow { transform: translateX(4px); }
 // een nieuwe regio of niche wordt toegevoegd.
 // =====================================================================
 (function(){
-  var REGISTRY_URL = 'https://cdn.jsdelivr.net/gh/Magicworx-be/keurwijzer-data/registry.json';
+  var REGISTRY_URL = 'https://cdn.jsdelivr.net/gh/Magicworx-be/keurwijzer-data@main/registry.json';
   var FALLBACK_URL = 'https://raw.githubusercontent.com/Magicworx-be/keurwijzer-data/main/registry.json';
 
   function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
@@ -1026,16 +1026,30 @@ a.niche:hover .niche-arrow { transform: translateX(4px); }
     }
   }
 
-  fetch(REGISTRY_URL, { cache: 'no-cache' })
-    .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
+  // Beide bronnen PARALLEL ophalen en de verste nemen (op _generated).
+  // Zie hub.html voor de uitleg: een CDN kan een verouderde kopie serveren met
+  // een keurige 200, waardoor een fallback-op-fout nooit inspringt.
+  function haalRegistry() {
+    var pogingen = [REGISTRY_URL, FALLBACK_URL].map(function(url){
+      return fetch(url, { cache: 'no-cache' })
+        .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function(d){ return (d && Array.isArray(d.pages)) ? d : null; })
+        .catch(function(){ return null; });
+    });
+    return Promise.all(pogingen).then(function(lijst){
+      var geldig = lijst.filter(function(d){ return d; });
+      if (!geldig.length) throw new Error('geen bruikbare registry');
+      geldig.sort(function(a, b){
+        return String(b._generated || '').localeCompare(String(a._generated || ''));
+      });
+      return geldig[0];
+    });
+  }
+
+  haalRegistry()
     .then(render)
     .catch(function(){
-      fetch(FALLBACK_URL, { cache: 'no-cache' })
-        .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
-        .then(render)
-        .catch(function(){
-          // Fallback: hardcoded links blijven staan, niets doen
-        });
+      // Fallback: hardcoded links blijven staan, niets doen
     });
 })();
 </script>

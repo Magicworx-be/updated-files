@@ -1,0 +1,96 @@
+KEURWIJZER CONTROLERAPPORT — dakwerkers-veurne-diksmuide  (variant: Top 10-concept, geen zichtbare score)
+Peildatum: 2026-08-28 · Prior C (regiogemiddelde, tijdsgewogen): 4.705
+Methodiek-versie: 4 (nieuwste, standaard)  ·  vertrouwen-vloer 4.0→0, 5.0→1  ·  recentheid vol bij 10 reviews/24m  ·  publicatiedrempel ≥15 reviews
+Opnamecriteria: gemeente in lijst, ≥10 reviews, ≥3 in 24m
+Gewichten: 35% vertrouwen / 30% reviewkwaliteit / 15% recentheid / 20% vakfocus
+Eligible bedrijven: 4 (waarvan 4 publicabel, ≥15 reviews) → gepubliceerd: Top 4 (4 bedrijven)
+
+TOP 4  (dit staat op de site — zonder cijfer)
+pos  comp   trust  rq    rec   focus  bayes  Rw    v_w    n24  reviews  bedrijf
+ #1  0.860  0.786  0.83  0.90  1.00   4.79   4.89   12.3    9       21  Dakwerken De Raeve | Platte daken in EPDM | Regio Kortemark (Zarren) & West-Vlaanderen
+ #2  0.827  0.745  0.83  1.00  0.83   4.75   4.81   10.4   11       16  Dakwerken Bruneel BV - Lieven Claus : dakwerken & installateur zonnepanelen, laadpalen en thuisbatterijen
+ #3  0.784  0.668  0.83  1.00  0.75   4.67   4.63   13.9   13       29  De Torre Veurne
+ #4  0.493  0.625  0.46  0.30  0.46   4.63   4.49    9.7    3       32  ESE
+
+VAKFOCUS-AUDIT (bron van de specialiteitsdimensie, per gerankt bedrijf)
+    Dakwerken De Raeve | Platte daken in EPDM | Regio Kortemark (Zarren) & West-Vlaanderen — 5.0 via https://www.offerteplatdak.be/
+    Dakwerken Bruneel BV - Lieven Claus : dakwerken & installateur zonnepanelen, laadpalen en thuisbatterijen — 4.3 via https://www.dakwerkenbruneel.be/
+    De Torre Veurne — 4.0 via https://www.de-torre.be/
+    ESE — 2.8 via https://www.esegroup.be/
+
+ROBUUSTHEID VAN DE SELECTIE (±0,5 op reviewkwaliteit + vakfocus, 5000 trials, vaste seed)
+  kans = P(blijft in Top 4)   ·   band = 5e–95e percentiel van de positie
+  #1  kans 100%   band #1–#2   vast          Dakwerken De Raeve | Platte daken in EPDM | Regio Kortemark (Zarren) & West-Vlaanderen
+  #2  kans 100%   band #1–#3   vast          Dakwerken Bruneel BV - Lieven Claus : dakwerken & installateur zonnepanelen, laadpalen en thuisbatterijen
+  #3  kans 100%   band #2–#3   vast          De Torre Veurne
+  #4  kans 100%   band #4–#4   vast          ESE
+  Samengevat: 4 vast, 0 waarschijnlijk, 0 wankel (van 4).
+
+NOG NIET ELIGIBLE — NIET OP DE SITE (wél in prospectiedocument, max 10)
+    Elinti BV - EPC & asbestattest - Nick De Keyser — Geen vakspecialist voor deze niche (vakfocus 1 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    Glenn Piessens Renovatie BV — Geen vakspecialist voor deze niche (vakfocus 1,33 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    Leander Fieu - Bouw en totaalrenovatie — Geen vakspecialist voor deze niche (vakfocus 2,17 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    MBITEC bv — Geen vakspecialist voor deze niche (vakfocus 1,33 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    Studiovis — Nog te weinig recente reviews (0 in de laatste 24 maanden, min. 3) voor een actuele beoordeling.
+    Covemaeker — Nog te weinig recente reviews (0 in de laatste 24 maanden, min. 3) voor een actuele beoordeling.
+    TGR-Ontmossing Uw specialist in dakontmossing, gevelreining en renovatie,vogelwering toepassingen. — Geen geverifieerde eigen website — vereist voor opname (methodiek v3+).
+    Bocket Interieur — Nog te weinig recente reviews (1 in de laatste 24 maanden, min. 3) voor een actuele beoordeling.
+    Dakwerken Vandekerckhove — Nog te weinig recente reviews (1 in de laatste 24 maanden, min. 3) voor een actuele beoordeling.
+    Loor Gregory | Gevelrenovatie & vochtbestrijding — Nog te weinig recente reviews (1 in de laatste 24 maanden, min. 3) voor een actuele beoordeling.
+
+GEEN LOCATIEDATA (geen gemeente → altijd weggelaten, niet geraden)
+    Groep Vermeersch Dakwerken — https://dakwerkennick.be/
+    Dakwerken Pollet — https://dakwerkenpollet.be/
+    Zink en Koper Werken Stijn — https://www.zinkenkoperwerkenstijn.com/
+    Dakwerken Fieuw — https://www.dakwerkenfieuw.com/
+    Sterkwerk dakwerken — https://sterkwerkdakwerken.be/
+    Dakwerken Jens Devisch — https://www.dakwerkenjensdevisch.be/
+    TG Roofs. — http://tgr-ontmossing.be/
+    Daenens, poetshulp met dienstencheques (voorheen Dienstenaanhuis Houthulst) — http://daenens.be/
+    Basewoods
+
+BUITEN DE GEMEENTELIJST (volledig weggelaten)
+    Dakwerken Lefevre Danny BV. (Middelkerke)
+    Peter Logghe Pleisterwerken (Ichtegem)
+    Dak- en Wandpanelen Behaeghel (Gistel)
+    Philippe Hoornaert (Staden)
+    Totaalprojecten Margodt (Staden)
+    Willaert Pieter (Gistel)
+    De Schuyter / Dirk (Gistel)
+    Dakwerken Poiz (Gistel)
+    D. M. Roof (Middelkerke)
+    Dakwerken Kurt Buildings (Vleteren)
+    Jiovanni dakwerken (Ichtegem)
+    B&S Dakwerken (Hooglede)
+    Dakwerken Pieter Logghe (Ichtegem)
+    Bruggeman / Freddy (Staden)
+    Platteeuw Stijn Bv (Hooglede)
+    Cauwelier Welding (Staden)
+    Dakwerken Vermote (Middelkerke)
+    Lefevre Lieven (Middelkerke)
+    De Maesschalck Peter (Middelkerke)
+    Dakor Dakwerken 🔨🏠 (Torhout)
+    Dakwerken Guessoum BVBA (Staden)
+    Boscart / Wietze (Vleteren)
+    Toortelboom / Geert (Ichtegem)
+    Dewulf-Lacante VOF (Ieper)
+    Vanhoecke Construct (Ieper)
+    Gedimat Vandenberghe (Ieper)
+    BV Steve Platteeuw (Langemark-Poelkapelle)
+    Gedimat Tanghe (Ichtegem)
+    Dakwerken Dewulf Torhout (Torhout)
+    BV Hollevoet Martin (Ichtegem)
+    Logghe Alexander (Ichtegem)
+    Daktigo (Ieper)
+    Verhelst-Casier | dakwerken & isolatie, gevelbekleding (crepi, sidings, leien), asbestverwijdering (Torhout)
+
+WAARSCHUWINGEN
+  ! "Groep Vermeersch Dakwerken": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
+  ! "Dakwerken Pollet": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
+  ! "Zink en Koper Werken Stijn": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
+  ! "Dakwerken Fieuw": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
+  ! "Sterkwerk dakwerken": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
+  ! "Dakwerken Jens Devisch": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
+  ! "TG Roofs.": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
+  ! "Daenens, poetshulp met dienstencheques (voorheen Dienstenaanhuis Houthulst)": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
+  ! "Basewoods": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)

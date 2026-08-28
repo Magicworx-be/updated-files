@@ -1,0 +1,32 @@
+{
+  "slug": "dakwerkers-oostende",
+  "vak": {
+    "mv": "dakwerkers",
+    "mvCap": "Dakwerkers",
+    "ev": "dakwerker",
+    "kort": "dakwerken",
+    "syn": { "mv": "dakdekkers", "ev": "dakdekker" }
+  },
+  "regio": {
+    "naam": "regio Oostende",
+    "kern": "Oostende",
+    "provincie": "West-Vlaanderen"
+  },
+  "gemeenten": [
+    "Oostende", "Stene", "Zandvoorde", "Raversijde",
+    "Bredene",
+    "De Haan", "Klemskerke", "Vlissegem", "Wenduine",
+    "Gistel", "Moere", "Snaaskerke", "Zevekote",
+    "Ichtegem", "Bekegem", "Eernegem",
+    "Middelkerke", "Leffinge", "Lombardsijde", "Mannekensvere", "Schore",
+    "Sint-Pieters-Kapelle", "Slijpe", "Westende", "Wilskerke",
+    "Oudenburg", "Ettelgem", "Roksem", "Westkerke"
+  ],
+  "zoektermen": ["dakwerker Oostende", "dakdekker Oostende", "dakwerken Oostende"],
+  "peildatum": "2026-08-28",
+  "updateDatum": "augustus 2026",
+  "hero": {
+    "img": "https://assets.cdn.filesafe.space/fgbjON9EFqwVMZW3nImb/media/6a56552b524a3ec4c67a7cac.png",
+    "alt": "Dakwerker aan het werk op een dak in regio Oostende"
+  }
+}

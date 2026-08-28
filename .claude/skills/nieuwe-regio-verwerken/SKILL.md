@@ -67,6 +67,13 @@ node scripts/normalize.js apify {{SLUG}} {{REVIEWS_PAD_UIT_STAP1}} {{PLACES_PAD_
 De rest van Fase 1-5 (gemeentenlijst, bevriezen van `beoordeling.json`, `build-all.js`,
 GHL-overdracht) blijft ongewijzigd. Wijk er niet van af.
 
+**Sla Fase 4b nooit over.** Na `build-all.js` controleer je altijd of de nieuwe regio
+ook écht op de live niche-hub (`keurwijzer.be/<niche>/`) als klikbare kaart verschijnt,
+niet als grijze "binnenkort"-kaart. Dat kan stil misgaan: een CDN kan een verouderde
+`registry.json` serveren met een gewone `200`, waardoor niets faalt en geen fallback
+inspringt. De hubkaarten worden clientside gerenderd, dus de slug staat níét in de ruwe
+HTML — je moet de pagina renderen met de browser-tools. Meld de uitkomst expliciet.
+
 ## Stap 3 — Outreach (Fase 6)
 
 Na de GHL-overdracht: volg **Fase 6** van `prompts/directory-page-emails-prompt.md` met de

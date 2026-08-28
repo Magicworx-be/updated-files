@@ -1,0 +1,1860 @@
+{
+  "bedrijven": [
+    {
+      "bedrijf": "De Torre Veurne",
+      "reviewkwaliteit": 4.33,
+      "vakfocus": 4,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.de-torre.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "hellende-daken",
+        "platte-daken",
+        "dakisolatie",
+        "zinkwerk"
+      ],
+      "chipsSite": [
+        "Erkend Velux-installateur",
+        "Erkend Cedral-installateur"
+      ],
+      "chipsReview": [
+        "Afspraken nagekomen",
+        "Factuur volgens offerte"
+      ],
+      "synthese": "De Torre voert zowel hellende als platte daken uit, met isolatie, goten en zinkwerk, en heeft daarnaast een afdeling sanitair en centrale verwarming. Klanten schrijven opvallend vaak over renovaties van oude kustvilla's en geklasseerde panden, over natuurleien en EPDM, en vermelden geregeld dat de factuur overeenstemt met de offerte.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken De Raeve | Platte daken in EPDM | Regio Kortemark (Zarren) & West-Vlaanderen",
+      "reviewkwaliteit": 4.33,
+      "vakfocus": 5,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.offerteplatdak.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken",
+        "epdm",
+        "pvc-dakbedekking"
+      ],
+      "chipsSite": [
+        "Meer dan 20 jaar vakmanschap"
+      ],
+      "chipsReview": [
+        "Transparante offerte",
+        "Nette werf"
+      ],
+      "synthese": "Dakwerken De Raeve uit Zarren legt zich toe op platte daken in EPDM en PVC, zowel bij nieuwbouw als renovatie. Klanten vermelden consequent een transparante offerte, duidelijke communicatie en een propere opkuis; de zaakvoerders reageren op vrijwel elke review.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Bruneel BV - Lieven Claus : dakwerken & installateur zonnepanelen, laadpalen en thuisbatterijen",
+      "reviewkwaliteit": 4.33,
+      "vakfocus": 4.33,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.dakwerkenbruneel.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "hellende-daken",
+        "dakisolatie",
+        "zinkwerk",
+        "dakramen"
+      ],
+      "chipsSite": [
+        "Vier generaties dakvakmanschap"
+      ],
+      "chipsReview": [
+        "Duidelijke communicatie",
+        "Propere afwerking"
+      ],
+      "synthese": "Dakwerken Bruneel uit Merkem doet dakrenovatie, dakisolatie, platte daken, goten en zinkwerk, dakramen en asbestverwijdering, en plaatst daarnaast zonnepanelen en thuisbatterijen. Reviews gaan over volledig vernieuwde leien daken en bijhorend timmerwerk; het bedrijf beantwoordt ook kritische reacties inhoudelijk.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Elinti BV - EPC & asbestattest - Nick De Keyser",
+      "reviewkwaliteit": 3.17,
+      "vakfocus": 1,
+      "vakfocusBron": "website",
+      "websiteBezocht": "http://www.nickdekeyser.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "epc",
+        "asbestattest",
+        "elektrische-keuring"
+      ],
+      "chipsSite": [
+        "Erkend energiedeskundige"
+      ],
+      "chipsReview": [
+        "Snelle service",
+        "Stipt"
+      ],
+      "synthese": "Elinti uit Klerken levert EPC-certificaten, asbestattesten en elektrische keuringen. Klanten vermelden vooral de snelle afhandeling en de duidelijke rapporten; dakwerken behoort niet tot het aanbod.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "TGR-Ontmossing Uw specialist in dakontmossing, gevelreining en renovatie,vogelwering toepassingen.",
+      "reviewkwaliteit": 2.83,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakontmossing",
+        "gevelreiniging"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Netjes opgeruimd"
+      ],
+      "synthese": "TGR uit Koekelare richt zich op dakontmossing, gevelreiniging en aanverwante behandelingen. Klanten die een review met tekst schrijven, vermelden vooral het nette opruimen na de werken.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Leander Fieu - Bouw en totaalrenovatie",
+      "reviewkwaliteit": 4.67,
+      "vakfocus": 2.17,
+      "vakfocusBron": "website",
+      "websiteBezocht": "http://www.fieuleander.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "totaalrenovatie",
+        "nieuwbouw",
+        "ruwbouw"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Afspraken nagekomen",
+        "Duidelijke communicatie"
+      ],
+      "synthese": "Leander Fieu uit Stavele is een bouwonderneming voor nieuwbouw, renovatie en bouwcoordinatie. Klanten schrijven uitgebreid over totaalrenovaties waarin ook dakwerken voorkomen, en vermelden consequent stipte opvolging en heldere communicatie.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "DERYNCK Houtrealisaties",
+      "reviewkwaliteit": 4.17,
+      "vakfocus": 2.17,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.derynck-houtrealisaties.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "houtbouw",
+        "dakconstructies",
+        "gevelbekleding"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Deskundig advies",
+        "Oog voor detail"
+      ],
+      "synthese": "Derynck Houtrealisaties uit Houthulst maakt houten dakconstructies, bijgebouwen, carports en gevelbekleding. Reviews benadrukken het meedenken bij het ontwerp en de afwerking; dakbedekking zelf staat niet in het aanbod.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "ESE",
+      "reviewkwaliteit": 2.83,
+      "vakfocus": 2.83,
+      "vakfocusBron": "website",
+      "websiteBezocht": "https://www.esegroup.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken",
+        "asbestverwijdering",
+        "sandwichpanelen"
+      ],
+      "chipsSite": [
+        "Erkend installateur"
+      ],
+      "chipsReview": [
+        "Vlotte service"
+      ],
+      "synthese": "ESE uit Veurne bundelt vier afdelingen: zonnepanelen en batterijen, automatisatie, dakwerken (platte daken, asbestverwijdering, sandwichpanelen) en service. De meeste reviews gaan over zonnepaneelinstallaties; de reviews van de laatste jaren tonen een duidelijk sterkere lijn dan die van 2020-2021.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "MBITEC bv",
+      "reviewkwaliteit": 4.33,
+      "vakfocus": 1.33,
+      "vakfocusBron": "website",
+      "websiteBezocht": "http://mbitec.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "totaalrenovatie",
+        "interieur",
+        "installatietechnieken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Stipte planning",
+        "Goede opvolging"
+      ],
+      "synthese": "MBITEC uit Veurne doet totaalrenovatie, interieurinrichting en installatietechnieken, vooral aan de westkust. Klanten vermelden consequent de strakke planning, de opvolging op de werf en de begeleiding vanaf het ontwerp.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Glenn Piessens Renovatie BV",
+      "reviewkwaliteit": 4.5,
+      "vakfocus": 1.33,
+      "vakfocusBron": "website",
+      "websiteBezocht": "http://www.glennpiessens-renovatie.be/",
+      "actiefSinds": null,
+      "specialties": [
+        "badkamerrenovatie",
+        "vloeren",
+        "terrassen-opritten"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Afspraken nagekomen",
+        "Nette werf"
+      ],
+      "synthese": "Glenn Piessens Renovatie uit Veurne voert binnen- en buitenrenovaties uit: badkamers, vloeren, ruwbouw, terrassen, opritten en tuinaanleg. Klanten schrijven opvallend consequent over stipte afspraken, oog voor detail en een propere werf.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Studiovis",
+      "reviewkwaliteit": 4,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "grafisch-ontwerp",
+        "webdesign"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Creatief ontwerp"
+      ],
+      "synthese": "Studiovis uit Alveringem is een grafisch ontwerpbureau voor websites, drukwerk en huisstijl.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Covemaeker",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "nieuwbouw",
+        "algemene-bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Goede begeleiding"
+      ],
+      "synthese": "Covemaeker uit Diksmuide is een bouwfirma voor nieuwbouwwoningen. Klanten vermelden vooral de begeleiding tijdens het bouwproces.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Vandekerckhove",
+      "reviewkwaliteit": 4,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakramen",
+        "velux",
+        "dakrenovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Correcte offerte",
+        "Stipte aanpak"
+      ],
+      "synthese": "Dakwerken Vandekerckhove uit Koekelare plaatst onder meer dakramen en rolluiken op velux. Reviews vermelden een correcte offerte die overeenstemt met de eindfactuur.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Bocket Interieur",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "interieur",
+        "maatwerk"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Vakmanschap"
+      ],
+      "synthese": "Bocket uit Houthulst maakt interieur op maat. De reviews zijn overwegend kort en zonder toelichting.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Loor Gregory | Gevelrenovatie & vochtbestrijding",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "gevelrenovatie",
+        "vochtbestrijding"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Loor Gregory uit Diksmuide doet gevelrenovatie en vochtbestrijding. De reviews lopen sterk uiteen, met terugkerende opmerkingen over bereikbaarheid.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dzi",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken",
+        "dakherstelling"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Dzi uit De Panne voert dakwerken en herstellingen uit. De reviews vermelden herhaaldelijk problemen met de opvolging van lekken.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Kegel",
+      "reviewkwaliteit": 4.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "hellende-daken",
+        "dakisolatie",
+        "dakgoten"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Kwaliteitsmateriaal",
+        "Nette afwerking"
+      ],
+      "synthese": "Dakwerken Kegel uit Nieuwpoort plaatst volledige daken met isolatie en goten. Alle reviews zijn recent en beschrijven het werk concreet.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakplaten.be",
+      "reviewkwaliteit": 4,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakplaten",
+        "materialen"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Vlotte levering"
+      ],
+      "synthese": "Dakplaten.be uit Koekelare levert dakplaten en dakmaterialen. Klanten vermelden de snelle levering en de hulp bij het samenstellen van de bestelling.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Schrijwerker Vantyghem BV",
+      "reviewkwaliteit": 1.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "schrijnwerk",
+        "terrassen"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Schrijnwerker Vantyghem uit De Panne doet schrijnwerk en terrassen. De reviews lopen sterk uiteen.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "BKT Dakwerken bv",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "BKT Dakwerken uit Houthulst voert dakwerken uit. De reviews zijn grotendeels zonder tekst.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakverzorging Vandamme",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakonderhoud",
+        "dakverzorging"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Dakverzorging Vandamme uit Diksmuide doet dakonderhoud. Vrijwel alle reviews bestaan enkel uit sterren.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "De Kappe",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken",
+        "dakherstelling"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle interventie"
+      ],
+      "synthese": "De Kappe uit Koksijde voert dakwerken en herstellingen uit. Reviews vermelden zowel snelle stormherstellingen als moeilijke bereikbaarheid.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "David Renovatiewerken nv",
+      "reviewkwaliteit": 4,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "renovatie",
+        "ruwbouw"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Stipte afspraken"
+      ],
+      "synthese": "David Renovatiewerken uit Veurne doet renovatie- en ruwbouwwerken. Reviews vermelden een snelle offerte en een correcte nacalculatie.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Gallenco BV",
+      "reviewkwaliteit": 4,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakrenovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Binnen tijdsschema"
+      ],
+      "synthese": "Gallenco uit Nieuwpoort voert dakrenovaties uit. De reviews zijn kort maar vermelden concreet het verloop binnen het tijdsschema.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Maekelberg",
+      "reviewkwaliteit": 4,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Transparante prijs",
+        "Proper werk"
+      ],
+      "synthese": "Dakwerken Maekelberg uit Kortemark voert dakwerken uit. Klanten vermelden de transparantie over de prijs.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Verhelst Wennie",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakrenovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Vakkundig"
+      ],
+      "synthese": "Dakwerken Verhelst uit Kortemark doet dakrenovaties. Een review beschrijft het werk uitgebreid, de rest is zonder tekst.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Vandewaetere Franky",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "sanitair",
+        "herstellingen"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle interventie"
+      ],
+      "synthese": "Vandewaetere uit Koekelare voert onder meer herstellingen aan sanitair uit. Klanten vermelden de snelle interventie.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Provoost en Cie",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Provoost en Cie uit Kortemark voert bouwwerken uit. De reviews lopen uiteen.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Vlieghe Renovatiewerken",
+      "reviewkwaliteit": 4,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "renovatie",
+        "terrassen",
+        "afbraakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Netjes gewerkt",
+        "Volgens afspraak"
+      ],
+      "synthese": "Vlieghe Renovatiewerken uit Alveringem doet renovatie-, terras- en afbraakwerken. De reviews zijn recent en beschrijven het werk concreet.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Schoonmaakbedrijf Severine Serge",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "schoonmaak"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Netjes en stipt"
+      ],
+      "synthese": "Schoonmaakbedrijf Severine Serge uit Veurne levert poetsdiensten.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Eric Hanssens",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Eric Hanssens uit Kortemark. De reviews bestaan enkel uit sterren.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Vanneuville Dennis",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Dakwerken Vanneuville uit Nieuwpoort voert dakwerken uit. De reviews lopen uiteen, met een opmerking over kleinere herstellingen.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Van De Slycke Pedro bvba",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Zorgvuldig",
+        "Volgens afspraak"
+      ],
+      "synthese": "Van De Slycke uit Houthulst voert bouwwerken uit. Een review beschrijft de zorgvuldige uitvoering.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Herrewyn Dirk",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Herrewyn uit Diksmuide. De reviews bestaan enkel uit sterren.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Franky Hostens",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Correcte prijs"
+      ],
+      "synthese": "Franky Hostens uit Houthulst. Een review vermeldt de correcte prijs.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Rambour Rog",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Oog voor detail"
+      ],
+      "synthese": "Rambour uit Zarren-Werken. Een review vermeldt het oog voor detail.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "DAKWERKEN VANDAMME",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle service"
+      ],
+      "synthese": "Dakwerken Vandamme uit Kortemark voert dakwerken uit. Een review vermeldt het nakomen van de afspraak.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Verpoort Dakwerken",
+      "reviewkwaliteit": 4,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Duidelijke communicatie",
+        "Netjes afgewerkt"
+      ],
+      "synthese": "Verpoort Dakwerken uit Koekelare voert dakwerken uit. De drie reviews zijn recent en beschrijven het werk concreet.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Kris Verhelst",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Vakman"
+      ],
+      "synthese": "Kris Verhelst uit Kortemark. De reviews vermelden vakkennis en een correcte afhandeling.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Bert Vanacker BV",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Bert Vanacker uit Koekelare. Er zijn nog te weinig reviews met tekst.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Geert David Eco Roof Solutions",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Geert David Eco Roof Solutions uit Veurne. De twee reviews bestaan enkel uit sterren en lopen uiteen.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Marchand Bart",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Marchand uit Kortemark. De twee reviews bestaan enkel uit sterren en lopen uiteen.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakpunt",
+      "reviewkwaliteit": 4,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakrenovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snel bereikbaar"
+      ],
+      "synthese": "Dakpunt uit Nieuwpoort voert dakrenovaties uit. Beide reviews beschrijven het werk concreet.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Maekelberg / Pablo",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "herstellingen"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle reactie"
+      ],
+      "synthese": "Maekelberg uit Koekelare. Een review vermeldt een snelle herstelling.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Dommecent",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Goede service"
+      ],
+      "synthese": "Dakwerken Dommecent uit Diksmuide. Er zijn nog weinig reviews met tekst.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Timmer- en Schrijnwerk Couvreur Eli🔨",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "schrijnwerk",
+        "timmerwerk"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Vlotte communicatie"
+      ],
+      "synthese": "Timmer- en Schrijnwerk Couvreur uit Houthulst. Een review vermeldt de prijs-kwaliteitverhouding en het propere werk.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Condak BV",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Condak uit Veurne. De reviews bestaan enkel uit sterren.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Stefaan Maerten",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Dakwerken Stefaan Maerten uit Veurne. De reviews bestaan enkel uit sterren.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "bouckies projects",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Bouckies Projects uit Veurne. De reviews bestaan enkel uit sterren.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Horik",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Horik uit Houthulst. De reviews bestaan enkel uit sterren.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Deda Projects Bv",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Deda Projects uit Houthulst. Een review vermeldt dat een offerteaanvraag onbeantwoord bleef.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Delva Bouwwerken",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken",
+        "opritten"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Degelijk werk"
+      ],
+      "synthese": "Delva Bouwwerken uit Veurne. Een review beschrijft de aanleg van een parking.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Cool",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Dakwerken Cool uit Kortemark. De twee reviews lopen uiteen.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dak en schrijnwerken Schaerlaeckens",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken",
+        "schrijnwerk"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Dak- en schrijnwerken Schaerlaeckens uit Diksmuide. Er is nog maar een review, zonder tekst.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "A.M. Renovation",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "renovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "A.M. Renovation uit Kortemark. Er is nog maar een review, zonder tekst.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Maekelberg / Pedro",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Maekelberg uit Kortemark. Er is nog maar een review, zonder tekst.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken D. Schoringsbedrijf",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Dakwerken D. uit Veurne. Er is nog maar een review, zonder tekst.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "task force",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Task Force uit Veurne. De enige review vermeldt het correct nakomen van afspraken.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Algemene Dakwerken Gianni Bulcke",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Algemene Dakwerken Gianni Bulcke uit Houthulst. Er is nog maar een review, zonder tekst.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Clabau",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakherstelling"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Correcte prijs"
+      ],
+      "synthese": "Dakwerken Clabau uit Kortemark. De enige review beschrijft een snelle dakherstelling.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dejonckheere",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Dejonckheere uit Houthulst. Er is nog maar een review, zonder tekst.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Rosseel Dimitri",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Rosseel uit Koekelare. Er is nog maar een review, zonder tekst.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Marc Vandekerckhove BV",
+      "reviewkwaliteit": 4,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakramen",
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Stipt",
+        "Mooie afwerking"
+      ],
+      "synthese": "Dakwerken Marc Vandekerckhove uit Koekelare plaatst onder meer dakramen. De enige review beschrijft het werk concreet.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Noppe Roofing",
+      "reviewkwaliteit": 4,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Vlot contact"
+      ],
+      "synthese": "Noppe Roofing uit Kortemark voert dakwerken uit. De enige review beschrijft het verloop uitgebreid.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Norré-Degraeve Renovatie",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "renovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Netjes achtergelaten"
+      ],
+      "synthese": "Norre-Degraeve Renovatie uit Nieuwpoort. De enige review vermeldt de nette werf.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Vanbelle / Marc",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vanbelle uit Zarren-Werken. Er is nog maar een review, zonder tekst.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Desender Geert",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Desender uit Kortemark. De enige review bevat nauwelijks tekst.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Schrijnwerken Koen Balloey BV Anko",
+      "reviewkwaliteit": 2.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "schrijnwerk"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Schrijnwerken Koen Balloey uit Houthulst. Er is nog maar een review, zonder tekst.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Reilhof Brecht",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "schrijnwerk",
+        "houtbouw"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Vlot verloop"
+      ],
+      "synthese": "Schrijnwerk Reilhof uit Kortemark. De enige review beschrijft de plaatsing van een buitenhuis.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Gedimat Tanghe",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwmaterialen"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Gedimat Tanghe is een handel in bouwmaterialen. Ligt buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Gedimat Vandenberghe",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwmaterialen"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Vriendelijke medewerkers"
+      ],
+      "synthese": "Gedimat Vandenberghe is een handel in bouwmaterialen. Ligt buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Verhelst-Casier | dakwerken & isolatie, gevelbekleding (crepi, sidings, leien), asbestverwijdering",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken",
+        "gevelbekleding",
+        "asbestverwijdering"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Verhelst-Casier doet dakwerken, isolatie en gevelbekleding. Ligt in Torhout, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Totaalprojecten Margodt",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken",
+        "totaalprojecten"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Afspraken nagekomen"
+      ],
+      "synthese": "Totaalprojecten Margodt voert onder meer dakwerken uit. Ligt in Staden, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Lefevre Lieven",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle interventie"
+      ],
+      "synthese": "Lefevre Lieven voert dakwerken uit. Ligt in Middelkerke, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakor Dakwerken 🔨🏠",
+      "reviewkwaliteit": 4,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakrenovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Vlot verloop"
+      ],
+      "synthese": "Dakor Dakwerken voert dakrenovaties uit. Ligt in Torhout, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Philippe Hoornaert",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken",
+        "loodsen"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Philippe Hoornaert voert dak- en bouwwerken uit. Ligt in Staden, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Willaert Pieter",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "rolluiken",
+        "dakramen"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Willaert Pieter plaatst onder meer rolluiken op dakramen. Ligt in Gistel, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Jens Devisch",
+      "reviewkwaliteit": 4,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Nauwkeurig",
+        "Duidelijke uitleg"
+      ],
+      "synthese": "Dakwerken Jens Devisch. De export bevat geen adresgegevens, waardoor het bedrijf niet aan een gemeente kan worden gekoppeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Jiovanni dakwerken",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Correcte werking"
+      ],
+      "synthese": "Jiovanni Dakwerken voert dakwerken uit. Ligt in Ichtegem, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "BV Hollevoet Martin",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Hollevoet Martin. Ligt in Ichtegem, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Sterkwerk dakwerken",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken",
+        "dakherstelling"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle hulp"
+      ],
+      "synthese": "Sterkwerk Dakwerken. De export bevat geen adresgegevens, waardoor het bedrijf niet aan een gemeente kan worden gekoppeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dak- en Wandpanelen Behaeghel",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakpanelen",
+        "wandpanelen"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Dak- en Wandpanelen Behaeghel levert panelen. Ligt in Gistel, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Daktigo",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Daktigo. Ligt in Ieper, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Lefevre Danny BV.",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken",
+        "stormschade"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Dakwerken Lefevre Danny. Ligt in Middelkerke, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Zink en Koper Werken Stijn",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "zinkwerk",
+        "koperwerk"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Zink en Koper Werken Stijn. De export bevat geen adresgegevens, waardoor het bedrijf niet aan een gemeente kan worden gekoppeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "D. M. Roof",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "platte-daken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Snelle offerte"
+      ],
+      "synthese": "D.M. Roof voert onder meer platte daken uit. Ligt in Middelkerke, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Boscart / Wietze",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Boscart. Ligt in Vleteren, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Toortelboom / Geert",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Toortelboom. Ligt in Ichtegem, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Dewulf Torhout",
+      "reviewkwaliteit": 4,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakrenovatie"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Vakman"
+      ],
+      "synthese": "Dakwerken Dewulf voert dakvernieuwingen uit. Ligt in Torhout, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "B&S Dakwerken",
+      "reviewkwaliteit": 1,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "B&S Dakwerken. Ligt in Hooglede, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Pieter Logghe",
+      "reviewkwaliteit": 3.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Goede opvolging"
+      ],
+      "synthese": "Dakwerken Pieter Logghe. Ligt in Ichtegem, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Pollet",
+      "reviewkwaliteit": 4,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "hellende-daken",
+        "dakramen",
+        "dakgoten"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Prijs volgens offerte"
+      ],
+      "synthese": "Dakwerken Pollet vernieuwt pannendaken, plaatst dakramen en goten. De export bevat geen adresgegevens, waardoor het bedrijf niet aan een gemeente kan worden gekoppeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Guessoum BVBA",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Dakwerken Guessoum. Ligt in Staden, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Peter Logghe Pleisterwerken",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "pleisterwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Peter Logghe Pleisterwerken. Ligt in Ichtegem, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "De Schuyter / Dirk",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "De Schuyter. Ligt in Gistel, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Poiz",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Dakwerken Poiz. Ligt in Gistel, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Fieuw",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Dakwerken Fieuw. De export bevat geen adresgegevens, waardoor het bedrijf niet aan een gemeente kan worden gekoppeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Bruggeman / Freddy",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Bruggeman. Ligt in Staden, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Cauwelier Welding",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "laswerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Cauwelier Welding. Ligt in Staden, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Vanhoecke Construct",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Vanhoecke Construct. Ligt in Ieper, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Basewoods",
+      "reviewkwaliteit": 4,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken",
+        "schrijnwerk"
+      ],
+      "chipsSite": [],
+      "chipsReview": [
+        "Planning nagekomen"
+      ],
+      "synthese": "Basewoods doet dak- en schrijnwerk. De export bevat geen adresgegevens, waardoor het bedrijf niet aan een gemeente kan worden gekoppeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Groep Vermeersch Dakwerken",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Groep Vermeersch Dakwerken. De export bevat geen adresgegevens, waardoor het bedrijf niet aan een gemeente kan worden gekoppeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Kurt Buildings",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Dakwerken Kurt Buildings. Ligt in Vleteren, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Platteeuw Stijn Bv",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Platteeuw Stijn. Ligt in Hooglede, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dakwerken Vermote",
+      "reviewkwaliteit": 1.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Dakwerken Vermote. Ligt in Middelkerke, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "De Maesschalck Peter",
+      "reviewkwaliteit": 1.5,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "De Maesschalck. Ligt in Middelkerke, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "TG Roofs.",
+      "reviewkwaliteit": 3,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "dakontmossing",
+        "vogelwering"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "TG Roofs doet dakreiniging en vogelwering. De export bevat geen adresgegevens, waardoor het bedrijf niet aan een gemeente kan worden gekoppeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Dewulf-Lacante VOF",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Dewulf-Lacante. Ligt in Ieper, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "BV Steve Platteeuw",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Steve Platteeuw. Ligt in Langemark-Poelkapelle, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Daenens, poetshulp met dienstencheques (voorheen Dienstenaanhuis Houthulst)",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "schoonmaak"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Daenens levert poetshulp met dienstencheques. De export bevat geen adresgegevens, waardoor het bedrijf niet aan een gemeente kan worden gekoppeld.",
+      "breuk": null
+    },
+    {
+      "bedrijf": "Logghe Alexander",
+      "reviewkwaliteit": 2,
+      "vakfocus": null,
+      "vakfocusBron": "geen-website",
+      "websiteBezocht": null,
+      "actiefSinds": null,
+      "specialties": [
+        "bouwwerken"
+      ],
+      "chipsSite": [],
+      "chipsReview": [],
+      "synthese": "Logghe Alexander. Ligt in Ichtegem, buiten de gemeentelijst van deze regio.",
+      "breuk": null
+    }
+  ]
+}

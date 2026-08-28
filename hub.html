@@ -204,7 +204,7 @@ h1,h2,h3 { font-family:var(--display); font-weight:700; line-height:1.12; letter
 // een nieuwe regio of niche wordt toegevoegd.
 // =====================================================================
 (function(){
-  var REGISTRY_URL = 'https://cdn.jsdelivr.net/gh/Magicworx-be/keurwijzer-data/registry.json';
+  var REGISTRY_URL = 'https://cdn.jsdelivr.net/gh/Magicworx-be/keurwijzer-data@main/registry.json';
   var FALLBACK_URL = 'https://raw.githubusercontent.com/Magicworx-be/keurwijzer-data/main/registry.json';
   var container = document.getElementById('hub-cards');
   var countEl   = document.getElementById('hub-count');
@@ -327,17 +327,35 @@ h1,h2,h3 { font-family:var(--display); font-weight:700; line-height:1.12; letter
     else if (hubType === 'regio') renderRegioHub(data);
   }
 
-  fetch(REGISTRY_URL, { cache: 'no-cache' })
-    .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
+  // Beide bronnen PARALLEL ophalen en de verste nemen (op _generated).
+  // Waarom niet gewoon fallback-bij-fout: een CDN kan een verouderde kopie
+  // serveren met een keurige 200, en dan springt een fallback-op-fout nooit in.
+  // Dat gebeurde op 2026-08-28 — jsDelivr serveerde een registry van vóór drie
+  // live regio's, waardoor Oostende, Ieper en Roeselare als "binnenkort" op de
+  // hubs stonden terwijl hun pagina's gewoon live waren. Door de verste van twee
+  // onafhankelijke bronnen te kiezen herstelt de pagina zichzelf, en hoeft ze
+  // nooit opnieuw in GHL geplakt te worden als één bron achterloopt.
+  function haalRegistry() {
+    var pogingen = [REGISTRY_URL, FALLBACK_URL].map(function(url){
+      return fetch(url, { cache: 'no-cache' })
+        .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function(d){ return (d && Array.isArray(d.pages)) ? d : null; })
+        .catch(function(){ return null; });
+    });
+    return Promise.all(pogingen).then(function(lijst){
+      var geldig = lijst.filter(function(d){ return d; });
+      if (!geldig.length) throw new Error('geen bruikbare registry');
+      geldig.sort(function(a, b){
+        return String(b._generated || '').localeCompare(String(a._generated || ''));
+      });
+      return geldig[0];
+    });
+  }
+
+  haalRegistry()
     .then(render)
     .catch(function(){
-      // Fallback naar raw GitHub
-      fetch(FALLBACK_URL, { cache: 'no-cache' })
-        .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
-        .then(render)
-        .catch(function(){
-          container.innerHTML = '<p style="color:var(--muted)">De navigatie kon niet geladen worden. <a href="/">Ga naar de homepage</a>.</p>';
-        });
+      container.innerHTML = '<p style="color:var(--muted)">De navigatie kon niet geladen worden. <a href="/">Ga naar de homepage</a>.</p>';
     });
 })();
 </script>

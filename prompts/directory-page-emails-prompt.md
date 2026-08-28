@@ -180,11 +180,48 @@ Then check and report to me:
 - `reports/{{SLUG}}/…-prospectie-dasslim.md` — positions 11–20 + not-eligible
   (internal, do not publish).
 - The **"update in GHL" list** that `build-all.js` prints.
+- **Phase 4b below — the live check that the region really appears on the niche hub.**
+  This one is not optional and cannot be skipped by reasoning about it.
 
 `build-all.js` automatically pushes `registry.json` to GitHub
 (`Magicworx-be/keurwijzer-data`), after which the hub and homepage navigation picks up
 the new page client-side via jsDelivr. The hubs and homepage do **not** need to be
 pasted into GHL again — only the new detail page itself.
+
+### Phase 4b — MANDATORY live check: does the region actually show up on the niche hub?
+
+The paragraph above is a claim, not a fact — so verify it every single time, for every
+new region. It can fail **silently**: a CDN may serve an outdated `registry.json` with a
+perfectly normal `200`, so nothing throws, no fallback fires, and the new region just
+quietly stays a grey, non-clickable "binnenkort" card while its detail page is live. This
+happened on 2026-08-28 and hid three already-published regions (Oostende, Veurne-Diksmuide,
+Roeselare) as well as the new one. Never report a region as live on the strength of an
+exit code.
+
+**Step 1 — the data layer.** All three sources must contain `{{SLUG}}`:
+
+```bash
+node -e "const h=require('https');const SLUG='{{SLUG}}';const g=u=>new Promise(r=>h.get(u,{headers:{'User-Agent':'kw-check'}},s=>{let b='';s.on('data',d=>b+=d);s.on('end',()=>r(b))}).on('error',()=>r('')));(async()=>{const S={'jsDelivr ref-loos':'https://cdn.jsdelivr.net/gh/Magicworx-be/keurwijzer-data/registry.json','jsDelivr @main':'https://cdn.jsdelivr.net/gh/Magicworx-be/keurwijzer-data@main/registry.json','GitHub raw':'https://raw.githubusercontent.com/Magicworx-be/keurwijzer-data/main/registry.json'};for(const[n,u]of Object.entries(S)){let ok=false,gen='';try{const j=JSON.parse(await g(u));ok=j.pages.some(p=>p.slug===SLUG);gen=j._generated||''}catch(e){}console.log((ok?'OK   ':'MIST ')+n+'  '+gen)}})()"
+```
+
+**Step 2 — the rendered page.** The hub cards are injected client-side, so `{{SLUG}}` is
+**not** present in the raw HTML of the live hub — grepping the HTML gives a false
+negative. You must render it. Open `https://keurwijzer.be/{{NICHE}}/` with the browser
+tools and assert that the region appears as a **clickable** card (an `<a href>` to
+`/{{SLUG}}/`), not as a "binnenkort" label:
+
+```js
+[...document.querySelectorAll('#hub-cards a[href]')].map(a => a.getAttribute('href'))
+```
+
+For a **new region**, also open `https://keurwijzer.be/regio/<regioSlug>/` and check the
+niche card is there.
+
+**If anything is missing:** the push or the purge did not land. Re-run `node build-all.js`
+— `registry.json` carries a full `_generated` timestamp, so it differs on every build and
+the commit + purge of both jsDelivr variants always runs. Do **not** purge the CDN by hand
+to "fix" it before you understand why the automatic purge failed; a blind purge can pull an
+even older cached copy and make it worse. Report the outcome of both steps explicitly.
 
 Exceptions that **do** require a GHL paste:
 

@@ -1,0 +1,40 @@
+{
+  "slug": "dakwerkers-veurne-diksmuide",
+  "vak": {
+    "mv": "dakwerkers",
+    "mvCap": "Dakwerkers",
+    "ev": "dakwerker",
+    "kort": "dakwerken",
+    "syn": { "mv": "dakdekkers", "ev": "dakdekker" }
+  },
+  "regio": {
+    "naam": "regio Veurne-Diksmuide",
+    "kern": "Veurne-Diksmuide",
+    "provincie": "West-Vlaanderen"
+  },
+  "gemeenten": [
+    "Veurne", "Avekapelle", "Booitshoeke", "Bulskamp", "De Moeren",
+    "Eggewaartskapelle", "Houtem", "Steenkerke", "Vinkem", "Wulveringem",
+    "Zoutenaaie", "Beauvoorde",
+    "De Panne", "Adinkerke",
+    "Koksijde", "Oostduinkerke", "Wulpen", "Sint-Idesbald", "Koksijde-Bad",
+    "Nieuwpoort", "Ramskapelle", "Sint-Joris", "Nieuwpoort-Bad",
+    "Alveringem", "Beveren-aan-de-IJzer", "Beveren-aan-den-IJzer",
+    "Gijverinkhove", "Hoogstade", "Izenberge", "Leisele", "Oeren",
+    "Sint-Rijkers", "Stavele",
+    "Diksmuide", "Beerst", "Esen", "Kaaskerke", "Keiem", "Lampernisse",
+    "Leke", "Nieuwkapelle", "Oudekapelle", "Pervijze", "Sint-Jacobskapelle",
+    "Stuivekenskerke", "Vladslo", "Woumen", "Driekapellen",
+    "Houthulst", "Klerken", "Merkem", "Jonkershove",
+    "Koekelare", "Bovekerke", "Zande",
+    "Kortemark", "Handzame", "Werken", "Zarren", "Zarren-Werken",
+    "Lo-Reninge", "Lo", "Reninge", "Noordschote", "Pollinkhove"
+  ],
+  "zoektermen": ["dakwerker Veurne-Diksmuide", "dakdekker Veurne-Diksmuide", "dakwerken Veurne-Diksmuide"],
+  "peildatum": "2026-08-28",
+  "updateDatum": "augustus 2026",
+  "hero": {
+    "img": "https://assets.cdn.filesafe.space/fgbjON9EFqwVMZW3nImb/media/6a56552b524a3ec4c67a7cac.png",
+    "alt": "Dakwerker aan het werk op een dak in regio Veurne-Diksmuide"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "slug": "dakwerkers-roeselare",
+  "vak": {
+    "mv": "dakwerkers",
+    "mvCap": "Dakwerkers",
+    "ev": "dakwerker",
+    "kort": "dakwerken",
+    "syn": { "mv": "dakdekkers", "ev": "dakdekker" }
+  },
+  "regio": {
+    "naam": "regio Roeselare",
+    "kern": "Roeselare",
+    "provincie": "West-Vlaanderen"
+  },
+  "gemeenten": [
+    "Roeselare", "Rumbeke", "Oekene",
+    "Izegem", "Emelgem", "Kachtem",
+    "Hooglede", "Gits",
+    "Ingelmunster",
+    "Ledegem", "Rollegem-Kapelle", "Sint-Eloois-Winkel",
+    "Lichtervelde",
+    "Moorslede", "Dadizele", "Slypskapelle",
+    "Staden", "Oostnieuwkerke", "Westrozebeke"
+  ],
+  "zoektermen": ["dakwerker Roeselare", "dakdekker Roeselare", "dakwerken Roeselare"],
+  "peildatum": "2026-08-28",
+  "updateDatum": "augustus 2026",
+  "hero": {
+    "img": "https://assets.cdn.filesafe.space/fgbjON9EFqwVMZW3nImb/media/6a56552b524a3ec4c67a7cac.png",
+    "alt": "Dakwerker aan het werk op een dak in regio Roeselare"
+  }
+}

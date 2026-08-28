@@ -1,0 +1,35 @@
+{
+  "slug": "dakwerkers-ieper",
+  "vak": {
+    "mv": "dakwerkers",
+    "mvCap": "Dakwerkers",
+    "ev": "dakwerker",
+    "kort": "dakwerken",
+    "syn": { "mv": "dakdekkers", "ev": "dakdekker" }
+  },
+  "regio": {
+    "naam": "regio Ieper",
+    "kern": "Ieper",
+    "provincie": "West-Vlaanderen"
+  },
+  "gemeenten": [
+    "Ieper", "Boezinge", "Brielen", "Dikkebus", "Elverdinge", "Hollebeke",
+    "Sint-Jan", "Vlamertinge", "Voormezele", "Zillebeke", "Zuidschote",
+    "Poperinge", "Krombeke", "Proven", "Reningelst", "Roesbrugge-Haringe",
+    "Roesbrugge", "Haringe", "Watou", "Abele",
+    "Wervik", "Geluwe", "Kruiseke",
+    "Zonnebeke", "Beselare", "Geluveld", "Passendale",
+    "Langemark-Poelkapelle", "Langemark", "Poelkapelle", "Bikschote", "Sint-Juliaan",
+    "Heuvelland", "Kemmel", "Dranouter", "De Klijte", "Loker", "Nieuwkerke",
+    "Westouter", "Wijtschate", "Wulvergem",
+    "Mesen",
+    "Vleteren", "Oostvleteren", "Westvleteren", "Woesten"
+  ],
+  "zoektermen": ["dakwerker Ieper", "dakdekker Ieper", "dakwerken Ieper"],
+  "peildatum": "2026-08-28",
+  "updateDatum": "augustus 2026",
+  "hero": {
+    "img": "https://assets.cdn.filesafe.space/fgbjON9EFqwVMZW3nImb/media/6a56552b524a3ec4c67a7cac.png",
+    "alt": "Dakwerker aan het werk op een dak in regio Ieper"
+  }
+}
