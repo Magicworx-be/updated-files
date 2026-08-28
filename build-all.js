@@ -283,6 +283,13 @@ try {
   execFileSync('node', [path.join(ROOT, 'lib', 'push-badges.js')], { stdio: 'inherit' });
 } catch { /* fout wordt al gemeld door push-badges.js */ }
 
+// 8) de statische site publiceren (vervangt het handmatig plakken in GHL).
+//    Doet niets zolang GITHUB_SITE_REPO niet in .env staat — de build blijft
+//    dan exact werken zoals voorheen.
+try {
+  execFileSync('node', [path.join(ROOT, 'lib', 'push-site.js')], { stdio: 'inherit' });
+} catch { /* fout wordt al gemeld door push-site.js */ }
+
 if (pushMislukt) {
   console.error('\n⚠⚠  ACTIE VEREIST: node lib/push-registry.js  (zie boven)\n');
   process.exitCode = 1;
