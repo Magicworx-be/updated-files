@@ -22,10 +22,14 @@ Dat document is ook wat Cowork leest.
 - **Methodiek-versies.** Interne kalibratie die de publieke paginatekst niet noemt
   (vertrouwen-vloer, recentheid-anker, publicatiedrempel, LLM-run-middeling) staat
   in `METHODIEK_PARAMS` in `build.js`, per versie. Elke config draagt `"methodiek": N`;
-  ontbreekt het veld → nieuwste versie. **Bestaande pagina's staan vastgepind (v1) en
-  mogen nooit veranderen; nieuwe pagina's krijgen automatisch de nieuwste versie (v3).**
+  ontbreekt het veld → nieuwste versie. **Bestaande pagina's staan vastgepind (v1/v2/v3) en
+  mogen nooit veranderen; nieuwe pagina's krijgen automatisch de nieuwste versie (v4).**
   Verhoog `METHODIEK_LATEST` en voeg een nieuw versieblok toe om de logica te
-  verbeteren — pin bestaande configs nooit los. Zie METHODIEK.md § Methodiek-versies.
+  verbeteren — pin bestaande configs nooit los. **v4** voegt twee versie-gestuurde
+  selectieregels toe: een **vakspecialist-eis** (eligible vergt vakfocus ≥ `VAKFOCUS_FLOOR`
+  = 2,5, zodat bedrijven van een ander vak wegvallen) en **diepte op het aantal eligible
+  specialisten** (≥10 → Top 10, volgorde zuiver op composite; ≥15 blijft enkel een
+  "goed onderbouwd"-label). Zie METHODIEK.md § Methodiek-versies.
 - **URL-structuur:** detailpagina's plat in de root (`/<slug>/`), hubs in mappen.
   Niet nesten.
 - **Registry-gedreven:** navigatie, hubs en sitemap komen uit de configs via
@@ -66,7 +70,8 @@ datum "Laatst gelijkgezet met de code" bovenaan op vandaag:**
   `BAYES_M`, `MIN_REVIEWS`, `MIN_RECENT`, `LISTED_FULL`, `LISTED_SMALL`,
   `SMALL_REGION_THRESHOLD`, `EXTRA_MAX`, `WATCHLIST_MAX`, `TRUST_CEIL`;
 - het versie-blok `METHODIEK_PARAMS` / `METHODIEK_LATEST` (per versie:
-  `TRUST_FLOOR`, `RECENCY_ANCHOR`, `PUBLISH_MIN_REVIEWS`, `EXPECT_HALF_STEPS`);
+  `TRUST_FLOOR`, `RECENCY_ANCHOR`, `PUBLISH_MIN_REVIEWS`, `EXPECT_HALF_STEPS`,
+  `VAKFOCUS_FLOOR`);
 - de eligibility-, selectie- (`pickTop`, publicatiedrempel) of compositeberekening
   in `build.js`;
 - een rubriek, ijkpunt of regel in `prompts/scoring-prompt.md`;

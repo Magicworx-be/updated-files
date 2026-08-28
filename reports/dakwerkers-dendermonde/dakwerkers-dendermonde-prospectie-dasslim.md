@@ -1,6 +1,6 @@
 # Prospectielijst — Dakwerkers in regio Dendermonde
 
-_Intern document voor dasslim.be. Niet publiceren. Gegenereerd op 2026-08-27 · peildatum 2026-08-27._
+_Intern document voor dasslim.be. Niet publiceren. Gegenereerd op 2026-08-28 · peildatum 2026-08-27._
 
 Deze bedrijven staan **niet** op de publieke Keurwijzer-pagina, maar zijn waardevolle prospects. De publieke pagina toont enkel de Top 10.
 
@@ -104,7 +104,7 @@ _Deze bedrijven voldoen nog niet aan de opnamecriteria (te weinig of te oude rev
 - **Specialiteiten:** Platte daken, Epdm, Dakrenovatie
 - **Synthese:** Opwijks dakwerkersbedrijf dat vooral platte daken, EPDM en dakrenovaties uitvoert. Klanten vermelden een duidelijke offerte, vriendelijke service en het correct nakomen van afspraken.
 
-- **Reden nog niet opgenomen:** Voldoet op dit moment niet aan de opnamecriteria.
+- **Reden nog niet opgenomen:** Geen geverifieerde eigen website — vereist voor opname (methodiek v3+).
 
 ### Rw Projects
 - **Gemeente:** Zele
@@ -120,7 +120,7 @@ _Deze bedrijven voldoen nog niet aan de opnamecriteria (te weinig of te oude rev
 - **Specialiteiten:** Dakreparatie, Dakrenovatie
 - **Synthese:** Jong dakwerkersbedrijf uit Hamme dat dakreparatie en -renovatie in verschillende steden uitvoert. De reviews vermelden professioneel, netjes afgewerkt werk en heldere communicatie.
 
-- **Reden nog niet opgenomen:** Voldoet op dit moment niet aan de opnamecriteria.
+- **Reden nog niet opgenomen:** Geen geverifieerde eigen website — vereist voor opname (methodiek v3+).
 
 ### BV Dakwerken Renaat Rogiers
 - **Gemeente:** Wichelen
@@ -157,7 +157,7 @@ _Deze bedrijven voldoen nog niet aan de opnamecriteria (te weinig of te oude rev
 - **Specialiteiten:** Dakrenovatie, Kroonlijsten, Dakvensters
 - **Synthese:** Opwijks dakwerkersbedrijf voor dakrenovatie, kroonlijsten en dakvensters. De recente reviews vermelden vakkundig, netjes opgeruimd werk en een goede prijs-kwaliteit.
 
-- **Reden nog niet opgenomen:** Voldoet op dit moment niet aan de opnamecriteria.
+- **Reden nog niet opgenomen:** Geen geverifieerde eigen website — vereist voor opname (methodiek v3+).
 
 ### Adak Nv
 - **Gemeente:** Dendermonde

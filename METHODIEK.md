@@ -14,8 +14,8 @@ dit document verouderd — zie [Onderhoud](#onderhoud-1-bron-2-lezers).
 | **Bindende bron voor de LLM-beoordeling** | `prompts/scoring-prompt.md` |
 | **Bindende bron voor het werkproces** | `prompts/directory-page-emails-prompt.md` |
 | **Waarom-beslissingen** | `WIJZIGINGEN.md` |
-| **Nieuwste methodiek-versie** | v3 (zie [Methodiek-versies](#methodiek-versies)) |
-| **Laatst gelijkgezet met de code** | 27 augustus 2026 |
+| **Nieuwste methodiek-versie** | v4 (zie [Methodiek-versies](#methodiek-versies)) |
+| **Laatst gelijkgezet met de code** | 28 augustus 2026 |
 
 ---
 
@@ -109,6 +109,41 @@ elke herbouwde pagina.**
 > Bron: `build.js` — `METHODIEK_PARAMS`, de `eligible`-berekening (website-eis) en de
 > `JSONLD_GRAPH`-opbouw (tweede JSON-LD-blok).
 
+**v4 (nieuw, standaard).** De **rekenkalibratie** (vertrouwen-vloer 4,0, recentheid-anker
+10, LLM-run-middeling) is **identiek aan v2/v3**. v4 verandert enkel de **selectie**, met
+twee toevoegingen die samen één doel dienen: *toon enkel échte vakspecialisten, en toon er
+een Top 10 van zodra er genoeg zijn.*
+
+**1 — Vakspecialist-eis (nieuw t.o.v. v3).** Een bedrijf is pas eligible als zijn
+**vakfocus ≥ 2,5** (`VAKFOCUS_FLOOR`). Vakfocus komt uit de eigen homepagina/hoofdnavigatie
+(rubriek 2 van de scoring-prompt) en meet nichezuiverheid. Zo vallen bedrijven **van een
+ánder vak** die toevallig in de zoekresultaten opdoken — een bakkerij, een ramenplaatser,
+een materialenleverancier of -fabrikant, een brede totaalaannemer — **deterministisch weg**,
+ook al halen ze de review-drempels en hebben ze een website. De Google-categorie dient enkel
+**ter controle in het rapport**, niet als filter (categorieën zijn te grillig: een échte
+dakwerker kan als "Bouwbedrijf" of "Bouwadviseur" getagd staan, en omgekeerd). De marge
+onder de gebruikelijke specialist-scores (échte vakbedrijven liggen op 3,0–5,0) vangt een
+toevallige halve beoordelaarsstap op.
+
+**2 — Diepte op het aantal eligible specialisten (nieuw t.o.v. v3).** De Top 10 / Top 5-keuze
+telt in v4 het aantal **eligible vakspecialisten** (die dankzij de vloer écht van het vak
+zijn), niet enkel de ≥15-onderbouwde. Een regio met **≥10 specialisten** krijgt dus een
+**Top 10** — ook als enkele daarvan 10–14 reviews hebben — en de volgorde is **zuiver op
+composite** (geen publishable-first-opvulling). De publicatiedrempel ≥15 reviews behoudt haar
+betekenis als **"goed onderbouwd"-label** in het controlerapport en voor de warme-leadsplitsing
+in het prospectiedocument, maar **stuurt de v4-selectie of -volgorde niet meer**. Reden: de
+nieuwe vakspecialist-eis doet het kwaliteitswerk scherper dan een ruwe reviewtelling, en de
+Bayes-krimp trekt weinig-berecenseerde bedrijven al naar het regiogemiddelde — een zwakke
+specialist met 10 reviews klimt dus niet zomaar.
+
+Bestaande v1/v2/v3-pagina's blijven byte-voor-byte identiek (geverifieerd): beide v4-regels
+zijn versie-gestuurd (`methodiekVersie >= 4`). **v4 is de standaard voor élke nieuwe én elke
+herbouwde pagina.**
+
+> Bron: `build.js` — `METHODIEK_PARAMS[4]` (`VAKFOCUS_FLOOR`), de `eligible`-berekening
+> (vakfocus-vloer) en de `depthCount`/`top`-bepaling (diepte op specialisten, volgorde op
+> composite).
+
 ---
 
 ## 2. Selectie: wie komt in aanmerking?
@@ -124,10 +159,13 @@ voldoet:
 | Er is een LLM-beoordeling voor het bedrijf | aanwezig in `beoordeling.json` | Zonder beoordeling ontbreken twee van de vier dimensies |
 | Minstens één bruikbare review (datum + score) | > 0 | Anders valt er niets te wegen |
 | **Geverifieerde eigen website** (alleen v3+) | `vakfocusBron: "website"` | Zonder controleerbare site is de vakfocus niet te meten; een vindbare site is een basissignaal van een professioneel vakbedrijf. Enkel social media of een kapotte site telt niet mee |
+| **Vakspecialist van de niche** (alleen v4+) | vakfocus ≥ 2,5 | Anders komen bedrijven van een ánder vak (bakkerij, ramenplaatser, materialenhandel of -fabrikant, brede totaalaannemer) die toevallig in de zoekresultaten opdoken tóch in aanmerking; de vakfocus-vloer sluit ze deterministisch uit. De focus moet het vak zelf zijn |
 
 > Bron: `build.js` — `MIN_REVIEWS = 10`, `MIN_RECENT = 3`, en het veld `eligible`
-> in stap 1. De website-eis geldt vanaf **methodiek v3** (zie
-> [Methodiek-versies](#methodiek-versies)); vastgepinde v1/v2-pagina's kennen ze niet.
+> in stap 1. De website-eis geldt vanaf **methodiek v3**; de vakspecialist-eis
+> (vakfocus ≥ `VAKFOCUS_FLOOR` = 2,5) vanaf **methodiek v4** (zie
+> [Methodiek-versies](#methodiek-versies)); vastgepinde v1/v2/v3-pagina's kennen de
+> respectieve eisen niet.
 
 **Geen gemeente én geen coördinaten = altijd weglaten.** Zonder locatiegegevens
 kunnen we niet vaststellen dat het bedrijf in de regio actief is. Dat is een harde
@@ -320,9 +358,12 @@ maximum (dat zou belonen voor het ontbreken van bewijs).
 
 De grens ligt bewust op de echte **diepgang** van een regio, níet op het aantal ruwe
 zoekresultaten (200 resultaten kunnen 6 echte specialisten bevatten, 40 juist 15
-sterke). In **v2** telt daarvoor het aantal **publicabele** bedrijven (eligible én
+sterke). In **v2 en v3** telt daarvoor het aantal **publicabele** bedrijven (eligible én
 ≥15 reviews): we tonen alleen een Top 10 als er ook echt 10 goed onderbouwde bedrijven
-zijn. In **v1** telt het aantal **eligible** bedrijven (publicatiedrempel = opname).
+zijn. In **v1** telt het aantal **eligible** bedrijven (publicatiedrempel = opname). In
+**v4** telt het aantal **eligible vakspecialisten** (die dankzij de vakfocus-vloer écht
+van het vak zijn): ≥10 specialisten → Top 10, en de volgorde is zuiver op composite; de
+≥15-drempel blijft enkel een "goed onderbouwd"-label voor rapport en prospectie.
 
 **Volgorde binnen de lijst:** composite aflopend; bij gelijkspel het gewogen
 reviewvolume aflopend; daarna alfabetisch. Volledig deterministisch — geen

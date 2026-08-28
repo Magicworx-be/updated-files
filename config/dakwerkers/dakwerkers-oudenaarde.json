@@ -1,0 +1,38 @@
+{
+  "slug": "dakwerkers-oudenaarde",
+  "vak": {
+    "mv": "dakwerkers",
+    "mvCap": "Dakwerkers",
+    "ev": "dakwerker",
+    "kort": "dakwerken",
+    "syn": { "mv": "dakdekkers", "ev": "dakdekker" }
+  },
+  "regio": {
+    "naam": "regio Oudenaarde",
+    "kern": "Oudenaarde",
+    "provincie": "Oost-Vlaanderen"
+  },
+  "gemeenten": [
+    "Oudenaarde", "Eine", "Bevere", "Ename", "Nederename", "Welden",
+    "Volkegem", "Edelare", "Leupegem", "Melden", "Mater", "Mullem", "Heurne", "Ooike",
+    "Ronse",
+    "Brakel", "Nederbrakel", "Opbrakel", "Zegelsem", "Michelbeke", "Elst", "Everbeek", "Parike",
+    "Horebeke", "Sint-Kornelis-Horebeke", "Sint-Maria-Horebeke",
+    "Kluisbergen", "Berchem", "Ruien", "Kwaremont", "Zulzeke",
+    "Kruisem", "Kruishoutem", "Zingem", "Nokere", "Wannegem-Lede", "Huise", "Ouwegem", "Lozer",
+    "Lierde", "Sint-Maria-Lierde", "Sint-Martens-Lierde", "Deftinge", "Hemelveerdegem",
+    "Maarkedal", "Nukerke", "Etikhove", "Schorisse", "Maarke-Kerkem",
+    "Wortegem-Petegem", "Wortegem", "Petegem-aan-de-Schelde", "Elsegem", "Moregem",
+    "Zwalm", "Munkzwalm", "Nederzwalm-Hermelgem", "Rozebeke", "Sint-Blasius-Boekel",
+    "Sint-Denijs-Boekel", "Sint-Maria-Latem", "Beerlegem", "Dikkele", "Hundelgem",
+    "Meilegem", "Paulatem", "Roborst",
+    "Gavere", "Asper", "Baaigem", "Dikkelvenne", "Semmerzake", "Vurste"
+  ],
+  "zoektermen": ["dakwerker Oudenaarde", "dakdekker Oudenaarde", "dakwerken Oudenaarde"],
+  "peildatum": "2026-08-27",
+  "updateDatum": "augustus 2026",
+  "hero": {
+    "img": "https://assets.cdn.filesafe.space/fgbjON9EFqwVMZW3nImb/media/6a56552b524a3ec4c67a7cac.png",
+    "alt": "Dakwerker aan het werk op een dak in regio Oudenaarde"
+  }
+}

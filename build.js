@@ -71,7 +71,7 @@ const MIN_RECENT = 3;         // min. reviews in de laatste 24 maanden — publi
 // veranderen dus nooit. Nieuwe configs zonder veld krijgen automatisch de
 // nieuwste versie. Zo blijft "zelfde data = zelfde resultaat" gelden én kan de
 // methodiek verbeteren zonder één gepubliceerde pagina te breken.
-const METHODIEK_LATEST = 3;
+const METHODIEK_LATEST = 4;
 const METHODIEK_PARAMS = {
   1: {
     TRUST_FLOOR: 3.5,           // Bayes-score die op 0 genormaliseerd wordt
@@ -104,6 +104,35 @@ const METHODIEK_PARAMS = {
     RECENCY_ANCHOR: 10,
     PUBLISH_MIN_REVIEWS: 15,
     EXPECT_HALF_STEPS: false
+  },
+  4: {
+    // v4 = SELECTIE-verbetering t.o.v. v3. De rekenkalibratie (vertrouwen-vloer,
+    // recentheid-anker, LLM-run-middeling) is IDENTIEK aan v2/v3. v4 voegt twee
+    // dingen toe, beide gericht op "toon enkel échte vakspecialisten, en toon er
+    // een Top 10 van zodra er genoeg zijn":
+    //
+    //  1) VAKFOCUS-VLOER als opname-eis. Een bedrijf is pas eligible als zijn
+    //     vakfocus ≥ VAKFOCUS_FLOOR. Vakfocus komt uit de homepagina/hoofdnavigatie
+    //     (rubriek 2 van de scoring-prompt) en meet nichezuiverheid — dus bedrijven
+    //     van een ánder vak dat toevallig in de zoekresultaten opdook (bakkerij,
+    //     ramenplaatser, materialenleverancier, brede totaalaannemer …) vallen
+    //     deterministisch weg. De Google-categorie dient enkel ter controle in het
+    //     rapport, niet als filter (categorieën zijn te grillig: een échte dakwerker
+    //     kan als "Bouwbedrijf" of "Bouwadviseur" getagd staan).
+    //
+    //  2) DIEPTE op het aantal eligible SPECIALISTEN. De Top 10 / Top 5-keuze telt
+    //     nu het aantal eligible vakspecialisten (die dankzij de vloer écht van het
+    //     vak zijn), niet enkel de ≥15-onderbouwde. Zo krijgt een regio met ≥10
+    //     specialisten een Top 10 — ook als enkele daarvan 10–14 reviews hebben.
+    //     De volgorde blijft zuiver op composite (geen publishable-first split).
+    //     PUBLISH_MIN_REVIEWS (≥15) behoudt zijn betekenis als "goed onderbouwd"-
+    //     label in het rapport en voor de warme-leadsplitsing in de prospectie,
+    //     maar stuurt de v4-selectie of -volgorde niet meer.
+    TRUST_FLOOR: 4.0,
+    RECENCY_ANCHOR: 10,
+    PUBLISH_MIN_REVIEWS: 15,
+    EXPECT_HALF_STEPS: false,
+    VAKFOCUS_FLOOR: 2.5         // v4: minimale vakfocus om eligible te zijn (specialist-eis)
   }
 };
 
@@ -333,8 +362,14 @@ for (const c of reviewData) {
     // geen site, enkel social media, of een onbereikbare/kapotte site — horen niet
     // op de publieke pagina. v1/v2-pagina's (vastgepind) kennen deze eis NIET en
     // blijven byte-voor-byte identiek.
+    // v4+: opname vereist bovendien dat het bedrijf een échte vakspecialist is —
+    // vakfocus ≥ VAKFOCUS_FLOOR. Zo vallen bedrijven van een ánder vak die toevallig
+    // in de zoekresultaten opdoken (bakkerij, ramenplaatser, materialenleverancier,
+    // brede totaalaannemer …) deterministisch weg. v1/v2/v3-pagina's kennen deze eis
+    // NIET en blijven byte-voor-byte identiek.
     eligible: inRegio && rawCount >= MIN_REVIEWS && n24 >= MIN_RECENT && vw > 0 && !!beo &&
-      (methodiekVersie < 3 || (beo && beo.vakfocusBron === 'website'))
+      (methodiekVersie < 3 || (beo && beo.vakfocusBron === 'website')) &&
+      (methodiekVersie < 4 || (beo && typeof beo.vakfocus === 'number' && beo.vakfocus >= P.VAKFOCUS_FLOOR))
   });
 }
 
@@ -402,12 +437,21 @@ function pickTop(sorted, n) {
 // eligible. We tonen dus enkel een Top 10 als er ook echt 10 goed onderbouwde
 // bedrijven zijn. (v1: publishable == eligible → identiek gedrag als voorheen.)
 const publishableCount = eligible.filter(isPublishable).length;
+// Diepte-maat. v1–v3: het aantal GOED ONDERBOUWDE bedrijven (publishable, ≥15).
+// v4: het aantal eligible VAKSPECIALISTEN — die zijn dankzij de vakfocus-vloer
+// écht van het vak, dus "genoeg specialisten" is de juiste maat voor de diepgang.
+// Zo krijgt een regio met ≥10 specialisten een Top 10, ook als enkele daarvan
+// 10–14 reviews hebben (≥15 blijft enkel een "goed onderbouwd"-label in rapport
+// en prospectie). Zie METHODIEK_PARAMS[4].
+const depthCount = methodiekVersie >= 4 ? eligible.length : publishableCount;
 const nListed = Math.min(
-  publishableCount >= SMALL_REGION_THRESHOLD ? LISTED_FULL : LISTED_SMALL,
+  depthCount >= SMALL_REGION_THRESHOLD ? LISTED_FULL : LISTED_SMALL,
   eligible.length
 );
 const vignet = 'Top ' + nListed;                 // publiek label i.p.v. cijfer
-const top = pickTop(eligible, nListed);
+// v4: zuiver op composite (eligible is al composite-gesorteerd). v1–v3: publishable
+// eerst, sub-drempel enkel als opvulling in een dunne regio (pickTop).
+const top = methodiekVersie >= 4 ? eligible.slice(0, nListed) : pickTop(eligible, nListed);
 top.forEach((c, i) => { c.positie = i + 1; });   // rangnummer, geen score
 const topSet = new Set(top);
 
@@ -486,6 +530,12 @@ const wlReden = c => {
   if (c.n24 < MIN_RECENT)
     return 'Nog te weinig recente reviews (' + c.n24 + ' in de laatste 24 maanden, min. ' + MIN_RECENT + ') voor een actuele beoordeling.';
   if (!c.beo) return 'Beoordeling nog niet afgerond.';
+  if (methodiekVersie >= 3 && c.beo.vakfocusBron !== 'website')
+    return 'Geen geverifieerde eigen website — vereist voor opname (methodiek v3+).';
+  if (methodiekVersie >= 4 && !(typeof c.beo.vakfocus === 'number' && c.beo.vakfocus >= P.VAKFOCUS_FLOOR))
+    return 'Geen vakspecialist voor deze niche (vakfocus ' +
+      String(c.beo.vakfocus).replace('.', ',') + ' < ' + String(P.VAKFOCUS_FLOOR).replace('.', ',') +
+      ') — opname vergt vakfocus ≥ ' + String(P.VAKFOCUS_FLOOR).replace('.', ',') + ' (methodiek v4+).';
   return 'Voldoet op dit moment niet aan de opnamecriteria.';
 };
 const watchlist = companies
@@ -668,9 +718,14 @@ const regioGemiddelde = gScores.length
   ? nlNum(gScores.reduce((s, x) => s + x, 0) / gScores.length, 1) : '—';
 
 // Opnamecriteria in de publiekstekst — versie-afhankelijk. v3 voegt de
-// website-eis toe (zie de eligible-berekening hierboven); v1/v2 houden hun
-// bestaande, kortere formulering zodat hun output identiek blijft.
-const opnameCriteria = methodiekVersie >= 3
+// website-eis toe, v4 daarbovenop de vakspecialisatie-eis (zie de eligible-
+// berekening hierboven); oudere versies houden hun bestaande, kortere
+// formulering zodat hun output identiek blijft.
+const opnameCriteria = methodiekVersie >= 4
+  ? 'minstens ' + MIN_REVIEWS + ' Google-reviews, minstens ' + MIN_RECENT +
+    ' reviews in de laatste 24 maanden, een eigen website én een aantoonbare specialisatie in ' +
+    config.vak.kort
+  : methodiekVersie >= 3
   ? 'minstens ' + MIN_REVIEWS + ' Google-reviews, minstens ' + MIN_RECENT +
     ' reviews in de laatste 24 maanden én een eigen website'
   : 'minstens ' + MIN_REVIEWS + ' Google-reviews én minstens ' + MIN_RECENT +
