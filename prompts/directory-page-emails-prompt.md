@@ -299,7 +299,7 @@ The badges live on jsDelivr (the same CDN as `registry.json`). Build the URLs �
 ### 5 — Clean up the URL
 
 Make sure `{landingspagina url}` looks like this:
-`keurwijzer.be/{{SLUG}}` — as short and clean as possible. Make it not clickable.
+`keurwijzer.be/{{SLUG}}` — should not be clickable, so no hyperlink. important!
 
 ### 6a — Email 1: contact email to the company
 
@@ -327,30 +327,30 @@ and the email text:
 
 **Subject:** `{niche} {regio} vergeleken - resultaat`
 
-(e.g. "Dakwerkers regio Dendermonde vergeleken — resultaat")
+(e.g. "Dakwerkers regio Dendermonde vergeleken")
 
 **Email:**
 
 ```
+
+
 Goedemiddag,
 
-Goed nieuws: we hebben alle {niche} in de {regio} vergeleken, en {naam bedrijf} {plaatsing-mail} van de {aantal gecontroleerde bedrijven} {niche}! Knap.  
+We hebben alle {niche} in de {regio} vergeleken.
+{naam bedrijf} {plaatsing-mail} van de {aantal gecontroleerde bedrijven} {niche}.  
+Zie: {landingspagina url}.
 
-Zie hier: {landingspagina url}.
-
-Kleine tip voor de toekomst: probeer klanten te stimuleren om in hun Google review concreet te vermelden welk werk je deed en hoe het verliep. Dat weegt zwaarder dan "super tevreden".
-
-Ik kan je je Keurwijzer-kwaliteitsbadge bezorgen voor op je site of in offertes.
-
-Wil je die? Is gratis.
+Bezorg ik je je gratis Keurwijzer-kwaliteitsbadge voor op je site of offertes?
 
 
 
 Groeten, Olivier
-0470 12 44 61
+T:0470 12 44 61 - Dorp 81 - Berlare (O-Vl)
 
--
-Keurwijzer.be - Olivier Muys - Dorp 81 - Berlare (O-Vl)
+Ps: Keurwijzer is gratis voor vakspecialisten.
+Ik verdien mijn geld met Dasslim.be
+
+
 ```
 
 ### 6b — Email 2: follow-up draft for yourself

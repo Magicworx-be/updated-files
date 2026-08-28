@@ -33,17 +33,17 @@ VAKFOCUS-AUDIT (bron van de specialiteitsdimensie, per gerankt bedrijf)
 ROBUUSTHEID VAN DE SELECTIE (±0,5 op reviewkwaliteit + vakfocus, 5000 trials, vaste seed)
   kans = P(blijft in Top 10)   ·   band = 5e–95e percentiel van de positie
   #1  kans 100%   band #1–#2   vast          Matthys Projecten
-  #2  kans 100%   band #1–#2   vast          Dakwerken Devlin
-  #3  kans 100%   band #10–#10   vast          Joeri Vyverman - Dak- en Schrijnwerken
-  #4  kans 100%   band #3–#4   vast          Dakwerken Gebroeders De Vos
-  #5  kans 100%   band #3–#6   vast          Dakwerken Van Brussel
-  #6  kans   0%   band #11–#11   WANKEL        Rousseau Toitures
-  #7  kans 100%   band #4–#7   vast          Lusadak
-  #8  kans 100%   band #4–#8   vast          Dakwerken Verschueren Oudenaarde
-  #9  kans 100%   band #5–#8   vast          Group NACHTERGAELE
- #10  kans 100%   band #5–#8   vast          Coverto
-  Samengevat: 9 vast, 0 waarschijnlijk, 1 wankel (van 10).
-  Marge #10 → eerstvolgende publicabele (Vermeersch): 0.204.
+  #2  kans 100%   band #1–#3   vast          Dakwerken Devlin
+  #3  kans 100%   band #2–#4   vast          Joeri Vyverman - Dak- en Schrijnwerken
+  #4  kans 100%   band #3–#5   vast          Dakwerken Gebroeders De Vos
+  #5  kans 100%   band #4–#8   vast          Dakwerken Van Brussel
+  #6  kans 100%   band #5–#9   vast          Rousseau Toitures
+  #7  kans 100%   band #5–#9   vast          Lusadak
+  #8  kans 100%   band #6–#10   vast          Dakwerken Verschueren Oudenaarde
+  #9  kans 100%   band #6–#10   vast          Group NACHTERGAELE
+ #10  kans 100%   band #7–#10   vast          Coverto
+  Samengevat: 10 vast, 0 waarschijnlijk, 0 wankel (van 10).
+  Marge #10 → eerstvolgende eligible (Dakra bvba): 0.200.
 
 BEDRIJVEN 11–12 — NIET OP DE SITE (zie prospectiedocument voor dasslim.be)
     #11  comp 0.467  Dakra bvba  [< 15 reviews: eligible, niet publicabel]

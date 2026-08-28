@@ -18,7 +18,7 @@ _Warme leads: deze bedrijven zijn eligible en kwaliteitsvol, ze vielen net buite
 - **Specialiteiten:** Dakwerken, Platte daken, Buitenschrijnwerk
 - **Synthese:** Bedrijf uit Ronse dat dakwerken combineert met buitenschrijnwerk zoals ramen en deuren. De reviews zijn wisselend: tevredenheid over de uitvoering staat naast klachten over trage of uitblijvende offertes.
 
-- **Bijna publicabel:** sterke score, maar nog onder de publicatiedrempel van 15 reviews (nu 11). Openingszin: "uw kwaliteit zit goed; u mist enkel nog reviews om in onze publieke Top 10 te verschijnen."
+- **Nog dun onderbouwd:** sterke score, maar met 11 reviews (< 15) weegt de Bayes-krimp nog zwaar door. Openingszin: "uw kwaliteit zit goed; met wat meer recente reviews wint uw score aan gewicht en komt de Top 10 in bereik."
 
 ### 12. Vermeersch
 - **Gemeente:** Oudenaarde

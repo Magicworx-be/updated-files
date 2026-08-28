@@ -63,11 +63,14 @@ const MIN_RECENT = 3;         // min. reviews in de laatste 24 maanden — publi
 // De vier dimensies en de publieke gewichten (35/30/15/20), de halveringstijd
 // (2 jaar), Bayes M=16 en de opnamedrempels (≥10 / ≥3) zijn IDENTIEK in elke
 // versie — dat is de publieke belofte "dezelfde methode voor elk bedrijf in
-// elke regio". Wat per versie verschilt, is uitsluitend INTERNE kalibratie die
-// de publieke paginatekst niet noemt: waar de vertrouwen-normalisatie op 0 valt,
-// de recentheid-verzadiging, en een aparte publicatiedrempel bovenop de opname.
+// elke regio". Wat per versie verschilt, is INTERNE kalibratie: waar de
+// vertrouwen-normalisatie op 0 valt, de recentheid-verzadiging, en een aparte
+// publicatiedrempel bovenop de opname. Twee opname-eisen zijn wél publiek en
+// staan in de paginatekst (zie `opnameCriteria` verderop): de eigen website
+// (v3+) en de vakspecialisatie-eis vakfocus ≥ VAKFOCUS_FLOOR (v4+).
 //
-// Bestaande pagina's staan vastgepind op v1 (`"methodiek": 1` in hun config) en
+// Bestaande pagina's staan vastgepind op de versie in hun config (vandaag: v1
+// voor gent/aalst/meetjesland, v2 voor sint-niklaas, v3 voor dendermonde) en
 // veranderen dus nooit. Nieuwe configs zonder veld krijgen automatisch de
 // nieuwste versie. Zo blijft "zelfde data = zelfde resultaat" gelden én kan de
 // methodiek verbeteren zonder één gepubliceerde pagina te breken.
@@ -489,11 +492,18 @@ const topSet = new Set(top);
     }
     scratch.sort((a, b) => b.s - a.s || b.ref.vw - a.ref.vw ||
       a.ref.naam.localeCompare(b.ref.naam, 'nl'));
-    // Rang zoals de bezoeker hem ziet: publishable-first, exact zoals pickTop.
-    // De publicatiedrempel hangt van het (niet-verstoorde) reviewaantal af, dus
-    // de kandidatenpool ligt vast; enkel de volgorde binnen elke groep wisselt.
-    const ordered = scratch.filter(o => isPublishable(o.ref))
-      .concat(scratch.filter(o => !isPublishable(o.ref)));
+    // Rang zoals de bezoeker hem ziet — MOET exact dezelfde ordening zijn als de
+    // echte selectie hierboven (zie `top`), anders meet de test een rangschikking
+    // die niemand ooit te zien krijgt.
+    //   v4:    zuiver op composite — `scratch` is hierboven al zo gesorteerd.
+    //   v1–v3: publicabel eerst, sub-drempel vult enkel aan (zoals pickTop). De
+    //          publicatiedrempel hangt van het (niet-verstoorde) reviewaantal af,
+    //          dus de kandidatenpool ligt vast; enkel de volgorde binnen elke
+    //          groep wisselt.
+    const ordered = methodiekVersie >= 4
+      ? scratch
+      : scratch.filter(o => isPublishable(o.ref))
+          .concat(scratch.filter(o => !isPublishable(o.ref)));
     const rankOf = new Map();
     ordered.forEach((o, i) => rankOf.set(o.ref, i + 1));
     top.forEach((c, i) => {
@@ -1170,15 +1180,20 @@ rap += '  kans = P(blijft in Top ' + nListed + ')   ·   band = 5e–95e percent
       '%   band #' + c.posP05 + '–#' + c.posP95 + '   ' +
       oordeel(c.stabiliteit).padEnd(13) + ' ' + c.naam + '\n';
   });
-  // De echte concurrent voor de laatste plek is het sterkste PUBLICABELE bedrijf
-  // dat net buiten de selectie viel (sub-bar bedrijven dingen niet mee, ze vullen
-  // enkel op). Zo is de marge altijd ≥ 0 en betekenisvol.
-  const nextPub = naSelectie.find(isPublishable) || null;
+  // De echte concurrent voor de laatste plek — opnieuw versie-afhankelijk, zodat
+  // de marge meet wat de selectie ook écht doet:
+  //   v4:    het sterkste ELIGIBLE bedrijf dat net buiten de selectie viel; de
+  //          publicatiedrempel stuurt hier niets meer.
+  //   v1–v3: het sterkste PUBLICABELE bedrijf (sub-bar bedrijven dingen niet mee,
+  //          ze vullen enkel op).
+  // Zo is de marge altijd ≥ 0 en betekenisvol.
+  const nextPub = (methodiekVersie >= 4 ? naSelectie[0] : naSelectie.find(isPublishable)) || null;
+  const margeLabel = methodiekVersie >= 4 ? 'eerstvolgende eligible' : 'eerstvolgende publicabele';
   const marge = (nextPub && top.length) ? (top[top.length - 1].composite - nextPub.composite) : null;
   rap += '  Samengevat: ' + vast + ' vast, ' + (top.length - vast - wankel) +
     ' waarschijnlijk, ' + wankel + ' wankel (van ' + top.length + ').\n';
   if (marge != null)
-    rap += '  Marge #' + nListed + ' → eerstvolgende publicabele (' + nextPub.naam + '): ' +
+    rap += '  Marge #' + nListed + ' → ' + margeLabel + ' (' + nextPub.naam + '): ' +
       marge.toFixed(3) + '.\n';
 }
 if (extra.length) {
@@ -1247,9 +1262,17 @@ if (extra.length) {
   extra.forEach((c, i) => {
     pros += prospectRegel(c, nListed + i + 1);
     if (!isPublishable(c))
-      pros += '- **Bijna publicabel:** sterke score, maar nog onder de publicatiedrempel van ' +
-              P.PUBLISH_MIN_REVIEWS + ' reviews (nu ' + c.googleReviews + '). Openingszin: "uw kwaliteit ' +
-              'zit goed; u mist enkel nog reviews om in onze publieke ' + vignet + ' te verschijnen."\n\n';
+      pros += (methodiekVersie >= 4
+        // v4: ≥15 is GEEN publicatiepoort meer — dit bedrijf viel op composite net
+        // buiten de selectie. Meer reviews helpen wél, maar via de score (Bayes-
+        // krimp + recentheid), niet via een drempel. Beloof dus geen automatisme.
+        ? '- **Nog dun onderbouwd:** sterke score, maar met ' + c.googleReviews +
+          ' reviews (< ' + P.PUBLISH_MIN_REVIEWS + ') weegt de Bayes-krimp nog zwaar door. ' +
+          'Openingszin: "uw kwaliteit zit goed; met wat meer recente reviews wint uw ' +
+          'score aan gewicht en komt de ' + vignet + ' in bereik."\n\n'
+        : '- **Bijna publicabel:** sterke score, maar nog onder de publicatiedrempel van ' +
+          P.PUBLISH_MIN_REVIEWS + ' reviews (nu ' + c.googleReviews + '). Openingszin: "uw kwaliteit ' +
+          'zit goed; u mist enkel nog reviews om in onze publieke ' + vignet + ' te verschijnen."\n\n');
   });
 } else {
   pros += '_Geen bedrijven in deze categorie._\n\n';

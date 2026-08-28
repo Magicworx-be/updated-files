@@ -10,7 +10,7 @@ dit document verouderd — zie [Onderhoud](#onderhoud-1-bron-2-lezers).
 
 | | |
 |---|---|
-| **Bindende bron voor alle berekeningen** | `build.js` (constanten bovenaan, regels 52–112) |
+| **Bindende bron voor alle berekeningen** | `build.js` (constanten bovenaan, regels 52–168) |
 | **Bindende bron voor de LLM-beoordeling** | `prompts/scoring-prompt.md` |
 | **Bindende bron voor het werkproces** | `prompts/directory-page-emails-prompt.md` |
 | **Waarom-beslissingen** | `WIJZIGINGEN.md` |
@@ -190,22 +190,34 @@ omliggende gemeenten en deelgemeenten (bij Gent staan bv. Wondelgem, Gentbrugge,
 Ledeberg en Mariakerke apart in de lijst). Wie die lijst wijzigt, wijzigt de
 selectie.
 
-**Opname is niet hetzelfde als publicatie (v2).** De opnamedrempel (≥10 reviews)
-bepaalt wie *mag meedingen*. Om ook echt *gepubliceerd* te worden in de Top N vraagt
-v2 een steviger bewijslast: **≥15 reviews**. Zo staat "een van de beste van de regio"
-nooit op flinterdun bewijs (bv. 10 reviews in een regio met tientallen kandidaten).
+**Opname is niet hetzelfde als publicatie (v2–v3).** De opnamedrempel (≥10 reviews)
+bepaalt wie *mag meedingen*. Om ook echt *gepubliceerd* te worden in de Top N vroegen
+v2 en v3 een steviger bewijslast: **≥15 reviews**. Zo stond "een van de beste van de
+regio" nooit op flinterdun bewijs (bv. 10 reviews in een regio met tientallen
+kandidaten).
 
 - Een bedrijf met 10–14 reviews is wél eligible en krijgt een volledige composite,
-  maar verschijnt niet op de site zolang er genoeg beter-onderbouwde bedrijven zijn.
-  Het komt als **warme lead** in het prospectiedocument ("uw kwaliteit zit goed; u
-  mist enkel nog reviews").
-- In een **dunne regio** vult `build.js` de lijst zo nodig aan met de sterkste
-  eligible bedrijven onder de publicatiedrempel, zodat een lijst nooit leeg oogt.
+  maar verschijnt in v2–v3 niet op de site zolang er genoeg beter-onderbouwde
+  bedrijven zijn. Het komt als **warme lead** in het prospectiedocument ("uw
+  kwaliteit zit goed; u mist enkel nog reviews").
+- In een **dunne regio** vult `build.js` de lijst in v2–v3 zo nodig aan met de
+  sterkste eligible bedrijven onder de publicatiedrempel, zodat een lijst nooit
+  leeg oogt.
 - In v1 is de publicatiedrempel gelijk aan de opnamedrempel (≥10) — vandaar dat de
   vastgepinde pagina's ongewijzigd blijven.
 
-> Bron: `build.js` — `PUBLISH_MIN_REVIEWS` in `METHODIEK_PARAMS`, en de functie
-> `pickTop` (publicabel eerst, sub-drempel vult enkel aan).
+**Vanaf v4 stuurt ≥15 de selectie niet meer.** De vakspecialist-eis (vakfocus ≥ 2,5)
+neemt de rol van "bewijslast" over: wie in de lijst staat, is aantoonbaar van het vak.
+De volgorde loopt daarna **zuiver op composite**, zonder publicabel-eerst-opvulling.
+Een bedrijf met 10–14 reviews kan dus gepubliceerd worden — maar zonder cadeau: de
+**Bayes-krimp (M = 16)** trekt een dun onderbouwd gemiddelde stevig naar het
+regiogemiddelde toe, dus zo'n bedrijf haalt de top alleen met écht uitzonderlijke
+cijfers. De ≥15-drempel blijft bestaan als **"goed onderbouwd"-label** in het
+controlerapport en voor de warme-leadsplitsing in de prospectie.
+
+> Bron: `build.js` — `PUBLISH_MIN_REVIEWS` in `METHODIEK_PARAMS`; `pickTop`
+> (publicabel eerst, sub-drempel vult enkel aan) geldt voor v1–v3. Vanaf v4 neemt
+> `eligible.slice(0, nListed)` het over: zuiver op composite.
 
 **Bedrijven die net niet voldoen** verdwijnen niet uit beeld: ze komen op de
 wachtlijst in het controlerapport en in het prospectiedocument, met de reden
@@ -354,9 +366,12 @@ maximum (dat zou belonen voor het ontbreken van bewijs).
 
 ## 4. Hoeveel bedrijven tonen we?
 
-- **≥ 10 goed onderbouwde bedrijven** in de regio → **Top 10**
+- **≥ 10 bedrijven met genoeg diepgang** in de regio → **Top 10**
 - **< 10** → **Top 5**
 - **< 5** → netjes wat er is, bv. "Top 3" (nooit meer tonen dan er zijn)
+
+Wát "genoeg diepgang" precies telt, verschilt per methodiek-versie — zie de
+alinea hieronder.
 
 De grens ligt bewust op de echte **diepgang** van een regio, níet op het aantal ruwe
 zoekresultaten (200 resultaten kunnen 6 echte specialisten bevatten, 40 juist 15
@@ -432,7 +447,11 @@ met halve stappen gescoord; één halve stap is een reële beoordelaarsonzekerhe
 Het rapport verstoort daarom élke LLM-deelscore van élk eligible bedrijf met een
 toevallige ±0,5 en telt over 5000 trials (met **vaste seed**, dus reproduceerbaar)
 hoe vaak elk Top-N-bedrijf in de Top N blijft. Vertrouwen en recentheid zijn
-objectief berekend en blijven onaangeroerd. Zo zie je welke posities écht vaststaan
+objectief berekend en blijven onaangeroerd. De test rangschikt daarbij **exact zoals
+de methodiek-versie van die pagina zelf rangschikt** (v4: zuiver op composite;
+v1–v3: publicabel eerst) — anders meet ze een volgorde die geen enkele bezoeker te
+zien krijgt, en krijgt elk gepubliceerd bedrijf onder de ≥15-drempel een vals
+"wankel"-oordeel. Zo zie je welke posities écht vaststaan
 (hoge kans, smalle band) en welke een dobbelworp zijn — nuttig als een bedrijf net
 buiten de selectie vraagt "waarom niet ik?". Dit voedt géén enkel gepubliceerd
 getal: de composite, de selectie en de volgorde blijven volledig deterministisch

@@ -1,0 +1,35 @@
+{
+  "slug": "dakwerkers-brugge",
+  "vak": {
+    "mv": "dakwerkers",
+    "mvCap": "Dakwerkers",
+    "ev": "dakwerker",
+    "kort": "dakwerken",
+    "syn": { "mv": "dakdekkers", "ev": "dakdekker" }
+  },
+  "regio": {
+    "naam": "regio Brugge",
+    "kern": "Brugge",
+    "provincie": "West-Vlaanderen"
+  },
+  "gemeenten": [
+    "Brugge", "Assebroek", "Sint-Andries", "Sint-Kruis", "Sint-Michiels",
+    "Koolkerke", "Dudzele", "Lissewege", "Zeebrugge", "Zwankendamme",
+    "Beernem", "Oedelem", "Sint-Joris-ten-Distel",
+    "Blankenberge", "Uitkerke",
+    "Damme", "Moerkerke", "Oostkerke", "Sijsele", "Lapscheure", "Hoeke", "Vivenkapelle",
+    "Jabbeke", "Snellegem", "Stalhille", "Varsenare", "Zerkegem",
+    "Knokke-Heist", "Knokke", "Heist", "Heist-aan-Zee", "Duinbergen", "Westkapelle",
+    "Oostkamp", "Ruddervoorde", "Waardamme", "Hertsberge",
+    "Torhout",
+    "Zedelgem", "Aartrijke", "Loppem", "Veldegem",
+    "Zuienkerke", "Houtave", "Meetkerke", "Nieuwmunster"
+  ],
+  "zoektermen": ["dakwerker Brugge", "dakdekker Brugge", "dakwerken Brugge"],
+  "peildatum": "2026-08-28",
+  "updateDatum": "augustus 2026",
+  "hero": {
+    "img": "https://assets.cdn.filesafe.space/fgbjON9EFqwVMZW3nImb/media/6a56552b524a3ec4c67a7cac.png",
+    "alt": "Dakwerker aan het werk op een dak in regio Brugge"
+  }
+}
