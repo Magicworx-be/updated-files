@@ -68,11 +68,13 @@ correct province), `gemeenten`, `zoektermen` (three variants with the niche term
 {{REGIO}}), `peildatum`, `updateDatum`, `hero` (`img` from Phase 0; `alt` adjusted to
 niche + {{REGIO}}).
 
-**Methodology version.** Do not include a `methodiek` field in a new config: `build.js`
-will then automatically use the newest version (currently v2 — higher confidence floor,
-publication threshold ≥15 reviews, average of 2–3 LLM runs). Only the three original
-roofers pages are deliberately pinned to `"methodiek": 1`. See METHODIEK.md
-§ Methodiek-versies.
+**Methodology version.** A new page ALWAYS uses the newest methodiek version. Do not
+include a `methodiek` field in a new config: `build.js` then automatically applies the
+latest version (`METHODIEK_LATEST` in `build.js`). Never pin a new config to a specific
+version number, and don't hard-code "the newest version is vN" anywhere — read the
+current newest version and its rules from METHODIEK.md § Methodiek-versies. Only existing
+pages are deliberately pinned (e.g. the three original roofers pages at `"methodiek": 1`);
+those stay frozen and must never change.
 
 **`peildatum` (ISO, YYYY-MM-DD)** = the date the Apify data was scraped (≈ today for
 fresh data). It's the anchor point for the 24-month recency window and for relative
@@ -135,10 +137,11 @@ Follow `prompts/scoring-prompt.md` literally, with `data/{{SLUG}}/reviews.json` 
 input. Key points:
 
 - Assess **all** companies from `reviews.json` (including waitlist candidates).
-- **Average 2–3 independent runs (v2).** Score review quality and trade focus in 2–3
+- **Average 2–3 independent runs.** Score review quality and trade focus in 2–3
   separate runs (each in 0.5 increments) and freeze the **average** — not the first
   run. The averaged value may fall outside the 0.5 increments; `build.js` accepts that.
-  Take the synthesis, chips, and fraction from the most representative run.
+  Take the synthesis, chips, and fraction from the most representative run. (This
+  run-averaging is a standing rule, retained by every methodiek version from v2 onward.)
 - **Trade focus (rubric 2) requires actually visiting the website** (web search on).
   For **every** company with `rankbaar: true`, look up the official site if the
   `website` field is empty, and **verify** that the name and municipality match (watch

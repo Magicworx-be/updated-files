@@ -24,11 +24,13 @@ vraag als je twijfelt.**
 
 ## Belangrijke regels (samenvatting, de volledige regels staan in bovenstaande bestanden)
 
-1. **Methodiek v3** — laat het `methodiek`-veld weg uit de config (dan pakt `build.js`
-   automatisch de nieuwste versie, v3). v3 vereist dat elk bedrijf op de pagina een
-   **verifieerbare eigen website** heeft. Bedrijven zonder website
-   (`vakfocusBron: "geen-website"`) worden uitgesloten uit de selectie. Dit is een
-   harde regel, geen suggestie.
+1. **Nieuwste methodiek** — laat het `methodiek`-veld weg uit de config (dan pakt
+   `build.js` automatisch de nieuwste versie, `METHODIEK_LATEST`). Pin een nieuwe config
+   nooit op een versienummer en schrijf nergens "de nieuwste versie is vN" — lees de
+   actuele nieuwste versie en haar regels uit METHODIEK.md § Methodiek-versies. Sinds v3
+   geldt: elk bedrijf op de pagina moet een **verifieerbare eigen website** hebben;
+   bedrijven zonder website (`vakfocusBron: "geen-website"`) vallen uit de selectie. Dit
+   is een harde regel, geen suggestie.
 
 2. **Nederlands** — alles wat op de publieke pagina of in een e-mail terechtkomt is
    Nederlands. `synthese`, `chips`, en outreach-mails zijn Nederlands. Als er Engelse
@@ -56,7 +58,7 @@ vraag mij voor het vakblok en de hero-afbeelding.
 
 ### Fase 1 — Config aanmaken
 
-Maak `config/{{NICHE}}/{{SLUG}}.json` aan. Geen `methodiek`-veld (v3 is default).
+Maak `config/{{NICHE}}/{{SLUG}}.json` aan. Geen `methodiek`-veld (dan pakt build.js automatisch de nieuwste versie).
 Controleer fusiegemeenten 2025. Check overlap met andere regio's in dezelfde niche.
 
 ### Fase 2 — Normalize

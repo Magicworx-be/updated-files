@@ -64,14 +64,14 @@ veranderen dus nooit; nieuwe pagina's krijgen automatisch de beste logica.** Zo 
 "zelfde data = zelfde resultaat" gelden én kan de methodiek verbeteren zonder één
 gepubliceerde pagina te breken.
 
-| Kalibratie | v1 (vastgepinde pagina's) | v2 (nieuw, standaard) | Waarom v2 beter is |
+| Kalibratie | v1 (vastgepinde pagina's) | v2 (destijds nieuw) | Waarom v2 beter is |
 |---|---|---|---|
 | Vertrouwen-normalisatie | Bayes 3,5 → 0 | **Bayes 4,0 → 0** | Eligible bedrijven liggen op 4,6–4,95; een vloer van 3,5 verspilde het halve bereik aan scores die geen enkel opgenomen bedrijf haalt. Vloer 4,0 geeft de objectieve dimensie resolutie wáár de data ligt → de ranking leunt meer op harde data, minder op een grove LLM-halve-stap. |
 | Recentheid vol bij | 6 reviews/24m | **10 reviews/24m** | 6 was een erg lage lat die iedereen haalde; 10 blijft een activiteits*poort* (geen volumewedstrijd), maar geeft de dimensie iets meer werk aan de onderkant. |
 | Publicatiedrempel | geen (= opname, ≥10) | **≥15 reviews** | Opname (meedingen) blijft ≥10, maar "een van de beste van de regio" mag niet op 10 reviews steunen. Zie §2. |
 | LLM-deelscores | één run, 0,5-stappen | **gemiddelde van 2–3 runs** | Middelen halveert de effectieve stapgrootte en middelt toevallige beoordelaarsruis uit → de subjectieve dimensies worden fijner en stabieler. Zie §5. |
 
-**v3 (nieuw, standaard).** De vier **kalibratiewaarden** (vertrouwen-vloer,
+**v3 (destijds nieuw).** De vier **kalibratiewaarden** (vertrouwen-vloer,
 recentheid-anker, publicatiedrempel, LLM-run-middeling) zijn **identiek aan v2** —
 op bedrijven die aan de opnamecriteria voldoen geeft v3 exact dezelfde score en
 volgorde als v2. v3 voegt één **opname-eis** en een rijkere **presentatielaag** toe.
@@ -103,8 +103,8 @@ publiekstekst staat de eis expliciet bij de opnamecriteria.
 
 Bestaande v1- en v2-pagina's blijven byte-voor-byte identiek (geverifieerd): zowel de
 website-eis als de rijkere graph zijn versie-gestuurd (`methodiekVersie >= 3`), dus
-v1/v2 reproduceren exact hun oude output. **v3 is de standaard voor élke nieuwe én
-elke herbouwde pagina.**
+v1/v2 reproduceren exact hun oude output. **v3 was de standaard tot v4 werd
+toegevoegd; de standaard is altijd de nieuwste versie — zie het v4-blok hieronder.**
 
 > Bron: `build.js` — `METHODIEK_PARAMS`, de `eligible`-berekening (website-eis) en de
 > `JSONLD_GRAPH`-opbouw (tweede JSON-LD-blok).
@@ -137,8 +137,10 @@ Bayes-krimp trekt weinig-berecenseerde bedrijven al naar het regiogemiddelde —
 specialist met 10 reviews klimt dus niet zomaar.
 
 Bestaande v1/v2/v3-pagina's blijven byte-voor-byte identiek (geverifieerd): beide v4-regels
-zijn versie-gestuurd (`methodiekVersie >= 4`). **v4 is de standaard voor élke nieuwe én elke
-herbouwde pagina.**
+zijn versie-gestuurd (`methodiekVersie >= 4`). **v4 is op dit moment de nieuwste versie
+(`METHODIEK_LATEST` in `build.js`) en dus de standaard voor élke nieuwe én elke herbouwde
+pagina. Komt er ooit een v5 bij, dan wordt díe automatisch de standaard — een config
+zonder `methodiek`-veld pakt altijd de nieuwste versie.**
 
 > Bron: `build.js` — `METHODIEK_PARAMS[4]` (`VAKFOCUS_FLOOR`), de `eligible`-berekening
 > (vakfocus-vloer) en de `depthCount`/`top`-bepaling (diepte op specialisten, volgorde op
@@ -386,14 +388,15 @@ willekeur, geen toeval.
 
 | Stap | Wat | Waarmee |
 |---|---|---|
-| 1 | Config aanmaken: vak, regio, gemeenten, zoektermen, peildatum (nieuw = v2, geen `methodiek`-veld nodig) | `config/<niche>/<slug>.json` |
+| 1 | Config aanmaken: vak, regio, gemeenten, zoektermen, peildatum (nieuw = nieuwste versie, geen `methodiek`-veld nodig) | `config/<niche>/<slug>.json` |
 | 2 | Reviews en websites scrapen | Apify (reviews-scraper + place-details) |
 | 3 | Normaliseren naar één bestand | `node scripts/normalize.js apify <slug> …` → `data/<slug>/reviews.json` |
-| 4 | Tekstuele beoordeling door de LLM (mét webtoegang voor de vakfocus) — **v2: 2–3 onafhankelijke runs, gemiddelde bevriezen** | `prompts/scoring-prompt.md` → `data/<slug>/beoordeling.json` — **daarna bevriezen** |
+| 4 | Tekstuele beoordeling door de LLM (mét webtoegang voor de vakfocus) — **2–3 onafhankelijke runs, gemiddelde bevriezen** (staande regel sinds v2) | `prompts/scoring-prompt.md` → `data/<slug>/beoordeling.json` — **daarna bevriezen** |
 | 5 | Bouwen | `node build.js <slug>`, of veilig voor de hele site: `node build-all.js` |
 | 6 | Controleren | `reports/<slug>/<slug>-rapport.txt` |
 
-**Meerdere LLM-runs middelen (v2).** Reviewkwaliteit en vakfocus worden in v2 in
+**Meerdere LLM-runs middelen (staande regel sinds v2, geldt in elke latere versie).**
+Reviewkwaliteit en vakfocus worden in
 **2–3 onafhankelijke runs** gescoord (elk in 0,5-stappen); je bevriest het
 **gemiddelde**, niet toevallig de eerste run. Dat halveert de effectieve stapgrootte
 en middelt toevallige beoordelaarsruis uit — precies de twee subjectieve dimensies

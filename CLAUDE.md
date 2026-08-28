@@ -22,8 +22,10 @@ Dat document is ook wat Cowork leest.
 - **Methodiek-versies.** Interne kalibratie die de publieke paginatekst niet noemt
   (vertrouwen-vloer, recentheid-anker, publicatiedrempel, LLM-run-middeling) staat
   in `METHODIEK_PARAMS` in `build.js`, per versie. Elke config draagt `"methodiek": N`;
-  ontbreekt het veld → nieuwste versie. **Bestaande pagina's staan vastgepind (v1/v2/v3) en
-  mogen nooit veranderen; nieuwe pagina's krijgen automatisch de nieuwste versie (v4).**
+  ontbreekt het veld → nieuwste versie (`METHODIEK_LATEST` in `build.js`). **Bestaande
+  pagina's staan vastgepind en mogen nooit veranderen; nieuwe pagina's krijgen altijd
+  automatisch de nieuwste versie (op dit moment v4) — pin een nieuwe config nooit op een
+  versienummer.**
   Verhoog `METHODIEK_LATEST` en voeg een nieuw versieblok toe om de logica te
   verbeteren — pin bestaande configs nooit los. **v4** voegt twee versie-gestuurde
   selectieregels toe: een **vakspecialist-eis** (eligible vergt vakfocus ≥ `VAKFOCUS_FLOOR`

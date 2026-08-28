@@ -10,7 +10,7 @@ Belangrijk:
   eindscore, selectie of ranking. De site toont geen cijfer op 10, maar een
   Top 10 (of Top 5 in een dunne regio); de LLM-deelscores bepalen mee wie in
   die selectie komt en in welke volgorde.
-- MIDDEL MEERDERE RUNS (methodiek v2). Scoor `reviewkwaliteit` en `vakfocus` in
+- MIDDEL MEERDERE RUNS (staande regel sinds methodiek v2, geldt in elke latere versie). Scoor `reviewkwaliteit` en `vakfocus` in
   **2–3 onafhankelijke runs** (elke run in stappen van 0,5, zoals de rubrieken
   voorschrijven) en zet in `beoordeling.json` het **gemiddelde** van die runs —
   niet toevallig de eerste run. Dat halveert de effectieve stapgrootte en middelt
