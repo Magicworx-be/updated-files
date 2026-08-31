@@ -1,6 +1,6 @@
 # Prospectielijst — Dakwerkers in regio Oudenaarde
 
-_Intern document voor dasslim.be. Niet publiceren. Gegenereerd op 2026-08-28 · peildatum 2026-08-27._
+_Intern document voor dasslim.be. Niet publiceren. Gegenereerd op 2026-08-31 · peildatum 2026-08-27._
 
 Deze bedrijven staan **niet** op de publieke Keurwijzer-pagina, maar zijn waardevolle prospects. De publieke pagina toont enkel de Top 10.
 
