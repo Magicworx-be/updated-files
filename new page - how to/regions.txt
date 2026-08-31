@@ -1,8 +1,8 @@
 Region	                Cities
-Gent			Gent, Merelbeke-Melle, Destelbergen, Evergem, Lochristi, Nazareth-De Pinte, Sint-Martens-Latem, Wetteren, Laarne, Lievegem, Deinze, Oosterzele, Zelzate, Aalter
+Gent			Gent, Merelbeke-Melle, Destelbergen, Evergem, Lochristi, Nazareth-De Pinte, Sint-Martens-Latem, Deinze, Oosterzele
 Meetjesland		Eeklo, Maldegem, Sint-Laureins, Assenede, Kaprijke, Lievegem, Aalter, Zelzate
 Aalst			Aalst, Erpe-Mere, Lede, Haaltert, Denderleeuw, Ninove, Herzele, Sint-Lievens-Houtem, Geraardsbergen, Zottegem
-Dendermonde		Dendermonde, Lebbeke, Buggenhout, Hamme, Zele, Berlare, Wichelen, Waasmunster, Opwijk
+Dendermonde		Dendermonde, Lebbeke, Buggenhout, Hamme, Zele, Berlare, Wichelen, Waasmunster, Opwijk, Wetteren, Laarne
 Sint-Niklaas		Sint-Niklaas, Beveren-Kruibeke-Zwijndrecht, Temse, Stekene, Sint-Gillis-Waas, Lokeren
 Oudenaarde		Oudenaarde, Ronse, Brakel, Horebeke, Kluisbergen, Kruisem, Lierde, Maarkedal, Wortegem-Petegem, Zwalm, Gavere
 Brugge			Brugge, Beernem, Blankenberge, Damme, Jabbeke, Knokke-Heist, Oostkamp, Torhout, Zedelgem, Zuienkerke

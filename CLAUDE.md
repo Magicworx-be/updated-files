@@ -55,6 +55,15 @@ Dat document is ook wat Cowork leest.
   niche enkel wat bestaat. Voeg je een regio toe aan `regions.txt`, vul dan ook
   `PROVINCIE_PER_REGIO` in `lib/registry.js` aan — anders faalt de build hard.
 - **Geen gemeente in de data → bedrijf altijd weglaten.**
+- **Drie gemeentelijsten, bewust ongelijk.** Het zoekgebied van de scraper
+  (`Apify scrape/geolocation.txt`), de publicatielijst (`regions.txt`) en het
+  opnamefilter (`gemeenten` in de config) doen verschillende dingen en mogen van
+  elkaar verschillen. Zet ze nooit gelijk. In `regions.txt` staan de **officiële
+  fusienamen** (het aantal is publiek zichtbaar op de "binnenkort"-kaart) en hoort
+  elke gemeente in precies één regio. In de config zet je juist **alle**
+  schrijfwijzen — fusienaam, oude namen én deelgemeenten — want daar wordt
+  vergeleken met wat Google in het adres schrijft, en dat is niet consequent.
+  Zie `ARCHITECTUUR.md` § De drie gemeentelijsten.
 - **WhatsApp-nummers staan buiten de methodiek.** Bedrijven geven ze zelf door;
   ze staan in `data/whatsapp.json` en komen in géén enkele berekening voor.
   De link is bewust even zwaar als "Naar website" — maak er nooit een opvallende

@@ -185,6 +185,46 @@ zijn herbouwbaar, de derde bevat geheimen.
 
 ---
 
+## De drie gemeentelijsten — waarom ze niet gelijk zijn
+
+Er bestaan drie lijsten van gemeenten per regio. Ze lijken op elkaar, maar doen
+verschillende dingen en mogen daarom van elkaar verschillen. Zet ze niet gelijk
+zonder te weten wat je stukmaakt.
+
+| Lijst | Waar | Waarvoor | Vorm |
+|---|---|---|---|
+| Zoekgebied | `Apify scrape/geolocation.txt` (`REGIONS`) | Bepaalt waar de scraper zoekt | Vrije namen; polygoon + 3 km buffer |
+| Publicatielijst | `new page - how to/regions.txt` | De 29 regio's en de "binnenkort"-kaarten | **Officiële fusienamen** |
+| Opnamefilter | `config/<niche>/<slug>.json` → `gemeenten` | Wie op de pagina mag | **Alle schrijfwijzen** |
+
+**Zoekgebied.** `geolocation.txt` vraagt per naam de grens op bij OpenStreetMap,
+plakt ze aan elkaar en legt er 3 km omheen. Die buffer is er bewust: bedrijven aan
+de rand van een gemeente vielen anders weg. Gevolg is dat een scrape altijd ook
+bedrijven uit buurregio's oplevert — dat is normaal, het opnamefilter zeeft ze eruit.
+
+Deze lijst gebruikt voor vijf fusiegemeenten nog de namen van vóór 2025 (Beveren,
+Kruibeke, Zwijndrecht; Merelbeke, Melle; Nazareth, De Pinte; Bilzen, Hoeselt;
+Tongeren, Borgloon). OSM geeft daarvoor enkel de dorpskern terug in plaats van de
+hele gemeente. **Gemeten op de echte polygonen is dat geen probleem:** de buffer en
+de buurgemeenten in dezelfde regio vullen het op. Van 20 geteste plaatsen in het
+Waasland vielen alleen Doel en Prosperpolder buiten het zoekgebied — polder- en
+havengebied zonder vakbedrijven. Laat deze lijst dus met rust tenzij je een concreet
+gat kunt aantonen.
+
+**Publicatielijst.** `regions.txt` is de bindende lijst van de 29 regio's. Hier
+horen wél de officiële fusienamen, want het aantal gemeenten per regio verschijnt
+op de publieke "binnenkort"-kaart. Elke gemeente mag hier in precies één regio
+staan. Sinds augustus 2026: 285 gemeenten, geen dubbels.
+
+**Opnamefilter.** De gemeentelijst in de config beslist wie op de pagina mag, door
+te vergelijken met wat Google in het adres schrijft. Neem hier **alles** op: de
+fusienaam, de oude namen én de deelgemeenten. Dat is geen slordigheid maar een
+vangnet — Google is niet consequent. In de scrape van Sint-Niklaas staat 39 keer
+"Beveren-Kruibeke-Zwijndrecht" en 1 keer "Beveren"; met alleen de oude namen zou je
+er 39 verliezen. `dakwerkers-sint-niklaas.json` is het voorbeeld om na te volgen.
+
+---
+
 ## Configuratie
 
 `.env` staat niet in versiebeheer en moet na een herinstallatie opnieuw gemaakt worden.
