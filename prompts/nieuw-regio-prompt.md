@@ -92,13 +92,14 @@ node build-all.js
 Controleer:
 - `output/{{SLUG}}/index.html` — Top 10 of Top 5, volgorde, geen score boven 10
 - `reports/{{SLUG}}/` — controlerapport + prospectiedocument
-- De "update in GHL"-lijst die `build-all.js` print
+- De "dit gaat live"-lijst die `build-all.js` print
 
-### Fase 5 — Overdracht
+### Fase 5 — Publicatie
 
-Geef mij de lijst van GHL-acties. Typisch voor een nieuwe regio in een bestaande
-niche: enkel de detailpagina plakken (uit `ghl/{{SLUG}}/`). Hubs en homepage laden
-automatisch uit `registry.json`.
+`build-all.js` publiceert zelf: de site gaat naar `Magicworx-be/keurwijzer-site`
+en Cloudflare zet ze binnen ~30 seconden live op keurwijzer.be. Bevestig dat de
+nieuwe pagina er echt staat en meld wat er live is gegaan. Er is geen handmatige
+overdracht meer.
 
 ### Fase 6 — Outreach
 

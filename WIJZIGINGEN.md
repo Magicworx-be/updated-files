@@ -192,6 +192,36 @@ de reden uit beslissing 8 (de gebruiker plakt de prompt telkens opnieuw, dus die
 compleet en op zichzelf staand zijn) blijft gelden en het bestand voldoet daaraan; wat
 vervalt is enkel dat Google Docs daarvoor de bewaarplaats moest zijn.
 
+### 12. Publiceren volledig geautomatiseerd — weg bij GoHighLevel (31-08-2026)
+
+**Probleem.** Elke nieuwe pagina moest met de hand in GoHighLevel gezet worden: pagina
+aanmaken, zeven SEO-velden invullen, de JSON-LD in de header plakken en 70 KB HTML in
+een custom-code element. Dat was met afstand de duurste stap van het hele proces, en
+met 29 regio's in het vooruitzicht liep dat alleen maar op.
+
+**Waarom het niet met een koppeling op te lossen was.** De publieke API van GoHighLevel
+heeft alleen léés-endpoints voor funnels en pagina's. Er bestaat geen manier om een
+pagina aan te maken of de HTML en SEO-velden weg te schrijven. Elke automatisering zou
+neerkomen op een script dat de bouwer-interface nabootst — te broos om op te bouwen.
+
+**Beslissing.** De publieke pagina's zijn uit GoHighLevel gehaald. Ze waren volledig
+zelfstandig: geen formulier, geen tracking, geen enkele afhankelijkheid. Alle SEO-velden
+zaten al ín de HTML — de hele `ghl/`-plakmap bestond alleen omdat GoHighLevel ze daar
+niet las. Op een statische host valt dat weg: het bestand ís de pagina.
+
+**Nu.** `build-all.js` duwt de site naar `Magicworx-be/keurwijzer-site`; Cloudflare zet
+ze binnen ~30 seconden live op keurwijzer.be. De URLs bleven identiek, dus er was geen
+enkele redirect nodig. Hosting is gratis: verzoeken naar statische bestanden zijn bij
+Cloudflare onbeperkt en kosteloos.
+
+**Meegenomen:** `sitemap.xml` en `robots.txt` werken nu écht. Op GoHighLevel leverde
+`/sitemap.xml` nul URLs op en was `/robots.txt` leeg — Google wist dus niet welke
+pagina's er waren. Nu staan er 24 URLs in.
+
+**Verder in dit document staan nog passages over de `ghl/`-plakmap en de "in GHL
+bijwerken"-lijst.** Die beschrijven hoe het wérkte en blijven staan als geschiedenis;
+ze gelden niet meer. `ARCHITECTUUR.md` beschrijft de huidige opzet.
+
 ---
 
 ## Wat is NIET veranderd

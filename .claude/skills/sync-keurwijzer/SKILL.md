@@ -19,7 +19,7 @@ Node script wrapping git. Paths below are relative to the repo root.
   **Never push source here.** The driver always targets `updated-files`
   explicitly, so a stray `git push` default can't leak source into the data repo.
 
-`output/`, `badges/`, `ghl/` and `.env` are git-ignored — they are generated /
+`output/`, `badges/` and `.env` are git-ignored — they are generated /
 secret and are *not* part of this sync.
 
 ## Prerequisites

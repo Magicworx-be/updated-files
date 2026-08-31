@@ -179,14 +179,16 @@ Then check and report to me:
   **"NO LOCATION DATA"** section.
 - `reports/{{SLUG}}/…-prospectie-dasslim.md` — positions 11–20 + not-eligible
   (internal, do not publish).
-- The **"update in GHL" list** that `build-all.js` prints.
+- The **"dit gaat live" list** that `build-all.js` prints.
 - **Phase 4b below — the live check that the region really appears on the niche hub.**
   This one is not optional and cannot be skipped by reasoning about it.
 
-`build-all.js` automatically pushes `registry.json` to GitHub
-(`Magicworx-be/keurwijzer-data`), after which the hub and homepage navigation picks up
-the new page client-side via jsDelivr. The hubs and homepage do **not** need to be
-pasted into GHL again — only the new detail page itself.
+`build-all.js` publishes everything itself: the site goes to
+`Magicworx-be/keurwijzer-site` and Cloudflare serves it on keurwijzer.be within about
+30 seconds. It also pushes `registry.json` to `Magicworx-be/keurwijzer-data`, after
+which the hub and homepage navigation picks up the new page client-side via jsDelivr.
+No manual step exists any more — which also means there is no review gate between
+building and going live.
 
 ### Phase 4b — MANDATORY live check: does the region actually show up on the niche hub?
 
@@ -223,33 +225,31 @@ the commit + purge of both jsDelivr variants always runs. Do **not** purge the C
 to "fix" it before you understand why the automatic purge failed; a blind purge can pull an
 even older cached copy and make it worse. Report the outcome of both steps explicitly.
 
-Exceptions that **do** require a GHL paste:
+Two cases that still deserve attention, even though nothing needs pasting:
 
-- **New region (first page in that region):** a new region hub must be created in GHL
-  once (SEO fields + body from `ghl/regio-<slug>/`). The cards inside it are automatic
-  after that.
-- **New niche:** a new niche hub must be created in GHL once, and the niche card on the
-  homepage must be activated manually (the `data-niche` attribute + icon/description
-  are already in the template; the JS automatically upgrades it to "live" once the
-  niche appears in `registry.json`, but the visual card must exist there first). The
-  hundreds of existing detail pages must **not** change — report it if that does
-  happen (something would be wrong).
+- **New region (first page in that region):** the region hub is generated and published
+  automatically. Still open it and confirm it exists and lists the niche.
+- **New niche:** the niche hub is published automatically, but the **homepage card must
+  already exist in `homepage.html`** (the `data-niche` attribute plus icon and
+  description). The JS upgrades that card to "live" once the niche appears in
+  `registry.json` — it cannot create a card that isn't in the template. Check this
+  before building a first page in a new niche. The hundreds of existing detail pages
+  must **not** change — report it if that does happen (something would be wrong).
 
 ---
 
-## Phase 5 — Handover
+## Phase 5 — Publication
 
-Publishing in GHL remains **my** manual work. Prepare the ready-to-paste files in
-`ghl/` (`build-all.js` does that) and give me the concise list of which pages I need to
-create/update in GoHighLevel, with the path for each page. Do **nothing** in GHL
-yourself.
+`build-all.js` publishes by itself; there is no handover step. Confirm that the new
+page is genuinely reachable on `https://keurwijzer.be/{{SLUG}}/` and report what went
+live.
 
-**Typical for a new region within an existing niche:** only **1 GHL action** is needed:
-pasting the new detail page itself (from `ghl/<slug>/`). The hubs and homepage load the
-new link automatically from `registry.json`.
+Because publishing is immediate, treat a build as a publication: do not run
+`build-all.js` to "see what happens". If something is wrong, fix it and build again —
+a correction is live within 30 seconds too.
 
 At the end, summarize: the chosen municipalities (with any overlap exclusions), number
-of rankable companies, Top 10 or Top 5, and the exact GHL update list.
+of rankable companies, Top 10 or Top 5, and exactly which pages went live.
 
 ---
 

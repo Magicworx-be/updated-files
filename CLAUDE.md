@@ -36,19 +36,22 @@ Dat document is ook wat Cowork leest.
   Niet nesten.
 - **Registry-gedreven:** navigatie, hubs en sitemap komen uit de configs via
   `lib/registry.js`. Het veilige eindcommando is altijd `node build-all.js`.
+- **Publicatie is volledig geautomatiseerd.** `node build-all.js` bouwt de site,
+  duwt ze naar `Magicworx-be/keurwijzer-site` en Cloudflare zet ze binnen ~30 s
+  live op keurwijzer.be. Er is geen handmatige stap meer. Zie `ARCHITECTUUR.md`
+  voor het volledige overzicht van laptop, GitHub en Cloudflare.
 - **Dynamische navigatie:** hub- en homepage-navigatie wordt clientside geladen
   uit `registry.json` (gehost op GitHub via jsDelivr CDN). `build-all.js` genereert
-  en pusht dit bestand automatisch. Daardoor hoeven hubs en homepage niet meer in
-  GHL bijgewerkt te worden bij een nieuwe regio — enkel de nieuwe detailpagina zelf.
-  **Ook de JSON-LD ItemList wordt clientside geïnjecteerd** (`hub.html`), zodat de
-  hubs écht write-once zijn: één keer plakken, daarna nooit meer aanraken.
+  en pusht dit bestand automatisch. **Ook de JSON-LD ItemList wordt clientside
+  geïnjecteerd** (`hub.html`). Dat dateert uit de tijd dat pagina's met de hand
+  overgezet moesten worden; het werkt nog steeds correct en blijft voorlopig staan.
 - **"Binnenkort"-kaarten zijn afgeleid, nooit opgeslagen.** De niche-hub toont naast
   de live regio's ook de nog niet gebouwde, als grijze, **niet-klikbare** kaart
   (nooit een link — dat zou een 404 zijn). De lijst ontstaat door aftrekken:
   alle regio's uit `new page - how to/regions.txt` (29, bindend) **min** wat live
   staat in `registry.json`. Gaat een regio live, dan valt ze vanzelf uit die
   verzameling en wordt haar kaart klikbaar — er is geen label om weg te halen en
-  geen GHL-actie voor nodig. Onder `PLANNED_MIN_LIVE` (3) live regio's toont een
+  geen handmatige actie voor nodig. Onder `PLANNED_MIN_LIVE` (3) live regio's toont een
   niche enkel wat bestaat. Voeg je een regio toe aan `regions.txt`, vul dan ook
   `PROVINCIE_PER_REGIO` in `lib/registry.js` aan — anders faalt de build hard.
 - **Geen gemeente in de data → bedrijf altijd weglaten.**
@@ -93,7 +96,9 @@ hetzelfde zeggen.
 | Pad | Rol |
 |---|---|
 | `build.js` | Rekenmotor + paginagenerator. Bindende bron voor alle getallen. |
-| `build-all.js` | Bouwt alles (pagina's, hubs, sitemap, GHL-blokken) + genereert en pusht `registry.json` én de badges. Veilig eindcommando. |
+| `ARCHITECTUUR.md` | **Vogelperspectief:** wat waar staat (laptop, GitHub, Cloudflare) en hoe de keten van scrape tot live pagina loopt. Lees dit bij vragen over de opzet. |
+| `build-all.js` | Bouwt alles (pagina's, hubs, sitemap) + pusht `registry.json`, de badges én de site naar Cloudflare. Veilig eindcommando. |
+| `lib/push-site.js` | Publiceert `output/` naar `Magicworx-be/keurwijzer-site`; Cloudflare zet het live. |
 | `build-site.js` | Homepage/hubs (kaarten worden clientside geladen uit `registry.json`). |
 | `lib/registry.js` | Leidt navigatie en sitemap af uit de configs. Bevat ook `loadPlannedRegions()` (leest `regions.txt`) + `PROVINCIE_PER_REGIO` en `PLANNED_MIN_LIVE` voor de "binnenkort"-kaarten. |
 | `new page - how to/regions.txt` | **Bindende lijst van alle 29 Keurwijzer-regio's** (tab-gescheiden). Voedt de "binnenkort"-kaarten op de niche-hubs. `regio-overzicht.md` is de leesbare werkversie hiervan. |
@@ -116,9 +121,11 @@ hetzelfde zeggen.
 - Raak `data/<slug>/beoordeling.json` niet aan zonder expliciete vraag.
 - Bij twijfel over een niche-term, synoniem of hero-afbeelding: vragen, niet
   verzinnen.
-- **GHL per nieuwe pagina:** bij een nieuwe regio in een bestaande niche is er nog
-  maar 1 GHL-actie nodig: de detailpagina zelf plakken. De hubs en homepage laden
-  de nieuwe link automatisch uit `registry.json` — inclusief het omklappen van de
+- **Publiceren gebeurt vanzelf.** Een nieuwe regio staat na `node build-all.js`
+  binnen ~30 seconden live; er is geen handmatige stap. De hubs en homepage pikken
+  de nieuwe link automatisch op uit `registry.json` — inclusief het omklappen van de
   "binnenkort"-kaart naar een klikbare kaart en het bijwerken van de JSON-LD
-  ItemList. Flagt `build-all` tóch een hub als gewijzigd, dan is dat een
-  echte template-wijziging (CSS/JS), geen nieuwe regio.
+  ItemList. Meld na afloop wat er live ging.
+- **De build gaat direct live.** Er zit geen controlemoment meer tussen bouwen en
+  publiceren. Klopt er iets niet, dan is dat rechtgezet met een nieuwe build —
+  maar bouw niet lichtzinnig.
