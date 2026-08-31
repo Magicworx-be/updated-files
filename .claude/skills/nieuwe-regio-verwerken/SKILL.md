@@ -65,7 +65,12 @@ node scripts/normalize.js apify {{SLUG}} {{REVIEWS_PAD_UIT_STAP1}} {{PLACES_PAD_
 ```
 
 De rest van Fase 1-5 (gemeentenlijst, bevriezen van `beoordeling.json`, `build-all.js`,
-GHL-overdracht) blijft ongewijzigd. Wijk er niet van af.
+publicatie) blijft ongewijzigd. Wijk er niet van af.
+
+**Publiceren gaat vanzelf.** `build-all.js` duwt de site naar
+`Magicworx-be/keurwijzer-site` en Cloudflare zet ze binnen ~30 seconden live op
+keurwijzer.be. Er is geen handmatige overdracht meer — en dus ook geen
+controlemoment tussen bouwen en live gaan. Zie `ARCHITECTUUR.md`.
 
 **Sla Fase 4b nooit over.** Na `build-all.js` controleer je altijd of de nieuwe regio
 ook écht op de live niche-hub (`keurwijzer.be/<niche>/`) als klikbare kaart verschijnt,
@@ -76,7 +81,7 @@ HTML — je moet de pagina renderen met de browser-tools. Meld de uitkomst expli
 
 ## Stap 3 — Outreach (Fase 6)
 
-Na de GHL-overdracht: volg **Fase 6** van `prompts/directory-page-emails-prompt.md` met de
+Nadat de pagina live staat: volg **Fase 6** van `prompts/directory-page-emails-prompt.md` met de
 Gmail MCP (al gekoppeld aan Olivier's eigen account) om gepersonaliseerde conceptmails klaar
 te zetten per bedrijf uit de selectie. **Nooit automatisch versturen** — enkel drafts die
 Olivier zelf controleert en verstuurt.
