@@ -435,7 +435,12 @@ altijd zelf en negeert ze.
   plek is (zie hieronder).
 - `reports/<slug>/<slug>-prospectie-dasslim.md` — intern prospectiedocument
 - `badges/<slug>/badges.json` — badgegegevens per gepubliceerd bedrijf (naam,
-  tier, slug, badge-URL's)
+  gemeente, rang, tier, slug, badge-URL's). Dit is ook de **opzoektabel bij
+  badge-vragen achteraf**: vraagt een bedrijf maanden later om zijn badge, dan komen
+  naam, tier en beide badge-links hieruit. `lib/push-badges.js` publiceert het bestand
+  daarom mee naar de CDN, naast de PNG's — `badges/` staat lokaal in `.gitignore`, dus
+  dat is meteen de enige duurzame kopie. Het bevat enkel gegevens die al publiek op de
+  pagina staan; contactgegevens horen er niet in.
 
 Het **controlerapport is het beste startpunt bij elke vraag** over waarom een
 bedrijf ergens staat: het toont per bedrijf composite, trust, reviewkwaliteit,
