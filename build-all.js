@@ -256,13 +256,21 @@ console.log('');
 
 // 6) registry.json pushen naar GitHub (zodat jsDelivr de nieuwe navigatie serveert)
 let pushMislukt = false;
+let cdnAchter = false;
 try {
   execFileSync('node', [path.join(ROOT, 'lib', 'push-registry.js')], { stdio: 'inherit' });
-} catch {
-  pushMislukt = true;
-  console.error('\n  !! registry.json NIET gepusht naar GitHub.');
-  console.error('     → Run handmatig: node lib/push-registry.js');
-  console.error('     → Zonder push zien bezoekers de binnenkort-kaarten NIET.');
+} catch (err) {
+  // Exitcode 2 = push naar GitHub is WEL gelukt, maar jsDelivr serveert nog niet
+  // alle pagina's. Dat vraagt een ander advies dan een echt mislukte push (1):
+  // opnieuw pushen helpt daar niet, even wachten en herbouwen wel.
+  if (err && err.status === 2) {
+    cdnAchter = true;
+  } else {
+    pushMislukt = true;
+    console.error('\n  !! registry.json NIET gepusht naar GitHub.');
+    console.error('     → Run handmatig: node lib/push-registry.js');
+    console.error('     → Zonder push zien bezoekers de binnenkort-kaarten NIET.');
+  }
 }
 
 // 7) badge-PNG's pushen naar dezelfde data-repo (jsDelivr serveert de badges)
@@ -289,5 +297,15 @@ if (homepageMeldingen.length) {
 
 if (pushMislukt) {
   console.error('\n⚠⚠  ACTIE VEREIST: node lib/push-registry.js  (zie boven)\n');
+  process.exitCode = 1;
+} else if (cdnAchter) {
+  console.error('\n' + '='.repeat(64));
+  console.error('LET OP — de pagina\'s staan live, maar de hub loopt nog achter');
+  console.error('='.repeat(64));
+  console.error('  registry.json staat correct op GitHub; jsDelivr serveert hem nog niet.');
+  console.error('  Gevolg: de detailpagina is bereikbaar, maar op de niche-hub staat ze');
+  console.error('  nog als grijze "binnenkort"-kaart. Dit lost zichzelf op.');
+  console.error('  → Wacht een paar minuten en draai opnieuw: node build-all.js');
+  console.error('  → Opnieuw pushen heeft geen zin; het ligt aan de CDN-cache.\n');
   process.exitCode = 1;
 }
