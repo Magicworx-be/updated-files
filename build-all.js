@@ -49,6 +49,22 @@ function relToUrl(rel) {
 const registry = R.loadRegistry(ROOT);
 if (!registry.length) { console.error('Geen configs in config/<niche>/.'); process.exit(1); }
 
+// WhatsApp-nummers: build.js controleert per pagina of de bedrijfsnaam bestaat,
+// maar een tikfout in de *slug* ziet hij nooit — die regel hoort dan bij geen
+// enkele pagina en verdwijnt stil. Hier, waar alle slugs bekend zijn, wél.
+{
+  const WA = require('./lib/whatsapp');
+  const { rijen, fouten } = WA.load(ROOT);
+  const bekend = new Set(registry.map(p => p.slug));
+  const zoek = rijen.filter(r => !bekend.has(r.slug))
+    .map(r => '"' + r.bedrijf + '": regio-slug "' + r.slug + '" bestaat niet');
+  const alles = fouten.concat(zoek);
+  if (alles.length) {
+    console.error('FOUT in data/whatsapp.json:\n  - ' + alles.join('\n  - '));
+    process.exit(1);
+  }
+}
+
 const before = snapshot();
 
 // 1) alle detailpagina's herbouwen (dit vernieuwt hun kruislinks + broodkruimel)

@@ -15,7 +15,7 @@ dit document verouderd — zie [Onderhoud](#onderhoud-1-bron-2-lezers).
 | **Bindende bron voor het werkproces** | `prompts/directory-page-emails-prompt.md` |
 | **Waarom-beslissingen** | `WIJZIGINGEN.md` |
 | **Nieuwste methodiek-versie** | v4 (zie [Methodiek-versies](#methodiek-versies)) |
-| **Laatst gelijkgezet met de code** | 28 augustus 2026 |
+| **Laatst gelijkgezet met de code** | 31 augustus 2026 |
 
 ---
 
@@ -471,6 +471,38 @@ uit de vaste gewichten volgen.
   in de build en worden handmatig gecontroleerd.
 - **Geen andere gewichten per stad.** Dezelfde methode geldt voor elk bedrijf in
   elke regio.
+
+---
+
+## 7. Contactgegevens (WhatsApp)
+
+Een bedrijf dat op Keurwijzer staat mag zélf een WhatsApp-nummer doorgeven. Doet
+het dat, dan krijgt zijn kaart een tekstlink "WhatsApp" naast "Naar website", die
+een gesprek opent met de openingszin *"Hallo, ik vond u via Keurwijzer."*
+
+**Dit staat volledig los van de methodiek:**
+
+- Het nummer komt in **geen enkele** berekening voor — niet in de vier dimensies,
+  niet in de eligibility-test, niet in de volgorde. Het is contactinformatie,
+  geen kwaliteitssignaal.
+- Het valt daarom **buiten `METHODIEK_PARAMS`**: een WhatsApp-link verschijnt op
+  pagina's van élke methodiek-versie, ook op de vastgepinde v1-pagina's. Dat is
+  bewust — anders kon een bedrijf op een oudere pagina nooit bereikbaar worden.
+- De link is **visueel even zwaar** als "Naar website". Een opvallende knop zou
+  bedrijven mét nummer voorrang geven op een pagina die net over onafhankelijke
+  rangschikking gaat.
+- De paginatekst zegt dit ook expliciet, onder §methodiek: *"Sommige bedrijven
+  geven zelf een WhatsApp-nummer door … maakt geen deel uit van de beoordeling en
+  heeft geen invloed op de selectie of de volgorde."*
+
+**Waar het vandaan komt:** `data/whatsapp.json`, gevuld vanuit de private Google
+Sheet waarin de doorgegeven nummers worden bijgehouden. Eén regel per bedrijf per
+regio (`slug` + `bedrijf` + `whatsapp` + `toestemming`); koppeling gebeurt op
+slug plus genormaliseerde bedrijfsnaam. Het nummer mag in elk formaat staan —
+`lib/whatsapp.js` maakt er een geldige `wa.me`-link van. Klopt een naam niet met
+`reviews.json`, dan **stopt de build** met een suggestie, zodat een tikfout de
+knop nooit stilzwijgend laat verdwijnen. Regel weghalen = link weg bij de
+volgende build.
 
 ---
 

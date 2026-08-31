@@ -55,6 +55,12 @@ Dat document is ook wat Cowork leest.
   niche enkel wat bestaat. Voeg je een regio toe aan `regions.txt`, vul dan ook
   `PROVINCIE_PER_REGIO` in `lib/registry.js` aan — anders faalt de build hard.
 - **Geen gemeente in de data → bedrijf altijd weglaten.**
+- **WhatsApp-nummers staan buiten de methodiek.** Bedrijven geven ze zelf door;
+  ze staan in `data/whatsapp.json` en komen in géén enkele berekening voor.
+  De link is bewust even zwaar als "Naar website" — maak er nooit een opvallende
+  knop van, dat zou bedrijven mét nummer visueel voorrang geven. Hij geldt voor
+  álle methodiek-versies (ook vastgepinde v1-pagina's), want contactinformatie
+  is geen methodiek. Zie `METHODIEK.md` §7.
 - **Pagina-output en outreach-mails zijn altijd Nederlands.** De werkproces-prompt
   (zie hieronder) staat in het Engels, maar alles wat op de publieke pagina of in
   een mail aan een bedrijf terechtkomt niet: `synthese`/chips komen uit

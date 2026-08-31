@@ -231,6 +231,46 @@ const R = require('./lib/registry');
 const registry = R.loadRegistry(ROOT);
 const pageEntry = registry.find(e => e.slug === slug) || null;
 
+// WhatsApp-nummers die bedrijven zélf hebben doorgegeven. Puur contactinfo:
+// staat volledig buiten de methodiek (geen versieblok, geen invloed op scores,
+// selectie of volgorde) en geldt daarom op pagina's van élke methodiek-versie.
+const WA = require('./lib/whatsapp');
+const { map: waMap, fouten: waFouten } = WA.forSlug(ROOT, slug);
+if (waFouten.length) die('WhatsApp-nummers:\n  - ' + waFouten.join('\n  - '));
+// Een tikfout in de bedrijfsnaam zou de knop stilzwijgend laten verdwijnen —
+// precies wat je niet wil bij een bedrijf dat zijn nummer heeft doorgegeven.
+// Dus: harde stop, mét de meest gelijkende naam uit de data als suggestie.
+{
+  const namen = reviewData.map(c => String(c.bedrijf || '')).filter(Boolean);
+  const namenNorm = new Set(namen.map(norm));
+  // Afstand op letterniveau (Levenshtein), niet op gedeelde woorden: bijna elke
+  // dakwerkersnaam bevat "dakwerken", dus woordoverlap wijst de verkeerde kant op.
+  function afstand(a, b) {
+    const rij = Array.from({ length: b.length + 1 }, (_, j) => j);
+    for (let i = 1; i <= a.length; i++) {
+      let vorig = rij[0]; rij[0] = i;
+      for (let j = 1; j <= b.length; j++) {
+        const tmp = rij[j];
+        rij[j] = Math.min(rij[j] + 1, rij[j - 1] + 1, vorig + (a[i - 1] === b[j - 1] ? 0 : 1));
+        vorig = tmp;
+      }
+    }
+    return rij[b.length];
+  }
+  const onbekend = [];
+  for (const [naamNorm, rij] of waMap) {
+    if (namenNorm.has(naamNorm)) continue;
+    const beste = namen
+      .map(n => ({ n, d: afstand(naamNorm, norm(n)) }))
+      .sort((a, b) => a.d - b.d)[0];
+    // Alleen suggereren als het écht op een tikfout lijkt (max ~1 fout per 4 letters).
+    const lijkt = beste && beste.d <= Math.max(2, Math.ceil(naamNorm.length / 4));
+    onbekend.push('"' + rij.bedrijf + '" komt niet voor in data/' + slug + '/reviews.json' +
+      (lijkt ? ' — bedoelde je "' + beste.n + '"?' : ''));
+  }
+  if (onbekend.length) die('WhatsApp-nummers:\n  - ' + onbekend.join('\n  - '));
+}
+
 ['vak', 'regio', 'gemeenten', 'peildatum', 'updateDatum'].forEach(k => {
   if (!config[k]) die('config mist veld "' + k + '"');
 });
@@ -356,6 +396,9 @@ for (const c of reviewData) {
     googleScore: typeof c.googleScore === 'number' ? c.googleScore : null,
     googleReviews: rawCount,
     actiefSinds: (beo && beo.actiefSinds) || c.actiefSinds || null,
+    // Door het bedrijf zelf doorgegeven WhatsApp-nummer (of null). Bewust hier
+    // en nergens anders: het speelt geen enkele rol in eligible/composite/pickTop.
+    whatsapp: waMap.get(norm(c.bedrijf || '')) || null,
     inRegio, beo,
     vw, Rw, n24, nOK,
     recency: vw > 0 ? Math.min(n24 / P.RECENCY_ANCHOR, 1) : 0,
@@ -585,10 +628,24 @@ function articleHTML(c) {
   const actief = c.actiefSinds
     ? '<span class="sep">·</span>\n              <span>Actief sinds ' + esc(c.actiefSinds) + '</span>' : '';
   const host = c.website ? siteHost(c.website) : null;
-  const foot = host
-    ? '<span class="co-meta"><svg viewBox="0 0 24 24"><use href="#i-info"/></svg>' + esc(c.gemeente) + ' · ' + esc(host) + '</span>\n' +
-      '              <a class="co-link" href="' + esc(c.website) + '" rel="noopener noreferrer" target="_blank">Naar website <span class="arr">→</span></a>'
-    : '<span class="co-meta"><svg viewBox="0 0 24 24"><use href="#i-info"/></svg>' + esc(c.gemeente) + '</span>';
+  const meta = '<span class="co-meta"><svg viewBox="0 0 24 24"><use href="#i-info"/></svg>' +
+    esc(c.gemeente) + (host ? ' · ' + esc(host) : '') + '</span>';
+  const siteLink = host
+    ? '<a class="co-link" href="' + esc(c.website) + '" rel="noopener noreferrer" target="_blank">Naar website <span class="arr">→</span></a>'
+    : '';
+  // Ingetogen tekstlink, exact hetzelfde gewicht als "Naar website" — een
+  // opvallende knop zou bedrijven mét nummer visueel voorrang geven op een
+  // pagina die net over onafhankelijke rangschikking gaat.
+  const waLink = c.whatsapp
+    ? '<a class="co-link co-wa" href="' + esc(c.whatsapp.url) + '" rel="noopener noreferrer" target="_blank"' +
+      ' aria-label="Stuur een WhatsApp-bericht naar ' + esc(c.naam) + '">' +
+      '<svg viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg>WhatsApp</a>'
+    : '';
+  // Zonder WhatsApp blijft de voet letterlijk zoals vroeger — dat houdt de
+  // build-diff leesbaar: enkel kaarten die écht een nummer kregen veranderen.
+  const foot = waLink
+    ? meta + '\n              <span class="co-acties">' + waLink + siteLink + '</span>'
+    : (siteLink ? meta + '\n              ' + siteLink : meta);
   const desc = (c.beo && c.beo.synthese) || '';
   // Nummerloos vignet: elke kaart draagt dezelfde Top N-medaille (geen rangnummer).
   // De volgorde blijft impliciet zichtbaar via de plaats in de lijst.

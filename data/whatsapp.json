@@ -1,0 +1,4 @@
+{
+  "_uitleg": "WhatsApp-nummers die bedrijven zelf hebben doorgegeven. Wordt overgezet uit de private Google Sheet. Eén regel per bedrijf per regio. 'bedrijf' moet exact overeenkomen met de naam op de pagina; 'whatsapp' mag in elk formaat ('0475 12 34 56', '+32 475 123456'). Regel weghalen = knop weg bij de volgende build. Zie lib/whatsapp.js en METHODIEK.md.",
+  "nummers": []
+}

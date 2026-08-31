@@ -224,6 +224,46 @@ ze gelden niet meer. `ARCHITECTUUR.md` beschrijft de huidige opzet.
 
 ---
 
+### 13. WhatsApp-link per bedrijf (31-08-2026)
+
+**Wat.** Een bedrijf dat op Keurwijzer staat mag zelf zijn WhatsApp-nummer doorgeven.
+Doet het dat, dan krijgt zijn kaart een tekstlink "WhatsApp" naast "Naar website", die
+een gesprek opent met de openingszin *"Hallo, ik vond u via Keurwijzer."* Zo ziet het
+bedrijf meteen waar de klant vandaan komt — het beste argument voor de volgende
+outreach-ronde.
+
+**Waarom een ingetogen tekstlink en geen groene knop.** Alleen een deel van de bedrijven
+zal een nummer doorgeven. Een opvallende knop zou die bedrijven visueel voorrang geven
+op een pagina die net over onafhankelijke rangschikking gaat — de bezoeker ziet dan een
+verschil dat niets met kwaliteit te maken heeft, maar er wel uitziet alsof het meespeelt.
+De link heeft daarom exact hetzelfde gewicht als "Naar website". Om dezelfde reden staat
+er nu één zin onder §methodiek: *contactmogelijkheden maken geen deel uit van de
+beoordeling en beïnvloeden selectie noch volgorde.*
+
+**Waarom buiten de methodiek-versies.** Bestaande pagina's staan vastgepind op hun
+versie en veranderen normaal nooit. Een telefoonnummer is echter geen methodiek maar
+contactinformatie: het komt in geen enkele berekening voor. Zou de link versie-gestuurd
+zijn, dan kon een bedrijf op de v1-pagina van Gent nooit bereikbaar worden. Hij staat
+daarom buiten `METHODIEK_PARAMS` en verschijnt op pagina's van elke versie.
+
+**Waarom een lokaal bestand en niet rechtstreeks de Google Sheet.** De build leest
+`data/whatsapp.json`. Dat staat in versiebeheer, werkt offline en kan nooit een
+publicatie blokkeren omdat Google onbereikbaar is. De private Sheet blijft de plek waar
+Olivier de nummers verzamelt; die wordt naar dit bestand overgezet. Wil je dat later
+volledig automatisch, dan volstaat het één tabblad als CSV te publiceren en dat bij de
+build op te halen — het bouwstuk verandert daar niet voor.
+
+**Harde stop bij een naamfout.** Klopt een bedrijfsnaam niet met `reviews.json`, dan
+stopt de build met een suggestie op basis van letterafstand ("bedoelde je …?"). Een
+tikfout mag de knop niet stilzwijgend laten verdwijnen bij een bedrijf dat zijn nummer
+net heeft doorgegeven.
+
+**Bestanden:** `lib/whatsapp.js` (nieuw), `data/whatsapp.json` (nieuw), `build.js`
+(inladen, controle, `articleHTML`), `template.html` (icoon, `.co-acties`, de zin onder
+§methodiek), `METHODIEK.md` §7.
+
+---
+
 ## Wat is NIET veranderd
 - De rekenmethode, gewichten en drempels (35/30/15/20, halveringstijd 2 jaar,
   Bayes M=16, ≥10 reviews, ≥3 recent).

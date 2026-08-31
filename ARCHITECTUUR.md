@@ -84,6 +84,20 @@ Stap 4 tot en met 12 zitten in één commando:
 node build-all.js
 ```
 
+### Zijstroom: WhatsApp-nummers
+
+Los van de scrape-keten. Geeft een bedrijf zijn WhatsApp-nummer door, dan noteert
+Olivier dat in de **private Google Sheet** (kolommen: regio-slug, bedrijfsnaam,
+nummer, datum toestemming). Die regels worden overgezet naar `data/whatsapp.json`;
+`build.js` leest enkel dát bestand. Bij de volgende `node build-all.js` verschijnt
+de link op de kaart van dat bedrijf — ook op pagina's die al maanden live staan,
+want alle pagina's worden bij elke build volledig opnieuw gegenereerd.
+
+De Sheet blijft privé: hij wordt met de hand of via een Claude-sessie uitgelezen.
+Wil je het volledig automatisch, publiceer dan **één apart tabblad** (enkel naam en
+nummer — nooit het tabblad met statussen en e-mailadressen) als CSV en haal dat bij
+de build op. Zie `METHODIEK.md` §7 en `WIJZIGINGEN.md` §13.
+
 ---
 
 ## Hoe de site-repo eruitziet
@@ -156,6 +170,8 @@ Worker-records en zet `A keurwijzer.be → 162.159.140.166` en
 | `scripts/genereer-badges.js` | Rendert de kwaliteitsbadges als PNG. |
 | `config/<niche>/<slug>.json` | Vak, regio, gemeentelijst, peildatum. |
 | `data/<slug>/` | Ruwe scrape, genormaliseerde reviews, beoordeling. |
+| `data/whatsapp.json` | Doorgegeven WhatsApp-nummers. Overgezet uit de private Sheet. |
+| `lib/whatsapp.js` | Leest en controleert die nummers; maakt de `wa.me`-link. |
 | `prompts/scoring-prompt.md` | Rubrieken voor de LLM-beoordeling. |
 | `prompts/directory-page-emails-prompt.md` | Het canonieke werkproces, Fase 0–6. |
 | `template.html`, `hub.html`, `homepage.html` | De paginasjablonen. |
