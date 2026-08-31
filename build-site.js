@@ -157,9 +157,16 @@ const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n' +
 write('sitemap.xml', sitemap);
 
 // ---------------- robots.txt ------------------------------------------
+// Keurwijzer wil maximaal vindbaar zijn: in klassieke zoekmachines én in
+// AI-assistenten. De Content-Signal-regel maakt die toestemming expliciet in
+// plaats van ze aan de standaardinstelling van de host over te laten.
+//   search   = opgenomen worden in een zoekindex
+//   ai-input = gebruikt worden om een vraag van een gebruiker te beantwoorden
+//   ai-train = gebruikt worden om modellen te trainen
 write('robots.txt',
   'User-agent: *\n' +
-  'Allow: /\n\n' +
+  'Allow: /\n' +
+  'Content-Signal: search=yes,ai-input=yes,ai-train=yes\n\n' +
   'Sitemap: ' + origin + '/sitemap.xml\n');
 
 console.log('\nKlaar: ' + R.niches(registry).length + ' niche-hub(s), ' +
