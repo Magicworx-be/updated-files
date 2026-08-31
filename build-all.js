@@ -10,7 +10,7 @@
 // mee herbouwd worden. Dit script doet dat voor alles ineens.
 //
 // Extra: het vergelijkt de output vóór en ná de build en toont exact welke
-// pagina's veranderd of nieuw zijn — dat is je "in GHL bijwerken"-lijst.
+// pagina's veranderd of nieuw zijn — dat is wat er bij het publiceren live gaat.
 //
 // Gebruik:  node build-all.js
 // =====================================================================
@@ -44,70 +44,6 @@ function relToUrl(rel) {
   if (rel === 'sitemap.xml') return '/sitemap.xml';
   if (rel === 'index.html') return '/';
   return '/' + rel.replace(/\/index\.html$/, '') + '/';
-}
-
-// ---- GHL-plakbundels: elke gewijzigde pagina opsplitsen in de stukken die
-//      GHL nodig heeft, zodat inplakken puur kopiëren/plakken is. -----------
-const GHL = path.join(ROOT, 'ghl');
-function grijp(re, s) { const m = s.match(re); return m ? m[1].trim() : ''; }
-function ghlNaam(rel) {
-  const u = relToUrl(rel);
-  return u === '/' ? 'home' : u.replace(/^\/|\/$/g, '').replace(/\//g, '-');
-}
-function ghlPad(rel) {
-  const u = relToUrl(rel);
-  return u === '/' ? '(leeg laten = homepage)' : u.replace(/^\/|\/$/g, '');
-}
-function extractMeta(html) {
-  return {
-    title:     grijp(/<title>([\s\S]*?)<\/title>/i, html),
-    meta:      grijp(/<meta name="description" content="([^"]*)"/i, html),
-    canonical: grijp(/<link rel="canonical" href="([^"]*)"/i, html),
-    ogTitle:   grijp(/property="og:title" content="([^"]*)"/i, html),
-    ogDesc:    grijp(/property="og:description" content="([^"]*)"/i, html),
-    ogImage:   grijp(/property="og:image" content="([^"]*)"/i, html),
-  };
-}
-function seoVelden(rel, m) {
-  return 'GHL Path:         ' + ghlPad(rel) + '\n' +
-    'Paginatitel:      ' + m.title + '\n' +
-    'Meta-description: ' + m.meta + '\n' +
-    'Canonical URL:    ' + m.canonical + '\n' +
-    'OG-titel:         ' + m.ogTitle + '\n' +
-    'OG-beschrijving:  ' + m.ogDesc + '\n' +
-    'OG-afbeelding:    ' + m.ogImage + '\n';
-}
-function schrijfGhlBundle(rel) {
-  const html = fs.readFileSync(path.join(OUT, rel), 'utf8');
-  const head = html.split(/<body\b[^>]*>/i)[0] || '';
-  const bodyInner = (html.match(/<body\b[^>]*>([\s\S]*)<\/body>/i) || [, ''])[1];
-  const jsonld = (html.match(/<script type="application\/ld\+json">[\s\S]*?<\/script>/gi) || []).join('\n\n');
-  const headLinks = (head.match(/<link\b[^>]*>/gi) || [])
-    .filter(l => /rel="(preconnect|stylesheet)"/i.test(l)).join('\n');
-  const headStyles = (head.match(/<style>[\s\S]*?<\/style>/gi) || []).join('\n');
-  const block = [headLinks, headStyles, bodyInner].filter(Boolean).join('\n\n');
-
-  const dir = path.join(GHL, ghlNaam(rel));
-  fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, 'SEO-velden.txt'), seoVelden(rel, extractMeta(html)));
-  fs.writeFileSync(path.join(dir, 'header-code.txt'), jsonld + '\n');
-  fs.writeFileSync(path.join(dir, 'body.txt'), block + '\n');
-}
-// Altijd-actueel naslagwerk: metadata van ÁLLE live pagina's op één plek.
-function schrijfMetadataOverzicht() {
-  const paginas = deployFiles(OUT).filter(f => f.endsWith('index.html'))
-    .map(f => path.relative(OUT, f).replace(/\\/g, '/')).sort();
-  let out = 'KEURWIJZER — METADATA-OVERZICHT VOOR GHL\n' +
-    'Gegenereerd: ' + new Date().toISOString().slice(0, 10) + '  ·  ' + paginas.length + ' pagina\'s\n\n' +
-    'Vul deze velden in bij elke pagina in de SEO-tab van GHL. NIET in de body plakken —\n' +
-    'title/description/canonical worden daar niet gelezen (JSON-LD mag wél in de body).\n' +
-    '='.repeat(72) + '\n\n';
-  for (const rel of paginas) {
-    out += seoVelden(rel, extractMeta(fs.readFileSync(path.join(OUT, rel), 'utf8'))) +
-      '-'.repeat(72) + '\n\n';
-  }
-  fs.mkdirSync(GHL, { recursive: true });
-  fs.writeFileSync(path.join(GHL, '_METADATA-overzicht.txt'), out);
 }
 
 const registry = R.loadRegistry(ROOT);
@@ -228,7 +164,7 @@ for (const f of deployFiles(OUT)) {
   try { if (dir !== OUT && !fs.readdirSync(dir).length) fs.rmdirSync(dir); } catch { /* niet leeg */ }
 }
 
-// 4) diff: wat moet er in GHL bijgewerkt worden?
+// 4) diff: wat is er veranderd sinds de vorige build?
 const after = snapshot();
 const nieuw = [], gewijzigd = [];
 for (const [rel, h] of after) {
@@ -237,34 +173,16 @@ for (const [rel, h] of after) {
 }
 const verwijderd = [...before.keys()].filter(rel => !after.has(rel));
 
-// 5) GHL-plakbundels vernieuwen: ghl/ bevat na de build enkel de pagina's die
-//    je moet in-/bijwerken — elk opgesplitst in SEO-velden, header-code en body.
-fs.rmSync(GHL, { recursive: true, force: true });
-const teplakken = [...nieuw, ...gewijzigd].filter(rel => rel !== 'sitemap.xml');
-for (const rel of teplakken) schrijfGhlBundle(rel);
-schrijfMetadataOverzicht(); // altijd: volledige metadata van álle pagina's
-fs.writeFileSync(path.join(GHL, '_LEES-MIJ.txt'),
-  'ghl/ = werkmap voor het overzetten naar GHL (NIET uploaden). Bij elke build-all opnieuw gemaakt.\n\n' +
-  '_METADATA-overzicht.txt → metadata (SEO-velden) van ÁLLE live pagina\'s, altijd actueel.\n\n' +
-  'Per pagina die je moet aanmaken/bijwerken staat er ook een mapje met drie bestanden:\n' +
-  '  SEO-velden.txt   → GHL Path + titel + meta-description + canonical + OG (SEO-tab van de pagina)\n' +
-  '  header-code.txt  → in de Header/Tracking-code van de pagina plakken (JSON-LD schema)\n' +
-  '  body.txt         → in één Custom HTML/Code-element op de pagina plakken (bevat ook de CSS)\n\n' +
-  'Let op: title/description/canonical MOETEN in de SEO-tab (niet in de body — daar leest GHL ze niet).\n' +
-  'sitemap.xml en robots.txt staan in output/ en publiceer je apart (zie WIJZIGINGEN.md).\n');
-
 const fmt = list => list.map(relToUrl).sort().map(u => '    ' + u).join('\n');
 
 console.log('\n' + '='.repeat(64));
-console.log('KLAAR — ' + after.size + ' pagina\'s. In GHL bijwerken:');
+console.log('KLAAR — ' + after.size + ' pagina\'s. Dit gaat live:');
 console.log('='.repeat(64));
-if (nieuw.length)      console.log('\n  NIEUW (pagina aanmaken in GHL):\n' + fmt(nieuw));
-if (gewijzigd.length)  console.log('\n  GEWIJZIGD (HTML opnieuw plakken):\n' + fmt(gewijzigd));
-if (verwijderd.length) console.log('\n  VERWIJDERD (pagina uit GHL halen):\n' + fmt(verwijderd));
+if (nieuw.length)      console.log('\n  NIEUW:\n' + fmt(nieuw));
+if (gewijzigd.length)  console.log('\n  GEWIJZIGD:\n' + fmt(gewijzigd));
+if (verwijderd.length) console.log('\n  VERWIJDERD (gaat offline):\n' + fmt(verwijderd));
 if (!nieuw.length && !gewijzigd.length && !verwijderd.length) console.log('\n  Niets veranderd — geen actie nodig.');
 if (mislukt.length) console.log('\n  ! Niet gebouwd (data ontbreekt): ' + mislukt.join(', '));
-if (teplakken.length) console.log('\n  → Kant-en-klare plakbestanden:  ghl/  (' + teplakken.length + ' pagina\'s)');
-console.log('  → Metadata van álle pagina\'s:   ghl/_METADATA-overzicht.txt');
 console.log('');
 
 // 6) registry.json pushen naar GitHub (zodat jsDelivr de nieuwe navigatie serveert)
@@ -283,7 +201,7 @@ try {
   execFileSync('node', [path.join(ROOT, 'lib', 'push-badges.js')], { stdio: 'inherit' });
 } catch { /* fout wordt al gemeld door push-badges.js */ }
 
-// 8) de statische site publiceren (vervangt het handmatig plakken in GHL).
+// 8) de statische site publiceren naar Cloudflare (via de site-repo op GitHub).
 //    Doet niets zolang GITHUB_SITE_REPO niet in .env staat — de build blijft
 //    dan exact werken zoals voorheen.
 try {
