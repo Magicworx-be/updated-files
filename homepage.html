@@ -618,11 +618,26 @@ a.niche:hover .niche-arrow { transform: translateX(4px); }
 </section>
 
 <!-- =====================================================================
-     NICHES
-     Onderhoud: zet een niche live door
-       (a) <div class="niche" data-status="soon"> te vervangen door
-           <a class="niche" data-status="live" href="/<niche>/">
-       (b) de flag "Binnenkort" te vervangen door "Online"
+     NICHES — het vakgebiedenraster
+
+     Dit raster is met de hand onderhouden: elke kaart heeft een eigen icoon,
+     naam en onderschrift, en die staan nergens in een config. De rest van de
+     navigatie (menu, footer, regiochips) komt wél uit registry.json.
+
+     LIVE ZETTEN GEBEURT VANZELF. Elke kaart draagt data-niche="<mapnaam onder
+     config/>". Zodra die niche in registry.json verschijnt, klapt het script
+     onderaan deze pagina de grijze kaart om naar een klikbare "Online →"-link.
+     Je hoeft daarvoor hier niets te wijzigen.
+
+     WEL MET DE HAND: een nieuwe niche heeft hier een kaart nodig. Kopieer een
+     bestaand <div class="niche" data-status="soon">-blok en pas aan:
+       data-niche          = exact de mapnaam onder config/  (bv. "gevelwerken")
+       .niche-name         = de publieke naam                (bv. "Gevelwerken")
+       .niche-note         = het onderschrift
+       <use href="#n-...">  = een van de iconen in de sprite bovenaan deze pagina
+     Vergeet je dat, dan meldt `node build-all.js` het op het einde — dan staat
+     de niche wel in het menu en de sitemap, maar ontbreekt ze in dit raster.
+
      Foto's: vervang het <span class="nico"> icoonblok door
        <img src="/img/niches/<naam>.jpg" alt="..." loading="lazy">
      ===================================================================== -->
@@ -990,21 +1005,24 @@ a.niche:hover .niche-arrow { transform: translateX(4px); }
     if (data.niches) {
       var nicheSet = {};
       data.niches.forEach(function(n){ nicheSet[n.niche] = n; });
-      document.querySelectorAll('.niche[data-status]').forEach(function(el){
+      document.querySelectorAll('.niche[data-status="soon"]').forEach(function(el){
         var nicheKey = el.getAttribute('data-niche');
         if (!nicheKey || !nicheSet[nicheKey]) return;
-        if (el.getAttribute('data-status') === 'soon') {
-          // Upgrade: div → a, status → live
-          var a = document.createElement('a');
-          a.className = el.className.replace('pre', 'pre ');
-          a.setAttribute('data-status', 'live');
-          a.setAttribute('data-niche', nicheKey);
-          a.href = nicheSet[nicheKey].url;
-          a.innerHTML = el.innerHTML;
-          var flag = a.querySelector('.niche-flag');
-          if (flag) { flag.className = 'niche-flag live'; flag.textContent = 'Online →'; }
-          el.parentNode.replaceChild(a, el);
-        }
+        // Upgrade: div → a, status → live
+        var a = document.createElement('a');
+        a.className = el.className;
+        a.setAttribute('data-status', 'live');
+        a.setAttribute('data-niche', nicheKey);
+        a.href = nicheSet[nicheKey].url;
+        a.innerHTML = el.innerHTML;
+        var flag = a.querySelector('.niche-flag');
+        if (flag) { flag.className = 'niche-flag live'; flag.textContent = 'Online →'; }
+        el.parentNode.replaceChild(a, el);
+        // BELANGRIJK: dit is een NIEUW element. De scroll-reveal onderaan deze
+        // pagina observeert enkel de elementen die er bij het laden al stonden,
+        // dus deze kaart zou nooit haar '.in' krijgen en op opacity 0 blijven
+        // hangen — een leeg vak in het raster. Daarom meldt ze zich hier zelf aan.
+        if (window.kwOnthul) window.kwOnthul(a); else a.classList.add('in');
       });
     }
 
@@ -1102,6 +1120,7 @@ a.niche:hover .niche-arrow { transform: translateX(4px); }
   var els = document.querySelectorAll('.pre');
   if (!('IntersectionObserver' in window)) {
     els.forEach(function(el){ el.classList.add('in'); });
+    window.kwOnthul = function(el){ el.classList.add('in'); };
     return;
   }
   var obs = new IntersectionObserver(function(entries){
@@ -1110,6 +1129,11 @@ a.niche:hover .niche-arrow { transform: translateX(4px); }
     });
   }, { threshold: 0.12 });
   els.forEach(function(el){ obs.observe(el); });
+  // `els` is een momentopname van het laden. Elementen die daarna ontstaan —
+  // de dynamische navigatie vervangt een niche-kaart zodra de registry binnen
+  // is — zitten er niet in en zouden dus onzichtbaar blijven. Via deze haak
+  // kunnen ze zich alsnog aanmelden.
+  window.kwOnthul = function(el){ obs.observe(el); };
 })();
 </script>
 </body>

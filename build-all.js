@@ -3,11 +3,17 @@
 // build-all.js — de "systeembrede check". Herbouwt de VOLLEDIGE site uit
 // de registry en garandeert dat alle onderlinge links consistent zijn.
 //
-// Waarom nodig: `build-site.js` vervimt de hubs/homepage/sitemap (die lezen
-// enkel de configs), maar de kruislinks (naburige regio's, andere vakgebieden)
-// zitten gebakken in élke detailpagina en worden pas vernieuwd bij een rebuild
-// van díe pagina. Voeg je een regio/niche toe, dan moeten de buurpagina's dus
-// mee herbouwd worden. Dit script doet dat voor alles ineens.
+// Waarom nodig: `build-site.js` ververst enkel de hubs, de homepage en de
+// sitemap. De detailpagina's blijven staan zoals ze ooit gebouwd zijn, terwijl
+// ze wél meeveranderen met het sjabloon, de methodiek en de WhatsApp-lijst.
+// Dit script herbouwt daarom álles uit dezelfde registry, zodat de site nooit
+// half oud en half nieuw is.
+//
+// Let op — dit stond hier ooit anders beschreven: detailpagina's linken sinds
+// de herziening van "Verder kijken" bewust alleen naar hun eigen twee hubs,
+// nooit meer naar zusterpagina's. Een regio of niche toevoegen kán hun links
+// dus niet doen verouderen; de volledige, actuele lijst staat op de hubs, die
+// clientside uit registry.json laden.
 //
 // Extra: het vergelijkt de output vóór en ná de build en toont exact welke
 // pagina's veranderd of nieuw zijn — dat is wat er bij het publiceren live gaat.
@@ -65,9 +71,56 @@ if (!registry.length) { console.error('Geen configs in config/<niche>/.'); proce
   }
 }
 
+// Het vakgebiedenraster op homepage.html is het enige stuk navigatie dat NIET
+// uit de registry komt: elke kaart heeft een eigen icoon, naam en onderschrift,
+// en die staan nergens in een config. Gaat een niche live zonder kaart, dan
+// ontbreekt ze stil op de homepage terwijl ze wél in het menu en de sitemap
+// staat. Staat er omgekeerd een kaart op "live" voor een niche die niet bestaat,
+// dan linkt de homepage naar een 404. Geen van beide zie je aan de pagina zelf.
+// Waarschuwing, geen harde stop: de rest van de site is volledig geldig.
+function homepageKaarten() {
+  const bestand = path.join(ROOT, 'homepage.html');
+  if (!fs.existsSync(bestand)) return null;
+  // uitgecommentarieerde kaarten tellen niet mee — die staan niet op de pagina
+  const html = fs.readFileSync(bestand, 'utf8').replace(/<!--[\s\S]*?-->/g, '');
+  const kaarten = new Map();
+  const re = /<[a-z]+\b[^>]*\bdata-niche="([^"]+)"[^>]*>/gi;
+  let m;
+  while ((m = re.exec(html))) {
+    const status = (m[0].match(/\bdata-status="([^"]+)"/) || [])[1] || 'soon';
+    kaarten.set(m[1], status);
+  }
+  return kaarten;
+}
+
+const homepageMeldingen = [];
+{
+  const kaarten = homepageKaarten();
+  if (kaarten) {
+    for (const n of R.niches(registry)) {
+      if (kaarten.has(n.niche)) continue;
+      homepageMeldingen.push([
+        'Niche "' + n.niche + '" (' + n.vakMvCap + ') staat live, maar heeft GEEN kaart in het',
+        '  vakgebiedenraster van homepage.html. Bezoekers zien ze daar dus niet staan.',
+        '  → Voeg een kaart toe met data-niche="' + n.niche + '". De uitleg staat vlak boven',
+        '    <section id="niches"> in homepage.html; de kaart zet zichzelf op "Online".',
+      ].join('\n'));
+    }
+    const bestaandeNiches = new Set(registry.map(p => p.niche));
+    for (const [niche, status] of kaarten) {
+      if (status !== 'live' || bestaandeNiches.has(niche)) continue;
+      homepageMeldingen.push([
+        'De kaart data-niche="' + niche + '" op homepage.html staat op "live", maar er is geen',
+        '  config/' + niche + '/ — die link geeft een 404.',
+        '  → Zet ze terug op data-status="soon", of controleer de spelling van de mapnaam.',
+      ].join('\n'));
+    }
+  }
+}
+
 const before = snapshot();
 
-// 1) alle detailpagina's herbouwen (dit vernieuwt hun kruislinks + broodkruimel)
+// 1) alle detailpagina's herbouwen (sjabloon, scores, broodkruimel, WhatsApp)
 console.log('› ' + registry.length + ' detailpagina\'s herbouwen...');
 const mislukt = [];
 for (const p of registry) {
@@ -223,6 +276,16 @@ try {
 try {
   execFileSync('node', [path.join(ROOT, 'lib', 'push-site.js')], { stdio: 'inherit' });
 } catch { /* fout wordt al gemeld door push-site.js */ }
+
+// 9) als laatste, zodat het niet wegscrollt tussen de push-uitvoer: ontbreekt er
+//    een kaart in het vakgebiedenraster van de homepage?
+if (homepageMeldingen.length) {
+  console.error('\n' + '='.repeat(64));
+  console.error('LET OP — vakgebiedenraster op de homepage');
+  console.error('='.repeat(64));
+  for (const m of homepageMeldingen) console.error('  · ' + m);
+  console.error('');
+}
 
 if (pushMislukt) {
   console.error('\n⚠⚠  ACTIE VEREIST: node lib/push-registry.js  (zie boven)\n');
