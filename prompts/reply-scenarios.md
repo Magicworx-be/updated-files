@@ -11,6 +11,34 @@ identifying the company and looking up the badge URLs. This file covers *what to
 
 ---
 
+## Step zero — is this even a real reply?
+
+Plenty of companies run an autoresponder. Those mails are not a reply and ask nothing.
+**Never draft anything for one** — not even a scenario 3 skeleton.
+
+Treat the incoming message as an autoresponder when either of these holds:
+
+1. **Timing.** It arrived **two minutes or less** after Olivier's previous message in
+   the same thread. Nobody reads and types that fast.
+2. **Wording.** It carries one of the usual formulas — "uw bericht goed ontvangen",
+   "we nemen binnenkort contact met u op", "automatisch antwoord", "automatische
+   ontvangstbevestiging", "out of office", "afwezig", "met verlof", "terug vanaf",
+   "niet aanwezig", "wij zijn gesloten" — **and** it engages with nothing specific and
+   asks nothing.
+
+If the text does respond to the outreach mail (asks for the badge, asks whether it is
+free, hands over a number, asks anything at all), it is a real reply even when it also
+says "goed ontvangen". Handle it normally.
+
+**What to do:** nothing. Skip the thread silently, create no draft, note nothing, send
+no notification. Mention it in your report as "autoresponder, overgeslagen" at most.
+
+**Why no draft may appear:** a draft marks the thread as handled. Put one on an
+autoresponder and the thread is skipped for good — including the day the company
+actually replies. Doing nothing keeps it a candidate.
+
+---
+
 ## Voice — this matters more than the structure
 
 Olivier writes like he talks: short, warm, straight to the point. He is answering

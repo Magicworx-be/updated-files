@@ -1,4 +1,40 @@
 {
-  "_uitleg": "WhatsApp-nummers die bedrijven zelf hebben doorgegeven. Wordt overgezet uit de private Google Sheet. Eén regel per bedrijf per regio. 'bedrijf' moet exact overeenkomen met de naam op de pagina; 'whatsapp' mag in elk formaat ('0475 12 34 56', '+32 475 123456'). Regel weghalen = knop weg bij de volgende build. Zie lib/whatsapp.js en METHODIEK.md.",
-  "nummers": []
+  "_uitleg": "WhatsApp-nummers die bedrijven zelf per e-mail hebben doorgegeven, als antwoord op de outreach-mail. Dit bestand is de enige bron (de Google Sheet wordt niet meer gebruikt). Een regel per bedrijf per regio. 'bedrijf' moet exact overeenkomen met de naam op de pagina; 'whatsapp' mag in elk formaat ('0475 12 34 56', '+32 475 123456'). 'toestemming' noteert waar het nummer vandaan komt. Regel weghalen = knop weg bij de volgende build. Zie lib/whatsapp.js en METHODIEK.md §7.",
+  "nummers": [
+    {
+      "slug": "dakwerkers-gent",
+      "bedrijf": "Dakwerken Elewaut",
+      "whatsapp": "+32495342788",
+      "bron": "mail",
+      "toestemming": "2026-08-17, info@dakwerken-elewaut.be — \"Whatsapp: +32495342788\""
+    },
+    {
+      "slug": "dakwerkers-brugge",
+      "bedrijf": "D&G Dakwerken (Brugge)",
+      "whatsapp": "0497 77 64 51",
+      "bron": "mail",
+      "toestemming": "2026-08-31, info@dg-dakwerken.be — \"Ons zakelijk whatsapp nummer is 0497 77 64 51\""
+    },
+    {
+      "slug": "dakwerkers-dendermonde",
+      "bedrijf": "Dakwerken Hofman bvba",
+      "whatsapp": "0470060729",
+      "bron": "mail",
+      "toestemming": "2026-08-31, abdon.hofman@telenet.be — \"ons nummer is 0470060729\""
+    },
+    {
+      "slug": "dakwerkers-dendermonde",
+      "bedrijf": "Dakwerken SD Projects",
+      "whatsapp": "0468/56.01.62",
+      "bron": "mail",
+      "toestemming": "2026-08-31, dylan@mysdprojects.be — \"Zakelijk nummer is meegevoegd in de mail\" (GSM 0468/56.01.62)"
+    },
+    {
+      "slug": "dakwerkers-oudenaarde",
+      "bedrijf": "Dakwerken Devlin",
+      "whatsapp": "0493/85.98.03",
+      "bron": "mail",
+      "toestemming": "2026-08-31, info@dakwerkendevlin.be — \"Mijn gsm nr is 0493/85.98.03\""
+    }
+  ]
 }

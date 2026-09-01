@@ -173,7 +173,7 @@ Worker-records en zet `A keurwijzer.be → 162.159.140.166` en
 | `data/whatsapp.json` | Doorgegeven WhatsApp-nummers. Overgezet uit de private Sheet. |
 | `lib/whatsapp.js` | Leest en controleert die nummers; maakt de `wa.me`-link. |
 | `prompts/scoring-prompt.md` | Rubrieken voor de LLM-beoordeling. |
-| `prompts/directory-page-emails-prompt.md` | Het canonieke werkproces, Fase 0–6. |
+| `prompts/directory-page-emails-prompt.md` | Het canonieke werkproces, Fase 0–7 (0–6 = bouwen en outreach, 7 = opvolgmails bij stilte). |
 | `template.html`, `hub.html`, `homepage.html` | De paginasjablonen. |
 | `output/` | De gebouwde site. Wordt elke build opnieuw gemaakt. |
 | `reports/<slug>/` | Controlerapport en intern prospectiedocument. Niet publiceren. |

@@ -468,6 +468,30 @@ willekeur, geen toeval.
 | 4 | Tekstuele beoordeling door de LLM (mét webtoegang voor de vakfocus) — **2–3 onafhankelijke runs, gemiddelde bevriezen** (staande regel sinds v2) | `prompts/scoring-prompt.md` → `data/<slug>/beoordeling.json` — **daarna bevriezen** |
 | 5 | Bouwen | `node build.js <slug>`, of veilig voor de hele site: `node build-all.js` |
 | 6 | Controleren | `reports/<slug>/<slug>-rapport.txt` |
+| 7 | Outreach: één Gmail-concept per gepubliceerd bedrijf (nooit automatisch verzenden) | `prompts/directory-page-emails-prompt.md`, fase 6 |
+| 8 | Opvolging bij stilte: twee opvolgconcepten in dezelfde thread (los van de bouw, dagen tot weken later) | `prompts/directory-page-emails-prompt.md`, fase 7 |
+
+**Aanspreking met voornaam (staande regel sinds 1 september 2026).** Bij het zoeken
+naar het mailadres van een bedrijf wordt op dezelfde pagina's ook naar de **voornaam
+van de zaakvoerder** gezocht; die komt dan in de aanhef (`Dag Kevin,` in plaats van
+`Goeiedag,`). Hoogstens één extra pagina per bedrijf. De naam wordt alleen gebruikt als
+de site hem expliciet aan de zaakvoerder, eigenaar of oprichter koppelt, of als het
+onmiskenbaar een eenmanszaak is — bij twijfel geen naam, want een verkeerde voornaam is
+schadelijker dan geen. Namen die enkel in Google-reviews voorkomen tellen als
+bevestiging, nooit als bron. Dit staat volledig **buiten de methodiek**: het raakt
+selectie noch ranking, net zoals de WhatsApp-nummers in §7.
+
+**Opvolgmails bij stilte (staande regel sinds 1 september 2026).** De meeste bedrijven
+antwoorden niet op de eerste mail. Daarop volgen hoogstens **twee** opvolgmails, telkens
+als **antwoord in dezelfde thread** (nooit een nieuwe mail met een nieuw onderwerp):
+de eerste na minstens 5 werkdagen met één ja/nee-vraag, de tweede na nog eens 10
+werkdagen als afsluiter. Ze bevatten **geen links, geen afbeelding en geen rangvermelding**
+— de landingspagina staat al in de geciteerde eerste mail eronder. Er wordt geen
+kunstmatige deadline of "laatste kans" gebruikt: de pagina heeft er geen, en een bedrijf
+kan dat nakijken. Wie "nee" antwoordt of eerder om rust vroeg, krijgt niets meer; wie al
+antwoordde, valt vanzelf uit de reeks. Ook dit staat **buiten de methodiek**: opvolging
+raakt selectie noch ranking, en de pagina van een bedrijf verandert niet door wel of niet
+te antwoorden. Zie fase 7 in `prompts/directory-page-emails-prompt.md`.
 
 **Meerdere LLM-runs middelen (staande regel sinds v2, geldt in elke latere versie).**
 Reviewkwaliteit en vakfocus worden in
@@ -559,14 +583,18 @@ een gesprek opent met de openingszin *"Hallo, ik vond u via Keurwijzer."*
   geven zelf een WhatsApp-nummer door … maakt geen deel uit van de beoordeling en
   heeft geen invloed op de selectie of de volgorde."*
 
-**Waar het vandaan komt:** `data/whatsapp.json`, gevuld vanuit de private Google
-Sheet waarin de doorgegeven nummers worden bijgehouden. Eén regel per bedrijf per
-regio (`slug` + `bedrijf` + `whatsapp` + `toestemming`); koppeling gebeurt op
+**Waar het vandaan komt:** `data/whatsapp.json`, gevuld uit **één** bron: de
+antwoorden die bedrijven zelf per mail sturen op de outreach. Elke regel draagt
+`"bron": "mail"`. (Tot 1 september 2026 was er een tweede bron, een private Google
+Sheet; die is buiten gebruik en wordt niet meer gelezen.) Eén regel per bedrijf
+per regio (`slug` + `bedrijf` + `whatsapp` + `toestemming` [+ `bron`]); koppeling gebeurt op
 slug plus genormaliseerde bedrijfsnaam. Het nummer mag in elk formaat staan —
 `lib/whatsapp.js` maakt er een geldige `wa.me`-link van. Klopt een naam niet met
-`reviews.json`, dan **stopt de build** met een suggestie, zodat een tikfout de
-knop nooit stilzwijgend laat verdwijnen. Regel weghalen = link weg bij de
-volgende build.
+`reviews.json`, dan meldt de build dat met een suggestie ("bedoelde je …?") en
+**slaat die ene regiopagina over**; de overige pagina's worden wél gebouwd en
+gepubliceerd. Een tikfout laat dus niet stilzwijgend één knop verdwijnen, maar zet
+wel een hele pagina stil — de build-uitvoer hoort daarom altijd nagelezen te worden.
+Regel weghalen = link weg bij de volgende build.
 
 ---
 

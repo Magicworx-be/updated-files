@@ -123,7 +123,7 @@ hetzelfde zeggen.
 | `.env` | `GITHUB_TOKEN` en `GITHUB_REPO` voor de automatische push (niet in versiebeheer). |
 | `scripts/normalize.js` | Apify-export → `data/<slug>/reviews.json` (+ `recent24`, `rankbaar`). |
 | `prompts/scoring-prompt.md` | Rubrieken voor de LLM-beoordeling, incl. de website-/vakfocuscheck. Wordt letterlijk aangeroepen vanuit Fase 3 van de werkproces-prompt hieronder. |
-| `prompts/directory-page-emails-prompt.md` | **Canonieke Fase 0–6 werkproces-prompt** — config aanmaken t/m outreach-mails. Instructies in het Engels; de twee outreach-mailteksten in Fase 6 staan bewust in het Nederlands (gaan naar Vlaamse bedrijven). Stond eerder als Google Doc (`doc_id 1cB_MeCzx0KB_pHISE_o6mfs9cT4It51ju3HmSrWzgFY`); dat Doc is **buiten gebruik** — bewerk het niet meer en lees het niet meer, dit bestand is de enige bron. |
+| `prompts/directory-page-emails-prompt.md` | **Canonieke Fase 0–7 werkproces-prompt** — config aanmaken t/m outreach-mails; Fase 7 is de opvolgreeks bij stilte en draait los, dagen tot weken later. Instructies in het Engels; alle outreach-mailteksten in Fase 6 en 7 staan bewust in het Nederlands (gaan naar Vlaamse bedrijven). Stond eerder als Google Doc (`doc_id 1cB_MeCzx0KB_pHISE_o6mfs9cT4It51ju3HmSrWzgFY`); dat Doc is **buiten gebruik** — bewerk het niet meer en lees het niet meer, dit bestand is de enige bron. |
 | `config/<niche>/<slug>.json` | Vak, regio, gemeentelijst, peildatum. De gemeentelijst is de eerste selectiefilter. |
 | `METHODIEK.md` | Leesbare uitleg van selectie en ranking. Gedeeld met Cowork. |
 | `WIJZIGINGEN.md` | Waarom-beslissingen (o.a. Top 10-concept i.p.v. score op 10). |

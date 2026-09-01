@@ -1,14 +1,15 @@
 # Build new directory page + draft emails
 
-**Canonical Phase 0–6 work-process prompt.** Instructions are in English; the two
-outreach email templates in Phase 6 are deliberately in Dutch (they go to Flemish
-companies) — keep them that way.
+**Canonical Phase 0–7 work-process prompt.** Instructions are in English; the outreach
+email templates in Phase 6 and Phase 7 are deliberately in Dutch (they go to Flemish
+companies) — keep them that way. Phases 0–6 build and publish a region; **Phase 7 is
+the follow-up sequence** and runs on its own, days or weeks later.
 
 > **Dutch output, always.** These instructions are in English, but everything that
 > reaches the public page or a company's inbox must be Dutch: config text, and every
 > `synthese`/chip (produced via `prompts/scoring-prompt.md`, which is Dutch and
-> enforces this on its own). Both outreach email templates in Phase 6 below are
-> already in Dutch. If Dutch text turns English anywhere in `beoordeling.json`,
+> enforces this on its own). All outreach email templates in Phase 6 and Phase 7 below
+> are already in Dutch. If Dutch text turns English anywhere in `beoordeling.json`,
 > `output/<slug>/index.html`, or a Gmail draft, stop and flag it.
 
 ---
@@ -312,6 +313,37 @@ Visit each website and look for an email address:
 If you find **no** usable address (parked domain, contact form only, site offline):
 **skip that company, don't make anything up**, and report it separately at the end.
 
+### 3b — The owner's first name (for the greeting)
+
+While you are on those pages anyway, also try to find the **first name of the owner**.
+It goes into the greeting of email 1 (`Dag {voornaam},`). This is a bonus, never a
+blocker: no name → the neutral greeting, and the email goes out otherwise unchanged.
+
+Work in this order and stop as soon as you have a confirmed name:
+
+1. **Free** — the homepage and contact page text you already fetched in step 3: footer,
+   "Vraag je offerte aan bij …", a photo caption, or an address like `kevin@…` that a
+   name elsewhere on the page confirms. No extra fetch.
+2. **One extra fetch, at most** — only if step 1 gave nothing: `/over-ons`, `/about`,
+   `/team` or `/contact`. Never more than one extra page per company. The name is a
+   nice-to-have, not worth a crawl.
+
+**Confirmation rule — in doubt, no name.** A wrong first name in a cold email is worse
+than no first name. Only use it if the page explicitly ties it to the **zaakvoerder,
+eigenaar or oprichter**, or if the company is unmistakably a one-person business. Do
+**not** use a name when:
+
+- the site names several people without saying who runs the company (brothers, a team
+  page, a foreman);
+- the name only appears in the Google reviews — that is just as likely the roofer on
+  the job. Reviews may **confirm** a name found on the website, never supply one;
+- it is a group, chain or franchise, where the name may be a regional manager;
+- the company name carries a family name but the site shows more than one person.
+
+Note per company **which** name and **where** it came from: `over-ons`, `footer`,
+`contact`, `mailto` or `—`. That source goes into the region note, so Olivier can
+check it before he sends anything.
+
 ### 4 — Fetch the data (from the generated output, not the raw data)
 
 - `{niche}` = `config.vak.mv` (e.g. "dakwerkers")
@@ -344,10 +376,34 @@ company it holds `naam`, `bedrijfSlug`, `gemeente`, `rang`, `tier`, `badgeDonker
 
 **These URLs go in the region note and in replies — never in email 1.**
 
-### 5 — Clean up the URL
+### 5 — The landing page link
 
-Make sure `{landingspagina url}` looks like this:
-`keurwijzer.be/{{SLUG}}` — should not be clickable, so no hyperlink. important!
+Two things are needed, and confusing them is what produces Gmail's "Redirect Notice":
+
+- `{landingspagina url}` — the **full canonical URL** from step 4:
+  `https://keurwijzer.be/{{SLUG}}/`, with `https://` **and** the trailing slash.
+- `{landingspagina link}` — what actually goes into the `htmlBody`: one explicit
+  anchor, with the full URL in the `href` and the short form as the visible text.
+
+```html
+<a href="https://keurwijzer.be/{{SLUG}}/">keurwijzer.be/{{SLUG}}</a>
+```
+
+**Never put the URL in as bare text without an anchor.** Gmail then linkifies it
+itself, guesses `http://` because no scheme was supplied, and routes that unverified
+http destination through `google.com/url?q=…`. The recipient gets a **"Redirect
+Notice" interstitial** instead of the page, and only then two redirect hops
+(`http://…` → `http://…/` → `https://…/`). That interstitial is exactly the damage the
+single link in email 1 exists to avoid — it is the proof that the company really is in
+the selection, so it has to land on the page in one click. An explicit `https` anchor
+to the canonical URL leaves Gmail nothing to guess.
+
+The old rule here read "should not be clickable, so no hyperlink". That was the cause,
+not a safeguard: Gmail makes the URL clickable regardless, and withholding the anchor
+only hands it the choice of scheme and destination.
+
+**In the region note (step 6b) the plain `{landingspagina url}` is used** — that draft
+is plain text and goes to Olivier himself, so there is no anchor to build.
 
 ### 6a — Email 1: contact email to the company
 
@@ -361,7 +417,8 @@ Rules:
 - **Badge offer only — do NOT ask for their phone/WhatsApp number here.** That request
   belongs in the in-thread follow-up, once they have already replied. Email 1 makes a
   single, low-threshold ask so nothing competes with it.
-- The landing page link may appear as a **plain URL** in the `htmlBody`.
+- The landing page goes in as the **explicit anchor `{landingspagina link}` from step
+  5** — never as bare text that Gmail has to linkify for you.
 
 Determine the **placement sentence** from `{tier}` — it drives both the subject line
 and the email text:
@@ -373,6 +430,16 @@ and the email text:
 | Top 5 | in de top 5 | `staat in de <b>top 5</b>` |
 | Top 10 | in de top 10 | `staat in de <b>top 10</b>` |
 
+Determine the **greeting** `{aanspreking}` from what step 3b produced:
+
+| result of step 3b | `{aanspreking}` |
+|---|---|
+| confirmed first name | `Dag {voornaam},` |
+| nothing found, or any doubt | `Goeiedag,` |
+
+Never invent an in-between ("Dag team", "Beste dakwerker") — it is the name or the
+neutral greeting.
+
 **Subject:** `{niche} {regio} vergeleken - resultaat`
 
 (e.g. "Dakwerkers regio Dendermonde vergeleken")
@@ -382,21 +449,22 @@ and the email text:
 ```
 
 
-Goedemiddag,
+{aanspreking}
 
 We hebben alle {niche} in de {regio} vergeleken.
 {naam bedrijf} {plaatsing-mail} van de {aantal gecontroleerde bedrijven} {niche}.  
-Zie: {landingspagina url}.
+Zie: {landingspagina link}.
 
-Bezorg ik je je gratis Keurwijzer-kwaliteitsbadge voor op je site of offertes?
+Bezorg ik je gratis Keurwijzer-kwaliteitsbadge?
+Die kan je dan gebruiken op je website en offertes.
 
 
 
 Groeten, Olivier
 T:0470 12 44 61 - Dorp 81 - Berlare (O-Vl)
 
-Ps: Keurwijzer is gratis voor vakspecialisten.
-Ik verdien mijn geld met Dasslim.be
+Ps: Keurwijzer is een gratis initiatief voor vakspecialisten.
+
 
 
 ```
@@ -415,7 +483,7 @@ Batch {niche} {regio} — {datum}. Pagina: {landingspagina url}
 
 Aangeschreven bedrijven:
 
-{naam bedrijf} | {tier} | {e-mailadres bedrijf}
+{naam bedrijf} | {tier} | {e-mailadres bedrijf} | aanspreking: {voornaam of "—"} ({bron})
   donker: {badge url donker}
   licht:  {badge url licht}
 
@@ -442,11 +510,133 @@ Groeten, Olivier
 
 At the end, report:
 
-- A table (**company** | **email address used** | **tier**) with a checkmark per company
-  showing that the contact email draft was created.
+- A table (**company** | **email address used** | **tier** | **first name + source**)
+  with a checkmark per company showing that the contact email draft was created. Put a
+  `—` in the first-name column where no name was confirmed, so Olivier sees at a glance
+  which drafts open with the neutral greeting.
 - A separate list of companies **with no findable email address** (for those companies
   you don't create drafts).
 - One line confirming the region note was created.
+
+---
+
+## Phase 7 — Follow-up (when email 1 stays unanswered)
+
+Runs **separately from Phase 0–6**, days or weeks after the batch went out. It is never
+part of building a region; Olivier asks for it explicitly ("stuur de opvolgmails voor
+{regio}").
+
+Most companies never answer email 1. The reason is not the timing but the frame: email
+1 *offers a gift*, and a gift can be ignored at no cost. The follow-ups flip that — the
+company is already on the page, answering or not does not change that, and the only
+open question is a one-word yes/no. **Do not repeat the pitch of email 1, and do not
+add urgency that isn't real** (no fake deadline, no "laatste kans": the page has no
+deadline, and claiming one would be a lie the company can check).
+
+Two follow-ups, both as a **reply inside the existing thread** — never a new message
+with a new subject. The original email sits underneath with the landing-page link, so
+nothing has to be re-explained, and a `Re:` thread reads as an ongoing conversation
+rather than another cold blast.
+
+**Never send automatically — drafts only, same as Phase 6.**
+
+### 1 — Find the threads that qualify
+
+Search Gmail for the Phase 6 subject: `{niche} {regio} vergeleken - resultaat`.
+
+Per thread, check in this order and **skip the thread** on the first hit:
+
+- the company **already replied** (any inbound message in the thread) → skip, and if it
+  was never answered, surface it to Olivier instead;
+- a follow-up of this round **is already in the thread or in Drafts** → skip, never
+  stack two;
+- the company **asked to be left alone** in an earlier reply → skip permanently.
+
+Timing, counted from the last outbound message in that thread:
+
+| | Send when | Content |
+|---|---|---|
+| Follow-up 1 | ≥ 5 working days after email 1 | the yes/no email below |
+| Follow-up 2 | ≥ 10 working days after follow-up 1 | the closing email below |
+
+A thread that already had follow-up 2 is finished. There is no third follow-up.
+
+### 2 — The greeting
+
+Reuse `{aanspreking}` **from email 1 in that same thread** — read it off the original
+message. Do not revisit the company's website to look for a first name again: if
+Phase 6 found none, the neutral greeting stands.
+
+### 3 — Follow-up 1: the direct one
+
+Draft a **reply in the thread**. Leave the subject as Gmail sets it (`Re: …`).
+
+- **Zero links.** Not the landing page (it is already in the quoted email below),
+  not the badge. Every link is a reason to click away instead of answering, and Gmail
+  wraps outbound links in a `google.com/url` Redirect Notice anyway.
+- **No image, no attachment.**
+- **No tier and no placement sentence.** This email is not about rank.
+- Plain text body is fine here — there is no anchor to build.
+
+```
+
+
+{aanspreking}
+
+Korte vraag, dan laat ik je met rust.
+
+Je bedrijf staat sowieso op die pagina — of je nu antwoordt of niet.
+Ik wil enkel nog twee dingen weten.
+
+Antwoord gerust met één woord:
+
+"Ja"  → ik stuur je badge door (2 versies, klaar voor site of offerte)
+"Nee" → ik stuur je niets meer
+
+Groeten, Olivier
+T:0470 12 44 61 - Dorp 81 - Berlare (O-Vl)
+
+
+```
+
+The explicit "Nee" is not a throwaway: it is the reason the email gets answered at all,
+and it produces a clean opt-out list. **Honour it** — a company that answers "Nee" gets
+no further mail, ever, and is noted as such for Olivier.
+
+### 4 — Follow-up 2: the closing one
+
+Same rules (reply in thread, no links, no image). This is the last message in the
+sequence; write it as one, and mean it.
+
+```
+
+
+{aanspreking}
+
+Ik heb niets gehoord, dus ik laat het hierbij. Geen mails meer van mij.
+
+Je pagina blijft gewoon staan — die hangt niet af van of je meedoet.
+Wil je later toch je badge, antwoord dan op deze mail.
+
+Groeten, Olivier
+T:0470 12 44 61
+
+
+```
+
+### 5 — Report
+
+Report to Olivier:
+
+- a table (**company** | **which follow-up** | **days since the previous email**) with a
+  checkmark per draft created;
+- the threads **skipped**, with the reason per thread (already replied / opted out /
+  follow-up already present / too early — with the date it does qualify);
+- any reply that came in and was never answered, so it does not get lost.
+
+Olivier sends them himself: open the thread and use **Beantwoorden** (the curved arrow
+under the last message), not Doorsturen. Best moment is Tuesday–Thursday between 7 and
+9 in the morning — contractors read their mail before they leave.
 
 ---
 
