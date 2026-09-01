@@ -1,0 +1,396 @@
+KEURWIJZER CONTROLERAPPORT — dakwerkers-mechelen  (variant: Top 10-concept, geen zichtbare score)
+Peildatum: 2026-09-01 · Prior C (regiogemiddelde, tijdsgewogen): 4.637
+Methodiek-versie: 5 (nieuwste, standaard)  ·  vertrouwen-vloer 4.0→0, 5.0→1  ·  recentheid vol bij 10 reviews/24m  ·  publicatiedrempel ≥15 reviews
+Opnamecriteria: gemeente in lijst, ≥10 reviews, ≥3 in 24m
+Vakdefinitie (v5+, bindend voor vakfocus):
+    KERN   het zelf plaatsen, vernieuwen of herstellen van de dakbedekking van een gebouw — hellende daken (pannen, leien, riet) en platte daken (roofing, bitumen, EPDM, zink)
+    BUITEN dakvensters, lichtkoepels of lichtstraten plaatsen en vervangen
+    BUITEN daken reinigen, ontmossen, coaten of hydrofugeren
+    BUITEN zonnepanelen plaatsen
+    BUITEN dakmaterialen verkopen of produceren (groothandel, fabrikant, showroom)
+    BUITEN enkel dakisolatie, enkel dakconstructie of enkel gevelwerk, zonder de dakbedekking zelf
+Gewichten: 35% vertrouwen / 30% reviewkwaliteit / 15% recentheid / 20% vakfocus
+Eligible bedrijven: 35 (waarvan 28 publicabel, ≥15 reviews) → gepubliceerd: Top 10 (10 bedrijven)
+
+TOP 10  (dit staat op de site — zonder cijfer)
+pos  comp   trust  rq    rec   focus  bayes  Rw    v_w    n24  reviews  bedrijf
+ #1  0.917  0.870  0.96  1.00  0.88   4.87   4.99   30.7   25       65  Dafridak Bvba
+ #2  0.898  0.816  0.92  1.00  0.94   4.82   5.00   15.5   17       24  Dakwerken Verstrepen BV
+ #3  0.883  0.774  0.96  1.00  0.88   4.77   4.83   40.4   48       66  Kar-Mi BV - Algemene dakwerken | Isolatie | Gevelbekleding
+ #4  0.866  0.688  0.92  1.00  1.00   4.69   4.75   13.5   16       17  Dakwerken Stoffels BV
+ #5  0.849  0.782  0.92  1.00  0.75   4.78   5.00   10.7   13       17  Goris timmer- en dakwerken
+ #6  0.843  0.766  0.92  1.00  0.75   4.77   4.95   11.1   12       17  Schrijnwerken Leus
+ #7  0.828  0.722  0.92  1.00  0.75   4.72   4.80   16.7   20       31  Dakwerken CPD bv
+ #8  0.823  0.851  0.92  1.00  0.50   4.85   4.91   62.5   70       99  BENOGROUP
+ #9  0.813  0.681  0.83  1.00  0.88   4.68   4.70   45.1   36       99  Dakwerken David en zoon
+#10  0.805  0.784  0.92  0.70  0.75   4.78   5.00   10.8    7       28  Dak en Gevelwerken Noah
+
+VAKFOCUS-AUDIT (bron van de specialiteitsdimensie, per gerankt bedrijf)
+    Dafridak Bvba — 4.5 via https://www.dafridak.be/
+    Dakwerken Verstrepen BV — 4.8 via https://dakwerkenverstrepen.be/
+    Kar-Mi BV - Algemene dakwerken | Isolatie | Gevelbekleding — 4.5 via https://www.karmi.be/
+    Dakwerken Stoffels BV — 5.0 via https://dakwerkenstoffels.be/
+    Goris timmer- en dakwerken — 4.0 via https://goris-timmerdakwerken.be/
+    Schrijnwerken Leus — 4.0 via https://www.schrijnwerkenleus.be/
+    Dakwerken CPD bv — 4.0 via https://dakwerken-cpd.be/
+    BENOGROUP — 3.0 via https://www.benogroup.be/
+    Dakwerken David en zoon — 4.5 via https://www.dakwerkendavid.be/
+    Dak en Gevelwerken Noah — 4.0 via https://www.dakengevelwerkennoah.be/
+
+ROBUUSTHEID VAN DE SELECTIE (±0,5 op reviewkwaliteit + vakfocus, 5000 trials, vaste seed)
+  kans = P(blijft in Top 10)   ·   band = 5e–95e percentiel van de positie
+  #1  kans 100%   band #1–#3   vast          Dafridak Bvba
+  #2  kans 100%   band #1–#5   vast          Dakwerken Verstrepen BV
+  #3  kans 100%   band #1–#6   vast          Kar-Mi BV - Algemene dakwerken | Isolatie | Gevelbekleding
+  #4  kans 100%   band #2–#8   vast          Dakwerken Stoffels BV
+  #5  kans  95%   band #3–#10   vast          Goris timmer- en dakwerken
+  #6  kans  92%   band #3–#11   waarschijnlijk Schrijnwerken Leus
+  #7  kans  80%   band #4–#14   WANKEL        Dakwerken CPD bv
+  #8  kans  74%   band #4–#14   WANKEL        BENOGROUP
+  #9  kans  62%   band #5–#16   WANKEL        Dakwerken David en zoon
+ #10  kans  48%   band #6–#17   WANKEL        Dak en Gevelwerken Noah
+  Samengevat: 5 vast, 1 waarschijnlijk, 4 wankel (van 10).
+  Marge #10 → eerstvolgende eligible (Dakwerken HDL bouw bv. Bornem): 0.013.
+
+BEDRIJVEN 11–20 — NIET OP DE SITE (zie prospectiedocument voor dasslim.be)
+    #11  comp 0.792  Dakwerken HDL bouw bv. Bornem
+    #12  comp 0.791  Dakwerken van Hul
+    #13  comp 0.791  ITALZ | Expert in dak en gevel
+    #14  comp 0.788  Franks Dakwerken Mechelen
+    #15  comp 0.782  Dakwerken SCV
+    #16  comp 0.773  RB Solar  [< 15 reviews: eligible, niet publicabel]
+    #17  comp 0.772  Alpha Energie
+    #18  comp 0.765  Compact Clean  [< 15 reviews: eligible, niet publicabel]
+    #19  comp 0.758  Algemene Dakwerken Kurt Dillen  [< 15 reviews: eligible, niet publicabel]
+    #20  comp 0.722  Dakwerken Tibackx  [< 15 reviews: eligible, niet publicabel]
+
+ELIGIBLE MAAR VOORBIJ PLEK 20 (niet getoond, niet in prospectie)
+    comp 0.718  ADGET VDS - Leflot
+    comp 0.713  Algemene Dakwerken Van Craen bv
+    comp 0.710  Dakwerken Schollaert BV
+    comp 0.694  Dakwerken De Fyn BV
+    comp 0.693  Vranken Rieten Daken
+    comp 0.671  Colman Dak & Gevel
+    comp 0.662  Van den Bergh a. BV
+    comp 0.653  Dacman Bvba
+    comp 0.610  Dakwerken Cortebeeck
+    comp 0.568  Dakwerken M+ Construct
+    comp 0.550  Flebus bv
+    comp 0.489  Dakwerken Steve
+    comp 0.461  Dakwerken Juriaan
+    comp 0.405  Dakwerken Nicasi
+    comp 0.375  Energy Protect: jouw expert in energetisch renoveren
+
+NOG NIET ELIGIBLE — NIET OP DE SITE (wél in prospectiedocument, max 10)
+    Green House Solutions BV — Geen vakspecialist voor deze niche (vakfocus 2 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    Easyroof — Geen vakspecialist voor deze niche (vakfocus 2 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    Major green solutions — Geen vakspecialist voor deze niche (vakfocus 2 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    Bouwpunt De Roover — Geen vakspecialist voor deze niche (vakfocus 2 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    wienerberger Showroom Londerzeel | Op zaterdag op afspraak | Le samedi sur rendez-vous — Geen vakspecialist voor deze niche (vakfocus 2 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    De Ryck Verhuur — Geen vakspecialist voor deze niche (vakfocus 1 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    Kerkstoel Bouwmaterialen — Geen geverifieerde eigen website — vereist voor opname (methodiek v3+).
+    Tuinhuizen De Cock — Geen vakspecialist voor deze niche (vakfocus 1 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    MR Solar Antwerpen — Geen vakspecialist voor deze niche (vakfocus 2 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    Martin Sanitair — Geen vakspecialist voor deze niche (vakfocus 2 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+
+BUITEN DE GEMEENTELIJST (volledig weggelaten)
+    Luc Geens (Lint)
+    JDB Haarden en interieur (Rumst)
+    Algemene Gevel en DakRenovatie Sam bv (Grobbendonk)
+    EdB Dakwerken (Boechout)
+    Dak-O-Systems (Ranst)
+    Dakwerken Staessens (Boechout)
+    Dakwerken Van der Velden (Zandhoven)
+    Optimus Dakwerken BV (Ranst)
+    de Brabander Bvba (Boechout)
+    Bryon Dakwerken (Boechout)
+    Apex Roof (Ranst)
+    GP Dak- en Gevelwerken (Boechout)
+    A.R.W. Construction | Dak- & Gevelwerken (Ranst)
+    PL@NT (Boechout)
+    Roof & Solar Projects | Dakwerken | Totaalrenovatie | Plaatsen Zonnepanelen | Zandhoven (Zandhoven)
+    Boechoutse Dakwerken (Boechout)
+    Elektro V V (Boechout)
+    Schrijnwerkerij Royal Wood Design Emblem (Ranst)
+    Dakwerken Dirk Roothans (Lint)
+    Dakwerken Peeters Bvba (Lint)
+    Brabo Dakwerken (Kontich)
+    BMB Bouwmaterialen Temse (Temse)
+    DMK GROUP DAKWERKEN (Hamme)
+    Bulotte | dakwerken & gevelwerken (Temse)
+    Dakwerken Prodak (Temse)
+    dakwerken joos (Temse)
+    Dakwerken Samay (Temse)
+    Wase Roofingwerken -Wase Epdmwerken-Wase Rubberwerken (Temse)
+    Gery Van Esbroeck (Hamme)
+    Smekens Constructors (Hamme)
+    Algemene Dakwerken Den Board (Hamme)
+    dakwerken Marc Moesick (Hamme)
+    Dakwerken Rombaut Jurgen (Hamme)
+    Tura Construct Bvba (Gent)
+    SteBo Dakwerken (Londerzeel)
+    Wesley Philips Dakwerken (Londerzeel)
+    Dakwerken Feyaerts (Buggenhout)
+    Maes Dakwerken bv (Buggenhout)
+    Inlitiro (Malderen)
+    Cleemput - De Visscher (Buggenhout)
+    Cleemput Preben (Dendermonde)
+    Adak Nv (Dendermonde)
+    Roofing Concept (Buggenhout)
+    Dakwerken Peter Pan (Zemst)
+    Dakwerken Drb Bvba (Londerzeel)
+    Beworx (Londerzeel)
+    Buggenhoutse Dakwerken Bvba (Dendermonde)
+    H.O.J. Algemene Renovatie (Dendermonde)
+    SDL Technics (Buggenhout)
+    Liekens / Werner (Boortmeerbeek)
+    Vercoutere Marc (Zemst)
+    Dakwerken Barber uit Kampenhout (Boortmeerbeek)
+    Duka Dakwerken - Toiture (Kapelle-op-den-Bos)
+    Effenaf (Grimbergen)
+    VBS Schrijnwerken en dakwerken (Zemst)
+    Xl Technics (Dakwerken) (Zemst)
+    Dakwerken Verbruggen (Grimbergen)
+    Bart Verstrepen (Hulshout)
+    Sanitechnique (Londerzeel)
+    Eternit (Kapelle-op-den-Bos)
+    Daque Projects (Hulshout)
+    Andre Bouw en Renovaties (Hulshout)
+    Dakwerken MG (Boom)
+    Claessens Freddy (Zemst)
+    Datek srl (Grimbergen)
+    Cedral Benelux (Kapelle-op-den-Bos)
+    J&B Works Dakwerken - Ramen/Deuren (Rumst)
+    Digbreakandbuild (Zemst)
+    Quincy Brems (Zemst)
+    Dakwerken Van de Vyver (Rumst)
+    Dakwerken Oosterbosch bv (Kontich)
+    VATODAK Dakwerken Begijnendijk (Begijnendijk)
+    EIHPOS GROUP (Zemst)
+    Algemene Dakwerken Wauters (Herenthout)
+    Dakwerken Johann (Niel)
+    A. Van Den Bosch (Kontich)
+    Roofpoint - Dakwerken (Boom)
+    Dakwerken A.A.D. Luc Van Assche (Aartselaar)
+    Gds bv (Boom)
+    Den Titte (Boom)
+    Reba BVBA (Rumst)
+    Q3 Facilities België (Boom)
+    zekerdak.be (Boom)
+    RoofRangers (Rumst)
+    Dakwerken Bert Van Looy (Tremelo)
+    Cralux (Kontich)
+    Rupel Services Bvba (Boom)
+    DAKWERKEN VAES BVBA (Hulshout)
+    Dakwerken Sammy Mariën BVBA (Begijnendijk)
+    Dakwerken Bram (Tremelo)
+    Wijnens Nick dakwerken (Tremelo)
+    Dakwerken Mike (Tremelo)
+    Dakwerken Fonderie BV (Haacht)
+    Cauwenberghs & Co (Tremelo)
+    Bradak bvba (Tremelo)
+    Hendrickx / Luc (Begijnendijk)
+    Dakwerken Beirinckx BV (Hulshout)
+    algemene dakwerken dn (Westerlo)
+    Roofsolutions BVBA (Begijnendijk)
+    Dakwerken Kristof Beyens (Hulshout)
+    Heylen Domin (Westmeerbeek)
+    Decock Ecorenovatie - Houtskeletbouw - Dakwerken - Renovatie - Optopping (Hever)
+    Michaël Vermaere (Herentals)
+    Albodakk (Westerlo)
+    Dakwerken Roofia (Hemiksem)
+    Beirsmans Ivan Louis (Westerlo)
+    Dakwerken Wim Janssens / Willem (Herenthout)
+    Brandstoffen en verwarming - Beullens bvba (Boortmeerbeek)
+    Belgo Garant N.V. (Westerlo)
+    Dakwerken Bosmans (Herenthout)
+    from luna's place (Hulshout)
+    Dakwerken V.D.B (Grobbendonk)
+    Kokken Sven (Boortmeerbeek)
+    Comforthouse Nv (Keerbergen)
+    ISOPROJECTS bv (Londerzeel)
+    Kris Leemans (Londerzeel)
+    Eleven Works BV (Keerbergen)
+    Dakwerken Boeckx BV (Grobbendonk)
+    Apollobuild (Malle)
+    RB Adviesbureau (Werchter)
+    Rokosan (Beveren-Kruibeke-Zwijndrecht)
+    Algemene dakwerken Van Doninck BVBA (Grobbendonk)
+    Dakwerken totté (Niel)
+    Bart Geeraerts (Boortmeerbeek)
+    Isodak + Bvba (Grimbergen)
+    Arfido (Zandhoven)
+    Algemene dakwerken Van de Poel Luc (Herenthout)
+    Dakwerken-Vions BV (Londerzeel)
+    Dakwerken Nico (Schelle)
+    Interieur en Afwerking De Maeyer Tom (Schelle)
+    Marjolein Pas - Toegankelijke Thuis (Londerzeel)
+    Dakwerken Baestaens BVBA (Herselt)
+    Bert | Renovaties & Houtconstructies (Temse)
+    Beirinckx Thomas (Herenthout)
+    Dakwerken Peremans (Keerbergen)
+    D.S. Technics Dakwerken (Tremelo)
+    Dakwerken Van den Bulck (VDB-construct bv) (Keerbergen)
+    KMO-Assur (Zandhoven)
+    Iverko (Zandhoven)
+    Dak- en schrijnwerken Buyse (Boortmeerbeek)
+    Dakwerken KU.VA.BO (Tremelo)
+    AR Dakwerken (Boortmeerbeek)
+    Gebroeders Peeters cv (Ramsel)
+    Gebroeders Luyckx (Boortmeerbeek)
+    Pajo Renovaties & vd roofs BV (Hemiksem)
+    EQUITONE (Kapelle-op-den-Bos)
+    Bjorn Techniks (Schelle)
+    Algemene Bouwwerken Schrijvers ABS (Grobbendonk)
+    Dakwerken Tip-Top Home (Haacht)
+
+WAARSCHUWINGEN
+  ! dubbele bedrijfsnaam in reviews.json: "Dakwerken Johann" — vestigingen worden niet samengevoegd en delen dezelfde beoordeling; controleer of dit klopt
+  ! geen beoordeling.json-entry voor "Luc Geens" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "JDB Haarden en interieur" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Algemene Gevel en DakRenovatie Sam bv" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "EdB Dakwerken" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dak-O-Systems" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Staessens" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Van der Velden" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Optimus Dakwerken BV" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "de Brabander Bvba" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Bryon Dakwerken" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Apex Roof" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "GP Dak- en Gevelwerken" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "A.R.W. Construction | Dak- & Gevelwerken" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "PL@NT" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Roof & Solar Projects | Dakwerken | Totaalrenovatie | Plaatsen Zonnepanelen | Zandhoven" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Boechoutse Dakwerken" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Elektro V V" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Schrijnwerkerij Royal Wood Design Emblem" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Dirk Roothans" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Peeters Bvba" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Brabo Dakwerken" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "BMB Bouwmaterialen Temse" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "DMK GROUP DAKWERKEN" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Bulotte | dakwerken & gevelwerken" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Prodak" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "dakwerken joos" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Samay" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Wase Roofingwerken -Wase Epdmwerken-Wase Rubberwerken" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Gery Van Esbroeck" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Smekens Constructors" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Algemene Dakwerken Den Board" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "dakwerken Marc Moesick" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Rombaut Jurgen" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Tura Construct Bvba" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "SteBo Dakwerken" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Wesley Philips Dakwerken" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Feyaerts" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Maes Dakwerken bv" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Inlitiro" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Cleemput - De Visscher" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Cleemput Preben" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Adak Nv" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Roofing Concept" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Peter Pan" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Drb Bvba" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Beworx" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Buggenhoutse Dakwerken Bvba" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "H.O.J. Algemene Renovatie" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "SDL Technics" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Liekens / Werner" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Vercoutere Marc" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Barber uit Kampenhout" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Duka Dakwerken - Toiture" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Effenaf" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "VBS Schrijnwerken en dakwerken" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Xl Technics (Dakwerken)" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Verbruggen" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Bart Verstrepen" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Sanitechnique" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Eternit" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Daque Projects" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Andre Bouw en Renovaties" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken MG" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Claessens Freddy" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Datek srl" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Cedral Benelux" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "J&B Works Dakwerken - Ramen/Deuren" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Digbreakandbuild" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Quincy Brems" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Van de Vyver" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Oosterbosch bv" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "VATODAK Dakwerken Begijnendijk" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "EIHPOS GROUP" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Algemene Dakwerken Wauters" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "A. Van Den Bosch" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Roofpoint - Dakwerken" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken A.A.D. Luc Van Assche" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Gds bv" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Den Titte" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Reba BVBA" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Q3 Facilities België" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "zekerdak.be" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "RoofRangers" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Bert Van Looy" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Cralux" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Rupel Services Bvba" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "DAKWERKEN VAES BVBA" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Sammy Mariën BVBA" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Bram" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Wijnens Nick dakwerken" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Mike" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Fonderie BV" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Cauwenberghs & Co" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Bradak bvba" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Hendrickx / Luc" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Beirinckx BV" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "algemene dakwerken dn" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Roofsolutions BVBA" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Kristof Beyens" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Heylen Domin" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Decock Ecorenovatie - Houtskeletbouw - Dakwerken - Renovatie - Optopping" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Michaël Vermaere" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Albodakk" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Roofia" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Beirsmans Ivan Louis" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Wim Janssens / Willem" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Brandstoffen en verwarming - Beullens bvba" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Belgo Garant N.V." (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Bosmans" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "from luna's place" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken V.D.B" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Kokken Sven" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Comforthouse Nv" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "ISOPROJECTS bv" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Kris Leemans" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Eleven Works BV" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Boeckx BV" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Apollobuild" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "RB Adviesbureau" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Rokosan" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Algemene dakwerken Van Doninck BVBA" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken totté" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Bart Geeraerts" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Isodak + Bvba" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Arfido" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Algemene dakwerken Van de Poel Luc" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken-Vions BV" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Nico" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Interieur en Afwerking De Maeyer Tom" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Marjolein Pas - Toegankelijke Thuis" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Baestaens BVBA" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Bert | Renovaties & Houtconstructies" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Beirinckx Thomas" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Peremans" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "D.S. Technics Dakwerken" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Van den Bulck (VDB-construct bv)" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "KMO-Assur" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Iverko" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dak- en schrijnwerken Buyse" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken KU.VA.BO" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "AR Dakwerken" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Gebroeders Peeters cv" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Gebroeders Luyckx" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Pajo Renovaties & vd roofs BV" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "EQUITONE" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Bjorn Techniks" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Algemene Bouwwerken Schrijvers ABS" (reviewkwaliteit/vakfocus/synthese ontbreken)
+  ! geen beoordeling.json-entry voor "Dakwerken Tip-Top Home" (reviewkwaliteit/vakfocus/synthese ontbreken)
