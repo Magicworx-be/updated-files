@@ -291,10 +291,11 @@ daarom buiten `METHODIEK_PARAMS` en verschijnt op pagina's van elke versie.
 
 **Waarom een lokaal bestand en niet rechtstreeks de Google Sheet.** De build leest
 `data/whatsapp.json`. Dat staat in versiebeheer, werkt offline en kan nooit een
-publicatie blokkeren omdat Google onbereikbaar is. De private Sheet blijft de plek waar
-Olivier de nummers verzamelt; die wordt naar dit bestand overgezet. Wil je dat later
-volledig automatisch, dan volstaat het één tabblad als CSV te publiceren en dat bij de
-build op te halen — het bouwstuk verandert daar niet voor.
+publicatie blokkeren omdat Google onbereikbaar is. (Sinds 1 september 2026 is de Sheet
+hiervoor helemaal buiten gebruik: de nummers komen rechtstreeks uit de antwoordmails en
+worden door de geplande taken `keurwijzer-replies` en `keurwijzer-whatsapp-dagelijks`
+in dit bestand geschreven en live gezet. Het bouwstuk veranderde daar niet voor — het
+leest nog altijd enkel dit ene bestand.)
 
 **Harde stop bij een naamfout.** Klopt een bedrijfsnaam niet met `reviews.json`, dan
 stopt de build met een suggestie op basis van letterafstand ("bedoelde je …?"). Een
