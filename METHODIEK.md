@@ -14,8 +14,8 @@ dit document verouderd — zie [Onderhoud](#onderhoud-1-bron-2-lezers).
 | **Bindende bron voor de LLM-beoordeling** | `prompts/scoring-prompt.md` |
 | **Bindende bron voor het werkproces** | `prompts/directory-page-emails-prompt.md` |
 | **Waarom-beslissingen** | `WIJZIGINGEN.md` |
-| **Nieuwste methodiek-versie** | v4 (zie [Methodiek-versies](#methodiek-versies)) |
-| **Laatst gelijkgezet met de code** | 31 augustus 2026 |
+| **Nieuwste methodiek-versie** | v5 (zie [Methodiek-versies](#methodiek-versies)) |
+| **Laatst gelijkgezet met de code** | 1 september 2026 |
 
 ---
 
@@ -137,14 +137,56 @@ Bayes-krimp trekt weinig-berecenseerde bedrijven al naar het regiogemiddelde —
 specialist met 10 reviews klimt dus niet zomaar.
 
 Bestaande v1/v2/v3-pagina's blijven byte-voor-byte identiek (geverifieerd): beide v4-regels
-zijn versie-gestuurd (`methodiekVersie >= 4`). **v4 is op dit moment de nieuwste versie
-(`METHODIEK_LATEST` in `build.js`) en dus de standaard voor élke nieuwe én elke herbouwde
-pagina. Komt er ooit een v5 bij, dan wordt díe automatisch de standaard — een config
-zonder `methodiek`-veld pakt altijd de nieuwste versie.**
+zijn versie-gestuurd (`methodiekVersie >= 4`).
 
 > Bron: `build.js` — `METHODIEK_PARAMS[4]` (`VAKFOCUS_FLOOR`), de `eligible`-berekening
 > (vakfocus-vloer) en de `depthCount`/`top`-bepaling (diepte op specialisten, volgorde op
 > composite).
+
+**v5 (nieuw, standaard).** De **rekenkalibratie is identiek aan v4** — zelfde
+vertrouwen-vloer (4,0), zelfde recentheid-anker (10), zelfde publicatiedrempel (15),
+zelfde run-middeling en **dezelfde vakfocus-vloer (2,5)**. v5 verandert geen enkel getal.
+Wat v5 verandert is een **definitie**: wát telt als "het vak uitoefenen".
+
+**Aanleiding.** v4 leverde voor regio Kortrijk een Top 10 op met een
+dakvensterinstallateur op plaats 1 en een lichtstraatbouwer op plaats 4. Beide zijn
+zuivere specialisten in iets dat óp een dak gebeurt, dus beide scoorden hoog op
+nichezuiverheid — maar geen van beide legt of vernieuwt ooit een dak. Een klant die een
+dakwerker zoekt, heeft daar niets aan. De fout zat niet in de vloer (2,5 is de juiste
+grens), maar in een **ongedefinieerd vak**: "dakwerkers" werd gelezen als *werkt aan
+daken* in plaats van *legt en vernieuwt daken*.
+
+**Wat v5 toevoegt:**
+
+| | v4 | v5 |
+|---|---|---|
+| Afbakening van het vak | impliciet, aan de beoordelaar overgelaten | **expliciete vakdefinitie** per niche: een `kern` (wat het bedrijf zélf moet uitvoeren) plus een lijst `buiten` (verwante activiteiten die niet volstaan) |
+| Waar die definitie staat | nergens | `VAKDEF_BY_NICHE` in `build.js`, of `vak.definitie` in de config (die overruled) |
+| Ontbrekende definitie | n.v.t. | de **build stopt** (`REQUIRE_VAKDEF`) — een vak zonder scherpe grens levert een willekeurige selectie op |
+| Gevolg voor de score | — | voert een bedrijf de kernactiviteit **niet zelf** uit, dan is `vakfocus` **maximaal 2,0**, dus onder de vloer — hoe zuiver gespecialiseerd het verder ook is |
+| Publieke opnametekst | "een aantoonbare specialisatie in dakwerken" | de kernomschrijving zelf: "een aantoonbare specialisatie in het zelf plaatsen, vernieuwen of herstellen van de dakbedekking …" |
+
+De definitie voor **dakwerkers** (v5):
+
+- **Kern:** het zelf plaatsen, vernieuwen of herstellen van de dakbedekking van een
+  gebouw — hellende daken (pannen, leien, riet) en platte daken (roofing, bitumen, EPDM,
+  zink).
+- **Omvat ook:** de dakconstructie, dakisolatie, dakgoten en zinkwerk die bij zo'n dak
+  horen; asbestdaken verwijderen en vervangen.
+- **Valt erbuiten:** dakvensters, lichtkoepels of lichtstraten plaatsen; daken reinigen,
+  ontmossen of coaten; zonnepanelen plaatsen; dakmaterialen verkopen of produceren;
+  en enkel dakisolatie, enkel dakconstructie of enkel gevelwerk zónder de dakbedekking
+  zelf.
+
+Bestaande v1–v4-pagina's blijven ongemoeid: de eis is versie-gestuurd, en hun
+`beoordeling.json` is sowieso bevroren. **v5 is nu de nieuwste versie
+(`METHODIEK_LATEST` in `build.js`) en dus de standaard voor élke nieuwe én elke herbouwde
+pagina. Komt er ooit een v6 bij, dan wordt díe automatisch de standaard — een config
+zonder `methodiek`-veld pakt altijd de nieuwste versie.**
+
+> Bron: `build.js` — `METHODIEK_PARAMS[5]` (`REQUIRE_VAKDEF`), `VAKDEF_BY_NICHE`, de
+> `vakDef`-resolutie met harde stop, en `opnameCriteria`. De scoreregel staat in
+> `prompts/scoring-prompt.md`, rubriek 2, stap 0.
 
 ---
 
@@ -161,7 +203,7 @@ voldoet:
 | Er is een LLM-beoordeling voor het bedrijf | aanwezig in `beoordeling.json` | Zonder beoordeling ontbreken twee van de vier dimensies |
 | Minstens één bruikbare review (datum + score) | > 0 | Anders valt er niets te wegen |
 | **Geverifieerde eigen website** (alleen v3+) | `vakfocusBron: "website"` | Zonder controleerbare site is de vakfocus niet te meten; een vindbare site is een basissignaal van een professioneel vakbedrijf. Enkel social media of een kapotte site telt niet mee |
-| **Vakspecialist van de niche** (alleen v4+) | vakfocus ≥ 2,5 | Anders komen bedrijven van een ánder vak (bakkerij, ramenplaatser, materialenhandel of -fabrikant, brede totaalaannemer) die toevallig in de zoekresultaten opdoken tóch in aanmerking; de vakfocus-vloer sluit ze deterministisch uit. De focus moet het vak zelf zijn |
+| **Vakspecialist van de niche** (alleen v4+) | vakfocus ≥ 2,5 | Anders komen bedrijven van een ánder vak (bakkerij, ramenplaatser, materialenhandel of -fabrikant, brede totaalaannemer) die toevallig in de zoekresultaten opdoken tóch in aanmerking; de vakfocus-vloer sluit ze deterministisch uit. **Vanaf v5 is "het vak" scherp afgebakend** door de vakdefinitie van de niche: wie de kernactiviteit niet zélf uitvoert, krijgt vakfocus ≤ 2,0 en valt weg — ook een zuivere specialist in een verwante activiteit (dakvensters, lichtstraten, dakreiniging) |
 
 > Bron: `build.js` — `MIN_REVIEWS = 10`, `MIN_RECENT = 3`, en het veld `eligible`
 > in stap 1. De website-eis geldt vanaf **methodiek v3**; de vakspecialist-eis
@@ -323,6 +365,23 @@ specifiek over welk type werk het was).
 Vakfocus meet **nichezuiverheid**: specialist versus generalist. Bewust géén maat
 voor omvang of reputatie — dat zit al in de reviews.
 
+**Stap 0 — de poortvraag (v5+).** Vóór de nichezuiverheid gescoord wordt, geldt
+één vraag: *voert dit bedrijf de kernactiviteit van het vak zélf uit?* De
+kernactiviteit staat in de **vakdefinitie** van de niche (`VAKDEF_BY_NICHE` in
+`build.js`, of `vak.definitie` in de config). Voor dakwerkers is dat: **zelf de
+dakbedekking plaatsen, vernieuwen of herstellen.**
+
+- **Nee** → `vakfocus` is **maximaal 2,0** en het bedrijf valt onder de vloer, dus
+  buiten de selectie. Ongeacht hoe zuiver het gespecialiseerd is.
+- **Ja** → scoor verder op de ijkpunten hieronder.
+
+Dit is bewust hard. Een bedrijf dat één verwante activiteit perfect en uitsluitend
+uitvoert, is een zuivere specialist **in iets anders**. Een dakvensterinstallateur,
+een lichtstraatbouwer, een dakreiniger, een zonnepaneelinstallateur en een
+dakpannenfabrikant werken allemaal aan of voor daken — maar geen van hen legt of
+vernieuwt een dak, en dus hoort geen van hen in een lijst van dakwerkers, hoe goed
+hun reviews ook zijn.
+
 **Werkwijze (verplicht voor elk bedrijf dat in de ranking kan komen):**
 
 1. Gebruik de URL uit het veld `website` als die is ingevuld (die komt uit
@@ -348,8 +407,8 @@ voor omvang of reputatie — dat zit al in de reviews.
 | 5,0 | Zuivere specialist — dit vakgebied is quasi de enige activiteit |
 | 4,0 | Duidelijk de kern, met hooguit één sterk verwante nevendienst (bv. dak + gevel) |
 | 3,0 | Eén van meerdere gelijkwaardige activiteiten (totaalaannemer, breed bouwbedrijf) |
-| 2,0 | Randactiviteit, of een subitem onder een andere dienst |
-| 1,0 | De site maakt niet duidelijk dat het bedrijf dit vak actief uitoefent |
+| 2,0 | Randactiviteit of subitem onder een andere dienst — **of het bedrijf voert de kernactiviteit niet zelf uit** (stap 0 gaf "nee", v5+) |
+| 1,0 | De site maakt niet duidelijk dat het bedrijf dit vak op enige manier raakt |
 
 **Lichte bonus:** +0,5 (nooit boven 5,0) bij expliciete, aantoonbare
 erkenningen, certificaten of garantietermijnen in dit vak, of een lange staat van

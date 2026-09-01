@@ -1,6 +1,6 @@
 KEURWIJZER CONTROLERAPPORT — dakwerkers-oostende  (variant: Top 10-concept, geen zichtbare score)
 Peildatum: 2026-08-28 · Prior C (regiogemiddelde, tijdsgewogen): 4.403
-Methodiek-versie: 4 (nieuwste, standaard)  ·  vertrouwen-vloer 4.0→0, 5.0→1  ·  recentheid vol bij 10 reviews/24m  ·  publicatiedrempel ≥15 reviews
+Methodiek-versie: 4 (vastgepind in config)  ·  vertrouwen-vloer 4.0→0, 5.0→1  ·  recentheid vol bij 10 reviews/24m  ·  publicatiedrempel ≥15 reviews
 Opnamecriteria: gemeente in lijst, ≥10 reviews, ≥3 in 24m
 Gewichten: 35% vertrouwen / 30% reviewkwaliteit / 15% recentheid / 20% vakfocus
 Eligible bedrijven: 7 (waarvan 5 publicabel, ≥15 reviews) → gepubliceerd: Top 5 (5 bedrijven)

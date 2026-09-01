@@ -74,7 +74,7 @@ const MIN_RECENT = 3;         // min. reviews in de laatste 24 maanden — publi
 // veranderen dus nooit. Nieuwe configs zonder veld krijgen automatisch de
 // nieuwste versie. Zo blijft "zelfde data = zelfde resultaat" gelden én kan de
 // methodiek verbeteren zonder één gepubliceerde pagina te breken.
-const METHODIEK_LATEST = 4;
+const METHODIEK_LATEST = 5;
 const METHODIEK_PARAMS = {
   1: {
     TRUST_FLOOR: 3.5,           // Bayes-score die op 0 genormaliseerd wordt
@@ -136,8 +136,71 @@ const METHODIEK_PARAMS = {
     PUBLISH_MIN_REVIEWS: 15,
     EXPECT_HALF_STEPS: false,
     VAKFOCUS_FLOOR: 2.5         // v4: minimale vakfocus om eligible te zijn (specialist-eis)
+  },
+  5: {
+    // v5 = AFBAKENING van het vak. De rekenkalibratie (vertrouwen-vloer,
+    // recentheid-anker, publicatiedrempel, run-middeling) én de vakfocus-vloer
+    // zijn IDENTIEK aan v4. Wat v5 verandert is niet een getal maar een
+    // DEFINITIE: wat telt als "het vak uitoefenen".
+    //
+    // Aanleiding (31 aug 2026, regio Kortrijk): v4 leverde een Top 10 met op
+    // plaats 1 een dakvensterinstallateur en op plaats 4 een lichtstraatbouwer.
+    // Beide zijn zuivere specialisten in iets dat óp een dak gebeurt, dus beide
+    // scoorden hoog op nichezuiverheid — maar geen van beide plaatst of
+    // renoveert ooit een dak. Een klant die een dakwerker zoekt, heeft daar
+    // niets aan. De fout zat niet in de vloer (2,5 is juist), maar in een
+    // ongedefinieerd vak: "dakwerkers" werd gelezen als "werkt aan daken" in
+    // plaats van "legt en vernieuwt daken".
+    //
+    // v5 lost dat op door de grens expliciet en machineleesbaar te maken:
+    //  1) Elke niche draagt een VAKDEFINITIE (kern + expliciete uitsluitingen),
+    //     uit VAKDEF_BY_NICHE of uit `vak.definitie` in de config.
+    //  2) Die definitie is bindend voor rubriek 2 van prompts/scoring-prompt.md:
+    //     voert een bedrijf de kernactiviteit niet zélf uit, dan is het geen
+    //     vakspecialist — hoe verwant of hoe zuiver gespecialiseerd ook — en
+    //     krijgt het vakfocus ≤ 2,0, dus onder de vloer.
+    //  3) De build FAALT HARD als er voor de niche geen definitie is (zie
+    //     REQUIRE_VAKDEF). Een vak zonder scherpe grens levert een willekeurige
+    //     selectie op; dat mag niet stilzwijgend passeren.
+    //
+    // De publieke opnametekst wordt navenant scherper: niet "specialisatie in
+    // dakwerken" maar de kernomschrijving uit de definitie zelf.
+    TRUST_FLOOR: 4.0,
+    RECENCY_ANCHOR: 10,
+    PUBLISH_MIN_REVIEWS: 15,
+    EXPECT_HALF_STEPS: false,
+    VAKFOCUS_FLOOR: 2.5,
+    REQUIRE_VAKDEF: true        // v5: config/niche MOET het vak afbakenen
   }
 };
+
+// --- Vakdefinitie per niche (v5+) ---------------------------------------
+// De bindende afbakening van het vak: `kern` is wat een bedrijf zélf moet
+// uitvoeren om vakspecialist te zijn, `buiten` somt de verwante activiteiten op
+// die daar uitdrukkelijk NIET voor volstaan. Dit is de bron voor rubriek 2
+// (vakfocus) in prompts/scoring-prompt.md en voor de publieke opnametekst.
+// Een config kan dit overrulen via `vak.definitie` (zelfde vorm).
+// Voeg een niche hier pas toe als de grens écht scherp is — bij twijfel vragen,
+// niet verzinnen. Ontbreekt de definitie, dan stopt de build (v5+).
+const VAKDEF_BY_NICHE = {
+  dakwerkers: {
+    kern: 'het zelf plaatsen, vernieuwen of herstellen van de dakbedekking van een gebouw — ' +
+          'hellende daken (pannen, leien, riet) en platte daken (roofing, bitumen, EPDM, zink)',
+    omvat: [
+      'nieuwe daken leggen en bestaande daken renoveren of herstellen',
+      'de dakconstructie, dakisolatie, dakgoten en zinkwerk die bij zo’n dak horen',
+      'asbestdaken verwijderen en vervangen'
+    ],
+    buiten: [
+      'dakvensters, lichtkoepels of lichtstraten plaatsen en vervangen',
+      'daken reinigen, ontmossen, coaten of hydrofugeren',
+      'zonnepanelen plaatsen',
+      'dakmaterialen verkopen of produceren (groothandel, fabrikant, showroom)',
+      'enkel dakisolatie, enkel dakconstructie of enkel gevelwerk, zonder de dakbedekking zelf'
+    ]
+  }
+};
+VAKDEF_BY_NICHE.dakdekkers = VAKDEF_BY_NICHE.dakwerkers;
 
 // Vak-specifiek schema.org-subtype voor de bedrijven in de JSON-LD ItemList (v3+).
 // Elk subtype is een afstammeling van HomeAndConstructionBusiness (de veilige
@@ -287,6 +350,16 @@ const P = METHODIEK_PARAMS[methodiekVersie];
 if (!P) die('onbekende methodiek-versie in config: ' + methodiekVersie +
   ' (bekend: ' + Object.keys(METHODIEK_PARAMS).join(', ') + ')');
 const TRUST_FLOOR = P.TRUST_FLOOR;
+
+// Vakdefinitie (v5+): eerst de config, dan de niche-tabel. Zonder scherpe grens
+// is de vakfocus-vloer betekenisloos, dus dit is een harde stop — geen warning.
+const vakDef = (config.vak && config.vak.definitie) ||
+               VAKDEF_BY_NICHE[norm(config.vak.mv)] || null;
+if (P.REQUIRE_VAKDEF && !(vakDef && vakDef.kern))
+  die('methodiek v' + methodiekVersie + ' vereist een vakdefinitie voor niche "' + config.vak.mv +
+      '".\n       Voeg de niche toe aan VAKDEF_BY_NICHE in build.js, of zet "definitie"' +
+      ' (met "kern" en "buiten") in het vak-blok van de config.\n' +
+      '       Zonder afbakening is "vakfocus ≥ ' + P.VAKFOCUS_FLOOR + '" een willekeurige grens.');
 
 const gemeentenNorm = new Set(config.gemeenten.map(norm));
 const beoMap = new Map();
@@ -788,7 +861,11 @@ const regioGemiddelde = gScores.length
 // website-eis toe, v4 daarbovenop de vakspecialisatie-eis (zie de eligible-
 // berekening hierboven); oudere versies houden hun bestaande, kortere
 // formulering zodat hun output identiek blijft.
-const opnameCriteria = methodiekVersie >= 4
+const opnameCriteria = methodiekVersie >= 5
+  ? 'minstens ' + MIN_REVIEWS + ' Google-reviews, minstens ' + MIN_RECENT +
+    ' reviews in de laatste 24 maanden, een eigen website én een aantoonbare specialisatie in ' +
+    vakDef.kern
+  : methodiekVersie >= 4
   ? 'minstens ' + MIN_REVIEWS + ' Google-reviews, minstens ' + MIN_RECENT +
     ' reviews in de laatste 24 maanden, een eigen website én een aantoonbare specialisatie in ' +
     config.vak.kort
@@ -1170,6 +1247,11 @@ rap += 'Methodiek-versie: ' + methodiekVersie + (config.methodiek ? ' (vastgepin
   '  ·  recentheid vol bij ' + P.RECENCY_ANCHOR + ' reviews/24m' +
   '  ·  publicatiedrempel ≥' + P.PUBLISH_MIN_REVIEWS + ' reviews\n';
 rap += 'Opnamecriteria: gemeente in lijst, ≥' + MIN_REVIEWS + ' reviews, ≥' + MIN_RECENT + ' in 24m\n';
+if (methodiekVersie >= 5 && vakDef) {
+  rap += 'Vakdefinitie (v5+, bindend voor vakfocus):\n';
+  rap += '    KERN   ' + vakDef.kern + '\n';
+  (vakDef.buiten || []).forEach(x => { rap += '    BUITEN ' + x + '\n'; });
+}
 rap += 'Gewichten: 35% vertrouwen / 30% reviewkwaliteit / 15% recentheid / 20% vakfocus\n';
 rap += 'Eligible bedrijven: ' + eligible.length + ' (waarvan ' + publishableCount +
   ' publicabel, ≥' + P.PUBLISH_MIN_REVIEWS + ' reviews) → gepubliceerd: ' + vignet + ' (' + nListed + ' bedrijven)\n\n';

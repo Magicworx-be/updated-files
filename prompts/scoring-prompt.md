@@ -64,6 +64,19 @@ IJkpunten:
 
 Vakfocus meet één ding: **hoe zuiver dit bedrijf in dit vakgebied gespecialiseerd is**, afgelezen van de eigen website. Het is bewust een maat voor *nichezuiverheid* (specialist vs. generalist), niet voor omvang of reputatie — dat zit al in de reviews.
 
+### Stap 0 — de poortvraag: oefent dit bedrijf het vak überhaupt uit?
+
+**Doe dit vóór je aan de ijkpunten begint.** Elke niche heeft een **bindende vakdefinitie**: `VAKDEF_BY_NICHE` in `build.js`, of `vak.definitie` in de config als die er staat. Ze bestaat uit een `kern` (wat een bedrijf zélf moet uitvoeren) en `buiten` (verwante activiteiten die uitdrukkelijk niet volstaan). Lees ze en beantwoord één vraag:
+
+> **Voert dit bedrijf de kernactiviteit zélf uit?**
+
+- **Nee** → `vakfocus` is **maximaal 2.0**, ongeacht hoe zuiver of hoe gespecialiseerd het bedrijf verder is. Het valt daarmee onder de vloer en komt niet in de selectie. Motiveer dit in de `synthese` (benoem wat het bedrijf wél doet).
+- **Ja** → ga verder met de ijkpunten hieronder en scoor de nichezuiverheid.
+
+Deze stap gaat vóór alles. Een bedrijf dat één verwante activiteit perfect en uitsluitend uitvoert, is een zuivere specialist **in iets anders** — dat is precies wat hier moet wegvallen. Voor dakwerkers: een dakvensterinstallateur, een lichtstraatbouwer, een dakreiniger, een zonnepaneelinstallateur en een dakpannenfabrikant werken allemaal aan of voor daken, maar geen van hen legt of vernieuwt een dak. Zij horen niet in een lijst van dakwerkers, hoe goed hun reviews ook zijn.
+
+Twijfel je of een activiteit onder de kern valt? Kijk of het bedrijf de dakbedekking (of het equivalent daarvan in de niche) zélf aanbrengt of vervangt. Zo niet: nee. Blijft het na die toets nog twijfelachtig, **vraag het dan** — vul niet zelf de grens in.
+
 **Website opzoeken en verifiëren (verplicht voor rankbare bedrijven):**
 - Gebruik het adres in het veld `website` als dat is ingevuld (dat komt uit Google/Apify en is betrouwbaar aan het bedrijf gekoppeld).
 - Is er geen `website`, zoek de officiële site dan zelf op. **Verifieer altijd** dat het om hetzelfde bedrijf gaat: naam én gemeente/adres moeten kloppen met reviews.json. Let op naamverwarring (meerdere bedrijven met bijna dezelfde naam) en op SEO-schijnsites (een "…-<stad>"-site waarvan de maatschappelijke zetel in een héél andere regio ligt — dat is geen lokale specialist).
@@ -71,12 +84,12 @@ Vakfocus meet één ding: **hoe zuiver dit bedrijf in dit vakgebied gespecialise
 - Vind je geen betrouwbare, geverifieerde site → `vakfocus: null` en `vakfocusBron: "geen-website"`. Raad NOOIT een score zonder de pagina gezien te hebben. Vakfocus is alleen nodig voor bedrijven met `rankbaar: true` in reviews.json; voor de rest volstaat `null`.
 - Noteer in `websiteBezocht` de exacte URL van de homepagina die je beoordeeld hebt (ook als die uit het `website`-veld kwam); `null` als je geen site beoordeeld hebt. Zo blijft elke vakfocus-score achteraf controleerbaar.
 
-**IJkpunten — score op nichezuiverheid** (tel de hoofddiensten in navigatie/homepagina):
+**IJkpunten — score op nichezuiverheid** (enkel invullen als stap 0 "ja" gaf; tel de hoofddiensten in navigatie/homepagina):
 - 5.0 = zuivere specialist: dit vakgebied is quasi de enige activiteit.
 - 4.0 = dit vakgebied is duidelijk de kern, met hooguit één sterk verwante nevendienst (bv. dak + gevel).
 - 3.0 = het vakgebied is één van meerdere gelijkwaardige activiteiten (totaalaannemer / breed bouwbedrijf).
-- 2.0 = het vakgebied is een randactiviteit of een subitem onder een andere dienst.
-- 1.0 = de website maakt niet duidelijk dat het bedrijf dit vak actief uitoefent.
+- 2.0 = het vakgebied is een randactiviteit of een subitem onder een andere dienst — **of het bedrijf voert de kernactiviteit niet zelf uit (stap 0 gaf "nee")**.
+- 1.0 = de website maakt niet duidelijk dat het bedrijf dit vak op enige manier raakt.
 
 **Lichte bonus (max +0.5, nooit hoger dan 5.0):** verhoog met een halve stap als de site expliciete, aantoonbare erkenningen, certificaten of garantietermijnen in dit vak vermeldt, of een lange staat van dienst (oprichtingsjaar → noteer in `actiefSinds`). Bij twijfel: niet verhogen.
 

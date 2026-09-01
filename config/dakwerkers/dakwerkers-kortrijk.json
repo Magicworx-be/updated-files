@@ -1,0 +1,37 @@
+{
+  "slug": "dakwerkers-kortrijk",
+  "vak": {
+    "mv": "dakwerkers",
+    "mvCap": "Dakwerkers",
+    "ev": "dakwerker",
+    "kort": "dakwerken",
+    "syn": { "mv": "dakdekkers", "ev": "dakdekker" }
+  },
+  "regio": {
+    "naam": "regio Kortrijk",
+    "kern": "Kortrijk",
+    "provincie": "West-Vlaanderen"
+  },
+  "gemeenten": [
+    "Kortrijk", "Aalbeke", "Bellegem", "Bissegem", "Heule", "Kooigem", "Marke", "Rollegem",
+    "Kuurne",
+    "Harelbeke", "Bavikhove", "Hulste", "Stasegem",
+    "Deerlijk",
+    "Zwevegem", "Heestert", "Moen", "Moen (Zwevegem)", "Otegem", "Sint-Denijs",
+    "Menen", "Lauwe", "Rekkem",
+    "Wevelgem", "Gullegem", "Moorsele",
+    "Lendelede",
+    "Anzegem", "Gijzelbrechtegem", "Ingooigem", "Kaster", "Tiegem", "Vichte",
+    "Avelgem", "Bossuit", "Kerkhove", "Outrijve", "Waarmaarde",
+    "Spiere-Helkijn", "Spiere", "Helkijn",
+    "Waregem", "Beveren-Leie", "Desselgem", "Sint-Eloois-Vijve",
+    "Zulte", "Machelen", "Olsene"
+  ],
+  "zoektermen": ["dakwerker Kortrijk", "dakdekker Kortrijk", "dakwerken Kortrijk"],
+  "peildatum": "2026-08-31",
+  "updateDatum": "augustus 2026",
+  "hero": {
+    "img": "https://assets.cdn.filesafe.space/fgbjON9EFqwVMZW3nImb/media/6a56552b524a3ec4c67a7cac.png",
+    "alt": "Dakwerker aan het werk op een dak in regio Kortrijk"
+  }
+}

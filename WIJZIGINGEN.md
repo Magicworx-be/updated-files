@@ -15,6 +15,49 @@ is volledig ongemoeid gelaten.
 
 ## Wat is er veranderd?
 
+### 0. Methodiek v5 — het vak is nu expliciet afgebakend (1 september 2026)
+
+**Waarom.** De eerste build van regio Kortrijk (v4) zette een
+**dakvensterinstallateur op plaats 1** en een **lichtstraatbouwer op plaats 4**.
+Beide zijn zuivere specialisten in iets dat óp een dak gebeurt, dus beide scoorden
+hoog op nichezuiverheid — maar geen van beide legt of vernieuwt ooit een dak. Voor
+een klant die een dakwerker zoekt is dat een onbruikbare lijst.
+
+**De diagnose.** De fout zat *niet* in de vakfocus-vloer (2,5 was en blijft de
+juiste grens) maar in een **ongedefinieerd vak**. "Dakwerkers" werd gelezen als
+*werkt aan daken* in plaats van *legt en vernieuwt daken*. Zolang die grens
+nergens vastligt, vult de beoordelaar hem zelf in — en dan is de selectie in
+feite willekeurig.
+
+**De beslissing.** Niet aan een getal draaien, maar de definitie vastleggen:
+
+- Elke niche draagt een **vakdefinitie** (`VAKDEF_BY_NICHE` in `build.js`, of
+  `vak.definitie` in de config): een `kern` van wat het bedrijf **zelf** moet
+  uitvoeren, plus een expliciete lijst van verwante activiteiten die **niet**
+  volstaan.
+- Voor dakwerkers is de kern: *zelf de dakbedekking plaatsen, vernieuwen of
+  herstellen*. Buiten de definitie vallen o.a. dakvensters en lichtstraten,
+  dakreiniging, zonnepanelen, materiaalhandel, en enkel dakconstructie of enkel
+  isolatie zonder de dakbedekking.
+- Rubriek 2 van `prompts/scoring-prompt.md` kreeg een **stap 0**: voert het
+  bedrijf de kernactiviteit niet zelf uit, dan is `vakfocus` maximaal 2,0 — dus
+  onder de vloer, dus buiten de selectie.
+- De build **stopt hard** als een niche geen definitie heeft (`REQUIRE_VAKDEF`).
+  Liever geen pagina dan een pagina met een willekeurige grens.
+- De publieke opnametekst noemt voortaan de kernomschrijving zelf, niet het vage
+  "specialisatie in dakwerken".
+
+**Wat het niet verandert.** Geen enkel gewicht, geen enkele drempel, ook de
+vakfocus-vloer niet. v5 verandert een *definitie*, geen kalibratie.
+
+**Gevolg voor bestaande pagina's.** De zeven West-Vlaamse configs die nog geen
+`methodiek`-veld hadden (Brugge, Ieper, Oostende, Oudenaarde, Roeselare, Tielt,
+Veurne-Diksmuide) zijn **vastgepind op v4**. Anders zouden ze de scherpere
+publiekstekst tonen terwijl hun bevroren `beoordeling.json` onder de losse
+v4-definitie is gemaakt — een belofte die de data niet draagt. Alle twaalf
+bestaande pagina's zijn na de wijziging byte-voor-byte identiek geverifieerd.
+
+
 ### 1. Geen score op 10 → Top 10 / Top 5-medaille
 - De ring met een cijfer (7,0–9,5) is vervangen door een **nummerloze groene
   medaille met lauwerkrans**: "TOP" boven het aantal (10 of 5). Rechtsboven op
