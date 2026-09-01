@@ -1,0 +1,40 @@
+{
+  "slug": "dakwerkers-antwerpen",
+  "vak": {
+    "mv": "dakwerkers",
+    "mvCap": "Dakwerkers",
+    "ev": "dakwerker",
+    "kort": "dakwerken",
+    "syn": { "mv": "dakdekkers", "ev": "dakdekker" }
+  },
+  "regio": {
+    "naam": "regio Antwerpen",
+    "kern": "Antwerpen",
+    "provincie": "Antwerpen"
+  },
+  "gemeenten": [
+    "Antwerpen", "Berchem", "Berendrecht", "Zandvliet", "Lillo", "Berendrecht-Zandvliet-Lillo",
+    "Borgerhout", "Deurne", "Ekeren", "Hoboken", "Merksem", "Wilrijk", "Borsbeek",
+    "Aartselaar",
+    "Edegem",
+    "Mortsel",
+    "Hove",
+    "Boechout", "Vremde",
+    "Kontich", "Waarloos",
+    "Lint",
+    "Wommelgem",
+    "Wijnegem",
+    "Hemiksem",
+    "Schelle",
+    "Niel",
+    "Boom",
+    "Rumst", "Reet", "Terhagen"
+  ],
+  "zoektermen": ["dakwerker Antwerpen", "dakdekker Antwerpen", "dakwerken Antwerpen"],
+  "peildatum": "2026-08-31",
+  "updateDatum": "september 2026",
+  "hero": {
+    "img": "https://assets.cdn.filesafe.space/fgbjON9EFqwVMZW3nImb/media/6a56552b524a3ec4c67a7cac.png",
+    "alt": "Dakwerker aan het werk op een dak in regio Antwerpen"
+  }
+}

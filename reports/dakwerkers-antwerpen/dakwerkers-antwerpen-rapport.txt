@@ -1,0 +1,243 @@
+KEURWIJZER CONTROLERAPPORT — dakwerkers-antwerpen  (variant: Top 10-concept, geen zichtbare score)
+Peildatum: 2026-08-31 · Prior C (regiogemiddelde, tijdsgewogen): 4.609
+Methodiek-versie: 5 (nieuwste, standaard)  ·  vertrouwen-vloer 4.0→0, 5.0→1  ·  recentheid vol bij 10 reviews/24m  ·  publicatiedrempel ≥15 reviews
+Opnamecriteria: gemeente in lijst, ≥10 reviews, ≥3 in 24m
+Vakdefinitie (v5+, bindend voor vakfocus):
+    KERN   het zelf plaatsen, vernieuwen of herstellen van de dakbedekking van een gebouw — hellende daken (pannen, leien, riet) en platte daken (roofing, bitumen, EPDM, zink)
+    BUITEN dakvensters, lichtkoepels of lichtstraten plaatsen en vervangen
+    BUITEN daken reinigen, ontmossen, coaten of hydrofugeren
+    BUITEN zonnepanelen plaatsen
+    BUITEN dakmaterialen verkopen of produceren (groothandel, fabrikant, showroom)
+    BUITEN enkel dakisolatie, enkel dakconstructie of enkel gevelwerk, zonder de dakbedekking zelf
+Gewichten: 35% vertrouwen / 30% reviewkwaliteit / 15% recentheid / 20% vakfocus
+Eligible bedrijven: 68 (waarvan 53 publicabel, ≥15 reviews) → gepubliceerd: Top 10 (10 bedrijven)
+
+TOP 10  (dit staat op de site — zonder cijfer)
+pos  comp   trust  rq    rec   focus  bayes  Rw    v_w    n24  reviews  bedrijf
+ #1  0.925  0.841  0.94  1.00  1.00   4.84   4.92   49.7   59       61  Roof Service Company B.V.
+ #2  0.908  0.792  0.94  1.00  1.00   4.79   5.00   14.0   15       28  VDK Dakwerken
+ #3  0.893  0.747  0.94  1.00  1.00   4.75   4.89   15.8   10       50  Dakwerken Van der Vorst
+ #4  0.888  0.804  0.94  1.00  0.88   4.80   5.00   15.9   17       27  Kerobo
+ #5  0.886  0.888  0.92  1.00  0.75   4.89   5.00   41.4   23      152  A12 Dakwerken
+ #6  0.883  0.826  0.81  1.00  1.00   4.83   5.00   19.9   12       39  Matrix Dakwerken Antwerpen bv
+ #7  0.882  0.787  0.94  1.00  0.88   4.79   4.95   17.4   17       36  EdB Dakwerken
+ #8  0.879  0.779  0.94  1.00  0.88   4.78   5.00   12.3   12       22  Dak en Bouw Spiessens
+ #9  0.879  0.760  0.88  1.00  1.00   4.76   4.85   26.3   35       35  Franks Dakwerken Antwerpen
+#10  0.877  0.846  0.94  1.00  0.75   4.85   4.98   29.4   34       34  RVO Construct
+
+VAKFOCUS-AUDIT (bron van de specialiteitsdimensie, per gerankt bedrijf)
+    Roof Service Company B.V. — 5.0 via http://roofservicecompany.be/
+    VDK Dakwerken — 5.0 via https://www.vdkdakwerken.be/
+    Dakwerken Van der Vorst — 5.0 via https://vdvdakwerken.be/
+    Kerobo — 4.5 via https://www.kerobo.be/
+    A12 Dakwerken — 4.0 via https://a12-dakwerken-antwerpen.be/
+    Matrix Dakwerken Antwerpen bv — 5.0 via https://matrix-dakwerken-antwerpen.be/
+    EdB Dakwerken — 4.5 via https://edbdakwerken.be/
+    Dak en Bouw Spiessens — 4.5 via https://dnbs.be/
+    Franks Dakwerken Antwerpen — 5.0 via https://franksdakwerken.be/
+    RVO Construct — 4.0 via https://www.rvodakwerken.be/
+
+ROBUUSTHEID VAN DE SELECTIE (±0,5 op reviewkwaliteit + vakfocus, 5000 trials, vaste seed)
+  kans = P(blijft in Top 10)   ·   band = 5e–95e percentiel van de positie
+  #1  kans  99%   band #1–#8   vast          Roof Service Company B.V.
+  #2  kans  91%   band #1–#12   waarschijnlijk VDK Dakwerken
+  #3  kans  72%   band #2–#17   WANKEL        Dakwerken Van der Vorst
+  #4  kans  71%   band #1–#18   WANKEL        Kerobo
+  #5  kans  70%   band #1–#19   WANKEL        A12 Dakwerken
+  #6  kans  57%   band #2–#20   WANKEL        Matrix Dakwerken Antwerpen bv
+  #7  kans  64%   band #2–#20   WANKEL        EdB Dakwerken
+  #8  kans  61%   band #2–#21   WANKEL        Dak en Bouw Spiessens
+  #9  kans  51%   band #3–#21   WANKEL        Franks Dakwerken Antwerpen
+ #10  kans  57%   band #2–#21   WANKEL        RVO Construct
+  Samengevat: 1 vast, 1 waarschijnlijk, 8 wankel (van 10).
+  Marge #10 → eerstvolgende eligible (snel-dakherstel): 0.006.
+
+BEDRIJVEN 11–20 — NIET OP DE SITE (zie prospectiedocument voor dasslim.be)
+    #11  comp 0.871  snel-dakherstel  [< 15 reviews: eligible, niet publicabel]
+    #12  comp 0.871  AA Dakwerken
+    #13  comp 0.869  PLAT DAK WERKEN Roofit
+    #14  comp 0.866  Dakwerken MJ
+    #15  comp 0.862  Dakherstelling.be  [< 15 reviews: eligible, niet publicabel]
+    #16  comp 0.859  Algemene Dakwerken Smeulders  [< 15 reviews: eligible, niet publicabel]
+    #17  comp 0.853  Dakwerken De Laet - Wommelgem
+    #18  comp 0.851  T-ROOF B.V Dakwerken
+    #19  comp 0.850  Renewbuild
+    #20  comp 0.840  Kijzer
+
+ELIGIBLE MAAR VOORBIJ PLEK 20 (niet getoond, niet in prospectie)
+    comp 0.837  Dakwerken Janssens
+    comp 0.835  Dakwerken totté
+    comp 0.832  Biwaco
+    comp 0.831  Dakwerken Dave Bal
+    comp 0.826  MSC Services BV
+    comp 0.821  V&D Dakwerken
+    comp 0.816  Dakwerken Speelman
+    comp 0.811  ISOPROTECH | Daken, Gevels, Asbest
+    comp 0.810  dak & schrijnwerkerij de vrij BV
+    comp 0.808  Rooferdakwerken bv
+    comp 0.803  Dakette Dakwerken
+    comp 0.786  Brabo Dakwerken
+    comp 0.772  Bull Proof
+    comp 0.771  Jensen Dakwerken
+    comp 0.766  Groenhuis Energie
+    comp 0.758  Dakwerken Oosterbosch bv
+    comp 0.752  Dakwerken Van Elshocht
+    comp 0.750  J&B Works Dakwerken - Ramen/Deuren
+    comp 0.746  VDV Dakconstructie
+    comp 0.740  Neve Plastics NV
+    comp 0.719  Cralux
+    comp 0.716  Unity bouw
+    comp 0.715  Renovatie Meesters
+    comp 0.713  Dakwerken Coban
+    comp 0.694  Roofcover Dakwerken
+    comp 0.689  De Dakcentrale
+    comp 0.685  Antwerpse Dakwerken
+    comp 0.675  Mxm construct bv
+    comp 0.669  Dakwerken BCS
+    comp 0.668  ALL-DAK Antwerpen Roelandt BV
+    comp 0.666  Dakrubbercentrale BV
+    comp 0.664  Daktro
+    comp 0.658  Asrus Bouwgroep
+    comp 0.647  Algemene Dakwerken Apers BVBA
+    comp 0.644  Adriaensens BV
+    comp 0.627  Dakwerken Benny
+    comp 0.621  Dakdokter
+    comp 0.589  Dakwerken & Gevelwerken – Grava Group - gevelisolatie crepi spuitkurk
+    comp 0.576  Profidak dakwerken BV
+    comp 0.548  Tectum Roofcomfort
+    comp 0.531  Polyplast NV
+    comp 0.518  Atab nv
+    comp 0.479  Eco Home
+    comp 0.448  Dakwerken Sil Van Roost
+    comp 0.421  MecDecor
+    comp 0.385  Zon & Dak
+    comp 0.341  Dakwerken Keteleer
+    comp 0.323  Dakwerken Paul Dak bvba
+
+NOG NIET ELIGIBLE — NIET OP DE SITE (wél in prospectiedocument, max 10)
+    TrustLocal — Geen vakspecialist voor deze niche (vakfocus 1 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    Mario Doe-het-zelf & Renovatiebedrijf — Geen geverifieerde eigen website — vereist voor opname (methodiek v3+).
+    Veys Bedrijfskleding — Geen vakspecialist voor deze niche (vakfocus 1 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    't Koffekoekske — Geen geverifieerde eigen website — vereist voor opname (methodiek v3+).
+    JDB Haarden en interieur — Geen vakspecialist voor deze niche (vakfocus 1 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    Bouwmaterialen Kerremans & Co nv — Geen vakspecialist voor deze niche (vakfocus 1 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    Limano — Geen vakspecialist voor deze niche (vakfocus 1 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    Quackels Woningbouw NV — Geen vakspecialist voor deze niche (vakfocus 2 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    NMT-GROUP — Geen vakspecialist voor deze niche (vakfocus 2 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+    NDM Ramen en Deuren — Geen vakspecialist voor deze niche (vakfocus 1 < 2,5) — opname vergt vakfocus ≥ 2,5 (methodiek v4+).
+
+BUITEN DE GEMEENTELIJST (volledig weggelaten)
+    Gumi Dak & Karweiwerken Lier (faillissement door wanbeheer zaakvoerder) (Lier)
+    Karweiwerken S&H (Lier)
+    Dakwerken Cuyvers (Stabroek)
+    Dak Evolutie De Bock (Stabroek)
+    Dakwerken Van Steenlandt BVBA (Stabroek)
+    JVK Daken (Ossendrecht)
+    Moris Dakwerken bvba (Kapellen)
+    Dakwerken Lambrechts BV (Kapellen)
+    Dakdekkersbedrijf Gebr. Bril (Ossendrecht)
+    RENO-DAK (Brasschaat)
+    A 3 Dak (Putte)
+    Dakwerken Jennes (Kapellen)
+    Bauw (Lier)
+    Jean Michiels Bvba (Duffel)
+    Schrijnwerkerij Royal Wood Design Emblem (Ranst)
+    Dacman Bvba (Lier)
+    Dapas (Lier)
+    Dakwerken Nr (Duffel)
+    Dakwerken DKN (Duffel)
+    Dakwerken Steve (Bornem)
+    LG Builders | Totaalprojecten Bouwbedrijf en Klussen (Ranst)
+    Dakwerken Geens (Malle)
+    Nieuw dak in 24 uur BV (Schoten)
+    Schotense dakwerken bv (Schoten)
+    Algemene dakwerken De Herdt & Zn (Ranst)
+    Van Zantvoort Dakwerken (Schoten)
+    RB Solar (Lier)
+    Dakwerken daniel l'eau bv (Schoten)
+    Flebus bv (Lier)
+    Reco (Schoten)
+    Renovatie Team Bvba (Schoten)
+    Abs Ducheyne (Lier)
+    Dakwerken Cardon Patrick (Schoten)
+    Dural Bouwgroep (Schoten)
+    Luyts Dakwerken bv (Schoten)
+    Sanitair installateur Van Der Plas Yves (Schoten)
+    Albeco Bv (Schoten)
+    Mawipex (Schoten)
+    Mosmonster - Cauwelier (Schoten)
+    De Boer Roof Maintenance Solutions Bvba (Schoten)
+    Solar Power Systems (Stabroek)
+    Siebens Dakwerken cv (Duffel)
+    BODEGS - Belgische Onderneming voor Dak en Gevel Service (Schoten)
+    Uniworx Bvba (Stabroek)
+    Februs BV (Schoten)
+    Charre Bvba (Willebroek)
+    MS Energy Solutions (Schoten)
+    MR Solar Antwerpen (Duffel)
+    Roofings Solutions - Vincent Van Welde (Stabroek)
+    Green Plan (Mechelen)
+    Gruppo Melis (Kapellen)
+    Dafridak (Mechelen)
+    Van Keulen Loodgieters- en Leidekkersbedrijf B.V. (Ossendrecht)
+    EVM Dakwerken (Malle)
+    WASE DAKWERKEN BV (Beveren-Kruibeke-Zwijndrecht)
+    Dakwerken A. Michielse & zonen (Brasschaat)
+    Van Dyck Dakwerken (Brasschaat)
+    BENOGROUP (Mechelen)
+    Rieten daken Van Camp (Kapellen)
+    Dakwerken Verlinden bv (Brasschaat)
+    Green House Solutions BV (Willebroek)
+    Den Joe Renovaties (Duffel)
+    Algemene Dakwerken Debacq BVBA (Brasschaat)
+    Dakwerken Verstrepen BV (Willebroek)
+    Duffelse Karweiwerken (Duffel)
+    Dakwerken Maes (Ranst)
+    Logimi (Brasschaat)
+    Klusjes & Herstellingen Maessen (Kapellen)
+    Vision Dakwerken Antwerpen (Beveren-Kruibeke-Zwijndrecht)
+    Rokosan (Beveren-Kruibeke-Zwijndrecht)
+    Dakwerken CPD bv (Mechelen)
+    Martin Renovaties (Schoten)
+    Roofcleaners algemene dakwerken (Zwijndrecht)
+    Optimus Dakwerken BV (Ranst)
+    Dakwerken De Clerck - Dakteam (Beveren-Kruibeke-Zwijndrecht)
+    Dakwerken Dennis BVBA (Willebroek)
+    Aldakon (Lier)
+    Moons Dakwerken (Malle)
+    Dakwerken Kajo Bvba (Beveren-Kruibeke-Zwijndrecht)
+    De Coster & Zoon bvba (Burcht)
+    Masterdak Bvba (Brasschaat)
+    Energy Protect: jouw expert in energetisch renoveren (Mechelen)
+    SOLAR WAASLAND BV (Beveren-Kruibeke-Zwijndrecht)
+    Dakservice (Beveren-Kruibeke-Zwijndrecht)
+    Pauwels Karel bvba (Bornem)
+    Dakwerker Antwerpen Boba (Beveren-Kruibeke-Zwijndrecht)
+    Europa-Clean dakwerken BV (Bornem)
+    Sam clippeleyr (Beveren-Kruibeke-Zwijndrecht)
+    Traditec BV - bakstenen, dakpannen en tegels (Ossendrecht)
+    retrideX (Puurs-Sint-Amands)
+    Promonta nv (Willebroek)
+    Wica Dakwerken (Schilde)
+    Dakwerken Eric L'Eau (Ranst)
+    GEBRUIKERSHANDLEIDING RSS Dakrand valbeveiligingssysteem Roof Safety Systems BV (Puurs-Sint-Amands)
+    Groendaken BV (Ranst)
+    Bega Fortuna Bouw (Schoten)
+    Dakwerken Meeus (Ranst)
+    Rilo realisaties (Ranst)
+    BD Heating Solutions BVBA (Ranst)
+    Dakwerken HDL bouw bv. Bornem (Bornem)
+    Cypers nv (Schoten)
+    Van den Braembussche Dak- en Gevelmaterialen Schoten (Schoten)
+    Colbal Construct (Schoten)
+    VDM-werken (Schoten)
+    Defrancq Schoten (Schoten)
+    Alpha Energie (Duffel)
+    JDM (Schoten)
+    Evarist Lossie (Bornem)
+    Willems Renovatiewerken (Beveren-Kruibeke-Zwijndrecht)
+    Foubert Kristiaan (Beveren-Kruibeke-Zwijndrecht)
+
+WAARSCHUWINGEN
+  ! dubbele bedrijfsnaam in reviews.json: "Brabo Dakwerken" — vestigingen worden niet samengevoegd en delen dezelfde beoordeling; controleer of dit klopt
+  ! dubbele bedrijfsnaam in reviews.json: "De Ontmosser" — vestigingen worden niet samengevoegd en delen dezelfde beoordeling; controleer of dit klopt

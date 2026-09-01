@@ -23,3 +23,6 @@ node_modules/
 
 # Claude Code — lokale, persoonlijke instellingen (permissies e.d.)
 .claude/settings.local.json
+
+# Draaiend logboek van de watchdog (machine-lokaal, groeit continu)
+reports/watchdog-taken.log

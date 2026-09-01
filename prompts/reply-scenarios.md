@@ -109,23 +109,30 @@ Look up `badgeDonker`, `badgeLicht` and `landingsUrl` in
 ```html
 <p>Hi {voornaam},</p>
 
-<p>Bedankt voor je reactie! Je badges staan onderaan deze mail.</p>
+<p>Bedankt voor je reactie. Je badges staan onderaan deze mail.</p>
 
-<p>Heb je een zakelijk WhatsApp-nummer? Dan voeg ik dat graag toe aan je listing op
-Keurwijzer.be. Zo zullen meer mensen je contacteren.</p>
+<p>Heb je een zakelijk WhatsApp-nummer?<br>
+Dan voeg ik dat graag toe aan je listing op Keurwijzer.be.<br>
+Zo kunnen meer mensen je contacteren.</p>
 
 <p>Groeten,<br>Olivier</p>
 
 <p>—</p>
 
-<p>Je badges. Gebruik ze gerust op je website of je offertes, of print ze af als
-sticker.<br>
-<a href="{badgeLicht... zie noot}">Deze badge</a> voor een lichte achtergrond,
-<a href="{badgeDonker... zie noot}">deze</a> voor een donkere.</p>
+<p>Gebruik deze badges gerust op je website of je offertes.</p>
 
-<p>Link je hem naar <a href="{landingsUrl}">jouw listing</a>? Daarmee help je
-Keurwijzer ook vooruit — alvast bedankt.</p>
+<p><a href="{badgeDonker}">Deze badge</a> voor een lichte achtergrond,
+<a href="{badgeLicht}">deze</a> voor een donkere.</p>
+
+<p>Link de badge gerust naar <a href="{landingsUrl}">jouw listing</a>. Dat zou mij een
+plezier doen.</p>
+
+<p>Alvast bedankt.</p>
 ```
+
+**Dit badgeblok staat vast.** Olivier heeft het op 1 september 2026 zelf zo vastgelegd.
+Neem het letterlijk over — ook in scenario 2. Schrijf er niets bij ("Je badges.",
+"print ze af als sticker", "daarmee help je Keurwijzer vooruit") en laat niets weg.
 
 **Note on light/dark — read this carefully, it is easy to get backwards.** The field
 names describe the *text colour*, not the background:
@@ -136,8 +143,30 @@ names describe the *text colour*, not the background:
 So the "lichte achtergrond" anchor links to `badgeDonker`, and the "donkere
 achtergrond" anchor links to `badgeLicht`.
 
-**If they already gave their WhatsApp number in their reply**, drop the question and
-thank them for it instead:
+### The WhatsApp question — three cases
+
+**Elke zin op zijn eigen regel.** De alinea telt drie regels, gescheiden met `<br>`.
+Trek ze nooit samen tot één lopende alinea.
+
+**1. No number anywhere in their reply.** Ask the plain question, as in the template:
+
+> Heb je een zakelijk WhatsApp-nummer?<br>
+> Dan voeg ik dat graag toe aan je listing op Keurwijzer.be.<br>
+> Zo kunnen meer mensen je contacteren.
+
+**2. A number is in their mail, but they never say it is their WhatsApp** — typically a
+gsm under their signature. Do **not** treat that as consent and do **not** write it to
+`data/whatsapp.json`. Name the number and ask them to confirm it:
+
+> Is 0470 49 23 82 je zakelijk WhatsApp-nummer?<br>
+> Dan voeg ik het graag toe aan je listing op Keurwijzer.be.<br>
+> Zo kunnen meer mensen je contacteren.
+
+Write the number the way a Fleming reads it out: `0470 49 23 82`, in pairs, never
+`0470492382`. Mention it in your report so Olivier knows it is still pending.
+
+**3. They explicitly hand over their WhatsApp number.** Drop the question and thank them
+for it instead:
 
 > Top, dat nummer voeg ik toe aan je listing.
 
@@ -148,16 +177,48 @@ the page has to be rebuilt. Never add it yourself without asking.
 
 ## Scenario 2 — they ask whether it's free
 
-Same email as scenario 1, with one reassuring line first. Then thank, ask for WhatsApp,
-deliver the badges — they asked about the cost because they want it.
+They asked about the cost because they want it. Reassure in one line, then deliver.
 
-Open with something like:
+**This template is not a suggestion — it is the mail Olivier sent himself on
+1 September 2026 to Buitenschrijnwerk Vereecke Tobias (Oostende). Follow it word for
+word;** only the name, the number and the three links change. Note the order: the free
+line comes **first**, before the badges — and there is no "Bedankt voor je reactie." in
+this scenario, the reassurance opens the mail.
 
-> Ja hoor, Keurwijzer is gratis. En dat blijft zo.
+**Template** (`htmlBody`):
 
-Then continue exactly as scenario 1. Do not explain the business model, do not mention
-Dasslim, do not add conditions. The point is to remove the doubt in one line and move
-on.
+```html
+<p>Hi {voornaam},</p>
+
+<p>Ja hoor, Keurwijzer is gratis. En blijft dat ook.</p>
+
+<p>Je badges staan onderaan deze mail.</p>
+
+<p>Is {nummer} je zakelijk WhatsApp-nummer?<br>
+Dan voeg ik het graag toe aan je listing op Keurwijzer.be.<br>
+Zo kunnen meer mensen je contacteren.</p>
+
+<p>Groeten,<br>Olivier</p>
+
+<p>—</p>
+
+<p>Gebruik deze badges gerust op je website of je offertes.</p>
+
+<p><a href="{badgeDonker}">Deze badge</a> voor een lichte achtergrond,
+<a href="{badgeLicht}">deze</a> voor een donkere.</p>
+
+<p>Link de badge gerust naar <a href="{landingsUrl}">jouw listing</a>. Dat zou mij een
+plezier doen.</p>
+
+<p>Alvast bedankt.</p>
+```
+
+The WhatsApp paragraph follows the three cases above: this version is case 2 (a number
+in their signature that they never called their WhatsApp). No number in their mail →
+use the plain question from case 1. They handed it over explicitly → thank them instead.
+
+Do not explain the business model, do not mention Dasslim, do not add conditions. The
+point is to remove the doubt in one line and move on.
 
 **Never suggest that paying changes anything.** Position is not for sale and never will
 be (`METHODIEK.md` §6). If they ask whether they can pay for a better spot, that is
