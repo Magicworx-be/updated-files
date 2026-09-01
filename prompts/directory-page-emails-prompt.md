@@ -440,7 +440,7 @@ Determine the **greeting** `{aanspreking}` from what step 3b produced:
 Never invent an in-between ("Dag team", "Beste dakwerker") — it is the name or the
 neutral greeting.
 
-**Subject:** `{niche} {regio} vergeleken - resultaat`
+**Subject:** `{niche} {regio} vergeleken`
 
 (e.g. "Dakwerkers regio Dendermonde vergeleken")
 
@@ -451,12 +451,12 @@ neutral greeting.
 
 {aanspreking}
 
-We hebben alle {niche} in de {regio} vergeleken.
+We hebben alle {niche} in de ruime {regio} vergeleken.
 {naam bedrijf} {plaatsing-mail} van de {aantal gecontroleerde bedrijven} {niche}.  
 Zie: {landingspagina link}.
 
-Keurwijzer is gratis voor vakspecialisten.
-Indien je dat wenst bezorg ik je je Keurwijzer kwaliteitsbadge.
+Keurwijzer.be is gratis voor vakspecialisten.
+Indien je dat wenst bezorg ik je je Keurwijzer kwaliteitsbadge voor op je site of offertes?
 Stuur ik die?
 
 
@@ -541,7 +541,7 @@ rather than another cold blast.
 
 ### 1 — Find the threads that qualify
 
-Search Gmail for the Phase 6 subject: `{niche} {regio} vergeleken - resultaat`.
+Search Gmail for the Phase 6 subject: `{niche} {regio} vergeleken`.
 
 Per thread, check in this order and **skip the thread** on the first hit:
 
