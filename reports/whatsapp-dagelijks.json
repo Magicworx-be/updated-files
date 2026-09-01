@@ -1,7 +1,7 @@
 {
   "datum": "2026-09-01",
   "status": "gepubliceerd",
-  "gemaild": false,
+  "gemaild": true,
   "toegevoegd": [
     {
       "bedrijf": "Buitenschrijnwerk Vereecke Tobias BV",
@@ -10,11 +10,20 @@
       "afzender": "info@buitenschrijnwerken-vereecke-tobias.be",
       "datum_mail": "2026-09-01",
       "bevestigingsgeval": true
+    },
+    {
+      "bedrijf": "DWG Projects specialist platte daken",
+      "slug": "dakwerkers-aalst",
+      "nummer": "0471362859",
+      "afzender": "dwgprojects@outlook.com",
+      "datum_mail": "2026-09-01",
+      "bevestigingsgeval": false
     }
   ],
   "labels_verplaatst": [],
   "aandacht": [
     "De beurt van 18u30 liep vast op een Gmail-opdracht die nooit antwoordde; het werk is daarna met de hand afgemaakt.",
-    "Nog geen antwoord op de vraag naar een WhatsApp-nummer: Dakwerken Elite Bouwteam (Aalst), DWG Projects (Aalst), EPDM Construct (Ieper), Zink- en Dakwerken Verhaeghe (Ieper)."
+    "CORRECTIE na het verslag van 19u31: dat verslag zei ten onrechte dat DWG Projects nog niet geantwoord had. De Gmail-zoeklijst liet hun antwoord van 16u06 weg; de thread zelf bevatte het wel. Nummer alsnog toegevoegd en live gezet.",
+    "Nog geen antwoord op de vraag naar een WhatsApp-nummer: Dakwerken Elite Bouwteam (Aalst), EPDM Construct (Ieper), Zink- en Dakwerken Verhaeghe (Ieper)."
   ]
 }
