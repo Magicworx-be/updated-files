@@ -244,8 +244,17 @@ dan als probleem in plaats van "het staat live" te zeggen.
 `Label_3` — zie de labeltabel) en ga per thread na of het nummer nu écht op de pagina
 staat:
 
-- **Staat het er** → `unlabel_thread` `Label_3` en `label_thread` `Label_2`. Meld het
-  uitdrukkelijk: Olivier mag die mail nu beantwoorden.
+- **Staat het er** — doe dan in deze volgorde:
+  1. **Maak de bevestigingsmail als reply-draft in die thread.** De tekst staat vast in
+     `prompts/reply-scenarios.md` onder **Na publicatie — de bevestigingsmail**. Neem ze
+     letterlijk over, als `htmlBody` met `<br>` per regel (niet als platte tekst —
+     zie de reden daar). Enkel `{voornaam}` wisselt; geen naam gevonden → `Hi,`. Nooit
+     versturen.
+  2. `unlabel_thread` `Label_3` en `label_thread` `Label_2`.
+  3. Meld het uitdrukkelijk: de draft staat klaar, Olivier hoeft enkel te versturen.
+
+  **Nooit omgekeerd.** De eerste zin van die mail zegt dat het nummer erbij staat — dus
+  maak de draft pas nadat je dat op de live pagina gezien hebt.
 - **Staat het er niet** → laat `Label_3` staan en meld welk bedrijf blijft wachten, met
   de reden. Een thread mag nooit stil in de wachtstand blijven zonder dat Olivier weet
   waarom.
@@ -266,7 +275,9 @@ is niet technisch: geen bestandspaden, geen commando's, geen jargon.
    zonder aanduiding, naam niet teruggevonden, bevestiging te vaag). Dan weet Olivier dat
    hij het zelf moet doen.
 4. **Elke scenario 3**, met één regel over wat ze eigenlijk vragen.
-5. **Welke threads van "Wacht op WhatsApp" naar "Verzenden" gingen** — dat is zijn sein
+5. **Voor wie de bevestigingsmail klaarstaat** — bedrijf en regio, met de melding dat
+   het enkel nog versturen is.
+6. **Welke threads van "Wacht op WhatsApp" naar "Verzenden" gingen** — dat is zijn sein
    dat hij die bedrijven mag beantwoorden — en welke blijven wachten, met de reden.
 
 Sluit af met wat Olivier nu moet doen: welke drafts hij kan nakijken en versturen.

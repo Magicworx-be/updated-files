@@ -171,7 +171,62 @@ for it instead:
 > Top, dat nummer voeg ik toe aan je listing.
 
 Then note it for Olivier in your report — it has to go into `data/whatsapp.json` and
-the page has to be rebuilt. Never add it yourself without asking.
+the page has to be rebuilt. Never add it yourself without asking. Once the number is
+actually live on the page, the thread gets one more draft: see **Na publicatie — de
+bevestigingsmail** below.
+
+---
+
+## Na publicatie — de bevestigingsmail (staande regel)
+
+Runs **after** the number is actually live on the page, never before. Publishing and
+answering are two separate states: this mail says the number is on the page, so that has
+to be true by the time Olivier reads the draft. The `keurwijzer-mails` skill therefore
+creates it in STAP 5, right after it has confirmed `wa.me/…` on the live page — never in
+STAP 3.
+
+One draft, a reply in the same thread. **Draft only, never send.**
+
+This is the **only** place in the entire outreach where dasslim.be is mentioned. Not in
+email 1, not in the follow-ups, not in the badge mail — and on keurwijzer.be only in the
+standing footer disclosure. It works here because no ask is left open: the company has
+had its page, its badge and its number, and Olivier is asking for nothing in return.
+
+**The text is fixed — Olivier settled it on 2 September 2026. Take it literally: add
+nothing, leave nothing out.** Only `{voornaam}` varies; no confirmed first name → `Hi,`.
+
+```
+Hi {voornaam},
+
+Top, je WhatsApp-nummer staat erbij.
+
+Misschien vraag je je af waarom ik dit gratis doe.
+Naast Keurwijzer heb ik dasslim.be.
+Daar help ik vakspecialisten leads en klanten binnen te halen.
+Doe ik al 25 jaar.
+
+Mocht je ooit willen weten hoe ik dat doe (o.a. met WhatsApp en AI), geef gerust een seintje.
+Dan laat ik je zien hoe het werkt bij een klant.
+
+Groeten en alle succes,
+Olivier
+0470 12 44 61
+```
+
+**Send it as `htmlBody`, not as plain text.** Every line break is intentional — one
+thought per line reads faster on a phone, and that is where these owners read their mail.
+So write the body as one `<div>` with `<br>` between the lines, exactly as above, and
+never pull the lines back into paragraphs. Plain text (`body`) is **not** an option here:
+Gmail then linkifies `dasslim.be` itself and pastes the whole
+`https://www.google.com/url?q=...&source=gmail&ust=...` string into the visible text.
+Measured on 2 September 2026 — it looks like spam.
+
+**`dasslim.be` is a normal anchor:** `<a href="https://dasslim.be">dasslim.be</a>`. Gmail
+wraps the `href` in `google.com/url`, but that wrapper is display-only and the reader
+still sees just `dasslim.be` — the same way the badge links behave.
+
+**No badge block, no landing-page link, no attachment.** Everything has already been
+delivered earlier in this same thread.
 
 ---
 
@@ -266,5 +321,12 @@ auto-answered email is worse than one that waited an hour.
   it unambiguous which company and which region this is, stop and ask.
 - **Never invent facts.** Rank, region and the number of companies compared come from
   the page and `badges.json` — not from memory.
+- **Never `update_draft` a reply draft.** It strips the `In-Reply-To` header and moves
+  the draft into a thread of its own, so it stops being a reply. Wrong text? Trash the
+  draft and create a new one with `replyToMessageId`. Verify afterwards that the returned
+  `threadId` still matches the original thread.
+- **dasslim.be is mentioned in exactly one mail** — the bevestigingsmail, after the
+  WhatsApp number is live. Never in email 1, the follow-ups, a badge mail or a
+  scenario 3. The ranking and the commercial offer never share a message.
 - **Report afterwards** what you drafted, per company: scenario, name used (or "geen
   naam gevonden"), and anything needing follow-up (a WhatsApp number, a scenario 3).
