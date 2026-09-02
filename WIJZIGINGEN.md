@@ -293,7 +293,7 @@ daarom buiten `METHODIEK_PARAMS` en verschijnt op pagina's van elke versie.
 `data/whatsapp.json`. Dat staat in versiebeheer, werkt offline en kan nooit een
 publicatie blokkeren omdat Google onbereikbaar is. (Sinds 1 september 2026 is de Sheet
 hiervoor helemaal buiten gebruik: de nummers komen rechtstreeks uit de antwoordmails en
-worden door de geplande taken `keurwijzer-replies` en `keurwijzer-whatsapp-dagelijks`
+worden door de mailronde `/keurwijzer-mails`, die Olivier zelf draait,
 in dit bestand geschreven en live gezet. Het bouwstuk veranderde daar niet voor — het
 leest nog altijd enkel dit ene bestand.)
 

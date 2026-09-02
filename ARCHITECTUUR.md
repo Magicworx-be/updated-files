@@ -86,64 +86,65 @@ node build-all.js
 
 ### Zijstroom: WhatsApp-nummers
 
-Los van de scrape-keten en **volledig geautomatiseerd**: er is geen handmatige stap.
-De enige bron is de mailbox — wat een bedrijf zelf doorgeeft in zijn antwoord op de
-outreachmail. De private Google Sheet is hiervoor sinds 1 september 2026 buiten
-gebruik en wordt niet meer gelezen.
+Los van de scrape-keten, en sinds 2 september 2026 bewust **niet meer volautomatisch**:
+Olivier start de ronde zelf (zie hieronder). De enige bron is de mailbox — wat een
+bedrijf zelf doorgeeft in zijn antwoord op de outreachmail. De private Google Sheet is
+hiervoor sinds 1 september 2026 buiten gebruik en wordt niet meer gelezen.
 
-Twee geplande taken doen samen het werk:
+Sinds 2 september 2026 gebeurt dat werk **in een gesprek, niet vanzelf**. Olivier draait
+'s ochtends zelf één opdracht:
 
-| Taak | Wanneer | Wat |
-|---|---|---|
-| `keurwijzer-replies` | elk uur, 07-18u | Leest nieuwe antwoorden, zet een reply klaar als **concept** (verstuurt nooit zelf) en **noteert** een doorgegeven nummer in `data/whatsapp.json`. Bouwt en publiceert nooit. |
-| `keurwijzer-whatsapp-dagelijks` | elke avond 18u30, 19u30, 20u30 en 21u30 | Leest de mailbox nog eens, breder, als vangnet. Draait `node build-all.js` **alleen als er echt iets nieuws bij staat**, controleert daarna live op keurwijzer.be of de knop er is, en **mailt Olivier een overzicht**. De drie latere beurten stoppen meteen als de avond al gelukt is. |
+    /keurwijzer-mails
 
-Die splitsing is bewust: noteren mag elk uur, publiceren niet. Een build
-zonder inhoudelijke wijziging zet in `sitemap.xml` voor álle pagina's de datum van
-vandaag — zie "Wat er stilletjes kan stukgaan" verderop.
+Die ene ronde doet alles: antwoorden opzoeken, per antwoord een **concept** klaarzetten
+(nooit versturen), een doorgegeven nummer noteren in `data/whatsapp.json`, `node
+build-all.js` draaien als er écht iets nieuws bij staat, live controleren dat de knop op
+keurwijzer.be staat, en de Gmail-labels bijwerken. De instructie staat in
+`.claude/skills/keurwijzer-mails/SKILL.md`.
 
-Beide taken houden Oliviers werklijst bij als **Gmail-labels**, zodat een leeg mapje
-"niets meer te doen" betekent: *Keurwijzer/1. Verzenden* (draft klaar), *2. Wacht op
-WhatsApp* (nummer genoteerd maar nog niet live — hij raakt die mail bewust niet aan) en
-*3. Zelf antwoorden*. De uurtaak labelt en ontlabelt zodra Olivier geantwoord heeft; de
-avondtaak verplaatst een thread van 2 naar 1 zodra het nummer echt op de pagina staat.
-Outreach-concepten blijven ongelabeld — die verstuurt Olivier zelf in batches.
+Daarnaast draait één geplande taak, `keurwijzer-mailwacht` (weekdagen 08u15 en 15u15).
+Die is bewust een **deurbel**: ze zoekt in Gmail, telt hoeveel antwoorden er wachten, en
+stuurt in dat geval één melding "draai /keurwijzer-mails". Ze maakt geen concepten, zet
+geen labels, leest geen bestanden en draait geen commando's. Wachten er nul, dan stuurt
+ze niets.
 
-Daarnaast draait `Keurwijzer watchdog` als losse Windows-taak (elke 10 min, 07-22u).
-Die sluit taakruns af die meer dan tien minuten stilliggen: zonder die opruiming
-blokkeert één vastgelopen beurt alle volgende, en blijft een antwoord van een bedrijf
-uren onbeantwoord. Zie `scripts/watchdog-taken.js`.
+#### Waarom het niet meer vanzelf gaat
 
-#### Waarom de avondtaak vier keer start
+Tot 2 september 2026 deden twee onbemande taken het volledige werk: `keurwijzer-replies`
+(elk uur) en `keurwijzer-whatsapp-dagelijks` (vier keer op een avond). Ze liepen dagen na
+elkaar vast, telkens op iets anders. De oorzaak was elke keer dezelfde: een onbemande
+beurt die een commando of tool gebruikt dat niet vooraf is toegestaan, blijft hangen op
+een toestemmingsvraag die niemand beantwoordt. Zo'n beurt blokkeert alle volgende.
 
-De watchdog **sluit** een vastgelopen beurt af, maar **herstart** hem niet. Voor de
-uurtaak geeft dat niets — een uur later komt de volgende. Maar zolang de avondtaak maar
-één keer per dag startte, kostte één vastgelopen beurt de hele dag. Dat gebeurde op
-1 september 2026: de beurt van 18u30 bleef hangen op een Gmail-opdracht die nooit
-antwoordde, en een bevestigd nummer bleef die avond offline.
+Het patroon was niet te repareren met nog een regel op de lijst. Een instructie kan
+onmogelijk elk commando opsommen dat een beurt ooit zou kunnen bedenken — de laatste
+beurt, op 2 september om 10u04, verzon een eigen `node -e` om `badges.json` uit te lezen
+en hing dáárop, nadat alle acht Gmail-opdrachten wél gelukt waren.
 
-Daarom start de avondtaak nu vier keer, en houdt ze in `reports/whatsapp-dagelijks.json`
-bij hoe ver ze geraakt is:
+De oplossing is de vorm, niet de details: **het kwetsbare werk gebeurt waar Olivier bij
+zit** (daar is een toestemmingsvraag één klik), en **alleen het onfeilbare stuk blijft
+automatisch** (Gmail doorzoeken en een melding sturen — precies het deel dat nooit is
+stukgegaan). Het verlies is klein: de taken verstuurden zelf nooit iets, ze zetten alleen
+concepten klaar. Olivier was altijd al het moment van versturen.
 
-| In de markering staat | Wat de volgende beurt doet |
-|---|---|
-| datum van vandaag, `gemaild: true` | meteen stoppen — geen Gmail, geen build, geen mail |
-| datum van vandaag, `status: "gepubliceerd"`, `gemaild: false` | alleen nog de overzichtsmail versturen |
-| oudere datum, of bestand ontbreekt | de volledige ronde draaien |
+Een gevolg is dat noteren en publiceren nu in dezelfde ronde gebeuren. Vroeger noteerde
+de uurtaak een nummer en zette de avondtaak het pas uren later live; nu staat het nummer
+live vóór Olivier het antwoord verstuurt — wat precies de bedoeling was van de wachtstand
+*2. Wacht op WhatsApp*.
 
-Twee gedragsregels in beide taken houden de kans op vastlopen klein: **Gmail-opdrachten
-één voor één** (nooit twee in dezelfde beurt — de beurt van 1 september struikelde
-precies daarover) en **`list_labels` nooit aanroepen**, want de label-ID's staan al in
-de instructie zelf.
+De losse Windows-taak `Keurwijzer watchdog` (elke 10 min, 07-22u) blijft draaien. Ze
+sluit een taakrun af die meer dan tien minuten stilligt én nog op een tool-antwoord
+wacht. Er is nu veel minder voor haar te doen, maar ze vangt de deurbel op als die ooit
+zou blijven hangen. Zie `scripts/watchdog-taken.js`.
 
-#### De dagelijkse overzichtsmail
+#### De werklijst in Gmail
 
-Na een geslaagde ronde mailt de avondtaak naar olivier@magicworx.net: per toegevoegd
-nummer het bedrijf, de regiopagina, het nummer en uit welke mail het kwam, plus welke
-threads uit de wachtstand mochten. **Ook op een avond zonder nieuwe nummers gaat die
-mail uit**, met één zin. Dat is met opzet: blijft de mail helemaal weg, dan is dat het
-signaal dat de routine niet gedraaid heeft. Het is de enige controle erop, en Olivier
-hoeft er niets voor te openen.
+De ronde houdt Oliviers werklijst bij als **Gmail-labels**, zodat een leeg mapje "niets
+meer te doen" betekent: *Keurwijzer/1. Verzenden* (concept klaar), *2. Wacht op WhatsApp*
+(nummer genoteerd maar nog niet live — hij raakt die mail bewust niet aan) en *3. Zelf
+antwoorden*. Het label verdwijnt zodra Olivier zelf geantwoord heeft. Een thread gaat van
+2 naar 1 zodra het nummer echt op de pagina staat. Outreach-concepten blijven ongelabeld
+— die verstuurt Olivier zelf in batches.
 
 `build.js` leest enkel `data/whatsapp.json`. Bij de volgende build verschijnt de link
 op de kaart van dat bedrijf — ook op pagina's die al maanden live staan, want alle
@@ -224,7 +225,7 @@ Worker-records en zet `A keurwijzer.be → 162.159.140.166` en
 | `config/<niche>/<slug>.json` | Vak, regio, gemeentelijst, peildatum. |
 | `data/<slug>/` | Ruwe scrape, genormaliseerde reviews, beoordeling. |
 | `data/whatsapp.json` | Doorgegeven WhatsApp-nummers. Wordt automatisch bijgewerkt uit de mailbox. |
-| `reports/whatsapp-dagelijks.json` | Markering van de avondtaak: hoe ver ze vanavond geraakt is, zodat een herkansing weet wat er nog moet. |
+| `reports/whatsapp-dagelijks.json` | Restant van de oude avondtaak (verwijderd op 2 september 2026). Wordt door niets meer gelezen of geschreven. |
 | `lib/whatsapp.js` | Leest en controleert die nummers; maakt de `wa.me`-link. |
 | `prompts/scoring-prompt.md` | Rubrieken voor de LLM-beoordeling. |
 | `prompts/directory-page-emails-prompt.md` | Het canonieke werkproces, Fase 0–7 (0–6 = bouwen en outreach, 7 = opvolgmails bij stilte). |
