@@ -83,6 +83,13 @@ Open with `Hi {voornaam},` — e.g. `Hi Dirk,`. Look for a **first name**, in th
 - When in any doubt: just `Hi,`. A neutral greeting costs nothing; a wrong name costs
   the whole personal effect.
 
+**The name comes back a second time.** Olivier settled this on 2 September 2026: when a
+first name is confirmed, he also uses it in the sentence about the badges — "Je badges
+staan onderaan deze mail, An." It reads as if he typed the mail for that one person.
+Found no name (so the greeting is a bare `Hi,`)? Then drop the comma and the name there
+too: "Je badges staan onderaan deze mail." Never use a surname or a company name in that
+spot — the same rules as for the greeting apply.
+
 ---
 
 ## Scenario 1 — they ask for their badge
@@ -109,7 +116,7 @@ Look up `badgeDonker`, `badgeLicht` and `landingsUrl` in
 ```html
 <p>Hi {voornaam},</p>
 
-<p>Bedankt voor je reactie. Je badges staan onderaan deze mail.</p>
+<p>Bedankt voor je reactie. Je badges staan onderaan deze mail, {voornaam}.</p>
 
 <p>Heb je een zakelijk WhatsApp-nummer?<br>
 Dan voeg ik dat graag toe aan je listing op Keurwijzer.be.<br>
@@ -234,20 +241,24 @@ delivered earlier in this same thread.
 
 They asked about the cost because they want it. Reassure in one line, then deliver.
 
-**This template is not a suggestion — it is the mail Olivier sent himself on
-1 September 2026 to Buitenschrijnwerk Vereecke Tobias (Oostende). Follow it word for
-word;** only the name, the number and the three links change. Note the order: the free
-line comes **first**, before the badges — and there is no "Bedankt voor je reactie." in
-this scenario, the reassurance opens the mail.
+**This template is not a suggestion — it is the mail Olivier sends himself. Follow it
+word for word;** only the name, the number and the three links change. Note the order:
+the free line comes **first**, before the badges — and there is no "Bedankt voor je
+reactie." in this scenario, the reassurance opens the mail.
+
+He rewrote the opening on 2 September 2026, in the draft to EPDMshop (Sint-Niklaas): the
+free line is now one short sentence — **"En blijft dat ook." is gone** — and the badge
+sentence carries the first name. Shorter reassures better; one line, then on to the
+badges.
 
 **Template** (`htmlBody`):
 
 ```html
 <p>Hi {voornaam},</p>
 
-<p>Ja hoor, Keurwijzer is gratis. En blijft dat ook.</p>
+<p>Ja hoor, Keurwijzer is gratis.</p>
 
-<p>Je badges staan onderaan deze mail.</p>
+<p>Je badges staan onderaan deze mail, {voornaam}.</p>
 
 <p>Is {nummer} je zakelijk WhatsApp-nummer?<br>
 Dan voeg ik het graag toe aan je listing op Keurwijzer.be.<br>
