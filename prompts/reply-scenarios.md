@@ -83,12 +83,15 @@ Open with `Hi {voornaam},` — e.g. `Hi Dirk,`. Look for a **first name**, in th
 - When in any doubt: just `Hi,`. A neutral greeting costs nothing; a wrong name costs
   the whole personal effect.
 
-**The name comes back a second time.** Olivier settled this on 2 September 2026: when a
-first name is confirmed, he also uses it in the sentence about the badges — "Je badges
-staan onderaan deze mail, An." It reads as if he typed the mail for that one person.
-Found no name (so the greeting is a bare `Hi,`)? Then drop the comma and the name there
-too: "Je badges staan onderaan deze mail." Never use a surname or a company name in that
-spot — the same rules as for the greeting apply.
+**The name is used twice at most, and never twice in a row.** Olivier settled this on
+2 September 2026: after the greeting, the first name may come back **once**, in the line
+that thanks them — "Bedankt voor je reactie, Sarah". The sentence about the badges then
+stays plain: "Je badges staan onderaan deze mail." Repeating the name in that second
+line reads as insistent; he took it back out himself.
+
+Found no name (so the greeting is a bare `Hi,`)? Then the thank-you line loses the comma
+and the name as well: "Bedankt voor je reactie." Never use a surname or a company name in
+that spot — the same rules as for the greeting apply.
 
 ---
 
@@ -116,7 +119,8 @@ Look up `badgeDonker`, `badgeLicht` and `landingsUrl` in
 ```html
 <p>Hi {voornaam},</p>
 
-<p>Bedankt voor je reactie. Je badges staan onderaan deze mail, {voornaam}.</p>
+<p>Bedankt voor je reactie, {voornaam}<br>
+Je badges staan onderaan deze mail.</p>
 
 <p>Heb je een zakelijk WhatsApp-nummer?<br>
 Dan voeg ik dat graag toe aan je listing op Keurwijzer.be.<br>
@@ -247,9 +251,9 @@ the free line comes **first**, before the badges — and there is no "Bedankt vo
 reactie." in this scenario, the reassurance opens the mail.
 
 He rewrote the opening on 2 September 2026, in the draft to EPDMshop (Sint-Niklaas): the
-free line is now one short sentence — **"En blijft dat ook." is gone** — and the badge
-sentence carries the first name. Shorter reassures better; one line, then on to the
-badges.
+free line is now one short sentence — **"En blijft dat ook." is gone**. Shorter reassures
+better; one line, then on to the badges. This scenario has no thank-you line, so the
+first name appears only in the greeting.
 
 **Template** (`htmlBody`):
 
@@ -258,7 +262,7 @@ badges.
 
 <p>Ja hoor, Keurwijzer is gratis.</p>
 
-<p>Je badges staan onderaan deze mail, {voornaam}.</p>
+<p>Je badges staan onderaan deze mail.</p>
 
 <p>Is {nummer} je zakelijk WhatsApp-nummer?<br>
 Dan voeg ik het graag toe aan je listing op Keurwijzer.be.<br>
