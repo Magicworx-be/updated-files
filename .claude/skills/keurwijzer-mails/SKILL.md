@@ -37,13 +37,20 @@ Projectmap: `C:\Users\brain\Desktop\Projecten\Magicworx\Keurwijzer\Keurwijzer we
 
 ## De drie labels
 
-Oliviers werklijst. **Gebruik altijd het ID, nooit de naam.** Roep `list_labels` niet aan.
+Oliviers werklijst. Roep `list_labels` niet aan — alles wat je nodig hebt staat hier.
 
 | Mapje | ID | Betekenis |
 |---|---|---|
 | Keurwijzer/1. Verzenden | `Label_2` | draft staat klaar, niets blokkeert |
 | Keurwijzer/2. Wacht op WhatsApp | `Label_3` | nummer genoteerd, nog niet live |
 | Keurwijzer/3. Zelf antwoorden | `Label_4` | vergt Oliviers eigen woorden |
+
+**Labelen doe je met het ID, zoeken met de naam.** Dat is geen slordigheid maar hoe
+Gmail werkt: `label_thread` en `unlabel_thread` willen `Label_2`, maar in een
+zoekopdracht geeft `label:Label_2` **stilzwijgend nul resultaten** — zoeken moet met de
+volledige naam tussen aanhalingstekens, `label:"Keurwijzer/1. Verzenden"`. Op
+2 september 2026 leken de mapjes daardoor leeg terwijl er een thread in zat. Een lege
+uitkomst op een labelzoekopdracht is dus pas geloofwaardig als je de naam gebruikt hebt.
 
 ## Uitsluitlijst — deze threads nooit behandelen
 
@@ -62,8 +69,9 @@ verwacht, meld dat dan in plaats van zelf iets te schrijven.
 
 # STAP 1 — Ruim afgehandelde threads op
 
-Zoek: `label:Label_2 OR label:Label_3 OR label:Label_4` (bewust zonder `newer_than`,
-anders blijft een oude thread voor altijd gelabeld).
+Zoek: `label:"Keurwijzer/1. Verzenden" OR label:"Keurwijzer/2. Wacht op WhatsApp" OR
+label:"Keurwijzer/3. Zelf antwoorden"` (met de namen — zie hierboven; en bewust zonder
+`newer_than`, anders blijft een oude thread voor altijd gelabeld).
 
 Komt het **laatste** bericht van Olivier, dan heeft hij die thread afgehandeld → haal het
 label weg met `unlabel_thread` (zelfde ID). Komt het laatste bericht van het bedrijf, laat
@@ -100,8 +108,9 @@ Geen kandidaten? Ga meteen door naar stap 5 — de labelronde draait altijd.
 **Identificeer eerst het bedrijf.** De eerste (verzonden) mail in de thread bevat de
 bedrijfsnaam en de link `keurwijzer.be/<slug>` — daaruit haal je de regio-slug. Lees dan
 `badges/<slug>/badges.json` **met de Read-tool** en zoek het bedrijf op via het veld
-`naam`; daaruit komen `tier`, `badgeDonker`, `badgeLicht` en `landingsUrl`. Kan je het
-bedrijf niet eenduidig vastpinnen → geen badge-draft, behandel het als scenario 3.
+`naam`; daaruit komen `rang`, `tier`, `badgeDonker` en `badgeLicht`. Een veld
+`landingsUrl` bestaat niet — de listinglink is altijd `https://keurwijzer.be/<slug>/`.
+Kan je het bedrijf niet eenduidig vastpinnen → geen badge-draft, scenario 3.
 
 **Schrijf dan de draft.** Lees `prompts/reply-scenarios.md` (Read-tool) — dat bestand is
 bindend voor toon, begroeting en de sjablonen van scenario 1 (badge-vraag), scenario 2
@@ -231,8 +240,9 @@ Gebruik hiervoor de WebFetch-tool op `https://keurwijzer.be/<slug>/` en zoek naa
 `32470492382`. Staat het er niet, wacht even en kijk opnieuw. Blijft het weg, meld dat
 dan als probleem in plaats van "het staat live" te zeggen.
 
-**Labelronde.** Zoek `label:Label_3` en ga per thread na of het nummer nu écht op de
-pagina staat:
+**Labelronde.** Zoek `label:"Keurwijzer/2. Wacht op WhatsApp"` (met de naam, niet met
+`Label_3` — zie de labeltabel) en ga per thread na of het nummer nu écht op de pagina
+staat:
 
 - **Staat het er** → `unlabel_thread` `Label_3` en `label_thread` `Label_2`. Meld het
   uitdrukkelijk: Olivier mag die mail nu beantwoorden.
