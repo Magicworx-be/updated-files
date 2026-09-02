@@ -45,7 +45,8 @@ Olivier writes like he talks: short, warm, straight to the point. He is answerin
 quickly between jobs, not composing a letter.
 
 **Do:** short sentences. Contractions. An exclamation mark where it's genuinely meant.
-Start with "Hi". Sign off "Groeten, Olivier".
+Sign off "Groeten, Olivier". Open with "Hi" where the mail has a greeting at all — the
+badge mail of scenario 1 no longer does, see the next section.
 
 **Don't:** "Geachte heer", "Naar aanleiding van uw bericht", "Wij danken u voor uw
 interesse", "Met vriendelijke groeten", "Aarzel niet om contact op te nemen". No
@@ -65,9 +66,25 @@ That's the register. If your draft is longer or smoother than those, cut it back
 
 ---
 
-## The greeting — finding a first name
+## The first name — where it goes, and how to find one
 
-Open with `Hi {voornaam},` — e.g. `Hi Dirk,`. Look for a **first name**, in this order:
+**Scenario 1 has no greeting.** Olivier dropped it on 2 September 2026: the badge mail
+opens straight with the thank-you line, and the name rides along in it.
+
+```
+Bedankt voor je reactie, Sarah
+Je badges staan onderaan deze mail.
+```
+
+No `Hi Sarah,` above it — the name is already there, and saying it twice in two lines
+reads as insistent. Found no first name? Then that line is simply "Bedankt voor je
+reactie." and the mail opens with that.
+
+**The other mails still open with `Hi {voornaam},`** — scenario 2, scenario 3 and the
+bevestigingsmail. They have no thank-you line, so the greeting is the only place the name
+can land.
+
+Look for a **first name**, in this order:
 
 1. The signature in their reply ("Mvg, Dirk", "Groeten Nick").
 2. The sender's display name ("Nick Vermeersch" → Nick).
@@ -83,15 +100,10 @@ Open with `Hi {voornaam},` — e.g. `Hi Dirk,`. Look for a **first name**, in th
 - When in any doubt: just `Hi,`. A neutral greeting costs nothing; a wrong name costs
   the whole personal effect.
 
-**The name is used twice at most, and never twice in a row.** Olivier settled this on
-2 September 2026: after the greeting, the first name may come back **once**, in the line
-that thanks them — "Bedankt voor je reactie, Sarah". The sentence about the badges then
-stays plain: "Je badges staan onderaan deze mail." Repeating the name in that second
-line reads as insistent; he took it back out himself.
-
-Found no name (so the greeting is a bare `Hi,`)? Then the thank-you line loses the comma
-and the name as well: "Bedankt voor je reactie." Never use a surname or a company name in
-that spot — the same rules as for the greeting apply.
+**The name is used once, never twice.** Whichever line carries it — the greeting or the
+thank-you line — it appears in that one spot only. The sentence about the badges stays
+plain: "Je badges staan onderaan deze mail." Olivier took the name back out of that line
+himself on 2 September 2026.
 
 ---
 
@@ -117,8 +129,6 @@ Look up `badgeDonker`, `badgeLicht` and `landingsUrl` in
 **Template** (`htmlBody`):
 
 ```html
-<p>Hi {voornaam},</p>
-
 <p>Bedankt voor je reactie, {voornaam}<br>
 Je badges staan onderaan deze mail.</p>
 
