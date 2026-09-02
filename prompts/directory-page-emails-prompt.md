@@ -455,9 +455,8 @@ We hebben alle {niche} in de ruime {regio} vergeleken.
 {naam bedrijf} {plaatsing-mail} van de {aantal gecontroleerde bedrijven} {niche}.  
 Zie: {landingspagina link}.
 
-Keurwijzer.be is gratis voor vakspecialisten.
-Indien je dat wenst bezorg ik je je Keurwijzer kwaliteitsbadge voor op je site of offertes?
-Stuur ik die?
+Je hebt recht op een Keurwijzer kwaliteitsbadge voor op je site of offertes.
+Is gratis. Stuur ik die?
 
 
 
