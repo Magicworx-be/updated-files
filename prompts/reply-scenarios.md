@@ -123,8 +123,11 @@ it himself, and it keeps the personal part personal.
 
 Look up `badgeDonker`, `badgeLicht` and `landingsUrl` in
 `badges/{{SLUG}}/badges.json` (see the werkproces-prompt). Use the bare
-`https://cdn.jsdelivr.net/…` URL in the `href` — never Gmail's
-`google.com/url?q=…` wrapper, which is only a display artefact.
+`https://cdn.jsdelivr.net/…` URL in the `href` — never a `google.com/url?q=…` string of
+your own. Gmail adds that wrapper itself when it saves the draft and there is no way
+around it: on a badge link the recipient really does see the Redirect Notice. Removing
+the link is not an option — then there is nothing left to click. Olivier accepted that
+on 2 September 2026; do not raise it again as something to fix.
 
 **Template** (`htmlBody`):
 
@@ -243,8 +246,9 @@ Gmail then linkifies `dasslim.be` itself and pastes the whole
 Measured on 2 September 2026 — it looks like spam.
 
 **`dasslim.be` is a normal anchor:** `<a href="https://dasslim.be">dasslim.be</a>`. Gmail
-wraps the `href` in `google.com/url`, but that wrapper is display-only and the reader
-still sees just `dasslim.be` — the same way the badge links behave.
+wraps the `href` in `google.com/url`; the reader still *sees* just `dasslim.be`, but
+clicking goes through the Redirect Notice — the same as the badge links. Accepted, for
+the same reason: a link nobody can click is worse.
 
 **No badge block, no landing-page link, no attachment.** Everything has already been
 delivered earlier in this same thread.

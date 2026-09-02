@@ -389,18 +389,18 @@ Two things are needed, and confusing them is what produces Gmail's "Redirect Not
 <a href="https://keurwijzer.be/{{SLUG}}/">keurwijzer.be/{{SLUG}}</a>
 ```
 
-**Never put the URL in as bare text without an anchor.** Gmail then linkifies it
-itself, guesses `http://` because no scheme was supplied, and routes that unverified
-http destination through `google.com/url?q=…`. The recipient gets a **"Redirect
-Notice" interstitial** instead of the page, and only then two redirect hops
-(`http://…` → `http://…/` → `https://…/`). That interstitial is exactly the damage the
-single link in email 1 exists to avoid — it is the proof that the company really is in
-the selection, so it has to land on the page in one click. An explicit `https` anchor
-to the canonical URL leaves Gmail nothing to guess.
+**Whatever you write, the saved draft ends up wrapped.** Measured on 2 September 2026:
+an explicit `https` anchor, bare text with a scheme and bare text without one all come
+back out of Gmail as `<a href="https://www.google.com/url?q=…">`. You cannot produce a
+clean link from here, so do not spend another round trying. Write the anchor from
+step 5 and leave it at that.
 
-The old rule here read "should not be clickable, so no hyperlink". That was the cause,
-not a safeguard: Gmail makes the URL clickable regardless, and withholding the anchor
-only hands it the choice of scheme and destination.
+**The last step is Olivier's.** In email 1 he deletes the hyperlink in the Gmail window
+before sending — the text `keurwijzer.be/{{SLUG}}` stays, only the link goes. Gmail then
+makes a normal link of it on the way out, without the frame; the quoted replies from
+EPDMshop and Cauwelier show a plain `http://keurwijzer.be/…` arriving. He does not have
+to retype anything. Mention it in your report so he knows the drafts still need that one
+click; never claim the link in a draft you made is already clean.
 
 **In the region note (step 6b) the plain `{landingspagina url}` is used** — that draft
 is plain text and goes to Olivier himself, so there is no anchor to build.
@@ -652,9 +652,14 @@ company up by `naam` to get `tier`, `badgeDonker` and `badgeLicht`.
 If the thread does not make the company unambiguous, **stop and ask Olivier** — do not
 send a badge to an address you have not positively matched.
 
-**Use the clean CDN URL.** Gmail displays outbound links wrapped in
-`https://www.google.com/url?q=…&source=gmail…`. That wrapper is display-only. Always
-write the bare `https://cdn.jsdelivr.net/…` URL from `badges.json`.
+**Use the clean CDN URL.** Always write the bare `https://cdn.jsdelivr.net/…` URL from
+`badges.json` in the `href`, never a `google.com/url?q=…` string of your own.
+
+Gmail wraps it anyway when it saves the draft, and — unlike in email 1 — that wrapper
+is **not** display-only here: the recipient really does get the Redirect Notice before
+the badge. Nothing can be done about it. Stripping the link is not an option, because
+then there is nothing left to click. Olivier accepted this on 2 September 2026 as the
+price of a clickable badge. Do not offer it again as a formatting problem to solve.
 
 **Never send on your own.** Compose the reply, show it to Olivier, and wait for his
 explicit go-ahead per email. Drafting is free; sending is his call.
