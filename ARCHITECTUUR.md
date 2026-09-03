@@ -70,11 +70,17 @@ Dit is een echte volgorde — elke stap hangt van de vorige af.
    bevroren — alleen tekstoordelen, nooit scores of rangschikking.
 7. **`build.js` rekent** en genereert de pagina. Alle getallen komen hiervandaan.
 8. **`build-site.js`** maakt homepage, hubs, `sitemap.xml` en `robots.txt`.
-9. **`lib/push-registry.js`** duwt `registry.json` naar `keurwijzer-data` en leegt
-   de jsDelivr-cache.
-10. **`scripts/genereer-badges.js` + `lib/push-badges.js`** maken en publiceren de
-    kwaliteitsbadges, ook naar `keurwijzer-data`.
-11. **`lib/push-site.js`** duwt de volledige site naar `keurwijzer-site`.
+9. **`lib/push-site.js`** duwt als **eerste** de volledige site naar
+   `keurwijzer-site`. Bewust vóór de registry: de hubs vervangen hun kaarten
+   clientside door de registry die jsDelivr serveert, en die mag geen pagina
+   adverteren die Cloudflare nog niet live heeft — anders linkt de hub een tot
+   drie minuten naar een 404. Door de site eerst te publiceren staat de
+   detailpagina er al voordat de registry ernaar verwijst.
+10. **`lib/push-registry.js`** duwt dáárna `registry.json` naar `keurwijzer-data`
+    en leegt de jsDelivr-cache.
+11. **`lib/push-badges.js`** publiceert als laatste de kwaliteitsbadges (gemaakt
+    door `scripts/genereer-badges.js`, meteen na `build.js`), ook naar
+    `keurwijzer-data`.
 12. **Cloudflare bouwt automatisch** bij elke push en zet de nieuwe versie live —
     ongeveer 30 seconden later staat alles op `keurwijzer.be`.
 

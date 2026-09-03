@@ -29,6 +29,32 @@ const R = require('./lib/registry');
 
 const ROOT = __dirname;
 const OUT = path.join(ROOT, 'output');
+const T = require('./lib/tijdelijke-map');
+
+// --geen-push: bouwt de site volledig lokaal maar publiceert niets (registry,
+// badges noch site). Bedoeld om build-all.js te kunnen draaien — bv. twee keer
+// tegelijk om de lock te testen — zonder dat er iets live gaat.
+const GEEN_PUSH = process.argv.includes('--geen-push');
+
+// ---- Bouw-lock: geen twee gelijktijdige build-all.js-processen -------------
+// Een geplande taak en een handmatige sessie kunnen elkaar overlappen; de tweede
+// push wordt dan als non-fast-forward geweigerd en verdween vroeger in een lege
+// catch. We claimen de lock zo vroeg mogelijk en laten hem los bij élke afsluiting.
+const lock = T.claimLock();
+if (!lock.ok) {
+  console.error('✗ Er draait al een build-all.js (pid ' + lock.pid +
+    (lock.sinds ? ', gestart ' + lock.sinds : '') + ', ' + lock.minuten + ' min geleden).');
+  console.error('  Twee gelijktijdige builds duwen elkaars push weg. Wacht tot de andere klaar is.');
+  console.error('  (Een lock ouder dan 30 min wordt automatisch genegeerd.)');
+  process.exit(1);
+}
+if (lock.genegeerd) {
+  console.warn('! Verouderde bouw-lock genegeerd (pid ' + lock.genegeerd.pid + ', ' +
+    lock.genegeerd.minuten + ' min oud) — vermoedelijk een vastgelopen build.');
+}
+// Los de lock in álle gevallen los: normaal einde, process.exit(), of een
+// onafgevangen fout (bv. een kapotte config die loadRegistry laat throwen).
+process.on('exit', () => T.laatLockLos());
 
 function deployFiles(dir) {
   if (!fs.existsSync(dir)) return [];
@@ -116,6 +142,15 @@ const homepageMeldingen = [];
       ].join('\n'));
     }
   }
+}
+
+// 0) tokenwaarschuwing — één GET naar de GitHub-API leest de vervaldatum van het
+//    token. Verloopt het binnen 30 dagen, dan een melding vóór alle bouwuitvoer,
+//    zodat de publicatie niet op een dag stil breekt. Stopt de build nooit; lekt
+//    het token nooit (zie lib/token-check.js). Overgeslagen bij --geen-push.
+if (!GEEN_PUSH) {
+  try { execFileSync('node', [path.join(ROOT, 'lib', 'token-check.js')], { stdio: 'inherit' }); }
+  catch { /* de token-check mag een build nooit blokkeren */ }
 }
 
 const before = snapshot();
@@ -270,36 +305,52 @@ if (metWaarschuwingen.length) {
 }
 console.log('');
 
-// 6) registry.json pushen naar GitHub (zodat jsDelivr de nieuwe navigatie serveert)
+// ---- Publiceren -------------------------------------------------------------
+// Volgorde bewust: SITE eerst, dan pas registry en badges.
+//
+// hub.html vervangt de serverside kaarten clientside door de registry die
+// jsDelivr serveert. Pushten we de registry eerst (zoals vroeger), dan kon de
+// CDN een nieuwe pagina al adverteren terwijl Cloudflare de detailpagina nog niet
+// live had — de hub linkte dan 1 tot 3 minuten naar een 404. Door de site eerst
+// te publiceren staat de detailpagina er al voordat de registry ernaar verwijst.
+// (push-registry.js heeft niets uit de site-push nodig — geverifieerd.)
+let siteMislukt = false;
 let pushMislukt = false;
 let cdnAchter = false;
-try {
-  execFileSync('node', [path.join(ROOT, 'lib', 'push-registry.js')], { stdio: 'inherit' });
-} catch (err) {
-  // Exitcode 2 = push naar GitHub is WEL gelukt, maar jsDelivr serveert nog niet
-  // alle pagina's. Dat vraagt een ander advies dan een echt mislukte push (1):
-  // opnieuw pushen helpt daar niet, even wachten en herbouwen wel.
-  if (err && err.status === 2) {
-    cdnAchter = true;
-  } else {
-    pushMislukt = true;
-    console.error('\n  !! registry.json NIET gepusht naar GitHub.');
-    console.error('     → Run handmatig: node lib/push-registry.js');
-    console.error('     → Zonder push zien bezoekers de binnenkort-kaarten NIET.');
+let badgesMislukt = false;
+
+if (GEEN_PUSH) {
+  console.log('› --geen-push: site, registry en badges NIET gepubliceerd (lokale build).');
+} else {
+  // 6) de statische site publiceren naar Cloudflare (via de site-repo op GitHub).
+  //    Doet niets zolang GITHUB_SITE_REPO niet in .env staat — de build blijft
+  //    dan exact werken zoals voorheen.
+  try {
+    execFileSync('node', [path.join(ROOT, 'lib', 'push-site.js')], { stdio: 'inherit' });
+  } catch { siteMislukt = true; /* fout wordt al gemeld door push-site.js */ }
+
+  // 7) registry.json pushen naar GitHub (zodat jsDelivr de nieuwe navigatie serveert)
+  try {
+    execFileSync('node', [path.join(ROOT, 'lib', 'push-registry.js')], { stdio: 'inherit' });
+  } catch (err) {
+    // Exitcode 2 = push naar GitHub is WEL gelukt, maar jsDelivr serveert nog niet
+    // alle pagina's. Dat vraagt een ander advies dan een echt mislukte push (1):
+    // opnieuw pushen helpt daar niet, even wachten en herbouwen wel.
+    if (err && err.status === 2) {
+      cdnAchter = true;
+    } else {
+      pushMislukt = true;
+      console.error('\n  !! registry.json NIET gepusht naar GitHub.');
+      console.error('     → Run handmatig: node lib/push-registry.js');
+      console.error('     → Zonder push zien bezoekers de binnenkort-kaarten NIET.');
+    }
   }
+
+  // 8) badge-PNG's pushen naar dezelfde data-repo (jsDelivr serveert de badges)
+  try {
+    execFileSync('node', [path.join(ROOT, 'lib', 'push-badges.js')], { stdio: 'inherit' });
+  } catch { badgesMislukt = true; /* fout wordt al gemeld door push-badges.js */ }
 }
-
-// 7) badge-PNG's pushen naar dezelfde data-repo (jsDelivr serveert de badges)
-try {
-  execFileSync('node', [path.join(ROOT, 'lib', 'push-badges.js')], { stdio: 'inherit' });
-} catch { /* fout wordt al gemeld door push-badges.js */ }
-
-// 8) de statische site publiceren naar Cloudflare (via de site-repo op GitHub).
-//    Doet niets zolang GITHUB_SITE_REPO niet in .env staat — de build blijft
-//    dan exact werken zoals voorheen.
-try {
-  execFileSync('node', [path.join(ROOT, 'lib', 'push-site.js')], { stdio: 'inherit' });
-} catch { /* fout wordt al gemeld door push-site.js */ }
 
 // 9) als laatste, zodat het niet wegscrollt tussen de push-uitvoer: ontbreekt er
 //    een kaart in het vakgebiedenraster van de homepage?
@@ -311,10 +362,28 @@ if (homepageMeldingen.length) {
   console.error('');
 }
 
-if (pushMislukt) {
-  console.error('\n⚠⚠  ACTIE VEREIST: node lib/push-registry.js  (zie boven)\n');
+// 10) Eindoordeel — exitcode ≠ 0 zodra er iets faalde, met een samenvatting die
+//     ook bovenaan de log van een geplande taak opvalt. Een build die stil met
+//     exitcode 0 eindigt terwijl een pagina of een push faalde, was precies het
+//     faalpad dat deze wijziging dichtte.
+const problemen = [];
+if (mislukt.length) problemen.push(mislukt.length + ' pagina(\'s) niet gebouwd (data ontbreekt?): ' + mislukt.join(', '));
+if (siteMislukt)    problemen.push('site NIET gepubliceerd naar Cloudflare — draai handmatig: node lib/push-site.js');
+if (pushMislukt)    problemen.push('registry.json NIET gepusht naar GitHub — draai handmatig: node lib/push-registry.js');
+if (badgesMislukt)  problemen.push('badge-PNG\'s NIET gepusht — draai handmatig: node lib/push-badges.js');
+
+if (problemen.length) {
+  console.error('\n' + '#'.repeat(64));
+  console.error('##  BUILD FAALDE — ' + problemen.length + ' probleem(en). De site is mogelijk half bijgewerkt.');
+  console.error('#'.repeat(64));
+  for (const p of problemen) console.error('  ✗ ' + p);
+  console.error('');
   process.exitCode = 1;
-} else if (cdnAchter) {
+}
+
+// CDN-achterstand is geen mislukking (de pagina's staan live), maar de hub loopt
+// nog achter — apart gemeld, met exitcode 1 zodat een geplande taak het oppikt.
+if (cdnAchter && !pushMislukt) {
   console.error('\n' + '='.repeat(64));
   console.error('LET OP — de pagina\'s staan live, maar de hub loopt nog achter');
   console.error('='.repeat(64));
