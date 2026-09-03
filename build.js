@@ -661,6 +661,56 @@ const top = methodiekVersie >= 4 ? eligible.slice(0, nListed) : pickTop(eligible
 top.forEach((c, i) => { c.positie = i + 1; });   // rangnummer, geen score
 const topSet = new Set(top);
 
+// ---------------- stap 4-bis: momentopname voor de golden-tests ---------
+// Alleen actief als KEURWIJZER_GOLDEN_OUT gezet is (test/genereer-golden.js en
+// test/rekenkern.golden.test.js doen dat). Een gewone build ziet deze regels
+// nooit en blijft byte-identiek.
+//
+// Het schrijft de tussenresultaten van de rekenkern weg en STOPT daarna: geen
+// pagina, geen selectie.json, geen rapport, geen badges. Zo kan een test de
+// getallen controleren zonder ook maar iets aan te raken wat gepubliceerd wordt.
+//
+// Wanneer een snapshot bewust vernieuwen? Alleen bij een nieuwe methodiek-versie
+// voor die pagina of na een bewuste --nieuwe-selectie. Nooit om een falende test
+// te laten slagen; die test is juist het vangnet. Zie test/README.md.
+if (process.env.KEURWIJZER_GOLDEN_OUT) {
+  const r6 = x => (typeof x === 'number' && isFinite(x)) ? Number(x.toFixed(6)) : null;
+  const snapshot = {
+    slug,
+    methodiek: methodiekVersie,
+    peildatum: config.peildatum,
+    aantalBedrijven: companies.length,
+    aantalEligible: eligible.length,
+    aantalPublicabel: publishableCount,
+    nListed,
+    vignet,
+    prior: r6(C),
+    focusMediaan: r6(focusMediaan),
+    selectie: top.map(c => c.naam),
+    eligible: eligible.map(c => ({
+      naam: c.naam,
+      gemeente: c.gemeente,
+      googleReviews: c.googleReviews,
+      bruikbareReviews: c.nOK,
+      n24: c.n24,
+      vw: r6(c.vw),
+      Rw: r6(c.Rw),
+      bayes: r6(c.bayes),
+      trust: r6(c.trust),
+      rq: r6(c.rq),
+      recency: r6(c.recency),
+      focus: r6(c.focus),
+      composite: r6(c.composite),
+      publicabel: isPublishable(c),
+      positie: c.positie || null,
+    })),
+    waarschuwingen: warnings.slice().sort(),
+  };
+  fs.mkdirSync(path.dirname(process.env.KEURWIJZER_GOLDEN_OUT), { recursive: true });
+  fs.writeFileSync(process.env.KEURWIJZER_GOLDEN_OUT, JSON.stringify(snapshot, null, 2) + '\n');
+  process.exit(0);
+}
+
 // ---------------- stap 4a: het SELECTIESLOT -----------------------------
 // Regel van Olivier (03-09-2026): op een pagina die al online staat mogen de
 // BEDRIJVEN niet meer veranderen. Aan de pagina zelf — opmaak, tekst, structured

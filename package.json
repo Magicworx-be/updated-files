@@ -4,6 +4,10 @@
   "private": true,
   "description": "Keurwijzer — kwaliteitsranking van vakbedrijven per niche x regio.",
   "license": "UNLICENSED",
+  "scripts": {
+    "test": "node --test \"test/*.test.js\" \"scripts/*.test.js\"",
+    "golden": "node test/genereer-golden.js"
+  },
   "dependencies": {
     "opentype.js": "^1.3.4",
     "sharp": "^0.35.3"
