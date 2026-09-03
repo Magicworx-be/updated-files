@@ -1,9 +1,13 @@
 # Secrets
 .env
 
-# Tijdelijke push-mappen
+# Tijdelijke push-mappen.
+# Deze bevatten een git-kloon met het GITHUB_TOKEN in .git/config. Ze worden
+# normaal opgeruimd, maar bij een onderbroken build blijven ze staan — en dan
+# zou de sync-skill ze mee committen. Alle drie moeten hier staan.
 .registry-push-tmp/
 .badges-push-tmp/
+.site-push-tmp/
 
 # Build output (niet in de bronrepo — wordt apart gepubliceerd)
 output/

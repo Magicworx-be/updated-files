@@ -123,9 +123,17 @@ const before = snapshot();
 // 1) alle detailpagina's herbouwen (sjabloon, scores, broodkruimel, WhatsApp)
 console.log('› ' + registry.length + ' detailpagina\'s herbouwen...');
 const mislukt = [];
+// Waarschuwingen per pagina. build.js schrijft ze naar zijn rapport en meldt
+// het aantal op stdout — maar die stdout werd hier weggegooid, dus niemand zag
+// ze ooit. Bij één pagina viel dat nog te overzien; bij tientallen leest niemand
+// nog elk rapport apart. We vangen de regel nu op en tonen ze in de eindlijst.
+const metWaarschuwingen = [];
 for (const p of registry) {
   try {
-    execFileSync('node', [path.join(ROOT, 'build.js'), p.slug], { stdio: ['ignore', 'ignore', 'inherit'] });
+    const uit = execFileSync('node', [path.join(ROOT, 'build.js'), p.slug],
+      { stdio: ['ignore', 'pipe', 'inherit'], encoding: 'utf8' });
+    const m = /^! (\d+) waarschuwing/m.exec(uit || '');
+    if (m) metWaarschuwingen.push({ slug: p.slug, n: Number(m[1]) });
   } catch {
     mislukt.push(p.slug);
     console.error('  ! ' + p.slug + ' faalde (ontbrekende data?) — overgeslagen');
@@ -252,6 +260,14 @@ if (gewijzigd.length)  console.log('\n  GEWIJZIGD:\n' + fmt(gewijzigd));
 if (verwijderd.length) console.log('\n  VERWIJDERD (gaat offline):\n' + fmt(verwijderd));
 if (!nieuw.length && !gewijzigd.length && !verwijderd.length) console.log('\n  Niets veranderd — geen actie nodig.');
 if (mislukt.length) console.log('\n  ! Niet gebouwd (data ontbreekt): ' + mislukt.join(', '));
+if (metWaarschuwingen.length) {
+  const totaal = metWaarschuwingen.reduce((s, x) => s + x.n, 0);
+  console.log('\n  WAARSCHUWINGEN — ' + totaal + ' over ' + metWaarschuwingen.length + ' pagina(\'s):');
+  metWaarschuwingen.sort((a, b) => b.n - a.n || a.slug.localeCompare(b.slug))
+    .forEach(x => console.log('    ' + String(x.n).padStart(3) + '  ' + x.slug +
+      '   → reports/' + x.slug + '/' + x.slug + '-rapport.txt'));
+  console.log('    (dubbele bedrijfsnamen, afgekapte review-exports, ontbrekende beoordelingen)');
+}
 console.log('');
 
 // 6) registry.json pushen naar GitHub (zodat jsDelivr de nieuwe navigatie serveert)

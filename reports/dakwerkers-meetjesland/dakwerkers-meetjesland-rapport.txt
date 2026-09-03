@@ -71,12 +71,3 @@ BUITEN DE GEMEENTELIJST (volledig weggelaten)
 
 WAARSCHUWINGEN
   ! dubbele bedrijfsnaam in reviews.json: "Dakwerken Thorben" — vestigingen worden niet samengevoegd en delen dezelfde beoordeling; controleer of dit klopt
-  ! "Bvba Van Audenaerde R.": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
-  ! "Dakwerken Vanden Bossche Quinten": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
-  ! "MJ-Roofs": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
-  ! "Avrs-team": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
-  ! "Dakwerken Dirk Standaert": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
-  ! "Dakwerken Thorben": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
-  ! "ISO Dakwerken Evergem": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
-  ! "Algemene Dakwerken Baele BV": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
-  ! "Dakwerken Vanhooren": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)

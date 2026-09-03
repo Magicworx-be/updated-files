@@ -94,13 +94,4 @@ GEEN LOCATIEDATA (geen gemeente → altijd weggelaten, niet geraden)
     ISO Dakwerken Lede — https://iso-dakwerken-lede.be/
 
 WAARSCHUWINGEN
-  ! "Boba Dakwerken Aalst": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
-  ! "DakwerkenCampari": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
-  ! "De Kleinen Dakwerker": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
-  ! "elite dakwerken aalst": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
-  ! "Dakwerk Boon | Pascal Boon": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
-  ! "MKB Dakwerken Aalst": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
-  ! "MZ Dakwerken": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
   ! "Pluimvee Schouppe": slechts 100 van 414 reviews met bruikbare datum/score — controleer de export
-  ! "Joeri Vyverman - Dak- en Schrijnwerken": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)
-  ! "ISO Dakwerken Lede": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)

@@ -25,6 +25,14 @@
 {{JSONLD}}
 </script>
 
+<!-- Serverside ItemList: staat in de HTML zelf, zodat crawlers die geen JavaScript
+     uitvoeren de lijst tóch zien. Het script onderaan vervangt de INHOUD van dit
+     blok (op id) zodra registry.json geladen is — het voegt er nooit een tweede
+     aan toe. -->
+<script type="application/ld+json" id="hub-itemlist">
+{{HUB_ITEMLIST}}
+</script>
+
 <style>
 :root {
   --primary:#619870; --primary-d:#005C2B; --primary-bg:#E8F6EE; --primary-ring:#C0E8D0;
@@ -162,15 +170,13 @@ h1,h2,h3 { font-family:var(--display); font-weight:700; line-height:1.12; letter
       <span class="eyebrow">{{EYEBROW}}</span>
       <h1 style="margin-top:12px">{{H1}}</h1>
       <p class="lede">{{INTRO}}</p>
-      <div class="hub-count" id="hub-count">laden…</div>
+      <div class="hub-count" id="hub-count">{{HUB_COUNT}}</div>
     </div>
   </section>
 
   <section class="hub-main">
     <div class="container">
-      <div id="hub-cards" data-hub="{{HUB_TYPE}}" data-key="{{HUB_KEY}}">
-        <p style="color:var(--muted);font-size:15px">Navigatie wordt geladen…</p>
-      </div>
+      <div id="hub-cards" data-hub="{{HUB_TYPE}}" data-key="{{HUB_KEY}}">{{HUB_CARDS}}</div>
     </div>
   </section>
 </main>
@@ -199,9 +205,17 @@ h1,h2,h3 { font-family:var(--display); font-weight:700; line-height:1.12; letter
 
 <script>
 // =====================================================================
-// DYNAMISCHE NAVIGATIE — haalt kaarten op uit registry.json (jsDelivr CDN)
-// zodat deze pagina niet opnieuw in GHL geplakt hoeft te worden wanneer
-// een nieuwe regio of niche wordt toegevoegd.
+// NAVIGATIE-VERVERSING — de kaarten en de ItemList staan AL in de HTML,
+// serverside gerenderd door build-site.js uit dezelfde registry. Dit script
+// haalt registry.json op en vervangt ze door een actuelere versie als die er is.
+//
+// Waarom allebei:
+//   · serverside = de bron. Crawlers en AI-antwoordmachines die geen JavaScript
+//     uitvoeren zien de volledige lijst met echte links, en de interne
+//     linkwaarde stroomt door naar de detailpagina's.
+//   · clientside = verversing. Een hub die tussen twee builds door achterloopt
+//     (elders een regio live gezet) haalt zichzelf bij zonder herbouw.
+// Faalt het ophalen, dan blijft de serverside HTML staan — nooit een lege pagina.
 // =====================================================================
 (function(){
   var REGISTRY_URL = 'https://cdn.jsdelivr.net/gh/Magicworx-be/keurwijzer-data@main/registry.json';
@@ -224,8 +238,15 @@ h1,h2,h3 { font-family:var(--display); font-weight:700; line-height:1.12; letter
   // Enkel LIVE pagina's — een ItemList mag nooit naar een 404 verwijzen.
   function injectItemList(items) {
     if (!items.length) return;
-    var el = document.createElement('script');
-    el.type = 'application/ld+json';
+    // Het blok staat al in de <head> (serverside). We vervangen de INHOUD ervan;
+    // er een tweede naast zetten zou de pagina twee tegenstrijdige lijsten geven.
+    var el = document.getElementById('hub-itemlist');
+    if (!el) {
+      el = document.createElement('script');
+      el.type = 'application/ld+json';
+      el.id = 'hub-itemlist';
+      document.head.appendChild(el);
+    }
     el.textContent = JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'ItemList',
@@ -234,7 +255,6 @@ h1,h2,h3 { font-family:var(--display); font-weight:700; line-height:1.12; letter
         return { '@type': 'ListItem', position: i + 1, name: it.name, url: ORIGIN + it.url };
       }),
     });
-    document.head.appendChild(el);
   }
 
   function hubCard(url, name, meta) {
@@ -355,7 +375,8 @@ h1,h2,h3 { font-family:var(--display); font-weight:700; line-height:1.12; letter
   haalRegistry()
     .then(render)
     .catch(function(){
-      container.innerHTML = '<p style="color:var(--muted)">De navigatie kon niet geladen worden. <a href="/">Ga naar de homepage</a>.</p>';
+      // Bewust NIETS doen: de serverside gerenderde kaarten staan er al. Ze
+      // wegvegen voor een foutmelding zou een werkende pagina kapotmaken.
     });
 })();
 </script>

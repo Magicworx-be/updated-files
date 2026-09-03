@@ -40,11 +40,24 @@ Dat document is ook wat Cowork leest.
   duwt ze naar `Magicworx-be/keurwijzer-site` en Cloudflare zet ze binnen ~30 s
   live op keurwijzer.be. Er is geen handmatige stap meer. Zie `ARCHITECTUUR.md`
   voor het volledige overzicht van laptop, GitHub en Cloudflare.
-- **Dynamische navigatie:** hub- en homepage-navigatie wordt clientside geladen
-  uit `registry.json` (gehost op GitHub via jsDelivr CDN). `build-all.js` genereert
-  en pusht dit bestand automatisch. **Ook de JSON-LD ItemList wordt clientside
-  geïnjecteerd** (`hub.html`). Dat dateert uit de tijd dat pagina's met de hand
-  overgezet moesten worden; het werkt nog steeds correct en blijft voorlopig staan.
+- **Hub-navigatie staat serverside in de HTML; clientside is enkel verversing.**
+  `build-site.js` rendert de kaarten én de JSON-LD ItemList van elke hub uit de
+  registry rechtstreeks in `output/<niche>/index.html` en `output/regio/<slug>/index.html`.
+  Het script onderaan `hub.html` haalt daarna `registry.json` op (jsDelivr, met
+  raw.githubusercontent als tweede bron) en **vervangt** die kaarten door een
+  actuelere versie; faalt dat, dan blijft de serverside HTML staan.
+  **Verwijder de serverside kaarten nooit.** Ze waren er ooit niet, en toen stond
+  er op de hele site geen enkele crawlbare link naar een detailpagina: de
+  detailpagina's waren wezen, alleen vindbaar via de sitemap, zonder interne
+  linkwaarde, en onzichtbaar voor elke crawler die geen JavaScript uitvoert
+  (Bing, DuckDuckGo, de AI-antwoordmachines). Dat was een erfenis uit de tijd dat
+  hubs met de hand in GHL geplakt moesten worden — sinds `lib/push-site.js`
+  bestaat die reden niet meer.
+  De opmaak in `build-site.js` en die in het script van `hub.html` moeten
+  identiek blijven; wijk je in de ene af, wijk dan in de andere mee af, anders
+  springt de pagina zichtbaar om zodra het script klaar is.
+  De homepage laadt haar menu, footer en regiochips nog wél clientside — daar
+  zitten geen links naar detailpagina's in, dus dat is geen SEO-probleem.
 - **"Binnenkort"-kaarten zijn afgeleid, nooit opgeslagen.** De niche-hub toont naast
   de live regio's ook de nog niet gebouwde, als grijze, **niet-klikbare** kaart
   (nooit een link — dat zou een 404 zijn). De lijst ontstaat door aftrekken:

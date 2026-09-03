@@ -434,9 +434,10 @@ for (const c of reviewData) {
   if (!c.bedrijf) { warnings.push('bedrijf zonder naam overgeslagen'); continue; }
   const heeftGemeente = !!(c.gemeente && String(c.gemeente).trim());
   const inRegio = heeftGemeente && gemeentenNorm.has(norm(c.gemeente));
-  if (!heeftGemeente) warnings.push('"' + c.bedrijf + '": geen gemeente in de data — weggelaten (geen locatiedata → altijd weglaten)');
+  // Geen waarschuwing voor een ontbrekende gemeente: die bedrijven krijgen
+  // verderop een eigen, volledige rubriek in het rapport (GEEN LOCATIEDATA).
+  // Ze hier óók melden was dubbelop en verdrong de echte signalen.
   const beo = beoMap.get(norm(c.bedrijf)) || null;
-  if (!beo) warnings.push('geen beoordeling.json-entry voor "' + c.bedrijf + '" (reviewkwaliteit/vakfocus/synthese ontbreken)');
 
   let vw = 0, vwScore = 0, vw24 = 0, n24 = 0, nOK = 0, nieuwste = null;
   for (const r of (c.reviews || [])) {
@@ -459,6 +460,20 @@ for (const c of reviewData) {
   // rapport kan tonen of een afgekapt bedrijf ook echt in de selectie staat.
   if (nOK === 100 && rawCount > 100) {
     cappedExports.push({ naam: c.bedrijf, nOK, rawCount });
+  }
+
+  // Ontbrekende beoordeling — alleen melden als ze dit bedrijf ook echt een
+  // plaats KOST: het ligt in de gemeentelijst en haalt de objectieve drempels.
+  //
+  // Vroeger werd elk bedrijf zonder beoordeling gemeld, ook de honderden buiten
+  // de regio of met drie reviews, waarvoor "geen beoordeling" juist de normale
+  // gang van zaken is. Dat was 96% van alle waarschuwingen over alle pagina's
+  // samen (1268 van 1318) en het begroef de meldingen die er wél toe doen —
+  // dubbele bedrijfsnamen en afgekapte review-exports.
+  if (!beo && inRegio && rawCount >= MIN_REVIEWS && n24 >= MIN_RECENT) {
+    warnings.push('"' + c.bedrijf + '": geen entry in beoordeling.json, terwijl het bedrijf wél aan de ' +
+      'objectieve opnamecriteria voldoet (' + rawCount + ' reviews, ' + n24 + ' in 24m) — het valt ' +
+      'daardoor uit de selectie. Vul de beoordeling aan of controleer de schrijfwijze van de naam.');
   }
 
   const Rw = vw > 0 ? vwScore / vw : null;

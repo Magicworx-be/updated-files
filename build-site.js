@@ -42,6 +42,88 @@ function fill(tpl, tokens) {
 }
 function plural(n, ev, mv) { return n + ' ' + (n === 1 ? ev : mv); }
 
+// =====================================================================
+// HUB-KAARTEN — serverside gerenderd
+//
+// Deze kaarten stonden vroeger alleen in het clientside script van hub.html:
+// de HTML bevatte enkel een lege <div> en "Navigatie wordt geladen…". Gevolg
+// was dat er op de hele site GEEN ENKELE crawlbare link naar een detailpagina
+// stond. Google voert JavaScript uit, maar in een tweede, trage golf; Bing,
+// DuckDuckGo en de AI-antwoordmachines doen dat niet. De detailpagina's waren
+// dus wezen, enkel vindbaar via de sitemap, zonder interne linkwaarde.
+//
+// De reden waarom het ooit clientside moest — de hubs met de hand in GHL
+// plakken — bestaat niet meer sinds lib/push-site.js alles automatisch
+// publiceert. De registry zit hier toch al in het geheugen, dus renderen we de
+// kaarten gewoon in de HTML. Het script in hub.html blijft staan als
+// VERVERSING: het vervangt deze kaarten zodra registry.json geladen is, zodat
+// een hub die tussen twee builds door achterloopt zichzelf bijhaalt.
+//
+// De opmaak hieronder is bewust identiek aan die van de clientside functies in
+// hub.html (zelfde klassen, zelfde volgorde, zelfde teksten). Wijk je hier af,
+// wijk dan daar mee af — anders springt de pagina zichtbaar om zodra het
+// script klaar is.
+// =====================================================================
+function hubCard(url, name, meta) {
+  return '<a class="hubcard" href="' + esc(url) + '">' +
+    '<span class="hubcard-body"><span class="hubcard-name">' + esc(name) + '</span>' +
+    (meta ? '<span class="hubcard-meta">' + esc(meta) + '</span>' : '') + '</span>' +
+    '<span class="hubcard-arr" aria-hidden="true">→</span></a>';
+}
+
+// Nog niet gebouwde regio: wél tonen, bewust GEEN link (die zou een 404 geven).
+function soonCard(name, meta) {
+  return '<div class="hubcard hubcard-soon">' +
+    '<span class="hubcard-body"><span class="hubcard-name">' + esc(name) + '</span>' +
+    (meta ? '<span class="hubcard-meta">' + esc(meta) + '</span>' : '') + '</span>' +
+    '<span class="soon-pill">Binnenkort</span></div>';
+}
+
+// De ItemList hoort óók in de HTML te staan, om exact dezelfde reden als de
+// kaarten. Enkel LIVE pagina's — een ItemList mag nooit naar een 404 wijzen.
+function hubItemList(titel, items) {
+  if (!items.length) return '{}';
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: titel,
+    itemListElement: items.map((it, i) => ({
+      '@type': 'ListItem', position: i + 1, name: it.name, url: origin + it.url,
+    })),
+  }, null, 1);
+}
+
+// Niche-hub: alle regio's voor deze niche, gegroepeerd per provincie, met de
+// nog niet gebouwde regio's als grijze "binnenkort"-kaart erachter.
+function nicheHubCards(pages, planned) {
+  const perProv = {};
+  const bucket = prov => (perProv[prov || 'Overig'] = perProv[prov || 'Overig'] || []);
+  pages.forEach(p => bucket(p.provincie).push({
+    kern: p.regioKern || p.regioNaam, live: 1,
+    html: hubCard(p.url, p.regioNaam, plural(p.gemeenten.length, 'gemeente', 'gemeenten')),
+  }));
+  planned.forEach(r => bucket(r.provincie).push({
+    kern: r.regioKern || r.regioNaam, live: 0,
+    html: soonCard(r.regioNaam, plural(r.gemeenten, 'gemeente', 'gemeenten')),
+  }));
+
+  const provs = Object.keys(perProv).sort();
+  const meerdereProv = provs.length > 1;
+  return provs.map(prov => {
+    // live eerst, daarna alfabetisch — beschikbare regio's bovenaan
+    const grid = perProv[prov]
+      .sort((a, b) => (b.live - a.live) || a.kern.localeCompare(b.kern))
+      .map(x => x.html).join('\n');
+    return meerdereProv
+      ? '<div class="hub-provincie"><h2 class="hub-prov-h">' + esc(prov) + '</h2><div class="hubgrid">' + grid + '</div></div>'
+      : '<div class="hubgrid">' + grid + '</div>';
+  }).join('\n');
+}
+
+// De geplande regio-indeling (regions.txt) — één keer inlezen, hergebruikt door
+// elke niche-hub. Ontbreekt het bestand, dan geeft loadPlannedRegions [] terug.
+const geplandeRegios = R.loadPlannedRegions(ROOT);
+
 const registry = R.loadRegistry(ROOT);
 if (!registry.length) { console.error('Geen configs gevonden in config/<niche>/.'); process.exit(1); }
 const hubTpl = fs.readFileSync(path.join(ROOT, 'hub.html'), 'utf8');
@@ -82,8 +164,24 @@ for (const n of R.niches(registry)) {
   const metaDesc = 'Ontdek de best beoordeelde ' + n.vakMv + ' per regio in België. ' +
     'Keurwijzer selecteert per regio de sterkste ' + n.vakMv + ' volgens een vaste, publieke methodiek op basis van Google-reviews en vakspecialiteit.';
 
+  // "Binnenkort" = de volledige regio-indeling MIN wat live staat. Puur
+  // afgeleid, nooit opgeslagen: gaat een regio live, dan valt ze vanzelf uit
+  // deze lijst en wordt haar kaart klikbaar. Onder PLANNED_MIN_LIVE live
+  // regio's oogt 1 live + 28 grijze kaarten verlaten i.p.v. ambitieus.
+  const nichePages = R.pagesForNiche(registry, n.niche);
+  const liveSlugs = new Set(nichePages.map(p => p.regioSlug));
+  const planned = nichePages.length < R.PLANNED_MIN_LIVE ? []
+    : geplandeRegios.filter(r => !liveSlugs.has(r.regioSlug));
+  const titel = n.vakMvCap + ' per regio — Keurwijzer';
+
   write(path.join(n.niche, 'index.html'), fill(hubTpl, {
-    TITLE: n.vakMvCap + ' per regio — Keurwijzer',
+    TITLE: titel,
+    HUB_CARDS: nicheHubCards(nichePages, planned),
+    HUB_COUNT: esc(planned.length
+      ? nichePages.length + ' van ' + (nichePages.length + planned.length) + ' regio’s beschikbaar'
+      : plural(nichePages.length, 'regio beschikbaar', 'regio’s beschikbaar')),
+    HUB_ITEMLIST: hubItemList(titel, nichePages.map(p =>
+      ({ name: p.vakMvCap + ' in ' + p.regioNaam, url: p.url }))),
     META_DESC: esc(metaDesc), CANONICAL: canonical, GEO_REGION: 'BE-VLG', OG_IMAGE: HERO_IMG,
     JSONLD: jsonld,
     NAV_LINKS: '<a href="/#niches">Vakgebieden</a>\n      <a href="/#methodiek">Methodiek</a>',
@@ -116,8 +214,19 @@ for (const r of R.regios(registry)) {
   const metaDesc = 'De best beoordeelde vakspecialisten in ' + r.regioNaam + ', per vakgebied. ' +
     'Keurwijzer selecteert per regio de sterkste bedrijven volgens een vaste, publieke methodiek.';
 
+  // Alle niches die in deze regio bestaan. Geen "binnenkort" hier: een niche
+  // zonder pagina in deze regio zegt de bezoeker niets — de nichehub doet dat.
+  const regioPages = R.pagesForRegio(registry, r.regioSlug)
+    .sort((a, b) => String(a.vakMvCap || '').localeCompare(String(b.vakMvCap || '')));
+  const titel = 'Vakspecialisten in ' + r.regioNaam + ' — Keurwijzer';
+
   write(path.join('regio', r.regioSlug, 'index.html'), fill(hubTpl, {
-    TITLE: 'Vakspecialisten in ' + r.regioNaam + ' — Keurwijzer',
+    TITLE: titel,
+    HUB_CARDS: '<div class="hubgrid">' +
+      regioPages.map(p => hubCard(p.url, p.vakMvCap, 'in ' + p.regioNaam)).join('\n') + '</div>',
+    HUB_COUNT: esc(plural(regioPages.length, 'vakgebied beschikbaar', 'vakgebieden beschikbaar')),
+    HUB_ITEMLIST: hubItemList(titel, regioPages.map(p =>
+      ({ name: p.vakMvCap + ' in ' + p.regioNaam, url: p.url }))),
     META_DESC: esc(metaDesc), CANONICAL: canonical, GEO_REGION: geo, OG_IMAGE: HERO_IMG,
     JSONLD: jsonld,
     NAV_LINKS: '<a href="/#niches">Vakgebieden</a>\n      <a href="/#methodiek">Methodiek</a>',

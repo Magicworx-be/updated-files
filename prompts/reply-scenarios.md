@@ -178,6 +178,13 @@ achtergrond" anchor links to `badgeLicht`.
 
 ### The WhatsApp question — three cases
 
+**De vraag naar het nummer valt nooit weg.** Ook niet wanneer het bedrijf al via WhatsApp
+contact opnam en Olivier dat nummer dus zelf zou kunnen opzoeken. Hij stelde dat vast op
+3 september 2026, na de draft aan Roof Service Company (Antwerpen): het nummer moet uit
+hun eigen hand komen, want dát is meteen de toestemming. Laat de alinea dus staan, ook al
+lijkt de vraag overbodig. Ze verdwijnt in precies twee gevallen: geval 3 hieronder (ze
+geven het nummer uitdrukkelijk zelf) en de regel "één mail per thread".
+
 **Elke zin op zijn eigen regel.** De alinea telt drie regels, gescheiden met `<br>`.
 Trek ze nooit samen tot één lopende alinea.
 
@@ -217,6 +224,28 @@ bevestigingsmail. That is the one case where you thank them here instead:
 
 Then say in your report that Olivier has to add it by hand. Never add it yourself
 without asking.
+
+### Ze vragen er meteen bij hoe de ranking bepaald wordt
+
+"Hoe wordt dit bepaald?" naast een ja op de badge is **geen scenario 3** — het is
+scenario 1 met één zin extra. Olivier schreef die zin zelf op 3 september 2026 (Roof
+Service Company, Antwerpen). Neem ze letterlijk over, tussen de bedankregel en het
+badgeblok:
+
+```html
+<p>We vergelijken alle dakwerkers in de regio op hun Google-reviews (aantal, inhoud en
+recentheid) en op basis van hun eigen website.<br>
+Hoe dat precies berekend wordt, staat op <a href="https://www.keurwijzer.be">www.keurwijzer.be</a>
+onder "Hoe de selectie tot stand komt".</p>
+
+<p>Wat is jullie zakelijk WhatsApp nummer aub?<br>
+Dan voeg ik dat nog toe aan jullie listing op Keurwijzer.be. Is gratis.</p>
+```
+
+Twee dingen wisselen mee: "dakwerkers" wordt het vak van die regio, en de link blijft
+altijd de homepage — niet de regiopagina. Deze WhatsApp-alinea **vervangt** die van
+geval 1: korter, een open vraag in plaats van ja/nee, en "Is gratis." haalt de twijfel
+meteen weg. Daarna volgt gewoon het vaste badgeblok.
 
 ---
 

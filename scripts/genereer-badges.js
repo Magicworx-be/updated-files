@@ -162,15 +162,41 @@ async function genereerSlug(slug) {
   const meta = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
   const dir = path.dirname(jsonPath);
   let n = 0;
+  const geldig = new Set();
   for (const entry of meta.bedrijven) {
     for (const variant of ['donker', 'licht']) {
       const svg = badgeSVG(meta, entry, variant);
-      const out = path.join(dir, entry.bedrijfSlug + '--' + variant + '.png');
-      await renderPng(svg, out);
+      const bestand = entry.bedrijfSlug + '--' + variant + '.png';
+      await renderPng(svg, path.join(dir, bestand));
+      geldig.add(bestand);
       n++;
     }
   }
-  console.log('  ✓ ' + slug + ': ' + n + ' badges (' + meta.bedrijven.length + ' bedrijven × 2 varianten)');
+
+  // WEESBADGES OPRUIMEN — badges van bedrijven die niet meer in de selectie staan.
+  //
+  // Waarom dit moet: lib/push-badges.js spiegelt deze map naar de data-repo, dus
+  // wat hier blijft liggen blijft ook op de CDN staan. Een bedrijf dat uit de
+  // Top 10 valt — bij een herberekening of een nieuwe methodiek-versie — houdt
+  // dan een werkende badge-URL die "Top 3" claimt terwijl het niet eens meer op
+  // de pagina staat. Dat is precies de belofte die Keurwijzer níét mag breken:
+  // een plaats is niet te koop en wordt jaarlijks herbekeken.
+  //
+  // Dit is al één keer gebeurd: methodiek v5 haalde in Kortrijk een
+  // dakvensterinstallateur en een lichtstraatbouwer uit de selectie, maar hun
+  // badges bleven live op de CDN staan.
+  //
+  // build-all.js ruimt hele weespagina's op (badges/<slug> voor een verdwenen
+  // regio); dit ruimt de losse bedrijven bínnen een pagina op.
+  const wezen = fs.readdirSync(dir)
+    .filter(f => f.endsWith('.png') && !geldig.has(f));
+  for (const f of wezen) {
+    fs.rmSync(path.join(dir, f));
+    console.log('    · weesbadge verwijderd: ' + slug + '/' + f + ' (bedrijf staat niet meer in de selectie)');
+  }
+
+  console.log('  ✓ ' + slug + ': ' + n + ' badges (' + meta.bedrijven.length + ' bedrijven × 2 varianten)' +
+    (wezen.length ? ', ' + wezen.length + ' wees(en) opgeruimd' : ''));
   return n;
 }
 
