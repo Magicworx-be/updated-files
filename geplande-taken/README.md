@@ -15,7 +15,15 @@ De volgorde is altijd:
 
 1. Pas het echte bestand aan onder `C:\Users\brain\.claude\scheduled-tasks\…`
 2. Kopieer het daarna naar de map hiernaast met dezelfde naam.
-3. Push met `node .claude/skills/sync-keurwijzer/sync.mjs -m "…"`.
+3. Push **met `--scope`**, zodat alleen deze map meegaat:
+
+       node .claude/skills/sync-keurwijzer/sync.mjs -m "…" --scope geplande-taken
+
+   Laat je `--scope` weg, dan gaat élke andere gewijzigde map ook mee in deze
+   commit — Olivier spaart wijzigingen op, dus er ligt bijna altijd ander werk.
+   Zo belandde op 03-09-2026 de hele SEO-omzetting van de hub-pagina's in een
+   commit met als boodschap "Antwoordmails: WhatsApp-vraag valt nooit weg".
+   Werk je ook aan de prompts, voeg dan `--scope prompts` toe.
 
 Andersom werkt het bij een herinstallatie: kopieer het bestand van hier terug
 naar `.claude\scheduled-tasks\<taaknaam>\SKILL.md`, en registreer de taak

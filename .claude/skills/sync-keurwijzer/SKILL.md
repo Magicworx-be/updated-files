@@ -49,6 +49,21 @@ Untracked files are never added automatically (a scrape export or stray file
 should not silently ship). Then run the push. It is **automatic** — it stages,
 commits, rebases on the remote, and pushes in one go, no further confirmation:
 
+> **Werk je aan één onderdeel? Gebruik `--scope`.** Olivier spaart wijzigingen op
+> in plaats van elke keer te committen, dus er ligt vaak ander werk in de map.
+> Zonder `--scope` gaat dat allemaal mee in jouw commit, onder een boodschap
+> waar het niets mee te maken heeft. Dat is op 03-09-2026 gebeurd: de volledige
+> SEO-omzetting van de hub-pagina's belandde in een commit met als boodschap
+> "Antwoordmails: WhatsApp-vraag valt nooit weg".
+>
+> Vuistregel: **alleen de gebruiker zegt "sync alles"** — een agent die aan één
+> onderwerp werkt, scopet naar de mappen die bij dat onderwerp horen. Wat
+> daarbuiten ligt blijft liggen en wordt aan het eind opgesomd.
+>
+> ```bash
+> node .claude/skills/sync-keurwijzer/sync.mjs -m "..." --scope geplande-taken --scope prompts
+> ```
+
 ```bash
 node .claude/skills/sync-keurwijzer/sync.mjs -m "korte beschrijving van de wijziging"
 ```
@@ -72,6 +87,21 @@ On success the last line is `✓ Klaar — bronbestanden gesynct naar updated-fi
 - **Untracked files are opt-in** (`--include` / `--all-untracked`). Everything
   git already ignores (`desktop.ini`, `Thumbs.db`, `output/`, `badges/`,
   `.env`, …) never appears.
+- **`--scope <pad>` (herhaalbaar) commit alleen wat onder die map(pen) valt.**
+  Zonder `--scope` verandert er niets aan het oude gedrag (`git add -u` over de
+  hele map). Met scope wordt er per padgrens vergeleken, dus `--scope prompts`
+  raakt nooit `promptsmap/`. Een `--include` buiten de scope is een
+  tegenstrijdige opdracht en stopt het script (exit 2) in plaats van het
+  bestand stil te laten vallen. `--all-untracked` wordt door de scope gefilterd.
+- **Wat blijft liggen, wordt altijd opgesomd.** Aan het eind toont de driver
+  hoeveel gewijzigde en nieuwe bestanden er níét mee zijn gegaan, met de
+  waarschuwing dat die nergens geback-upt staan. Zo wordt opsparen een keuze
+  in plaats van iets wat je vergeet.
+- **De rebase draait met `--autostash`.** Dat is noodzakelijk sinds `--scope`
+  bestaat: git weigert te rebasen zolang er niet-gestagede wijzigingen liggen.
+  Struikelt de rebase toch, dan noemt de driver het commit-id van die opzijgezette
+  stapel (`git stash apply <id>`). **Gooi `.git/rebase-merge` nooit weg voor je
+  dat gedaan hebt** — dat is precies waar die stapel in bewaard wordt.
 - **`desktop.ini` in `.git/refs` breaks `git fetch`** (`fatal: bad object
   refs/remotes/updated-files/desktop.ini`). This is a Windows artefact. The
   driver **repairs it automatically** on every run by deleting stray

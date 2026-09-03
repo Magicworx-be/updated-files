@@ -58,11 +58,28 @@ recent)** zijn **identiek in elke versie**. Dat is de publieke belofte: *dezelfd
 methode voor elk bedrijf in elke regio.* Wat een versie verandert, is uitsluitend
 **interne kalibratie die de publieke paginatekst niet noemt**.
 
-Elke pagina draagt een versie in haar config (`"methodiek": 1`). Ontbreekt het veld,
-dan gebruikt `build.js` de nieuwste versie. **Bestaande pagina's staan vastgepind en
-veranderen dus nooit; nieuwe pagina's krijgen automatisch de beste logica.** Zo blijft
-"zelfde data = zelfde resultaat" gelden én kan de methodiek verbeteren zonder één
-gepubliceerde pagina te breken.
+Elke pagina kan een versie in haar config dragen (`"methodiek": 1`). Ontbreekt het
+veld, dan gebruikt `build.js` de nieuwste versie, zodat nieuwe pagina's automatisch
+de beste logica krijgen.
+
+**Wat een gepubliceerde pagina beschermt, is niet dat versienummer maar het
+selectieslot.** Bij de eerste build legt `build.js` de gepubliceerde lijst vast in
+`data/<slug>/selectie.json` — welke bedrijven, in welke volgorde. Levert een latere
+build een andere lijst op, dan **stopt de build** en wordt er niets geschreven of
+gepubliceerd. De volgorde telt mee, omdat de kwaliteitsbadges hun tekst uit de rang
+afleiden (#1 / Top 3 / Top 5 / Top 10).
+
+Zo kan de methodiek verbeteren en kan de pagina zelf bijgewerkt worden (opmaak,
+tekst, structured data) zonder dat er ooit stilzwijgend een bedrijf van een
+bestaande pagina verdwijnt of verschuift. Bij de jaarlijkse herberekening met verse
+data wordt het slot bewust opnieuw gezet.
+
+> Waarom dit er is: methodiek v5 haalde in de regio Kortrijk twee bedrijven uit de
+> selectie — terecht, want het waren geen dakwerkers — maar dat gebeurde
+> ongemerkt, en hun kwaliteitsbadges bleven daarna nog werken. Sinds publiceren
+> rechtstreeks live gaat, is er geen controlemoment meer tussen bouwen en online.
+>
+> Bron: `build.js` — "stap 4a: het SELECTIESLOT".
 
 | Kalibratie | v1 (vastgepinde pagina's) | v2 (destijds nieuw) | Waarom v2 beter is |
 |---|---|---|---|
