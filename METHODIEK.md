@@ -10,11 +10,13 @@ dit document verouderd — zie [Onderhoud](#onderhoud-1-bron-2-lezers).
 
 | | |
 |---|---|
-| **Bindende bron voor alle berekeningen** | `build.js` (constanten bovenaan, regels 52–168) |
+| **Bindende bron voor alle berekeningen** | `lib/rekenkern.js` (de constanten bovenaan en de functie `bereken`) |
+| **Bindende bron voor pagina, rapport en publicatie** | `build.js` (leest, laat rekenen, rendert) |
 | **Bindende bron voor de LLM-beoordeling** | `prompts/scoring-prompt.md` |
 | **Bindende bron voor het werkproces** | `prompts/directory-page-emails-prompt.md` |
 | **Waarom-beslissingen** | `WIJZIGINGEN.md` |
 | **Nieuwste methodiek-versie** | v5 (zie [Methodiek-versies](#methodiek-versies)) |
+| **Vangnet onder de berekening** | het selectieslot in `build.js` én de tests in `test/` (`npm test`) |
 | **Laatst gelijkgezet met de code** | 3 september 2026 |
 
 ---
@@ -27,7 +29,7 @@ bedrijven de beste zijn, op basis van publiek beschikbare gegevens:
 
 Eén regel bepaalt de hele architectuur:
 
-> **De LLM beoordeelt alleen tekst. Alle rekenwerk gebeurt in `build.js`.**
+> **De LLM beoordeelt alleen tekst. Alle rekenwerk gebeurt in `lib/rekenkern.js`.**
 
 De LLM leest reviewteksten en websites en geeft daar deelscores aan
 (reviewkwaliteit, vakfocus). Hij berekent **nooit** een eindscore, bepaalt
@@ -138,7 +140,7 @@ website-eis als de rijkere graph zijn versie-gestuurd (`methodiekVersie >= 3`), 
 v1/v2 reproduceren exact hun oude output. **v3 was de standaard tot v4 werd
 toegevoegd; de standaard is altijd de nieuwste versie — zie het v4-blok hieronder.**
 
-> Bron: `build.js` — `METHODIEK_PARAMS`, de `eligible`-berekening (website-eis) en de
+> Bron: `lib/rekenkern.js` — `METHODIEK_PARAMS`, de `eligible`-berekening (website-eis) en de
 > `JSONLD_GRAPH`-opbouw (tweede JSON-LD-blok).
 
 **v4 (nieuw, standaard).** De **rekenkalibratie** (vertrouwen-vloer 4,0, recentheid-anker
@@ -171,7 +173,7 @@ specialist met 10 reviews klimt dus niet zomaar.
 Bestaande v1/v2/v3-pagina's blijven byte-voor-byte identiek (geverifieerd): beide v4-regels
 zijn versie-gestuurd (`methodiekVersie >= 4`).
 
-> Bron: `build.js` — `METHODIEK_PARAMS[4]` (`VAKFOCUS_FLOOR`), de `eligible`-berekening
+> Bron: `lib/rekenkern.js` — `METHODIEK_PARAMS[4]` (`VAKFOCUS_FLOOR`), de `eligible`-berekening
 > (vakfocus-vloer) en de `depthCount`/`top`-bepaling (diepte op specialisten, volgorde op
 > composite).
 
@@ -193,7 +195,7 @@ daken* in plaats van *legt en vernieuwt daken*.
 | | v4 | v5 |
 |---|---|---|
 | Afbakening van het vak | impliciet, aan de beoordelaar overgelaten | **expliciete vakdefinitie** per niche: een `kern` (wat het bedrijf zélf moet uitvoeren) plus een lijst `buiten` (verwante activiteiten die niet volstaan) |
-| Waar die definitie staat | nergens | `VAKDEF_BY_NICHE` in `build.js`, of `vak.definitie` in de config (die overruled) |
+| Waar die definitie staat | nergens | `VAKDEF_BY_NICHE` in `lib/rekenkern.js`, of `vak.definitie` in de config (die overruled) |
 | Ontbrekende definitie | n.v.t. | de **build stopt** (`REQUIRE_VAKDEF`) — een vak zonder scherpe grens levert een willekeurige selectie op |
 | Gevolg voor de score | — | voert een bedrijf de kernactiviteit **niet zelf** uit, dan is `vakfocus` **maximaal 2,0**, dus onder de vloer — hoe zuiver gespecialiseerd het verder ook is |
 | Publieke opnametekst | "een aantoonbare specialisatie in dakwerken" | de kernomschrijving zelf: "een aantoonbare specialisatie in het zelf plaatsen, vernieuwen of herstellen van de dakbedekking …" |
@@ -212,11 +214,11 @@ De definitie voor **dakwerkers** (v5):
 
 Bestaande v1–v4-pagina's blijven ongemoeid: de eis is versie-gestuurd, en hun
 `beoordeling.json` is sowieso bevroren. **v5 is nu de nieuwste versie
-(`METHODIEK_LATEST` in `build.js`) en dus de standaard voor élke nieuwe én elke herbouwde
+(`METHODIEK_LATEST` in `lib/rekenkern.js`) en dus de standaard voor élke nieuwe én elke herbouwde
 pagina. Komt er ooit een v6 bij, dan wordt díe automatisch de standaard — een config
 zonder `methodiek`-veld pakt altijd de nieuwste versie.**
 
-> Bron: `build.js` — `METHODIEK_PARAMS[5]` (`REQUIRE_VAKDEF`), `VAKDEF_BY_NICHE`, de
+> Bron: `lib/rekenkern.js` — `METHODIEK_PARAMS[5]` (`REQUIRE_VAKDEF`), `VAKDEF_BY_NICHE`, de
 > `vakDef`-resolutie met harde stop, en `opnameCriteria`. De scoreregel staat in
 > `prompts/scoring-prompt.md`, rubriek 2, stap 0.
 
@@ -237,7 +239,7 @@ voldoet:
 | **Geverifieerde eigen website** (alleen v3+) | `vakfocusBron: "website"` | Zonder controleerbare site is de vakfocus niet te meten; een vindbare site is een basissignaal van een professioneel vakbedrijf. Enkel social media of een kapotte site telt niet mee |
 | **Vakspecialist van de niche** (alleen v4+) | vakfocus ≥ 2,5 | Anders komen bedrijven van een ánder vak (bakkerij, ramenplaatser, materialenhandel of -fabrikant, brede totaalaannemer) die toevallig in de zoekresultaten opdoken tóch in aanmerking; de vakfocus-vloer sluit ze deterministisch uit. **Vanaf v5 is "het vak" scherp afgebakend** door de vakdefinitie van de niche: wie de kernactiviteit niet zélf uitvoert, krijgt vakfocus ≤ 2,0 en valt weg — ook een zuivere specialist in een verwante activiteit (dakvensters, lichtstraten, dakreiniging) |
 
-> Bron: `build.js` — `MIN_REVIEWS = 10`, `MIN_RECENT = 3`, en het veld `eligible`
+> Bron: `lib/rekenkern.js` — `MIN_REVIEWS = 10`, `MIN_RECENT = 3`, en het veld `eligible`
 > in stap 1. De website-eis geldt vanaf **methodiek v3**; de vakspecialist-eis
 > (vakfocus ≥ `VAKFOCUS_FLOOR` = 2,5) vanaf **methodiek v4** (zie
 > [Methodiek-versies](#methodiek-versies)); vastgepinde v1/v2/v3-pagina's kennen de
@@ -274,7 +276,7 @@ kandidaten).
   maar verschijnt in v2–v3 niet op de site zolang er genoeg beter-onderbouwde
   bedrijven zijn. Het komt als **warme lead** in het prospectiedocument ("uw
   kwaliteit zit goed; u mist enkel nog reviews").
-- In een **dunne regio** vult `build.js` de lijst in v2–v3 zo nodig aan met de
+- In een **dunne regio** vult de rekenkern de lijst in v2–v3 zo nodig aan met de
   sterkste eligible bedrijven onder de publicatiedrempel, zodat een lijst nooit
   leeg oogt.
 - In v1 is de publicatiedrempel gelijk aan de opnamedrempel (≥10) — vandaar dat de
@@ -289,7 +291,7 @@ regiogemiddelde toe, dus zo'n bedrijf haalt de top alleen met écht uitzonderlij
 cijfers. De ≥15-drempel blijft bestaan als **"goed onderbouwd"-label** in het
 controlerapport en voor de warme-leadsplitsing in de prospectie.
 
-> Bron: `build.js` — `PUBLISH_MIN_REVIEWS` in `METHODIEK_PARAMS`; `pickTop`
+> Bron: `lib/rekenkern.js` — `PUBLISH_MIN_REVIEWS` in `METHODIEK_PARAMS`; `pickTop`
 > (publicabel eerst, sub-drempel vult enkel aan) geldt voor v1–v3. Vanaf v4 neemt
 > `eligible.slice(0, nListed)` het over: zuiver op composite.
 
@@ -311,7 +313,7 @@ composite = 35% × Vertrouwen
           + 20% × Vakfocus
 ```
 
-> Bron: `build.js` —
+> Bron: `lib/rekenkern.js` —
 > `WEIGHTS = { trust: 0.35, reviewQuality: 0.30, recency: 0.15, focus: 0.20 }`.
 > Deze gewichten zijn **vast en publiek** en worden nooit per stad aangepast.
 
@@ -374,7 +376,7 @@ IJkpunten: 5,0 = ruime meerderheid concrete vakinhoud én proces-signalen ·
 1,0 = patroon van niet-nagekomen afspraken of slecht opgeleverd werk.
 
 > Bron: `prompts/scoring-prompt.md`, rubriek 1. Ontbreekt de score, dan rekent
-> `build.js` met 3,0.
+> de rekenkern met 3,0.
 
 ### 3.3 Recentheid — 15%
 
@@ -400,7 +402,7 @@ voor omvang of reputatie — dat zit al in de reviews.
 **Stap 0 — de poortvraag (v5+).** Vóór de nichezuiverheid gescoord wordt, geldt
 één vraag: *voert dit bedrijf de kernactiviteit van het vak zélf uit?* De
 kernactiviteit staat in de **vakdefinitie** van de niche (`VAKDEF_BY_NICHE` in
-`build.js`, of `vak.definitie` in de config). Voor dakwerkers is dat: **zelf de
+`lib/rekenkern.js`, of `vak.definitie` in de config). Voor dakwerkers is dat: **zelf de
 dakbedekking plaatsen, vernieuwen of herstellen.**
 
 - **Nee** → `vakfocus` is **maximaal 2,0** en het bedrijf valt onder de vloer, dus
@@ -451,7 +453,7 @@ mét website in diezelfde regio**. Niet 0 (dat zou onterecht straffen) en niet h
 maximum (dat zou belonen voor het ontbreken van bewijs).
 
 > Bron: `prompts/scoring-prompt.md`, rubriek 2; de medianenlogica staat in
-> `build.js`, stap 2–3.
+> `lib/rekenkern.js`, stap 2–3.
 
 ---
 
@@ -485,8 +487,9 @@ willekeur, geen toeval.
 - Beide documenten zijn **intern**; het prospectiedocument staat bovenaan
   gemarkeerd als "niet publiceren".
 
-> Bron: `build.js` — `LISTED_FULL = 10`, `LISTED_SMALL = 5`,
-> `SMALL_REGION_THRESHOLD = 10`, `EXTRA_MAX = 10`, `WATCHLIST_MAX = 10`.
+> Bron: `lib/rekenkern.js` — `LISTED_FULL = 10`, `LISTED_SMALL = 5`,
+> `SMALL_REGION_THRESHOLD = 10`; `EXTRA_MAX = 10` en `WATCHLIST_MAX = 10` (alleen rapport
+> en prospectie) staan in `build.js`.
 
 ---
 
@@ -538,13 +541,13 @@ Reviewkwaliteit en vakfocus worden in
 **2–3 onafhankelijke runs** gescoord (elk in 0,5-stappen); je bevriest het
 **gemiddelde**, niet toevallig de eerste run. Dat halveert de effectieve stapgrootte
 en middelt toevallige beoordelaarsruis uit — precies de twee subjectieve dimensies
-die anders de dichtbij elkaar liggende composites zouden laten kantelen. `build.js`
+die anders de dichtbij elkaar liggende composites zouden laten kantelen. De rekenkern
 aanvaardt die fijnere (niet-0,5) waarden zonder waarschuwing. In v1 was het één run
 in vaste 0,5-stappen; die beoordelingen blijven bevroren.
 
 De normalisatiestap schrijft per bedrijf alvast `recent24` en `rankbaar` mee
 (gemeente in de lijst + ≥10 reviews + ≥3 recent). Dat zijn **informatieve velden
-voor de LLM**, zodat die zelf geen datums hoeft te tellen — `build.js` rekent
+voor de LLM**, zodat die zelf geen datums hoeft te tellen — de rekenkern rekent
 altijd zelf en negeert ze.
 
 **Wat de build oplevert:**
@@ -640,27 +643,40 @@ Regel weghalen = link weg bij de volgende build.
 
 ## Onderhoud: 1 bron, 2 lezers
 
-Dit document wordt door mensen én door Cowork gelezen; `build.js` en de prompts
-worden door de code gedraaid. Ze mogen niet uit elkaar lopen.
+Dit document wordt door mensen én door Cowork gelezen; `lib/rekenkern.js` en de
+prompts worden door de code gedraaid. Ze mogen niet uit elkaar lopen.
 
 **De afspraak:**
 
 1. **De code is bindend.** Wijzigt een drempel of gewicht, dan wijzigt hij eerst
-   in `build.js` (of in `prompts/scoring-prompt.md`) — en pas daarna hier.
-2. **Elke wijziging aan `build.js` regels 52–112, of aan een rubriek in
-   `scoring-prompt.md`, vereist een update van dit document in dezelfde beurt.**
-   Werk je in Claude Code: vraag expliciet om `METHODIEK.md` mee bij te werken.
+   in `lib/rekenkern.js` (of in `prompts/scoring-prompt.md`) — en pas daarna hier.
+2. **Elke wijziging aan een constante of aan `bereken()` in `lib/rekenkern.js`, of
+   aan een rubriek in `scoring-prompt.md`, vereist een update van dit document in
+   dezelfde beurt.** Werk je in Claude Code: vraag expliciet om `METHODIEK.md` mee
+   bij te werken.
 3. **Cowork wijzigt dit document niet zelfstandig inhoudelijk.** Merkt Cowork een
    afwijking, of wil je de methodiek veranderen, dan gebeurt dat via Claude Code
    in de code — waarna dit document volgt.
 4. **Zet de datum bovenaan bij** ("Laatst gelijkgezet met de code") telkens je hem
    gelijkzet. Staat die datum ver in het verleden, wantrouw dit document dan en
-   controleer `build.js`.
+   controleer `lib/rekenkern.js`.
+5. **De tests zijn het tweede vangnet.** Het selectieslot bewaakt wíé er op een
+   gepubliceerde pagina staat; `test/rekenkern.golden.test.js` bewaakt daarnaast
+   élk tussengetal van élke live pagina, en `test/rekenkern.rand.test.js` en
+   `test/rekenkern.versies.test.js` leggen de randgevallen en de verschillen
+   tussen v1 t/m v5 vast. Verandert er iets aan de rekenwijze, dan vallen die
+   tests om — dat is hun werk. Draai ze met `npm test`.
 
 **Snelle controle** — of dit document nog klopt met de code:
 
 ```bash
-sed -n '52,112p' build.js
+npm test
+```
+
+En om de constanten zelf te zien (regelnummers verschuiven, deze grens niet):
+
+```bash
+sed -n '/---------------- constanten/,/^const TRUST_CEIL/p' lib/rekenkern.js
 ```
 
 Vergelijk die getallen met §2, §3 en §4 hierboven. Wijken ze af, dan is dit

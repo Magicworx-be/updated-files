@@ -126,14 +126,15 @@ om vragen te beantwoorden. Hij mag nooit uit elkaar lopen met de code.
 **Wijzig je een van deze, werk dan in dezelfde beurt `METHODIEK.md` bij en zet de
 datum "Laatst gelijkgezet met de code" bovenaan op vandaag:**
 
-- de publieke constanten bovenaan `build.js`: `WEIGHTS`, `HALFLIFE_JAREN`,
+- de publieke constanten bovenaan `lib/rekenkern.js`: `WEIGHTS`, `HALFLIFE_JAREN`,
   `BAYES_M`, `MIN_REVIEWS`, `MIN_RECENT`, `LISTED_FULL`, `LISTED_SMALL`,
-  `SMALL_REGION_THRESHOLD`, `EXTRA_MAX`, `WATCHLIST_MAX`, `TRUST_CEIL`;
+  `SMALL_REGION_THRESHOLD`, `TRUST_CEIL` (en `EXTRA_MAX` / `WATCHLIST_MAX`, die
+  in `build.js` blijven staan omdat ze alleen het rapport en de prospectie sturen);
 - het versie-blok `METHODIEK_PARAMS` / `METHODIEK_LATEST` (per versie:
   `TRUST_FLOOR`, `RECENCY_ANCHOR`, `PUBLISH_MIN_REVIEWS`, `EXPECT_HALF_STEPS`,
-  `VAKFOCUS_FLOOR`);
+  `VAKFOCUS_FLOOR`) of `VAKDEF_BY_NICHE` — alle in `lib/rekenkern.js`;
 - de eligibility-, selectie- (`pickTop`, publicatiedrempel) of compositeberekening
-  in `build.js`;
+  in `bereken()` in `lib/rekenkern.js`;
 - een rubriek, ijkpunt of regel in `prompts/scoring-prompt.md`;
 - het werkproces of de outreach-mailteksten in
   `prompts/directory-page-emails-prompt.md`.
@@ -150,7 +151,9 @@ hetzelfde zeggen.
 
 | Pad | Rol |
 |---|---|
-| `build.js` | Rekenmotor + paginagenerator. Bindende bron voor alle getallen. |
+| `lib/rekenkern.js` | **De rekenkern.** Constanten, methodiek-versies, eligibility, de vier dimensies, composite en selectie. Doet geen I/O, dus los te draaien en te testen. Bindende bron voor alle getallen. |
+| `build.js` | Leest de bestanden, laat `lib/rekenkern.js` rekenen, bewaakt het selectieslot en rendert pagina, rapport, prospectie en badge-export. |
+| `test/` | `npm test`: golden-tests op de 16 live pagina's (élk tussengetal), randgevallen, en de verschillen tussen methodiek v1 t/m v5. `test/README.md` zegt wanneer een snapshot vernieuwd mag worden — dat is zelden. |
 | `ARCHITECTUUR.md` | **Vogelperspectief:** wat waar staat (laptop, GitHub, Cloudflare) en hoe de keten van scrape tot live pagina loopt. Lees dit bij vragen over de opzet. |
 | `build-all.js` | Bouwt alles (pagina's, hubs, sitemap) + pusht `registry.json`, de badges én de site naar Cloudflare. Veilig eindcommando. |
 | `lib/push-site.js` | Publiceert `output/` naar `Magicworx-be/keurwijzer-site`; Cloudflare zet het live. |

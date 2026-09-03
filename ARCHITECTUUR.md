@@ -68,7 +68,8 @@ Dit is een echte volgorde — elke stap hangt van de vorige af.
 6. **De LLM-beoordeling** leest `prompts/scoring-prompt.md` en schrijft
    `data/<slug>/beoordeling.json`. Dit gebeurt één keer per regio en wordt daarna
    bevroren — alleen tekstoordelen, nooit scores of rangschikking.
-7. **`build.js` rekent** en genereert de pagina. Alle getallen komen hiervandaan.
+7. **`build.js` rekent** — via `lib/rekenkern.js`, waar élk getal vandaan komt —
+   en genereert de pagina, het controlerapport en de badge-export.
 8. **`build-site.js`** maakt homepage, hubs, `sitemap.xml` en `robots.txt`.
 9. **`lib/push-site.js`** duwt als **eerste** de volledige site naar
    `keurwijzer-site`. Bewust vóór de registry: de hubs vervangen hun kaarten
@@ -219,7 +220,9 @@ Worker-records en zet `A keurwijzer.be → 162.159.140.166` en
 
 | Pad | Rol |
 |---|---|
-| `build.js` | Rekenmotor en paginagenerator. Bindend voor alle getallen. |
+| `lib/rekenkern.js` | De rekenkern: constanten, methodiek-versies, eligibility, dimensies, composite, selectie. Zonder I/O, dus los te testen. Bindend voor alle getallen. |
+| `build.js` | Leest de data, laat de rekenkern rekenen, bewaakt het selectieslot en rendert pagina, rapport en prospectie. |
+| `test/` | `npm test` — golden-tests op de 16 live pagina's, randgevallen en de methodiek-versies. |
 | `build-site.js` | Homepage, hubs, sitemap, robots.txt. |
 | `build-all.js` | Bouwt alles en publiceert. Het veilige eindcommando. |
 | `lib/registry.js` | Leidt navigatie en sitemap af uit de configs. |
