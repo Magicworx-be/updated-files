@@ -1,0 +1,18 @@
+{
+  "_uitleg": "De gepubliceerde selectie van deze pagina, bevroren. build.js stopt als een volgende build een andere lijst of volgorde oplevert. Bewust herijken: node build.js dakwerkers-dendermonde --nieuwe-selectie",
+  "vastgelegd": "2026-09-03",
+  "peildatum": "2026-08-27",
+  "methodiek": 3,
+  "bedrijven": [
+    "Grembergse dakwerken van Walsem",
+    "Dakalex BVBA",
+    "Optek | Dak- en bouwwerken",
+    "Dakwerken SD Projects",
+    "Drt-Dakwerken Bv",
+    "Gery Van Esbroeck",
+    "Dakwerken Hofman bvba",
+    "Algemene Dak & Schrijnwerken MB Construction BV",
+    "EKO-Huis",
+    "Dakwerken YDM"
+  ]
+}

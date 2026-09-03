@@ -67,6 +67,25 @@ Dat document is ook wat Cowork leest.
   geen handmatige actie voor nodig. Onder `PLANNED_MIN_LIVE` (3) live regio's toont een
   niche enkel wat bestaat. Voeg je een regio toe aan `regions.txt`, vul dan ook
   `PROVINCIE_PER_REGIO` in `lib/registry.js` aan — anders faalt de build hard.
+- **Selectieslot: op een pagina die online staat veranderen de BEDRIJVEN nooit.**
+  Aan de pagina zelf (opmaak, tekst, structured data, nieuwe methodiek-versies)
+  mag je wél werken — dat is uitdrukkelijk toegestaan. Maar wie erop staat en op
+  welke plaats, ligt vast. `build.js` legt de gepubliceerde lijst vast in
+  `data/<slug>/selectie.json` en **stopt** als een build een andere lijst of
+  volgorde oplevert; er wordt dan niets geschreven en niets gepubliceerd.
+  De volgorde telt mee omdat de badges hun tekst uit de rang afleiden
+  (#1 / Top 3 / Top 5 / Top 10). Bewust herijken — enkel bij de jaarlijkse
+  update met verse data — gaat met `node build.js <slug> --nieuwe-selectie`.
+  Doe dat nooit om een build "weer aan de praat te krijgen": dat slot is precies
+  het vangnet dat ontbrak toen v5 stilzwijgend twee bedrijven van de
+  Kortrijk-pagina haalde.
+- **Ruwe scrapedata: git is het transportkanaal, niet zomaar opslag.** De
+  n8n-scraper pusht `data/<slug>/<slug>-<datum>-reviews.json` en `-places.json`
+  naar deze repo; zo komen ze op de laptop. **Nooit untracken of negeren** —
+  dan breekt het proces van een nieuwe regio. Handmatig gedownloade exports
+  (bestandsnaam met `dataset_`) staan wél in `.gitignore`: die zijn groot en
+  worden na `scripts/normalize.js` nooit meer gelezen. Alleen `reviews.json` en
+  `beoordeling.json` zijn nodig om te bouwen.
 - **Geen gemeente in de data → bedrijf altijd weglaten.**
 - **Drie gemeentelijsten, bewust ongelijk.** Het zoekgebied van de scraper
   (`Apify scrape/geolocation.txt`), de publicatielijst (`regions.txt`) en het

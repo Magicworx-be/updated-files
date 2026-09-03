@@ -1,0 +1,13 @@
+{
+  "_uitleg": "De gepubliceerde selectie van deze pagina, bevroren. build.js stopt als een volgende build een andere lijst of volgorde oplevert. Bewust herijken: node build.js dakwerkers-oostende --nieuwe-selectie",
+  "vastgelegd": "2026-09-03",
+  "peildatum": "2026-08-28",
+  "methodiek": 4,
+  "bedrijven": [
+    "Buitenschrijnwerk Vereecke Tobias BV",
+    "DGD",
+    "dakwerken DOF",
+    "Dak-En Timmerwerken Bienstman",
+    "BV Kena Group"
+  ]
+}

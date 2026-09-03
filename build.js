@@ -278,8 +278,15 @@ function findConfig(slug) {
 }
 
 // ---------------- input inlezen ----------------------------------------
-const slug = process.argv[2];
-if (!slug) die('gebruik: node build.js <slug>   (bv. node build.js dakwerkers-gent)');
+// Vlaggen mogen voor of na de slug staan, zodat
+// `node build.js <slug> --nieuwe-selectie` en de omgekeerde volgorde allebei werken.
+const argv = process.argv.slice(2);
+const slug = argv.find(a => !a.startsWith('--'));
+// Ontgrendelt het selectieslot: legt de selectie van deze build opnieuw vast in
+// plaats van te stoppen bij een verschil. Bedoeld voor de jaarlijkse update met
+// verse data. Zie "stap 4a" verderop.
+const HERIJK = argv.includes('--nieuwe-selectie');
+if (!slug) die('gebruik: node build.js <slug> [--nieuwe-selectie]   (bv. node build.js dakwerkers-gent)');
 
 const ROOT = __dirname;
 const { configPath, niche } = findConfig(slug);
@@ -588,6 +595,85 @@ const vignet = 'Top ' + nListed;                 // publiek label i.p.v. cijfer
 const top = methodiekVersie >= 4 ? eligible.slice(0, nListed) : pickTop(eligible, nListed);
 top.forEach((c, i) => { c.positie = i + 1; });   // rangnummer, geen score
 const topSet = new Set(top);
+
+// ---------------- stap 4a: het SELECTIESLOT -----------------------------
+// Regel van Olivier (03-09-2026): op een pagina die al online staat mogen de
+// BEDRIJVEN niet meer veranderen. Aan de pagina zelf — opmaak, tekst, structured
+// data — mag wél gesleuteld worden; volgend jaar volgt sowieso een volledige
+// herberekening met verse data.
+//
+// Die regel stond nergens afgedwongen, en het is al één keer stil misgegaan:
+// methodiek v5 haalde in Kortrijk twee bedrijven uit de selectie en dat viel pas
+// weken later op, aan hun achtergebleven badges. Sinds publiceren rechtstreeks
+// live gaat is er geen controlemoment meer dat zoiets opvangt.
+//
+// Daarom: de eerste build legt de gepubliceerde lijst vast in
+// data/<slug>/selectie.json. Elke volgende build vergelijkt en STOPT bij een
+// verschil — er wordt dan niets geschreven en niets gepubliceerd.
+//
+// De volgorde telt mee, niet alleen wie er in staat. De kwaliteitsbadges leiden
+// hun tekst af uit de rang (#1 / Top 3 / Top 5 / Top 10), dus wie van #2 naar #4
+// zakt heeft ineens een badge op zijn website die iets claimt wat niet meer klopt.
+//
+// Voor de jaarlijkse update: node build.js <slug> --nieuwe-selectie
+{
+  const slotPad = path.join(ROOT, 'data', slug, 'selectie.json');
+  const nu = top.map(c => c.naam);
+
+  const leggVast = (reden) => {
+    fs.writeFileSync(slotPad, JSON.stringify({
+      _uitleg: 'De gepubliceerde selectie van deze pagina, bevroren. build.js stopt ' +
+               'als een volgende build een andere lijst of volgorde oplevert. ' +
+               'Bewust herijken: node build.js ' + slug + ' --nieuwe-selectie',
+      vastgelegd: new Date().toISOString().slice(0, 10),
+      peildatum: config.peildatum,
+      methodiek: methodiekVersie,
+      bedrijven: nu,
+    }, null, 2) + '\n');
+    console.log('✓ selectie vastgelegd (' + nu.length + ' bedrijven) — ' + reden);
+  };
+
+  if (!fs.existsSync(slotPad)) {
+    leggVast('data/' + slug + '/selectie.json bestond nog niet');
+  } else if (HERIJK) {
+    const oud = (readJSON(slotPad).bedrijven || []);
+    leggVast('herijkt met --nieuwe-selectie (was ' + oud.length + ' bedrijven)');
+  } else {
+    const oud = (readJSON(slotPad).bedrijven || []).map(String);
+    const zelfde = oud.length === nu.length &&
+      oud.every((n, i) => norm(n) === norm(nu[i]));
+    if (!zelfde) {
+      const oudSet = new Set(oud.map(norm));
+      const nuSet = new Set(nu.map(norm));
+      const rang = (lijst, naam) => lijst.findIndex(n => norm(n) === norm(naam)) + 1;
+      const regels = [];
+      const verdwenen = oud.filter(n => !nuSet.has(norm(n)));
+      const nieuw = nu.filter(n => !oudSet.has(norm(n)));
+      const verschoven = nu.filter(n => oudSet.has(norm(n)) && rang(oud, n) !== rang(nu, n));
+      if (verdwenen.length) {
+        regels.push('  VERDWENEN — staan nu online, zouden van de pagina vallen:');
+        verdwenen.forEach(n => regels.push('      · ' + n + '   (stond op #' + rang(oud, n) + ')'));
+      }
+      if (nieuw.length) {
+        regels.push('  NIEUW — staan nog niet online:');
+        nieuw.forEach(n => regels.push('      · ' + n + '   (zou op #' + rang(nu, n) + ' komen)'));
+      }
+      if (verschoven.length) {
+        regels.push('  VERSCHOVEN — blijven staan, maar op een andere plaats:');
+        verschoven.forEach(n => regels.push('      · ' + n + '   #' + rang(oud, n) + ' → #' + rang(nu, n)));
+      }
+      die('de selectie van deze pagina zou veranderen.\n\n' +
+        '  De pagina staat online met een vastgelegde lijst\n' +
+        '  (data/' + slug + '/selectie.json). Deze build levert een andere op:\n\n' +
+        regels.join('\n') + '\n\n' +
+        '  Er is NIETS gebouwd en NIETS gepubliceerd. De pagina online blijft zoals ze is.\n\n' +
+        '  · Onbedoeld? Dan is er iets veranderd aan de data, de gemeentelijst of de\n' +
+        '    methodiek-versie van deze pagina. Zet dat terug en bouw opnieuw.\n' +
+        '  · Wél de bedoeling (de jaarlijkse update met verse data)? Draai dan:\n' +
+        '        node build.js ' + slug + ' --nieuwe-selectie');
+    }
+  }
+}
 
 // ---------------- stap 4b: robuustheidstest (alleen voor het rapport) ----
 // Vraag: welke gepubliceerde posities staan écht vast en welke zijn een

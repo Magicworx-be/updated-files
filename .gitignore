@@ -30,3 +30,18 @@ node_modules/
 
 # Draaiend logboek van de watchdog (machine-lokaal, groeit continu)
 reports/watchdog-taken.log
+
+# Handmatig gedownloade Apify-exports (bestandsnaam bevat "dataset_").
+#
+# Alleen scripts/normalize.js leest deze, één keer per regio, om er
+# data/<slug>/reviews.json van te maken. Daarna kijkt niets ze ooit nog in:
+# build.js leest uitsluitend reviews.json en beoordeling.json. Ze zijn wel
+# groot — 54 MB voor drie regio's — en git gooit nooit iets weg, dus elk
+# exemplaar dat hier binnenglipt blijft voor altijd in de geschiedenis staan.
+#
+# LET OP — dit geldt NIET voor de bestanden die de n8n-scraper aanlevert
+# (data/<slug>/<slug>-<datum>-reviews.json en -places.json). Die komen juist
+# VIA deze repo binnen: git is daar het transportkanaal van de scraper naar de
+# laptop. Die mag je niet negeren of untracken, anders breekt het proces van
+# een nieuwe regio. Zie de regel "Ruwe scrapedata" in CLAUDE.md.
+data/*/*dataset_*.json
