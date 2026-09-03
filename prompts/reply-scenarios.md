@@ -16,19 +16,28 @@ identifying the company and looking up the badge URLs. This file covers *what to
 Plenty of companies run an autoresponder. Those mails are not a reply and ask nothing.
 **Never draft anything for one** — not even a scenario 3 skeleton.
 
-Treat the incoming message as an autoresponder when either of these holds:
+**The wording decides. The clock never does.** Treat the incoming message as an
+autoresponder only when **both** of these hold:
 
-1. **Timing.** It arrived **two minutes or less** after Olivier's previous message in
-   the same thread. Nobody reads and types that fast.
-2. **Wording.** It carries one of the usual formulas — "uw bericht goed ontvangen",
-   "we nemen binnenkort contact met u op", "automatisch antwoord", "automatische
+1. It carries one of the usual formulas — "uw bericht goed ontvangen", "we nemen
+   binnenkort contact met u op", "automatisch antwoord", "automatische
    ontvangstbevestiging", "out of office", "afwezig", "met verlof", "terug vanaf",
-   "niet aanwezig", "wij zijn gesloten" — **and** it engages with nothing specific and
-   asks nothing.
+   "niet aanwezig", "wij zijn gesloten".
+2. It engages with nothing specific and asks nothing.
 
 If the text does respond to the outreach mail (asks for the badge, asks whether it is
-free, hands over a number, asks anything at all), it is a real reply even when it also
-says "goed ontvangen". Handle it normally.
+free, hands over a number, greets Olivier by name, mentions their rank, asks anything at
+all), it is a real reply even when it also says "goed ontvangen". Handle it normally.
+
+**Speed is a hint, never proof.** A reply that lands within two minutes deserves a
+closer look at its wording — but it is not an autoresponder for being fast. On
+3 September 2026 RVO Construct replied after 1 minute 54 seconds with a personal,
+substantive mail; a timing rule alone would have skipped that company in silence.
+Owners answer from their phone between jobs, and short mails get typed fast.
+
+The two mistakes do not cost the same. Skipping a real reply loses a company that wanted
+its badge, and nobody ever finds out. Drafting on an autoresponder costs one discarded
+draft. **When in doubt, treat it as real.**
 
 **What to do:** nothing. Skip the thread silently, create no draft, note nothing, send
 no notification. Mention it in your report as "autoresponder, overgeslagen" at most.
@@ -189,15 +198,25 @@ gsm under their signature. Do **not** treat that as consent and do **not** write
 Write the number the way a Fleming reads it out: `0470 49 23 82`, in pairs, never
 `0470492382`. Mention it in your report so Olivier knows it is still pending.
 
-**3. They explicitly hand over their WhatsApp number.** Drop the question and thank them
-for it instead:
+**3. They explicitly hand over their WhatsApp number.** Drop the question.
+
+**One mail per thread, never two.** If the number can be written to `data/whatsapp.json`
+this same round, it goes live within minutes — so write **no** mail here at all and let
+the bevestigingsmail below do the work. It already says everything this one would.
+
+On 3 September 2026 Tectora and EPDMshop each ended up with two drafts in one thread —
+"dat nummer voeg ik toe" and "je nummer staat erbij" — and Olivier had to bin the short
+one himself. They also contradict each other: one promises what the other has already
+done.
+
+Only when the number **cannot** be written this round — no matching company name, a
+landline, two numbers with none marked — is there no publication and therefore no
+bevestigingsmail. That is the one case where you thank them here instead:
 
 > Top, dat nummer voeg ik toe aan je listing.
 
-Then note it for Olivier in your report — it has to go into `data/whatsapp.json` and
-the page has to be rebuilt. Never add it yourself without asking. Once the number is
-actually live on the page, the thread gets one more draft: see **Na publicatie — de
-bevestigingsmail** below.
+Then say in your report that Olivier has to add it by hand. Never add it yourself
+without asking.
 
 ---
 
@@ -211,26 +230,27 @@ STAP 3.
 
 One draft, a reply in the same thread. **Draft only, never send.**
 
-This is the **only** place in the entire outreach where dasslim.be is mentioned. Not in
-email 1, not in the follow-ups, not in the badge mail — and on keurwijzer.be only in the
-standing footer disclosure. It works here because no ask is left open: the company has
-had its page, its badge and its number, and Olivier is asking for nothing in return.
+This is the **only** place in the entire outreach where the commercial offer comes up at
+all — and since 2 September 2026 it no longer even names dasslim.be. The offer is implicit:
+help with leads and customers, plus an invitation to say the word. Never in email 1, the
+follow-ups or the badge mail; on keurwijzer.be dasslim.be appears only in the standing
+footer disclosure. It works here because no ask is left open: the company has had its page,
+its badge and its number, and Olivier is asking for nothing in return.
 
-**The text is fixed — Olivier settled it on 2 September 2026. Take it literally: add
-nothing, leave nothing out.** Only `{voornaam}` varies; no confirmed first name → `Hi,`.
+**No link anywhere in this mail.** That is deliberate, and it is also why this mail no
+longer triggers Gmail's `google.com/url` Redirect Notice: there is nothing left to wrap.
+
+**The text is fixed — Olivier rewrote it himself on 2 September 2026, shorter and warmer
+than the first version. Take it literally: add nothing, leave nothing out.** Only
+`{voornaam}` varies, and it rides in the first line — **this mail has no greeting**, the
+same way the badge mail of scenario 1 has none. No confirmed first name → drop the name and
+close that line with a full stop: `Je WhatsApp-nummer staat erbij.`
 
 ```
-Hi {voornaam},
+Je WhatsApp-nummer staat erbij, {voornaam}
 
-Top, je WhatsApp-nummer staat erbij.
-
-Misschien vraag je je af waarom ik dit gratis doe.
-Naast Keurwijzer heb ik dasslim.be.
-Daar help ik vakspecialisten leads en klanten binnen te halen.
-Doe ik al 25 jaar.
-
-Mocht je ooit willen weten hoe ik dat doe (o.a. met WhatsApp en AI), geef gerust een seintje.
-Dan laat ik je zien hoe het werkt bij een klant.
+En mocht je ooit hulp nodig hebben met leads en klanten, laat t mij weten.
+Dan laat ik je zien hoe ik dat doe met o.a. Whatsapp en AI.
 
 Groeten en alle succes,
 Olivier
@@ -240,15 +260,7 @@ Olivier
 **Send it as `htmlBody`, not as plain text.** Every line break is intentional — one
 thought per line reads faster on a phone, and that is where these owners read their mail.
 So write the body as one `<div>` with `<br>` between the lines, exactly as above, and
-never pull the lines back into paragraphs. Plain text (`body`) is **not** an option here:
-Gmail then linkifies `dasslim.be` itself and pastes the whole
-`https://www.google.com/url?q=...&source=gmail&ust=...` string into the visible text.
-Measured on 2 September 2026 — it looks like spam.
-
-**`dasslim.be` is a normal anchor:** `<a href="https://dasslim.be">dasslim.be</a>`. Gmail
-wraps the `href` in `google.com/url`; the reader still *sees* just `dasslim.be`, but
-clicking goes through the Redirect Notice — the same as the badge links. Accepted, for
-the same reason: a link nobody can click is worse.
+never pull the lines back into paragraphs.
 
 **No badge block, no landing-page link, no attachment.** Everything has already been
 delivered earlier in this same thread.
@@ -354,8 +366,9 @@ auto-answered email is worse than one that waited an hour.
   the draft into a thread of its own, so it stops being a reply. Wrong text? Trash the
   draft and create a new one with `replyToMessageId`. Verify afterwards that the returned
   `threadId` still matches the original thread.
-- **dasslim.be is mentioned in exactly one mail** — the bevestigingsmail, after the
-  WhatsApp number is live. Never in email 1, the follow-ups, a badge mail or a
-  scenario 3. The ranking and the commercial offer never share a message.
+- **The commercial offer appears in exactly one mail** — the bevestigingsmail, after the
+  WhatsApp number is live, and since 2 September 2026 without naming dasslim.be at all.
+  Never in email 1, the follow-ups, a badge mail or a scenario 3. The ranking and the
+  commercial offer never share a message.
 - **Report afterwards** what you drafted, per company: scenario, name used (or "geen
   naam gevonden"), and anything needing follow-up (a WhatsApp number, a scenario 3).

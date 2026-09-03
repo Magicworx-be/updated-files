@@ -15,7 +15,7 @@ dit document verouderd — zie [Onderhoud](#onderhoud-1-bron-2-lezers).
 | **Bindende bron voor het werkproces** | `prompts/directory-page-emails-prompt.md` |
 | **Waarom-beslissingen** | `WIJZIGINGEN.md` |
 | **Nieuwste methodiek-versie** | v5 (zie [Methodiek-versies](#methodiek-versies)) |
-| **Laatst gelijkgezet met de code** | 1 september 2026 |
+| **Laatst gelijkgezet met de code** | 3 september 2026 |
 
 ---
 
@@ -484,7 +484,7 @@ selectie noch ranking, net zoals de WhatsApp-nummers in §7.
 **Opvolgmails bij stilte (staande regel sinds 1 september 2026).** De meeste bedrijven
 antwoorden niet op de eerste mail. Daarop volgen hoogstens **twee** opvolgmails, telkens
 als **antwoord in dezelfde thread** (nooit een nieuwe mail met een nieuw onderwerp):
-de eerste na minstens 5 werkdagen met één ja/nee-vraag, de tweede na nog eens 10
+de eerste na minstens 3 werkdagen met één ja/nee-vraag, de tweede na nog eens 10
 werkdagen als afsluiter. Ze bevatten **geen links, geen afbeelding en geen rangvermelding**
 — de landingspagina staat al in de geciteerde eerste mail eronder. Er wordt geen
 kunstmatige deadline of "laatste kans" gebruikt: de pagina heeft er geen, en een bedrijf
@@ -492,6 +492,14 @@ kan dat nakijken. Wie "nee" antwoordt of eerder om rust vroeg, krijgt niets meer
 antwoordde, valt vanzelf uit de reeks. Ook dit staat **buiten de methodiek**: opvolging
 raakt selectie noch ranking, en de pagina van een bedrijf verandert niet door wel of niet
 te antwoorden. Zie fase 7 in `prompts/directory-page-emails-prompt.md`.
+
+**Herinnering voor een WhatsApp-nummer (staande regel sinds 3 september 2026).** Een
+bedrijf dat wél antwoordde en zijn badge kreeg, maar de vraag naar zijn zakelijk
+WhatsApp-nummer onbeantwoord liet, krijgt daarover **hoogstens één** herinnering, opnieuw
+als antwoord in dezelfde thread en zonder links. Staat het nummer al in
+`data/whatsapp.json`, dan gebeurt er niets. Er komt nooit een tweede herinnering: een
+WhatsApp-nummer staat buiten de methodiek (§7) en een bedrijf dat zwijgt, wil het niet.
+Deze herinnering raakt selectie noch ranking.
 
 **Meerdere LLM-runs middelen (staande regel sinds v2, geldt in elke latere versie).**
 Reviewkwaliteit en vakfocus worden in

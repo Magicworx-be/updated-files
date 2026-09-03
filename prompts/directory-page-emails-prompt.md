@@ -554,7 +554,7 @@ Timing, counted from the last outbound message in that thread:
 
 | | Send when | Content |
 |---|---|---|
-| Follow-up 1 | ≥ 5 working days after email 1 | the yes/no email below |
+| Follow-up 1 | ≥ 3 working days after email 1 | the yes/no email below |
 | Follow-up 2 | ≥ 10 working days after follow-up 1 | the closing email below |
 
 A thread that already had follow-up 2 is finished. There is no third follow-up.

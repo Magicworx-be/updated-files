@@ -79,7 +79,12 @@ het label dan staan. Threads in `Label_3` komen verderop nog aan bod (stap 5).
 
 # STAP 2 — Zoek nieuwe antwoorden
 
-Zoek: `in:inbox subject:vergeleken newer_than:14d`
+Zoek: `(in:inbox OR label:Keurwijzer) subject:vergeleken newer_than:14d`
+
+Het label staat er bewust naast het postvak: een Gmail-filter labelt inkomende
+antwoorden als `Keurwijzer` en haalt ze uit het Postvak IN. Zonder dat filter blijven
+ze in het postvak staan en vindt `in:inbox` ze nog steeds — de zoekopdracht werkt dus
+in beide gevallen.
 
 Een thread is kandidaat als **alles** klopt:
 
@@ -91,12 +96,22 @@ Een thread is kandidaat als **alles** klopt:
 3. De thread staat niet in de uitsluitlijst.
 4. Het laatste bericht is **geen automatisch antwoord**.
 
-**Automatische antwoorden** herken je aan minstens één van deze twee: het kwam binnen
-**twee minuten of minder** na Oliviers bericht, óf het bevat een standaardformulering
-("uw bericht goed ontvangen", "we nemen contact op", "automatisch antwoord", "out of
-office", "afwezig", "met verlof", "terug vanaf", "wij zijn gesloten") én gaat nergens
-specifiek op in. Reageert de tekst wél inhoudelijk (vraagt om de badge, vraagt of het
-gratis is, geeft een nummer door, stelt een vraag), dan is het een echt antwoord.
+**De tekst beslist, nooit de klok.** Een bericht is pas een automatisch antwoord als het
+een standaardformulering bevat ("uw bericht goed ontvangen", "we nemen contact op",
+"automatisch antwoord", "out of office", "afwezig", "met verlof", "terug vanaf", "wij
+zijn gesloten") **én** nergens specifiek op ingaat. Beide moeten kloppen.
+
+Staat er iets persoonlijks in — een aanspreking met Oliviers naam, een vraag, een
+telefoonnummer, een "mag zeker", een verwijzing naar hun plaats in de ranking — dan is
+het een **echt antwoord**, hoe snel het ook binnenkwam.
+
+**Snelheid is enkel een waarschuwing, geen bewijs.** Kwam het binnen twee minuten
+binnen, kijk dan extra aandachtig naar de tekst — maar val nooit op de tijd alleen
+terug. Op 3 september 2026 antwoordde RVO Construct na 1 minuut en 54 seconden met een
+echte, persoonlijke mail; op de oude tijdregel was dat bedrijf stilzwijgend overgeslagen
+en had Olivier het nooit geweten. Een gemiste badge-vraag kost een klant; een
+autoresponder die je per ongeluk behandelt kost één weggegooide draft. Twijfel je tussen
+de twee, behandel de mail dan als echt.
 
 Bij een autoresponder doe je **niets**: geen draft, geen label, geen notitie. Een draft
 zou de thread als afgehandeld markeren, waardoor je het échte antwoord van morgen mist.
@@ -123,10 +138,22 @@ Let op:
   `https://cdn.jsdelivr.net/…`-URL in de `href`, nooit een `google.com/url?q=`-omhulsel.
 - `badgeDonker` = donkere tekst = voor een **lichte** achtergrond. `badgeLicht` = witte
   tekst = voor een **donkere** achtergrond. Makkelijk om te draaien; controleer het.
-- Bevestigt een bedrijf enkel jouw WhatsApp-vraag ("Ja hoor")? Dan één zin uit
-  reply-scenarios.md, scenario 1 geval 3: "Top, dat nummer voeg ik toe aan je listing."
-  Met `Hi {voornaam},` ervoor en `Groeten,<br>Olivier` erna. **Geen badgeblok** — dat
-  kregen ze al; het nog eens sturen leest als een fout.
+**Ga je het nummer noteren? Schrijf dan hier géén draft.** Kan je het nummer straks in
+stap 4 wegschrijven, dan gaat het diezelfde ronde live en maakt stap 5 de
+bevestigingsmail zodra het op de pagina staat. Die zegt al wat er te zeggen valt. Sla
+stap 3 voor die thread dus volledig over — geen draft, alleen het label uit 4d.
+
+Waarom: op 3 september 2026 kregen Tectora en EPDMshop allebei twee concepten in
+hetzelfde gesprek — "dat nummer voeg ik toe" én "je nummer staat erbij". Olivier moest
+die korte briefjes zelf weggooien. Ze spreken elkaar bovendien tegen: het ene belooft
+iets wat het andere al gedaan heeft.
+
+- Geef je het nummer **niet** door aan stap 4 — geen naam teruggevonden, vast nummer,
+  twee nummers zonder aanduiding — dan volgt er deze ronde géén publicatie en dus ook
+  geen bevestigingsmail. Schrijf dan wél de ene zin uit reply-scenarios.md, scenario 1
+  geval 3: "Top, dat nummer voeg ik toe aan je listing." Met `Hi {voornaam},` ervoor en
+  `Groeten,<br>Olivier` erna. **Geen badgeblok** — dat kregen ze al; het nog eens sturen
+  leest als een fout. Meld in stap 6 dat jij het nummer nog met de hand moet toevoegen.
 
 Maak de draft als **antwoord in dezelfde thread** (reply), nooit als nieuwe mail.
 
@@ -143,9 +170,13 @@ mail geen cijfer. Dit geldt alleen als alle drie kloppen:
 
 1. Het **vorige bericht in dezelfde thread** komt van Olivier en stelt die vraag met een
    concreet nummer.
-2. Het antwoord is **ondubbelzinnig bevestigend**: "ja", "ja hoor", "klopt", "dat klopt",
-   "inderdaad", "dat is het". Een kaal "ok", "bedankt" of "prima" is dat NIET — dat kan
-   evengoed op de badges slaan. Twijfel → niets schrijven, melden.
+2. Het antwoord is **niet afwijzend**. "ja", "ja hoor", "klopt", "dat klopt",
+   "inderdaad", "dat is het" — maar ook een kaal "ok", "ok merci", "bedankt" of "prima"
+   telt als akkoord. Olivier stelde die regel vast op 2 september 2026: op een
+   rechtstreekse vraag met een concreet nummer is een instemmend geluid genoeg. Ziet hij
+   in de mail toch iets anders, dan past hij de draft zelf aan. Alleen een **uitdrukkelijk
+   nee** of een tegenvraag ("waarom?", "liever niet") is geen toestemming — dat wordt
+   scenario 3.
 3. Je neemt het nummer **letterlijk over uit Oliviers vraag**. Nooit uit hun
    handtekening, nooit een nummer dat je elders vond.
 
