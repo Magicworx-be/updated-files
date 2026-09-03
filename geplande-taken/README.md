@@ -27,11 +27,13 @@ opnieuw met het bijbehorende schema uit de tabel hieronder.
 |---|---|---|
 | `keurwijzer-mailwacht` | **ja** | weekdagen 08u15 en 15u15 (`15 8,15 * * 1-5`) |
 | `keurwijzer-opvolgmails-vrijdag` | **ja** | vrijdag 17u (`0 17 * * 5`) |
-| `keurwijzer-replies` | nee | staat op de laptop, is niet geregistreerd |
+| `keurwijzer-replies` | nee | verwijderd van de laptop op 3 september 2026 |
 | `keurwijzer-whatsapp-dagelijks` | nee | idem |
 | `keurwijzer-whatsapp-wekelijks` | nee | idem |
 
-De onderste drie zijn restanten van een oudere opzet. Ze zijn hier bewaard
-zodat er niets verloren gaat, maar ze doen niets — het werk dat zij deden zit
-nu in de skills `keurwijzer-mails` en `keurwijzer-opvolgmails` in
-`.claude/skills/`, die Olivier zelf start.
+De onderste drie zijn restanten van een oudere opzet. Ze waren nooit
+geregistreerd en deden dus niets; op 3 september 2026 zijn ze van de laptop
+gehaald. **Deze map is nu hun enige kopie** — dat is bewust, mocht er ooit iets
+uit nodig blijken. Het werk dat zij deden zit intussen in de skills
+`keurwijzer-mails` en `keurwijzer-opvolgmails` in `.claude/skills/`, die Olivier
+zelf start.
