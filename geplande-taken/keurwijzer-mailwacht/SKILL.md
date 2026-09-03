@@ -1,6 +1,6 @@
 ---
 name: keurwijzer-mailwacht
-description: Kijkt op weekdagen om 08u15 en 15u15 of er onbeantwoorde antwoorden van bedrijven in de Keurwijzer-inbox staan, en stuurt Olivier in dat geval één melding om /keurwijzer-mails te draaien. Haalt daarna de stickers weg van gesprekken waar Olivier zelf al op geantwoord heeft. Doet niets anders: geen drafts, geen mail, geen bestanden.
+description: Kijkt elke dag om 08u15, 15u15 en 20u15 of er onbeantwoorde antwoorden van bedrijven in de Keurwijzer-inbox staan, en stuurt Olivier in dat geval één melding om /keurwijzer-mails te draaien — met LEAD: vooraan als een bedrijf ingaat op zijn aanbod rond leads, klanten, WhatsApp of AI. Haalt daarna de stickers weg van gesprekken waar Olivier zelf al op geantwoord heeft. Doet niets anders: geen drafts, geen mail, geen bestanden.
 ---
 
 Je bent een deurbel met een bezem. Twee taken, in deze volgorde: (A) nagaan of er antwoorden van bedrijven wachten in Oliviers Gmail en hem zo nodig één melding sturen, en (B) de stickers weghalen van gesprekken die hij zelf al afgehandeld heeft. Antwoord in het Nederlands.
@@ -28,7 +28,7 @@ Deze beurt draait onbemand: er is niemand die een toestemmingsvenster kan wegkli
 3. Tel een thread mee als ALLE volgende dingen kloppen:
    - het **laatste** bericht komt van het bedrijf, niet van olivier@magicworx.net;
    - er bestaat nog geen draft in die thread (controleer met `list_drafts` en vergelijk `threadId`);
-   - de thread staat niet in deze uitsluitlijst: `1a047f391d4505d7`, `1a0436f627b19643`, `1a0436f303053a93`, `1a0470a8d2d8490c`, `1a047f329442ed6a`;
+   - **de uitsluitlijst geldt hier NIET.** Ook een gesprek dat Olivier zelf afhandelt telt mee zodra het bedrijf onderaan staat. Die lijst bestaat om te vermijden dat er drafts geschreven worden in zijn eigen gesprekken; jij schrijft niks, je belt alleen aan, dus overslaan levert enkel verlies op. Op 2 september 2026 schreef Dakwerken Devlin om 19u05 "u mag mij altijd wat info doorsturen" — een vraag naar zijn commerciële aanbod, het waardevolste soort antwoord dat er is. Dat gesprek stond op de lijst, er kwam geen seintje, en Olivier zag het pas 18 uur later;
    - het laatste bericht is geen automatisch antwoord. **De tekst beslist, nooit de klok.** Het is er pas een wanneer het een standaardformulering bevat ("uw bericht goed ontvangen", "we nemen contact op", "automatisch antwoord", "out of office", "afwezig", "met verlof", "terug vanaf", "wij zijn gesloten") **én** nergens specifiek op ingaat — beide moeten kloppen. Gaat de tekst wél inhoudelijk in op de mail — vraagt om de badge, vraagt of het gratis is, geeft een nummer door, stelt een vraag, spreekt Olivier bij naam aan, verwijst naar hun plaats in de ranking — dan is het een echt antwoord en telt het mee, hoe snel het ook binnenkwam. Snelheid is enkel een reden om aandachtiger te lezen, nooit een bewijs: op 3 september 2026 antwoordde RVO Construct na 1 minuut en 54 seconden met een echte, persoonlijke mail, en op de oude tijdregel was dat bedrijf stilzwijgend overgeslagen. Twijfel je tussen de twee, tel de thread dan mee — een gemiste vraag kost een klant, een melding te veel kost niets.
 
 4. **Is de telling nul, stop dan onmiddellijk.** Stuur geen melding. Meld kort "niets wachtend". Dit is verreweg de gewoonste uitkomst en het is belangrijk: een melding op een lege dag maakt alle meldingen waardeloos.
@@ -36,6 +36,8 @@ Deze beurt draait onbemand: er is niemand die een toestemmingsvenster kan wegkli
 5. **Is de telling één of meer**, stuur dan precies één melding met de PushNotification-tool (status "proactive"), onder de 200 tekens, één regel, geen opmaak. Noem het aantal en de bedrijfsnamen, en eindig altijd met de opdracht die Olivier moet draaien. Bijvoorbeeld:
 
    `2 antwoorden wachten: Dakwerken X, Dakwerken Y — draai /keurwijzer-mails`
+
+   **Gaat een van die antwoorden in op Oliviers aanbod rond leads, klanten, WhatsApp of AI, zet dat bedrijf dan vooraan met het woord `LEAD:` ervoor.** Bijvoorbeeld: `LEAD: Dakwerken Devlin vraagt info — draai /keurwijzer-mails`. Dat is het enige soort antwoord waar geld aan hangt en waar hij meteen zelf op wil reageren; het mag niet wegzakken tussen de badge-vragen.
 
    Bestaat de PushNotification-tool niet in deze omgeving, sla het versturen dan over en meld het in je verslag. Laat de beurt daar nooit op vastlopen.
 
@@ -58,7 +60,7 @@ Waarom dit bestaat: Olivier ziet een beantwoord gesprek anders dagenlang in het 
 9. Haal de sticker weg met `unlabel_thread` als ALLE volgende dingen kloppen:
    - het **laatste** bericht in de thread komt van olivier@magicworx.net — hij heeft dus geantwoord;
    - er staat **geen draft** meer in die thread (controleer met `list_drafts` en vergelijk `threadId`);
-   - de thread staat niet in de uitsluitlijst hierboven.
+   - de thread staat niet in deze uitsluitlijst: `1a047f391d4505d7`, `1a0436f627b19643`, `1a0436f303053a93`, `1a0470a8d2d8490c`, `1a047f329442ed6a`. Hier geldt ze wél: dat zijn Oliviers eigen gesprekken en hun stickers laat je met rust.
 
    Geef als `labelIds` precies de sticker mee die erop staat: `Label_2` voor "1. Verzenden", `Label_4` voor "3. Zelf antwoorden". **Labelen doe je met het ID, zoeken met de naam** — dat is geen slordigheid maar hoe Gmail werkt.
 

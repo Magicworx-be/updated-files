@@ -25,7 +25,7 @@ opnieuw met het bijbehorende schema uit de tabel hieronder.
 
 | Map | Draait | Schema |
 |---|---|---|
-| `keurwijzer-mailwacht` | **ja** | weekdagen 08u15 en 15u15 (`15 8,15 * * 1-5`) |
+| `keurwijzer-mailwacht` | **ja** | elke dag 08u15, 15u15 en 20u15 (`15 8,15,20 * * *`) |
 | `keurwijzer-opvolgmails-vrijdag` | **ja** | vrijdag 17u (`0 17 * * 5`) |
 | `keurwijzer-replies` | nee | verwijderd van de laptop op 3 september 2026 |
 | `keurwijzer-whatsapp-dagelijks` | nee | idem |
