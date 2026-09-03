@@ -1,6 +1,6 @@
 # Prospectielijst — Dakwerkers in regio Oostende
 
-_Intern document voor dasslim.be. Niet publiceren. Gegenereerd op 2026-09-03 · peildatum 2026-08-28._
+_Intern document voor dasslim.be. Niet publiceren. Peildatum 2026-08-28._
 
 Deze bedrijven staan **niet** op de publieke Keurwijzer-pagina, maar zijn waardevolle prospects. De publieke pagina toont enkel de Top 5.
 

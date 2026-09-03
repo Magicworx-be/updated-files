@@ -64,6 +64,19 @@ dan gebruikt `build.js` de nieuwste versie — dat is de toestand tussen bouwen 
 publiceren in. **Alle gepubliceerde pagina's dragen een pin** (v1 t/m v5); de
 rekenwijze van een pagina die online staat ligt daarmee vast.
 
+**De pin wordt afgedwongen door de code, niet door een afspraak.** Zodra een pagina
+een `data/<slug>/selectie.json` heeft — het bewijs dat ze gepubliceerd is — eist
+`build.js` dat de config dezelfde versie draagt. Ontbreekt de pin, of wijkt ze af
+van de versie waarop de pagina online staat, dan **stopt de build** en wordt er
+niets geschreven. Vastzetten gaat met één commando, dat de versie uit
+`selectie.json` overneemt:
+
+    node build.js <slug> --pin
+
+Dat vervangt de handmatige publicatiestap. Een pagina die nog niet online staat
+heeft nog geen `selectie.json` en hoort ook nog geen versieveld te dragen; die
+bouwt bewust mee op de nieuwste logica.
+
 Daar bovenop komt een tweede slot, dat niet de rekenwijze maar de **uitkomst**
 bewaakt. Bij de eerste build legt `build.js` de gepubliceerde lijst vast in
 `data/<slug>/selectie.json` — welke bedrijven, in welke volgorde. Levert een latere

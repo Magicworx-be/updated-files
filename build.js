@@ -237,6 +237,26 @@ function readJSON(p) {
   try { return JSON.parse(fs.readFileSync(p, 'utf8')); }
   catch (e) { die('ongeldige JSON in ' + p + ' — ' + e.message); }
 }
+// De methodiek-pin in de config schrijven. Tekstueel, niet via JSON.stringify:
+// de configs gebruiken bewust inline objecten ("syn": { ... }); een herserialisatie
+// zou die uit elkaar trekken en het hele bestand als gewijzigd tonen in plaats van
+// één regel.
+function schrijfPin(configPad, versie) {
+  const ruw = fs.readFileSync(configPad, 'utf8');
+  const bestaand = /^([ \t]*)"methodiek"([ \t]*):([ \t]*)\d+(,?)[ \t]*$/m;
+  if (bestaand.test(ruw)) {
+    fs.writeFileSync(configPad, ruw.replace(bestaand,
+      (m, i, a, b, komma) => i + '"methodiek"' + a + ':' + b + versie + komma));
+    return;
+  }
+  // Nog geen veld: pal na "slug" invoegen, zoals in alle bestaande configs.
+  const naSlug = /^([ \t]*)"slug"[ \t]*:[ \t]*"[^"]*",[ \t]*$/m;
+  if (!naSlug.test(ruw))
+    die('kan de pin niet schrijven: ' + configPad + ' heeft geen herkenbare "slug"-regel.\n' +
+        '       Voeg "methodiek": ' + versie + ' met de hand toe.');
+  fs.writeFileSync(configPad, ruw.replace(naSlug,
+    (m, i) => m + '\n' + i + '"methodiek": ' + versie + ','));
+}
 function esc(s) {
   return String(s == null ? '' : s)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -286,7 +306,11 @@ const slug = argv.find(a => !a.startsWith('--'));
 // plaats van te stoppen bij een verschil. Bedoeld voor de jaarlijkse update met
 // verse data. Zie "stap 4a" verderop.
 const HERIJK = argv.includes('--nieuwe-selectie');
-if (!slug) die('gebruik: node build.js <slug> [--nieuwe-selectie]   (bv. node build.js dakwerkers-gent)');
+// Zet de methodiek-versie waarop deze pagina gepubliceerd is vast in de config.
+// Dat is de vaste publicatiestap uit CLAUDE.md, nu als één commando: de versie
+// komt uit data/<slug>/selectie.json, dus uit wat er daadwerkelijk online staat.
+const PIN = argv.includes('--pin');
+if (!slug) die('gebruik: node build.js <slug> [--nieuwe-selectie] [--pin]   (bv. node build.js dakwerkers-gent)');
 
 const ROOT = __dirname;
 const { configPath, niche } = findConfig(slug);
@@ -349,6 +373,47 @@ if (!config.regio.naam || !config.regio.kern || !config.regio.provincie)
   die('config.regio mist "naam", "kern" of "provincie"');
 const peildatum = new Date(config.peildatum + 'T00:00:00Z');
 if (isNaN(peildatum)) die('config.peildatum is geen geldige datum (verwacht JJJJ-MM-DD)');
+
+// ---------------- de methodiek-pin afdwingen ---------------------------
+// Een pagina die online staat heeft een data/<slug>/selectie.json, en daarin
+// staat op welke methodiek-versie ze gepubliceerd is. Vanaf dat moment MOET de
+// config die versie ook dragen: zonder pin bouwt ze mee met METHODIEK_LATEST en
+// verandert de rekenwijze stilzwijgend (opnametekst, JSON-LD, drempels). Tot nu
+// was dat een afspraak in CLAUDE.md; hier is het een harde stop.
+// Een NIEUWE pagina heeft nog geen selectie.json en hoort geen versieveld te
+// dragen — die bouwt bewust op de nieuwste logica.
+const selectiePad = path.join(ROOT, 'data', slug, 'selectie.json');
+const gepubliceerdeVersie = fs.existsSync(selectiePad)
+  ? readJSON(selectiePad).methodiek
+  : undefined;
+
+if (PIN) {
+  if (gepubliceerdeVersie == null)
+    die('--pin kan niets vastzetten: data/' + slug + '/selectie.json bestaat nog niet\n' +
+        '       (of draagt geen "methodiek"). Pin pas vast zodra de pagina online staat.');
+  if (config.methodiek === gepubliceerdeVersie) {
+    console.log('· pin ongewijzigd: de config draagt al methodiek v' + gepubliceerdeVersie);
+  } else {
+    const was = config.methodiek;
+    schrijfPin(configPath, gepubliceerdeVersie);
+    config.methodiek = gepubliceerdeVersie;
+    console.log('✓ pin gezet: methodiek v' + gepubliceerdeVersie + ' in ' + configPath +
+                (was == null ? ' (config had nog geen pin)' : ' (was v' + was + ')'));
+  }
+} else if (gepubliceerdeVersie != null && !HERIJK) {
+  if (config.methodiek == null)
+    die('deze pagina staat gepubliceerd op methodiek v' + gepubliceerdeVersie + ', maar de\n' +
+        '       config draagt geen pin. Zonder pin bouwt ze mee met METHODIEK_LATEST (v' +
+        METHODIEK_LATEST + ') en\n' +
+        '       verandert de rekenwijze stilzwijgend.\n' +
+        '       → Pin vastzetten: node build.js ' + slug + ' --pin');
+  if (config.methodiek !== gepubliceerdeVersie)
+    die('de config draagt methodiek v' + config.methodiek + ', maar deze pagina is\n' +
+        '       gepubliceerd op v' + gepubliceerdeVersie + '. Verhoog het versienummer van een\n' +
+        '       bestaande config nooit zonder uitdrukkelijke vraag (CLAUDE.md).\n' +
+        '       → Terug naar de gepubliceerde versie: node build.js ' + slug + ' --pin\n' +
+        '       → Bewust herijken met verse data:     node build.js ' + slug + ' --nieuwe-selectie');
+}
 
 // Methodiek-versie kiezen: expliciet in de config, anders de nieuwste. Nieuwe
 // pagina's krijgen dus automatisch de beste logica; bestaande staan vastgepind.
@@ -1220,7 +1285,6 @@ const tokens = {
   CROSSLINKS: CROSSLINKS,
   NAV_LINKS: NAV_LINKS,
   FOOT_SECTOR_LINKS: FOOT_SECTOR_LINKS,
-  BUILD_TIMESTAMP: new Date().toISOString().slice(0, 10), // dagniveau: identieke no-op builds → identieke output (nodig voor de GHL-wijzigingslijst)
   META_DESC: esc(metaDesc),
   CANONICAL: esc(canonical),
   REGIO_KERN: esc(config.regio.kern),
@@ -1489,8 +1553,8 @@ function prospectRegel(c, positie) {
 }
 
 let pros = '# Prospectielijst — ' + config.vak.mvCap + ' in ' + config.regio.naam + '\n\n';
-pros += '_Intern document voor dasslim.be. Niet publiceren. Gegenereerd op ' +
-        new Date().toISOString().slice(0, 10) + ' · peildatum ' + config.peildatum + '._\n\n';
+pros += '_Intern document voor dasslim.be. Niet publiceren. Peildatum ' +
+        config.peildatum + '._\n\n';
 pros += 'Deze bedrijven staan **niet** op de publieke Keurwijzer-pagina, maar zijn ' +
         'waardevolle prospects. De publieke pagina toont enkel de ' + vignet + '.\n\n';
 pros += '---\n\n';

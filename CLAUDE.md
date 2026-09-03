@@ -25,7 +25,11 @@ Dat document is ook wat Cowork leest.
   ontbreekt het veld → nieuwste versie (`METHODIEK_LATEST` in `build.js`).
   **Bouw een NIEUWE pagina zonder het veld** — dan krijgt ze automatisch de beste
   logica. **Pin haar vast zodra ze online staat**, op de versie waarop ze gebouwd is;
-  dat is een vaste stap bij het publiceren, geen keuze. Alle 16 dakwerkerspagina's
+  dat is een vaste stap bij het publiceren, geen keuze. Vastzetten gaat met
+  `node build.js <slug> --pin`: dat neemt de versie over uit
+  `data/<slug>/selectie.json`, dus uit wat er werkelijk online staat. Vergeten kan
+  niet meer — bestaat er een `selectie.json` en ontbreekt de pin (of wijkt ze af),
+  dan **stopt de build**. Alle 16 dakwerkerspagina's
   staan zo vastgepind (v1 t/m v5). Verhoog `METHODIEK_LATEST` en voeg een nieuw
   versieblok toe om de logica te verbeteren; verhoog het versienummer van een
   bestaande config nooit zonder dat Olivier daar uitdrukkelijk om vraagt.

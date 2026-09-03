@@ -225,6 +225,7 @@ Worker-records en zet `A keurwijzer.be → 162.159.140.166` en
 | `config/<niche>/<slug>.json` | Vak, regio, gemeentelijst, peildatum. |
 | `data/<slug>/` | Ruwe scrape, genormaliseerde reviews, beoordeling. |
 | `data/whatsapp.json` | Doorgegeven WhatsApp-nummers. Wordt automatisch bijgewerkt uit de mailbox. |
+| `data/lastmod.json` | Per pagina de md5 van de laatste build en de datum waarop die veranderde. Voedt de sitemap-`lastmod`. Niet met de hand bijwerken. |
 | `reports/whatsapp-dagelijks.json` | Restant van de oude avondtaak (verwijderd op 2 september 2026). Wordt door niets meer gelezen of geschreven. |
 | `lib/whatsapp.js` | Leest en controleert die nummers; maakt de `wa.me`-link. |
 | `prompts/scoring-prompt.md` | Rubrieken voor de LLM-beoordeling. |
@@ -316,9 +317,16 @@ find .git -name "desktop.ini" -type f -delete
 De duurzame oplossing is de projectmap buiten Google Drive zetten, of `.git`
 uitsluiten van synchronisatie.
 
-**De sitemap zet één datum voor alles.** `lastmod` krijgt bij elke build de datum
-van die dag, voor álle pagina's, ook de ongewijzigde. Bouw je zonder inhoudelijke
-wijziging, dan meld je zoekmachines ten onrechte dat alles is bijgewerkt.
+**~~De sitemap zet één datum voor alles.~~ Verholpen op 3 september 2026.**
+`lastmod` kreeg bij elke build de datum van die dag, voor álle pagina's, ook de
+ongewijzigde — wie zonder inhoudelijke wijziging bouwde, meldde zoekmachines ten
+onrechte dat alles was bijgewerkt. `build-site.js` houdt nu in `data/lastmod.json`
+per pagina de md5 van `output/<slug>/index.html` bij en schuift de datum alleen op
+als die md5 verandert; hubs en homepage erven de jongste datum van wat eronder
+hangt. In dezelfde beweging zijn de twee andere builddatums uit de uitvoer gehaald
+(het commentaarblok bovenaan elke pagina en de kopregel van de prospectie-
+documenten dragen nu de peildatum), zodat een build op een nieuwe dag geen enkel
+bestand meer verandert dat inhoudelijk gelijk bleef.
 
 ---
 

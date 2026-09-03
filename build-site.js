@@ -15,6 +15,7 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const R = require('./lib/registry');
 
 const ROOT = __dirname;
@@ -254,16 +255,88 @@ if (fs.existsSync(homepagePath)) {
 }
 
 // ---------------- sitemap.xml -----------------------------------------
-const urls = [origin + '/'];
-for (const n of R.niches(registry)) urls.push(origin + n.url);
-for (const r of R.regios(registry)) urls.push(origin + r.url);
-for (const p of registry) urls.push(origin + p.url);
-const today = new Date().toISOString().slice(0, 10);
+// lastmod moet zeggen wanneer de PAGINA veranderde, niet wanneer de build liep.
+// Stond hier "vandaag" voor alle URL's, dan meldde elke build elke pagina als
+// gewijzigd — een signaal dat zichzelf waardeloos maakt, en bij 675 pagina's
+// ruis richting Google. Daarom houdt data/lastmod.json per slug de md5 van
+// output/<slug>/index.html bij: verandert die, dan (en alleen dan) schuift de
+// datum op naar vandaag. Hubs en homepage erven de jongste datum van wat
+// eronder hangt.
+const lastmodPad = path.join(ROOT, 'data', 'lastmod.json');
+const vandaag = new Date().toISOString().slice(0, 10);
+
+function leesLastmod() {
+  if (!fs.existsSync(lastmodPad)) return {};
+  try {
+    const j = JSON.parse(fs.readFileSync(lastmodPad, 'utf8'));
+    return (j && j.paginas) || {};
+  } catch (e) {
+    console.error('  ! data/lastmod.json is onleesbaar (' + e.message + ') — opnieuw opgebouwd.');
+    return {};
+  }
+}
+function md5Bestand(pad) {
+  if (!fs.existsSync(pad)) return null;
+  return crypto.createHash('md5').update(fs.readFileSync(pad)).digest('hex');
+}
+function peildatumVan(entry) {
+  try {
+    const cfg = JSON.parse(fs.readFileSync(
+      path.join(ROOT, 'config', entry.niche, entry.slug + '.json'), 'utf8'));
+    return cfg.peildatum || vandaag;
+  } catch (e) { return vandaag; }
+}
+
+const vorige = leesLastmod();
+const nieuweLastmod = {};
+const datumPerSlug = new Map();
+let verschoven = 0;
+for (const e of registry) {
+  const md5 = md5Bestand(path.join(ROOT, 'output', e.slug, 'index.html'));
+  const oud = vorige[e.slug];
+  let datum;
+  if (!oud) {
+    // Eerste vulling: de peildatum van de pagina, niet de dag waarop deze
+    // wijziging toevallig werd doorgevoerd.
+    datum = peildatumVan(e);
+  } else if (md5 && oud.md5 && md5 !== oud.md5) {
+    datum = vandaag;
+    verschoven++;
+  } else {
+    datum = oud.datum || peildatumVan(e);
+  }
+  nieuweLastmod[e.slug] = { md5: md5 || (oud && oud.md5) || null, datum };
+  datumPerSlug.set(e.slug, datum);
+}
+fs.writeFileSync(lastmodPad, JSON.stringify({
+  _uitleg: 'Per pagina: de md5 van output/<slug>/index.html bij de vorige build en de ' +
+           'datum waarop die voor het laatst veranderde. build-site.js gebruikt dat als ' +
+           'sitemap-lastmod, zodat alleen echt gewijzigde pagina\'s een nieuwe datum ' +
+           'krijgen. Niet met de hand bijwerken.',
+  paginas: nieuweLastmod,
+}, null, 2) + '\n');
+
+const jongste = (slugs) => slugs.map(x => datumPerSlug.get(x)).filter(Boolean)
+  .sort().slice(-1)[0] || vandaag;
+
+const urls = [];
+urls.push({ loc: origin + '/', lastmod: jongste(registry.map(e => e.slug)) });
+for (const n of R.niches(registry))
+  urls.push({ loc: origin + n.url,
+              lastmod: jongste(registry.filter(e => e.niche === n.niche).map(e => e.slug)) });
+for (const r of R.regios(registry))
+  urls.push({ loc: origin + r.url,
+              lastmod: jongste(registry.filter(e => e.regioSlug === r.regioSlug).map(e => e.slug)) });
+for (const e of registry)
+  urls.push({ loc: origin + e.url, lastmod: datumPerSlug.get(e.slug) });
+
 const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n' +
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-  urls.map(u => '  <url><loc>' + esc(u) + '</loc><lastmod>' + today + '</lastmod></url>').join('\n') +
+  urls.map(u => '  <url><loc>' + esc(u.loc) + '</loc><lastmod>' + u.lastmod + '</lastmod></url>').join('\n') +
   '\n</urlset>\n';
 write('sitemap.xml', sitemap);
+if (verschoven) console.log('  · lastmod bijgewerkt naar ' + vandaag + ' voor ' + verschoven +
+                            ' gewijzigde pagina(\'s)');
 
 // ---------------- robots.txt ------------------------------------------
 // Keurwijzer wil maximaal vindbaar zijn: in klassieke zoekmachines én in

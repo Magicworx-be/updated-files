@@ -1,0 +1,69 @@
+{
+  "_uitleg": "Per pagina: de md5 van output/<slug>/index.html bij de vorige build en de datum waarop die voor het laatst veranderde. build-site.js gebruikt dat als sitemap-lastmod, zodat alleen echt gewijzigde pagina's een nieuwe datum krijgen. Niet met de hand bijwerken.",
+  "paginas": {
+    "dakwerkers-aalst": {
+      "md5": "97dc71e152cd52d9af605e19b9b1492e",
+      "datum": "2026-07-23"
+    },
+    "dakwerkers-antwerpen": {
+      "md5": "12e7ebb977eb1e4cd70fec199cd20016",
+      "datum": "2026-08-31"
+    },
+    "dakwerkers-brasschaat": {
+      "md5": "2d74b2554c0f2006a6e71f81680daa68",
+      "datum": "2026-09-01"
+    },
+    "dakwerkers-brugge": {
+      "md5": "413f10b653655d3bf37f054d4f25b47c",
+      "datum": "2026-08-28"
+    },
+    "dakwerkers-dendermonde": {
+      "md5": "0a348c45302e5a0a31598cdbf8ba54d2",
+      "datum": "2026-08-27"
+    },
+    "dakwerkers-gent": {
+      "md5": "318aacb42ef7051577e73a7d2a23065d",
+      "datum": "2026-07-17"
+    },
+    "dakwerkers-ieper": {
+      "md5": "4e68f6a6c16cd0f5bbd7bbf901ef24ac",
+      "datum": "2026-08-28"
+    },
+    "dakwerkers-kortrijk": {
+      "md5": "aee3b8cc14c04d898d7b6b37ef4f2fff",
+      "datum": "2026-08-31"
+    },
+    "dakwerkers-mechelen": {
+      "md5": "285c2f60c03aaf4caef80778e13830b8",
+      "datum": "2026-09-01"
+    },
+    "dakwerkers-meetjesland": {
+      "md5": "2abbd9328e80262d060be8b28928fec9",
+      "datum": "2026-07-23"
+    },
+    "dakwerkers-oostende": {
+      "md5": "15771035dbc63885852476d87017682f",
+      "datum": "2026-08-28"
+    },
+    "dakwerkers-oudenaarde": {
+      "md5": "14768837ef851be7bbf19d46e9cfda9b",
+      "datum": "2026-08-27"
+    },
+    "dakwerkers-roeselare": {
+      "md5": "0cca37d1825a26f0643256cf7281855c",
+      "datum": "2026-08-28"
+    },
+    "dakwerkers-sint-niklaas": {
+      "md5": "f44f312baf0456b7d0de2b7cb52906e9",
+      "datum": "2026-08-19"
+    },
+    "dakwerkers-tielt": {
+      "md5": "2bfbe8b73768c0f746d1d1916c889bf8",
+      "datum": "2026-08-28"
+    },
+    "dakwerkers-veurne-diksmuide": {
+      "md5": "67ce33087ea20aa74fc2ca4bae537732",
+      "datum": "2026-08-28"
+    }
+  }
+}
