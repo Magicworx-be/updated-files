@@ -28,6 +28,16 @@ test('§2 — onder de reviewdrempel valt een bedrijf weg, erop komt het erin', 
   assert.strictEqual(RK.MIN_REVIEWS, 10, 'de drempel zelf is publiek en ligt vast');
 });
 
+test('§2 — de publicatiedrempel ligt op 15: 14 is "niet publicabel", 15 wel', () => {
+  // Opname (≥10) en publicatie (≥15 vanaf v2) zijn twee verschillende drempels.
+  const veertien = S.regio({ extra: [S.bedrijf('Kandidaat', 14, S.reviews(14, 6))] });
+  const vijftien = S.regio({ extra: [S.bedrijf('Kandidaat', 15, S.reviews(15, 6))] });
+  assert.strictEqual(S.isEligible(veertien, 'Kandidaat'), true, '14 ≥ MIN_REVIEWS, dus opgenomen');
+  assert.strictEqual(veertien.isPublishable(veertien.eligible.find(c => c.naam === 'Kandidaat')), false);
+  assert.strictEqual(vijftien.isPublishable(vijftien.eligible.find(c => c.naam === 'Kandidaat')), true);
+  assert.strictEqual(RK.METHODIEK_PARAMS[5].PUBLISH_MIN_REVIEWS, 15);
+});
+
 test('§2 — minder dan drie reviews in 24 maanden valt weg', () => {
   const twee = S.regio({ extra: [S.bedrijf('Kandidaat', 12, [...S.reviews(2, 6), ...S.reviews(10, 40)])] });
   const drie = S.regio({ extra: [S.bedrijf('Kandidaat', 13, [...S.reviews(3, 6), ...S.reviews(10, 40)])] });
@@ -109,6 +119,27 @@ test('§2 — v1/v2/v3 kennen de vakspecialist-eis niet', () => {
 // ---------------------------------------------------------------------
 // Rommelige data — § 2 en § 3
 // ---------------------------------------------------------------------
+
+test('§2 — nul bruikbare reviews valt weg, ook met een hoog Google-aantal', () => {
+  // Google meldt 40 reviews, maar geen enkele heeft een bruikbare datum én score.
+  // Er valt dan niets te wegen, dus het bedrijf kan niet meedingen.
+  const res = S.regio({ extra: [S.bedrijf('Onbruikbaar', 40, [
+    { datum: 'geen datum', score: 5 }, { datum: '2025-07-01' }, { score: 4 },
+  ])] });
+  const c = res.bedrijven.find(x => x.naam === 'Onbruikbaar');
+  assert.strictEqual(c.nOK, 0);
+  assert.strictEqual(c.vw, 0);
+  assert.strictEqual(c.Rw, null, 'zonder gewicht is er geen gewogen gemiddelde');
+  assert.strictEqual(S.isEligible(res, 'Onbruikbaar'), false);
+  assert.ok(res.warnings.some(w => w.includes('Onbruikbaar') && w.includes('slechts 0 van 40')),
+    'zo groot verschil tussen wat Google telt en wat bruikbaar is, hoort gemeld te worden');
+});
+
+test('een leeg reviews-veld laat de build niet struikelen', () => {
+  const res = S.regio({ extra: [S.bedrijf('Leeg', 12, undefined)] });
+  assert.strictEqual(S.isEligible(res, 'Leeg'), false);
+  assert.strictEqual(res.bedrijven.find(x => x.naam === 'Leeg').nOK, 0);
+});
 
 test('een review zonder datum of zonder score telt niet mee', () => {
   const res = S.regio({ extra: [S.bedrijf('Kandidaat', 20, [
