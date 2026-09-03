@@ -1,6 +1,6 @@
 KEURWIJZER CONTROLERAPPORT — dakwerkers-mechelen  (variant: Top 10-concept, geen zichtbare score)
 Peildatum: 2026-09-01 · Prior C (regiogemiddelde, tijdsgewogen): 4.637
-Methodiek-versie: 5 (nieuwste, standaard)  ·  vertrouwen-vloer 4.0→0, 5.0→1  ·  recentheid vol bij 10 reviews/24m  ·  publicatiedrempel ≥15 reviews
+Methodiek-versie: 5 (vastgepind in config)  ·  vertrouwen-vloer 4.0→0, 5.0→1  ·  recentheid vol bij 10 reviews/24m  ·  publicatiedrempel ≥15 reviews
 Opnamecriteria: gemeente in lijst, ≥10 reviews, ≥3 in 24m
 Vakdefinitie (v5+, bindend voor vakfocus):
     KERN   het zelf plaatsen, vernieuwen of herstellen van de dakbedekking van een gebouw — hellende daken (pannen, leien, riet) en platte daken (roofing, bitumen, EPDM, zink)

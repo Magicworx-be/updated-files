@@ -22,12 +22,16 @@ Dat document is ook wat Cowork leest.
 - **Methodiek-versies.** Interne kalibratie die de publieke paginatekst niet noemt
   (vertrouwen-vloer, recentheid-anker, publicatiedrempel, LLM-run-middeling) staat
   in `METHODIEK_PARAMS` in `build.js`, per versie. Elke config draagt `"methodiek": N`;
-  ontbreekt het veld → nieuwste versie (`METHODIEK_LATEST` in `build.js`). **Bestaande
-  pagina's staan vastgepind en mogen nooit veranderen; nieuwe pagina's krijgen altijd
-  automatisch de nieuwste versie (op dit moment v4) — pin een nieuwe config nooit op een
-  versienummer.**
-  Verhoog `METHODIEK_LATEST` en voeg een nieuw versieblok toe om de logica te
-  verbeteren — pin bestaande configs nooit los. **v4** voegt twee versie-gestuurde
+  ontbreekt het veld → nieuwste versie (`METHODIEK_LATEST` in `build.js`).
+  **Bouw een NIEUWE pagina zonder het veld** — dan krijgt ze automatisch de beste
+  logica. **Pin haar vast zodra ze online staat**, op de versie waarop ze gebouwd is;
+  dat is een vaste stap bij het publiceren, geen keuze. Alle 16 dakwerkerspagina's
+  staan zo vastgepind (v1 t/m v5). Verhoog `METHODIEK_LATEST` en voeg een nieuw
+  versieblok toe om de logica te verbeteren; verhoog het versienummer van een
+  bestaande config nooit zonder dat Olivier daar uitdrukkelijk om vraagt.
+  Vastpinnen en het selectieslot doen verschillende dingen en vullen elkaar aan:
+  de pin bevriest de *rekenwijze*, het slot bewaakt de *uitkomst* (welke bedrijven,
+  in welke volgorde). **v4** voegt twee versie-gestuurde
   selectieregels toe: een **vakspecialist-eis** (eligible vergt vakfocus ≥ `VAKFOCUS_FLOOR`
   = 2,5, zodat bedrijven van een ander vak wegvallen) en **diepte op het aantal eligible
   specialisten** (≥10 → Top 10, volgorde zuiver op composite; ≥15 blijft enkel een

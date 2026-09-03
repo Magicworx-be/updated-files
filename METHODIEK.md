@@ -58,12 +58,14 @@ recent)** zijn **identiek in elke versie**. Dat is de publieke belofte: *dezelfd
 methode voor elk bedrijf in elke regio.* Wat een versie verandert, is uitsluitend
 **interne kalibratie die de publieke paginatekst niet noemt**.
 
-Elke pagina kan een versie in haar config dragen (`"methodiek": 1`). Ontbreekt het
-veld, dan gebruikt `build.js` de nieuwste versie, zodat nieuwe pagina's automatisch
-de beste logica krijgen.
+Een pagina wordt gebouwd op de nieuwste versie en krijgt daarna, zodra ze online
+staat, die versie vastgepind in haar config (`"methodiek": 5`). Ontbreekt het veld,
+dan gebruikt `build.js` de nieuwste versie — dat is de toestand tussen bouwen en
+publiceren in. **Alle gepubliceerde pagina's dragen een pin** (v1 t/m v5); de
+rekenwijze van een pagina die online staat ligt daarmee vast.
 
-**Wat een gepubliceerde pagina beschermt, is niet dat versienummer maar het
-selectieslot.** Bij de eerste build legt `build.js` de gepubliceerde lijst vast in
+Daar bovenop komt een tweede slot, dat niet de rekenwijze maar de **uitkomst**
+bewaakt. Bij de eerste build legt `build.js` de gepubliceerde lijst vast in
 `data/<slug>/selectie.json` — welke bedrijven, in welke volgorde. Levert een latere
 build een andere lijst op, dan **stopt de build** en wordt er niets geschreven of
 gepubliceerd. De volgorde telt mee, omdat de kwaliteitsbadges hun tekst uit de rang

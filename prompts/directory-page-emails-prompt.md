@@ -69,13 +69,23 @@ correct province), `gemeenten`, `zoektermen` (three variants with the niche term
 {{REGIO}}), `peildatum`, `updateDatum`, `hero` (`img` from Phase 0; `alt` adjusted to
 niche + {{REGIO}}).
 
-**Methodology version.** A new page ALWAYS uses the newest methodiek version. Do not
-include a `methodiek` field in a new config: `build.js` then automatically applies the
-latest version (`METHODIEK_LATEST` in `build.js`). Never pin a new config to a specific
-version number, and don't hard-code "the newest version is vN" anywhere — read the
-current newest version and its rules from METHODIEK.md § Methodiek-versies. Only existing
-pages are deliberately pinned (e.g. the three original roofers pages at `"methodiek": 1`);
-those stay frozen and must never change.
+**Methodology version.** A new page ALWAYS *builds* on the newest methodiek version.
+While creating the config, do NOT include a `methodiek` field: `build.js` then applies
+the latest version (`METHODIEK_LATEST`) automatically. Don't hard-code "the newest
+version is vN" anywhere — read the current newest version and its rules from
+METHODIEK.md § Methodiek-versies.
+
+**Pin it once the page is online** (end of Phase 5, right after `node build-all.js`
+reports the page live): read the version from the control report
+(`reports/<slug>/<slug>-rapport.txt`, line "Methodiek-versie: N") and write that exact
+number into the config as `"methodiek": N`. Then rebuild once and verify the page is
+**byte-for-byte identical** — pinning to the version it already used must change
+nothing. Every published page carries a pin this way; never raise the number on an
+existing config unless Olivier explicitly asks.
+
+Pinning freezes the *calculation*. The selection lock
+(`data/<slug>/selectie.json`, see CLAUDE.md) guards the *outcome* — which companies,
+in which order. They are complementary; both stay in place.
 
 **`peildatum` (ISO, YYYY-MM-DD)** = the date the Apify data was scraped (≈ today for
 fresh data). It's the anchor point for the 24-month recency window and for relative
