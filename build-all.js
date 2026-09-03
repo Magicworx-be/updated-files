@@ -323,8 +323,8 @@ if (GEEN_PUSH) {
   console.log('› --geen-push: site, registry en badges NIET gepubliceerd (lokale build).');
 } else {
   // 6) de statische site publiceren naar Cloudflare (via de site-repo op GitHub).
-  //    Doet niets zolang GITHUB_SITE_REPO niet in .env staat — de build blijft
-  //    dan exact werken zoals voorheen.
+  //    Ontbreekt GITHUB_SITE_REPO in .env, dan stopt push-site.js met exitcode 1:
+  //    er ging niets live, en dat hoort in de eindsamenvatting te staan.
   try {
     execFileSync('node', [path.join(ROOT, 'lib', 'push-site.js')], { stdio: 'inherit' });
   } catch { siteMislukt = true; /* fout wordt al gemeld door push-site.js */ }
