@@ -106,6 +106,26 @@ const esc = (s) => String(s == null ? '' : s)
 
 const datumOf = (w) => w ? esc(w) : '<span class="leeg">—</span>';
 
+// Het WhatsApp-nummer als klikbare link naar WhatsApp Desktop.
+//
+// Het nummer staat genormaliseerd in het logboek ("32475123456", zie
+// lib/whatsapp.js). Hier tonen we het zoals een Belg het schrijft — 0475 12 34 56 —
+// want dit dashboard leest een mens, geen machine.
+//
+// `whatsapp://send?phone=` opent de geïnstalleerde WhatsApp Desktop meteen in het
+// gesprek met dat nummer. Bewust NIET `wa.me`: dat gaat eerst langs de browser en
+// WhatsApp Web, en dat is een omweg van twee klikken. Op de publieke pagina blijft
+// wa.me wél de juiste keuze — daar weet je niet wat de bezoeker geïnstalleerd heeft.
+// Staat WhatsApp niet geïnstalleerd, dan gebeurt er bij het klikken niets.
+function waLink(nummer) {
+  const cijfers = String(nummer).replace(/\D/g, '');
+  const leesbaar = /^32\d{9}$/.test(cijfers)
+    ? '0' + cijfers.slice(2, 5) + ' ' + cijfers.slice(5, 7) + ' ' + cijfers.slice(7, 9) + ' ' + cijfers.slice(9)
+    : '+' + cijfers;
+  return '<a class="wa" href="whatsapp://send?phone=' + esc(cijfers) + '"' +
+    ' title="Opent WhatsApp Desktop in het gesprek met ' + esc(leesbaar) + '">' + esc(leesbaar) + '</a>';
+}
+
 function balk(telling, totaal) {
   // Eén staaf per regio, opgedeeld in toestanden. 2px tussenruimte tussen de
   // stukken, zoals de mark-specs voorschrijven, zodat de grenzen leesbaar
@@ -121,7 +141,7 @@ function balk(telling, totaal) {
 const rijHtml = (r) => {
   const t = toestand(r);
   return '<tr data-toestand="' + t + '" data-zoek="' +
-    esc((r.bedrijf + ' ' + REGIO(r.slug) + ' ' + (r.email || '') + (r.zelfAfhandelen ? ' olivier zelf' : '') + (r.historisch ? ' historisch' : '')).toLowerCase()) + '">' +
+    esc((r.bedrijf + ' ' + REGIO(r.slug) + ' ' + (r.email || '') + ' ' + (r.whatsapp.nummer || '') + (r.zelfAfhandelen ? ' olivier zelf' : '') + (r.historisch ? ' historisch' : '')).toLowerCase()) + '">' +
     '<td class="naam">' + esc(r.bedrijf) +
       (r.historisch ? ' <span class="vlag" title="Benaderd vóór het logboek bestond; details staan alleen in Gmail">historisch</span>' : '') +
       (r.zelfAfhandelen ? ' <span class="vlag zelf" title="Olivier voert dit gesprek zelf — de mailrondes maken hier nooit een draft">Olivier zelf</span>' : '') +
@@ -131,7 +151,7 @@ const rijHtml = (r) => {
     '<td>' + datumOf(r.mail1.verstuurdOp) + '</td>' +
     '<td>' + (r.antwoord ? esc(r.antwoord.datum) + ' <span class="soort">' + esc(r.antwoord.soort) + '</span>' : '<span class="leeg">—</span>') + '</td>' +
     '<td>' + datumOf(r.opvolg1.verstuurdOp) + '</td>' +
-    '<td>' + (r.whatsapp.nummer ? '<span class="ja">ja</span>' : '<span class="leeg">—</span>') + '</td>' +
+    '<td>' + (r.whatsapp.nummer ? waLink(r.whatsapp.nummer) : '<span class="leeg">—</span>') + '</td>' +
     '<td>' + (r.badge.geplaatstOp ? '<span class="ja">geplaatst</span>'
               : r.badge.gevraagdOp ? '<span class="wacht">beloofd</span>' : '<span class="leeg">—</span>') + '</td>' +
     '</tr>';
@@ -187,6 +207,9 @@ const html = `<!doctype html>
   .soort, .vlag { font-size: 11px; padding: 1px 6px; border-radius: 20px; border: 1px solid var(--rand); color: var(--ink2); white-space: nowrap; }
   .vlag.zelf { border-color: var(--s2); color: var(--s2); }
   .ja { color: var(--s3); font-weight: 600; }
+  .wa { color: var(--s3); font-weight: 600; text-decoration: none; white-space: nowrap;
+        border-bottom: 1px dotted var(--s3); }
+  .wa:hover { border-bottom-style: solid; }
   .wacht { color: var(--s2); font-weight: 600; }
   .stip { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; vertical-align: baseline; }
 

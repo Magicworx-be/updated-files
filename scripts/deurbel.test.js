@@ -196,3 +196,12 @@ test('een onbruikbare datum geeft null, geen crash', () => {
   assert.strictEqual(outreach.lokaleDatum('geen datum'), null);
   assert.strictEqual(outreach.lokaleDatum(''), null);
 });
+
+test('het logboek normaliseert elk WhatsApp-nummer naar landcode + cijfers', () => {
+  // whatsapp.json mag elk formaat bevatten; het logboek niet. Een ruw nummer
+  // leverde in het dashboard een dode whatsapp://-link op.
+  const { normaliseerNummer } = require('../lib/whatsapp');
+  assert.strictEqual(normaliseerNummer('0475 59 59 71'), '32475595971');
+  assert.strictEqual(normaliseerNummer('0472/092098'), '32472092098');
+  assert.strictEqual(normaliseerNummer('+32 488 88 00 08'), '32488880008');
+});
