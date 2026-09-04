@@ -345,6 +345,18 @@ de verslagmail zeggen dat de bevestigingsmail eerst moet.
 **Zeg dat er in je verslag bij** (stap 6): eerst de mail versturen, dan pas op de
 WhatsApp-knop tikken. Draaide het script niets klaar terwijl je wél een bevestigingsmail
 maakte, meld dat dan — dan klopt er iets niet.
+
+**Hang die HTML nooit als bijlage in het gesprek.** Het bestandspaneel van de app kan
+géén links volgen ("This tab shows a single file and can't follow links"), dus de knop
+doet daar niets en het lijkt alsof de opzet stuk is. Op 4 september 2026 kostte dat een
+volledige heen-en-weer. Open in de plaats het échte bestand op zijn laptop:
+
+    Invoke-Item "<projectmap>\reports\whatsapp-berichten.html"
+
+Zeg er meteen bij dat hij de **groene** knop "Openen in WhatsApp" moet nemen en niet het
+grijze "of via de browser" ernaast — dat laatste is het vangnet en geeft wél het
+tussenscherm van WhatsApp. Getest en werkend bevonden op 4 september 2026: WhatsApp
+Desktop opent met het bericht er al in.
 - **Staat het er niet** → laat `Label_3` staan en meld welk bedrijf blijft wachten, met
   de reden. Een thread mag nooit stil in de wachtstand blijven zonder dat Olivier weet
   waarom.
