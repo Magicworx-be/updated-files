@@ -327,6 +327,24 @@ staat:
 
   **Nooit omgekeerd.** De eerste zin van die mail zegt dat het nummer erbij staat — dus
   maak de draft pas nadat je dat op de live pagina gezien hebt.
+
+**Zet daarna meteen de WhatsApp-berichten klaar** — in dezelfde ronde, niet later:
+
+    node scripts/whatsapp-nabericht.js --nu
+
+Dat schrijft `reports/whatsapp-berichten.html` (knoppen die WhatsApp Desktop openen) en
+mailt Olivier dezelfde links. Zonder `--nu` wacht het script een uur na de
+bevestigingsmail en vindt het in deze ronde nog niets.
+
+Olivier vroeg dit op 4 september 2026 zelf: het uur bestond om te vermijden dat het
+testberichtje vóór de aankondiging aankomt, maar hij verstuurt zélf — en een stap die hij
+een uur later moet onthouden, gebeurt niet. Dan krijgt het bedrijf nooit iets. De
+volgorde wordt nu bewaakt met woorden in plaats van met tijd: zowel de knoppenpagina als
+de verslagmail zeggen dat de bevestigingsmail eerst moet.
+
+**Zeg dat er in je verslag bij** (stap 6): eerst de mail versturen, dan pas op de
+WhatsApp-knop tikken. Draaide het script niets klaar terwijl je wél een bevestigingsmail
+maakte, meld dat dan — dan klopt er iets niet.
 - **Staat het er niet** → laat `Label_3` staan en meld welk bedrijf blijft wachten, met
   de reden. Een thread mag nooit stil in de wachtstand blijven zonder dat Olivier weet
   waarom.
@@ -348,7 +366,8 @@ is niet technisch: geen bestandspaden, geen commando's, geen jargon.
    hij het zelf moet doen.
 4. **Elke scenario 3**, met één regel over wat ze eigenlijk vragen.
 5. **Voor wie de bevestigingsmail klaarstaat** — bedrijf en regio, met de melding dat
-   het enkel nog versturen is.
+   het enkel nog versturen is. **En voor wie er een WhatsApp-bericht klaarstaat**, met
+   de volgorde erbij: eerst de mail versturen, dan pas op de knop tikken.
 6. **Welke threads van "Wacht op WhatsApp" naar "Verzenden" gingen** — dat is zijn sein
    dat hij die bedrijven mag beantwoorden — en welke blijven wachten, met de reden.
 

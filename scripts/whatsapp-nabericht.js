@@ -37,6 +37,8 @@
  * Gebruik:
  *   node scripts/whatsapp-nabericht.js --droog       toont wat het zou doen, wijzigt niets
  *   node scripts/whatsapp-nabericht.js               zet de berichten klaar en mailt ze
+ *   node scripts/whatsapp-nabericht.js --nu          zonder het wachtuur — voor de mailronde,
+ *                                                    die de knop naast de draft klaarzet
  *   node scripts/whatsapp-nabericht.js --overslaan   boekt alles wat klaarstaat af zonder
  *                                                    bericht — die bedrijven krijgen niets
  *
@@ -60,6 +62,20 @@ const DROOG = process.argv.includes('--droog');
 // code: wil je er later toch een sturen, dan haal je die rij met de hand uit
 // data/outreach.json.
 const OVERSLAAN = process.argv.includes('--overslaan');
+// --nu: het wachtuur overslaan. Bedoeld voor de mailronde, die de berichten
+// klaarzet op hetzelfde moment als de bevestigingsdraft — dan is er nog geen
+// uur verstreken en zou de gewone regel niets vinden.
+//
+// Waarom dat mag: het uur beschermde niet het klaarzetten maar het versturen,
+// en versturen doet Olivier zelf. Een klaarstaande knop verstuurt niets. Hij
+// vroeg er op 4 september 2026 zelf om — een stap die hij een uur later moet
+// onthouden, gebeurt niet, en dan krijgt het bedrijf nooit een bericht.
+//
+// Wat je hiermee WEL kan breken: tik je de knop aan vóór de bevestigingsmail
+// vertrokken is, dan valt het "testberichtje" uit de lucht bij een bedrijf dat
+// zijn nummer gaf om het op een pagina te zetten. Daarom noemt zowel de
+// knoppenpagina als de verslagmail die volgorde uitdrukkelijk.
+const NU = process.argv.includes('--nu');
 const VANDAAG = outreach.vandaagISO();
 
 const LOGBESTAND = path.join(WORTEL, 'reports', 'whatsapp-nabericht.log');
@@ -264,11 +280,14 @@ function bouwPagina(klaar, vandaag) {
   .knop { display: inline-block; background: var(--groen); color: #fff; text-decoration: none;
           padding: .6rem 1.1rem; border-radius: 8px; font-weight: 600; }
   .klein { color: var(--zacht); font-size: .9rem; margin-left: .9rem; }
+  .volgorde { border-left: 3px solid var(--groen); padding: .1rem 0 .1rem 1rem; margin: 0 0 1.75rem; }
   footer { color: var(--zacht); font-size: .9rem; margin-top: 2rem; }
 </style>
 <main>
   <h1>${hoeveel}</h1>
   <p class="kop">Klaargezet op ${esc(vandaag)}. Klik op de knop, kijk het bericht na in WhatsApp en verstuur het zelf.</p>
+  <p class="volgorde">Verstuur eerst de bevestigingsmail. Die kondigt dit testberichtje aan &mdash;
+  komt het bericht eerst, dan valt het uit de lucht.</p>
 ${kaarten}
   <footer>Elk bedrijf staat hier één keer, ooit. Verstuur je er een niet, dan blijft dat bedrijf
   verder met rust — dat is met opzet zo. Deze pagina wordt bij de volgende ronde overschreven.</footer>
@@ -313,6 +332,9 @@ function stelVerslagOp(klaar, aandacht, storingen) {
       for (const regel of k.bericht.split('\n')) r.push('   > ' + regel);
       r.push('');
     });
+    r.push('Verstuur eerst de bevestigingsmail, dan pas het WhatsApp-bericht. Die mail kondigt');
+    r.push('het testberichtje aan; komt het bericht eerst, dan valt het uit de lucht.');
+    r.push('');
     r.push('Zit je aan je laptop? Dubbelklik dan reports\\whatsapp-berichten.html in de');
     r.push('projectmap. Daar staat per bedrijf een knop die WhatsApp Desktop meteen opent,');
     r.push('zonder het tussenscherm van de browser.');
@@ -321,7 +343,9 @@ function stelVerslagOp(klaar, aandacht, storingen) {
     r.push('dan blijft dat bedrijf verder met rust — dat is met opzet zo.');
   } else {
     r.push('Er staat geen enkel WhatsApp-bericht klaar. Dat betekent dat er de voorbije twee dagen');
-    r.push('geen bevestigingsmail vertrok waarvan het uur al om is.');
+    r.push(NU
+      ? 'geen bevestigingsmail klaarstond of vertrok voor een bedrijf dat er nog geen bericht van kreeg.'
+      : 'geen bevestigingsmail vertrok waarvan het uur al om is.');
   }
   r.push('');
 
@@ -410,7 +434,8 @@ async function hoofdlijn() {
       extra.set(rij.sleutel, { voornaam: voornaamUit(mail.tekst), mailOm: outreach.lokaleTijd(mail.datum) });
     }
 
-    const kandidaten = outreach.naberichtKandidaten(boek.rijen, momenten);
+    const kandidaten = outreach.naberichtKandidaten(
+      boek.rijen, momenten, new Date(), NU ? { minuten: 0 } : {});
 
     const klaar = [];
     for (const rij of kandidaten) {

@@ -2,7 +2,7 @@
   "_uitleg": "Per pagina: de md5 van output/<slug>/index.html bij de vorige build en de datum waarop die voor het laatst veranderde. build-site.js gebruikt dat als sitemap-lastmod, zodat alleen echt gewijzigde pagina's een nieuwe datum krijgen. Niet met de hand bijwerken.",
   "paginas": {
     "dakwerkers-aalst": {
-      "md5": "3acd154db9504aa215b434cc8dd53346",
+      "md5": "3e60b8bd091a404430eb1a424c5f5597",
       "datum": "2026-09-04"
     },
     "dakwerkers-antwerpen": {
@@ -58,7 +58,7 @@
       "datum": "2026-09-04"
     },
     "dakwerkers-tielt": {
-      "md5": "77265a82fc810ff5f76920abf2d93b8d",
+      "md5": "daeb3d43fc15b9acbc30b65801581ff5",
       "datum": "2026-09-04"
     },
     "dakwerkers-veurne-diksmuide": {
