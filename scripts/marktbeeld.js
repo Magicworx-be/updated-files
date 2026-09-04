@@ -2,54 +2,81 @@
 // =====================================================================
 // scripts/marktbeeld.js — het marktrapport van één regio
 //
-// Maakt reports/<slug>/<slug>-marktbeeld.html: één bestand dat je dubbelklikt,
-// met wat de openbare Google-reviews zeggen over de MARKT waarin een vak in een
-// regio werkt. Omvang, reviewvolume, sterren, activiteit, groei, seizoen en
-// spreiding over de gemeenten.
+// Maakt reports/<slug>/<slug>-marktbeeld.html: wat de openbare Google-reviews
+// zeggen over de markt waarin een vak in een regio werkt. Eén bestand dat je
+// dubbelklikt, geen server, werkt offline.
 //
-// WAAROM DIT VEILIG IS OM TE DELEN — en waarom dat zo moet blijven.
-// Anders dan de twee andere bestanden in reports/<slug>/ (het controlerapport
-// en het prospectiedocument) is dít rapport wél bedoeld om buiten de deur te
-// gaan. Dat kan om precies één reden: er staat geen enkel bedrijf in. Alles is
-// geaggregeerd — tellingen, medianen, verdelingen. Daardoor kan het rapport de
-// positie van niemand beïnvloeden en raakt het geen van de twee gemeten inputs
-// van de methodiek (de Google-reviews en de eigen website van een bedrijf).
+// ---------------------------------------------------------------------
+// WAAROVER DIT RAPPORT GAAT — de belangrijkste beslissing in dit bestand
+// ---------------------------------------------------------------------
+// De scraper haalt alles op wat bovenkomt bij een zoektocht naar het vak.
+// Dat zijn lang niet allemaal vakmensen: in Antwerpen zaten er een
+// bedrijfskledingzaak, een koffiehuis en een bouwmaterialenhandel tussen. De
+// tien bedrijven met de MEESTE reviews in die ruwe verzameling waren er nul
+// die daadwerkelijk daken leggen. Een rapport over die verzameling zou dus
+// onzin vertellen over "de dakwerkersmarkt".
+//
+// Daarom gaat dit rapport over precies één groep:
+//
+//     bedrijven die de reviewdrempels halen (>= MIN_REVIEWS reviews en
+//     >= MIN_RECENT in 24 maanden) ÉN vakspecialist zijn
+//     (vakfocus >= VAKFOCUS_FLOOR uit beoordeling.json).
+//
+// Die grens is niet willekeurig — ze is de enige die in élke regio volledig
+// gekend is. Gecontroleerd over alle 16 regio's: er is geen enkel bedrijf dat
+// de reviewdrempels haalt en niet beoordeeld is. Van wie eronder zit weten we
+// vaak níét of het een vakman is, want die is nooit beoordeeld. Zouden we die
+// meenemen, dan zou het rapport stilzwijgend scheef staan — en dat is erger
+// dan een zichtbare fout, want niemand die het naleest zou het merken.
+//
+// Over bedrijven onder de drempel doet dit rapport dus GEEN uitspraak. Niet
+// hoeveel het er zijn, niet of ze goed werk leveren, zelfs niet of het
+// vakmensen zijn. Dat staat ook zo in de verantwoording op de pagina zelf.
+//
+// ---------------------------------------------------------------------
+// WAAROM DIT VEILIG IS OM TE DELEN
+// ---------------------------------------------------------------------
+// Anders dan het controlerapport en het prospectiedocument in dezelfde map is
+// dit rapport bedoeld om buiten de deur te gaan — publiek zelfs. Dat kan om
+// precies één reden: er staat geen enkel bedrijf in. Alles is geaggregeerd.
+// Daardoor kan het rapport de positie van niemand beïnvloeden en raakt het
+// geen van de twee gemeten inputs van de methodiek (de Google-reviews en de
+// eigen website van een bedrijf).
 //
 //   Zet hier dus NOOIT bedrijfsnamen, adressen, mailadressen of losse scores
 //   in, ook niet "even" voor intern gebruik. Dan is het rapport niet langer
 //   deelbaar en verliest het meteen zijn hele bestaansreden.
 //
-// De drempels (minimaal aantal reviews, minimaal aantal recente) worden NIET
-// hier opgeschreven maar uit lib/rekenkern.js gehaald. Verandert de methodiek,
-// dan verandert dit rapport mee — er is geen tweede plek waar die getallen
-// staan en dus niets dat uit de pas kan lopen.
+// Om dezelfde reden weigert het script een regio met minder dan
+// MIN_VOOR_RAPPORT specialisten. Bij vier bedrijven is "één scoort onder 4,0"
+// geen statistiek meer maar een vingerwijzing, en is elk aandeel per definitie
+// 100%. Zwijgen is daar het eerlijke antwoord.
+//
+// Alle drempels komen uit lib/rekenkern.js en het aantal gemeenten uit
+// regions.txt via lib/registry.js. Nooit hier overtypen: verandert de
+// methodiek, dan verandert dit rapport mee.
 //
 // Het rapport leest alleen; het schrijft niets in data/ en publiceert niets.
 //
 // Gebruik:
 //   node scripts/marktbeeld.js dakwerkers-gent
 //   node scripts/marktbeeld.js dakwerkers-gent --open    (en meteen tonen)
-//   node scripts/marktbeeld.js --alle                    (elke regio met data)
+//   node scripts/marktbeeld.js --alle                    (elke regio die groot genoeg is)
 // =====================================================================
 'use strict';
 const fs = require('fs');
 const path = require('path');
 const { execFile } = require('child_process');
-const { MIN_REVIEWS, MIN_RECENT } = require('../lib/rekenkern');
+const rekenkern = require('../lib/rekenkern');
 const { loadPlannedRegions, regioSlugFrom } = require('../lib/registry');
 
-const ROOT = path.join(__dirname, '..');
+const { MIN_REVIEWS, MIN_RECENT, METHODIEK_LATEST, METHODIEK_PARAMS } = rekenkern;
+const VAKFOCUS_FLOOR = METHODIEK_PARAMS[METHODIEK_LATEST].VAKFOCUS_FLOOR;
 
-// Hoeveel gemeenten een regio écht telt, uit regions.txt — de bindende lijst met
-// de officiële fusienamen. NIET uit config.gemeenten: daar staan bewust álle
-// schrijfwijzen in (fusienaam, oude namen én deelgemeenten), omdat die lijst
-// vergelijkt met wat Google in het adres schrijft. Voor Gent zijn dat er 26
-// tegenover 9 echte gemeenten. Zie CLAUDE.md § De drie gemeentelijsten.
-function officieelAantalGemeenten(config) {
-  const slug = regioSlugFrom(config);
-  const regio = loadPlannedRegions(ROOT).find((r) => r.regioSlug === slug);
-  return regio ? regio.gemeenten : null;
-}
+// Onder dit aantal specialisten maken we géén rapport. Zie de kop hierboven.
+const MIN_VOOR_RAPPORT = 15;
+
+const ROOT = path.join(__dirname, '..');
 
 // ---------------------------------------------------------------------
 // Kleine hulpjes
@@ -65,14 +92,6 @@ function mediaan(getallen) {
   return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
 }
 
-function kwantiel(getallen, p) {
-  if (!getallen.length) return 0;
-  const s = [...getallen].sort((a, b) => a - b);
-  return s[Math.min(s.length - 1, Math.floor(p * s.length))];
-}
-
-// Verdeling over schijven: [{ label, aantal }], plus de hoogste telling zodat
-// de staven in de HTML op één schaal staan.
 function verdeling(waarden, schijven) {
   const rijen = schijven.map(([label, test]) => ({ label, aantal: waarden.filter(test).length }));
   return { rijen, max: Math.max(1, ...rijen.map((r) => r.aantal)) };
@@ -81,17 +100,22 @@ function verdeling(waarden, schijven) {
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-// ---------------------------------------------------------------------
-// De config van een slug opzoeken. We scannen config/*/ in plaats van de
-// niche uit de slug te snijden: regionamen bevatten zelf streepjes
-// (dakwerkers-veurne-diksmuide), dus afsnijden op het eerste streepje werkt
-// wel, maar breekt zodra er ooit een niche met een streepje bij komt.
-// ---------------------------------------------------------------------
+// Het echte aantal gemeenten van een regio, uit regions.txt — de bindende lijst
+// met officiële fusienamen. NIET uit config.gemeenten: daar staan bewust álle
+// schrijfwijzen in (fusienaam, oude namen én deelgemeenten), omdat die lijst
+// vergelijkt met wat Google in het adres schrijft. Voor Gent zijn dat er 26
+// tegenover 9 echte. Zie CLAUDE.md § De drie gemeentelijsten.
+function officieelAantalGemeenten(config) {
+  const slug = regioSlugFrom(config);
+  const regio = loadPlannedRegions(ROOT).find((r) => r.regioSlug === slug);
+  return regio ? regio.gemeenten : null;
+}
+
 function vindConfig(slug) {
   const configDir = path.join(ROOT, 'config');
   for (const niche of fs.readdirSync(configDir)) {
     const p = path.join(configDir, niche, slug + '.json');
-    if (fs.existsSync(p)) return { niche, pad: p, config: JSON.parse(fs.readFileSync(p, 'utf8')) };
+    if (fs.existsSync(p)) return { niche, config: JSON.parse(fs.readFileSync(p, 'utf8')) };
   }
   return null;
 }
@@ -105,7 +129,8 @@ function alleSlugs() {
     for (const f of fs.readdirSync(dir)) {
       if (!f.endsWith('.json')) continue;
       const slug = f.slice(0, -5);
-      if (fs.existsSync(path.join(ROOT, 'data', slug, 'reviews.json'))) uit.push(slug);
+      if (fs.existsSync(path.join(ROOT, 'data', slug, 'reviews.json')) &&
+          fs.existsSync(path.join(ROOT, 'data', slug, 'beoordeling.json'))) uit.push(slug);
     }
   }
   return uit.sort();
@@ -114,71 +139,68 @@ function alleSlugs() {
 // =====================================================================
 // DE BEREKENING — leest niets van schijf, zodat ze los te testen valt.
 // =====================================================================
-function bereken(bedrijvenRuw, config, gepubliceerd, gemeentenOfficieel) {
+function bereken({ ruw, vakfocusVan, config, gepubliceerd, gemeentenOfficieel }) {
   const inFilter = new Set((config.gemeenten || []).map((g) => g.toLowerCase()));
-  const B = bedrijvenRuw.filter((b) => inFilter.has(String(b.gemeente || '').toLowerCase()));
+  const gevonden = ruw.filter((b) => inFilter.has(String(b.gemeente || '').toLowerCase()));
   const peildatum = config.peildatum;
   const peilJaar = Number(String(peildatum).slice(0, 4));
 
-  // Een export is afgekapt als er minder reviews zijn opgehaald dan Google er
-  // volgens de plaatsgegevens heeft. Die bedrijven tellen wél mee in het
-  // volume (googleReviews is het echte totaal) maar niet in de tijdreeksen,
-  // want daar zou hun ontbrekende verleden de oudere jaren platdrukken.
-  const isAfgekapt = (b) => b.reviews.length < b.googleReviews;
-  const volledig = B.filter((b) => !isAfgekapt(b));
-  const afgekapt = B.length - volledig.length;
+  const haaltDrempels = (b) => b.googleReviews >= MIN_REVIEWS && b.recent24 >= MIN_RECENT;
+  const beoordeelbaar = gevonden.filter(haaltDrempels);
+  const S = beoordeelbaar.filter((b) => (vakfocusVan.get(b.bedrijf) || 0) >= VAKFOCUS_FLOOR);
+  const geenSpecialist = beoordeelbaar.length - S.length;
 
-  // --- omvang -------------------------------------------------------
-  const genoegReviews = B.filter((b) => b.googleReviews >= MIN_REVIEWS).length;
-  const genoegRecent = B.filter((b) => b.recent24 >= MIN_RECENT).length;
-  const rankbaar = B.filter((b) => b.googleReviews >= MIN_REVIEWS && b.recent24 >= MIN_RECENT).length;
+  // Afgekapte exports: minder reviews opgehaald dan Google er heeft. Ze tellen
+  // wel mee in het volume (googleReviews is het echte totaal) maar niet in de
+  // tijdreeksen, want daar zou hun ontbrekende verleden de oudere jaren
+  // platdrukken.
+  const isAfgekapt = (b) => b.reviews.length < b.googleReviews;
+  const volledig = S.filter((b) => !isAfgekapt(b));
+  const afgekapt = S.length - volledig.length;
 
   // --- reviewvolume -------------------------------------------------
-  const volumes = B.map((b) => b.googleReviews);
+  const volumes = S.map((b) => b.googleReviews);
   const totaalReviews = volumes.reduce((a, c) => a + c, 0);
   const aflopend = [...volumes].sort((a, b) => b - a);
-  const som = (arr) => arr.reduce((a, c) => a + c, 0);
-  const aandeelTop = (n) => (totaalReviews ? som(aflopend.slice(0, n)) / totaalReviews * 100 : 0);
-  const helft = Math.ceil(B.length / 2);
+  // Een aandeel dat schaalt met de grootte van de regio. Een vaste "top 10"
+  // zegt niets meer zodra er maar 17 bedrijven zijn — dan is het bijna alles.
+  const kwartGrootte = Math.max(1, Math.ceil(S.length / 4));
+  const aandeelDrukste = totaalReviews
+    ? aflopend.slice(0, kwartGrootte).reduce((a, c) => a + c, 0) / totaalReviews * 100 : 0;
 
   const volumeVerdeling = verdeling(volumes, [
-    ['0 &ndash; 4', (v) => v < 5],
-    ['5 &ndash; 9', (v) => v >= 5 && v < 10],
-    ['10 &ndash; 24', (v) => v >= 10 && v < 25],
-    ['25 &ndash; 49', (v) => v >= 25 && v < 50],
+    [`${MIN_REVIEWS} &ndash; 19`, (v) => v < 20],
+    ['20 &ndash; 34', (v) => v >= 20 && v < 35],
+    ['35 &ndash; 49', (v) => v >= 35 && v < 50],
     ['50 &ndash; 99', (v) => v >= 50 && v < 100],
     ['100 of meer', (v) => v >= 100],
   ]);
 
-  // --- sterren (alleen wie de reviewdrempel haalt) -------------------
-  const beoordeelbaar = B.filter((b) => b.googleReviews >= MIN_REVIEWS);
-  const sterVerdeling = verdeling(beoordeelbaar.map((b) => b.googleScore), [
+  // --- sterren ------------------------------------------------------
+  const sterVerdeling = verdeling(S.map((b) => b.googleScore), [
     ['5,0', (s) => s >= 4.95],
     ['4,8 &ndash; 4,9', (s) => s >= 4.75 && s < 4.95],
     ['4,5 &ndash; 4,7', (s) => s >= 4.45 && s < 4.75],
     ['4,0 &ndash; 4,4', (s) => s >= 3.95 && s < 4.45],
     ['onder 4,0', (s) => s < 3.95],
   ]);
-  const perfect = beoordeelbaar.filter((b) => b.googleScore >= 4.95).length;
-  const perfectStevig = B.filter((b) => b.googleReviews >= 25 && b.googleScore >= 4.95).length;
+  const perfect = S.filter((b) => b.googleScore >= 4.95).length;
+  const perfectStevig = S.filter((b) => b.googleReviews >= 25 && b.googleScore >= 4.95).length;
 
   // --- activiteit ---------------------------------------------------
-  const recent = B.map((b) => b.recent24);
+  // Iedereen in deze groep haalt per definitie MIN_RECENT. De vraag is dus
+  // niet wie stilvalt, maar hoe ver de actieven uiteenlopen.
+  const recent = S.map((b) => b.recent24);
   const activiteitVerdeling = verdeling(recent, [
-    ['geen enkele', (v) => v === 0],
-    ['1 &ndash; 2', (v) => v >= 1 && v < 3],
-    ['3 &ndash; 9', (v) => v >= 3 && v < 10],
-    ['10 of meer', (v) => v >= 10],
+    [`${MIN_RECENT} &ndash; 5`, (v) => v < 6],
+    ['6 &ndash; 9', (v) => v >= 6 && v < 10],
+    ['10 &ndash; 19', (v) => v >= 10 && v < 20],
+    ['20 of meer', (v) => v >= 20],
   ]);
-  const stil = recent.filter((v) => v === 0).length;
-  const traag = recent.filter((v) => v < MIN_RECENT).length;
 
-  // --- groei per jaar -----------------------------------------------
+  // --- tijdreeksen (enkel volledige exports) -------------------------
   const perJaar = {};
   const perMaand = {};
-  let zonderTekst = 0;
-  let opgehaald = 0;
-  let oudste = null;
   for (const b of volledig) {
     for (const r of b.reviews) {
       const d = String(r.datum || '');
@@ -187,7 +209,8 @@ function bereken(bedrijvenRuw, config, gepubliceerd, gemeentenOfficieel) {
       perMaand[d.slice(5, 7)] = (perMaand[d.slice(5, 7)] || 0) + 1;
     }
   }
-  for (const b of B) {
+  let zonderTekst = 0; let opgehaald = 0; let oudste = null;
+  for (const b of S) {
     for (const r of b.reviews) {
       opgehaald++;
       if (!String(r.tekst || '').trim()) zonderTekst++;
@@ -196,24 +219,19 @@ function bereken(bedrijvenRuw, config, gepubliceerd, gemeentenOfficieel) {
     }
   }
 
-  // Het lopende jaar is nooit compleet. We tonen wat er staat én, gearceerd,
-  // wat het bij gelijk tempo zou worden — nooit als feit, altijd als raming.
   const jaarStart = new Date(peilJaar + '-01-01');
   const verstreken = Math.max(0.02, Math.min(1, (new Date(peildatum) - jaarStart) / (365 * 864e5)));
   const dit = perJaar[String(peilJaar)] || 0;
   const raming = verstreken < 0.97 ? Math.round(dit / verstreken) : null;
   const vorig = perJaar[String(peilJaar - 1)] || 0;
-
   const jaren = Object.keys(perJaar)
     .map(Number).filter((j) => j >= peilJaar - 8 && j <= peilJaar).sort();
   const jaarMax = Math.max(1, raming || 0, ...jaren.map((j) => perJaar[String(j)]));
 
-  // --- seizoen ------------------------------------------------------
   const maandNamen = ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
   const maandTotaal = Object.values(perMaand).reduce((a, c) => a + c, 0);
   const maanden = maandNamen.map((naam, i) => {
-    const sleutel = String(i + 1).padStart(2, '0');
-    const aantal = perMaand[sleutel] || 0;
+    const aantal = perMaand[String(i + 1).padStart(2, '0')] || 0;
     return { naam, aantal, aandeel: maandTotaal ? aantal / maandTotaal * 100 : 0 };
   });
   const maandMax = maanden.reduce((a, m) => (m.aandeel > a.aandeel ? m : a), maanden[0]);
@@ -221,66 +239,61 @@ function bereken(bedrijvenRuw, config, gepubliceerd, gemeentenOfficieel) {
 
   // --- gemeenten ----------------------------------------------------
   const perGemeente = {};
-  for (const b of B) (perGemeente[b.gemeente] = perGemeente[b.gemeente] || []).push(b);
+  for (const b of S) (perGemeente[b.gemeente] = perGemeente[b.gemeente] || []).push(b);
   const gemeenten = Object.entries(perGemeente)
-    .map(([naam, lijst]) => ({
-      naam,
-      bedrijven: lijst.length,
-      rankbaar: lijst.filter((b) => b.googleReviews >= MIN_REVIEWS && b.recent24 >= MIN_RECENT).length,
-    }))
-    .sort((a, b) => b.bedrijven - a.bedrijven || a.naam.localeCompare(b.naam, 'nl'));
+    .map(([naam, lijst]) => ({ naam, specialisten: lijst.length }))
+    .sort((a, b) => b.specialisten - a.specialisten || a.naam.localeCompare(b.naam, 'nl'));
+  const gemeenteMax = Math.max(1, ...gemeenten.map((g) => g.specialisten));
 
   return {
-    slug: config.slug, config, peildatum, peilJaar,
+    slug: config.slug, peildatum, peilJaar,
     vakMv: config.vak.mv, vakEv: config.vak.ev, vakMvCap: config.vak.mvCap || config.vak.mv,
     regio: config.regio.naam, kern: config.regio.kern,
-    gemeentenOfficieel,                  // uit regions.txt, of null als onbekend
-    gemeentenMetBedrijf: gemeenten.length,
-    drempelReviews: MIN_REVIEWS, drempelRecent: MIN_RECENT,
-    aantal: B.length, genoegReviews, genoegRecent, rankbaar, gepubliceerd,
+    gemeentenOfficieel, gemeentenMetSpecialist: gemeenten.length,
+    drempelReviews: MIN_REVIEWS, drempelRecent: MIN_RECENT, vakfocusVloer: VAKFOCUS_FLOOR,
+    gevonden: gevonden.length, beoordeelbaar: beoordeelbaar.length,
+    aantal: S.length, geenSpecialist, gepubliceerd,
     totaalReviews,
     medianeVolume: mediaan(volumes),
     gemiddeldVolume: volumes.length ? totaalReviews / volumes.length : 0,
     hoogsteVolume: volumes.length ? Math.max(...volumes) : 0,
-    onderKwart: kwantiel(volumes, 0.25), bovenKwart: kwantiel(volumes, 0.75),
-    volumeVerdeling,
-    aandeelTop10: aandeelTop(10), aandeelTop25: aandeelTop(25),
-    aandeelOnderhelft: 100 - aandeelTop(helft), onderhelft: B.length - helft,
-    beoordeelbaar: beoordeelbaar.length,
-    medianeScore: mediaan(beoordeelbaar.map((b) => b.googleScore)),
+    volumeVerdeling, kwartGrootte, aandeelDrukste,
+    medianeScore: mediaan(S.map((b) => b.googleScore)),
     sterVerdeling, perfect, perfectStevig,
-    medianRecent: mediaan(recent), stil, traag, activiteitVerdeling,
+    medianRecent: mediaan(recent), activiteitVerdeling,
+    drukste: Math.max(0, ...recent),
     jaren: jaren.map((j) => ({ jaar: j, aantal: perJaar[String(j)] })),
     jaarMax, raming, verstreken, vorig, dit,
     maanden, maandMax, maandMin, maandTotaal,
-    gemeenten,
-    afgekapt, volledigAantal: volledig.length,
-    opgehaald, zonderTekst, oudste,
-    zonderWebsite: B.filter((b) => !b.website).length,
+    gemeenten, gemeenteMax,
+    afgekapt, opgehaald, zonderTekst, oudste,
   };
 }
 
 // =====================================================================
-// DE ZINNEN — koppen en duiding worden uit de cijfers afgeleid, nooit
-// vastgeschreven. Anders klopt de kop van de ene regio niet voor de andere.
+// DE ZINNEN — afgeleid uit de cijfers, nooit vastgeschreven. Anders klopt de
+// kop van de ene regio niet voor de andere.
 // =====================================================================
+const VOLUIT = { jan: 'januari', feb: 'februari', mrt: 'maart', apr: 'april', mei: 'mei',
+  jun: 'juni', jul: 'juli', aug: 'augustus', sep: 'september', okt: 'oktober',
+  nov: 'november', dec: 'december' };
+const hoofd = (s) => s[0].toUpperCase() + s.slice(1);
+
 function koppen(m) {
   const k = {};
+  k.omvang = `${nl(m.aantal)} ${m.vakMv} met een aantoonbaar spoor`;
 
-  k.omvang = `Van ${nl(m.aantal)} bedrijven blijven er ${nl(m.rankbaar)} over`;
-
-  k.volume = m.aandeelTop10 >= 50
-    ? `Tien bedrijven bezitten meer dan de helft van alle reviews`
-    : `De tien drukste bedrijven hebben ${dec(m.aandeelTop10, 0)}% van alle reviews`;
+  // Geen oordeel in de kop, alleen het cijfer. Bij een gelijke verdeling zou een
+  // kwart van de bedrijven 25% van de reviews hebben; de lezer ziet zelf hoever
+  // het daarvan af ligt. Een woord als "gelijkmatig" plakken op 53% zou de
+  // werkelijkheid gladstrijken.
+  k.volume = `Een kwart van de ${m.vakMv} heeft ${dec(m.aandeelDrukste, 0)}% van alle reviews`;
 
   k.sterren = m.medianeScore >= 4.6
     ? 'Een hoge score is de norm, geen uitzondering'
     : 'De scores lopen sterk uiteen';
 
-  const eenOp = m.aantal ? Math.round(m.aantal / Math.max(1, m.stil)) : 0;
-  k.activiteit = m.stil === 0
-    ? `Elk bedrijf kreeg de voorbije twee jaar reviews`
-    : `Bijna één op ${eenOp} kreeg twee jaar lang geen enkele review`;
+  k.activiteit = `De doorsnee ${m.vakEv} krijgt ${nl(m.medianRecent)} reviews per twee jaar`;
 
   if (m.raming === null) k.groei = 'Hoeveel reviews er per jaar bij komen';
   else if (m.raming > m.vorig * 1.1) k.groei = `${m.peilJaar} zet de groei door`;
@@ -288,12 +301,9 @@ function koppen(m) {
   else k.groei = `Na jaren klimmen vlakt ${m.peilJaar} af`;
 
   const ratio = m.maandMin.aandeel ? m.maandMax.aandeel / m.maandMin.aandeel : 0;
-  const volMaand = { jan: 'januari', feb: 'februari', mrt: 'maart', apr: 'april', mei: 'mei',
-    jun: 'juni', jul: 'juli', aug: 'augustus', sep: 'september', okt: 'oktober',
-    nov: 'november', dec: 'december' };
   k.seizoen = ratio >= 1.8
-    ? `${volMaand[m.maandMax.naam][0].toUpperCase()}${volMaand[m.maandMax.naam].slice(1)} levert ruim dubbel zoveel reviews op als ${volMaand[m.maandMin.naam]}`
-    : `${volMaand[m.maandMax.naam][0].toUpperCase()}${volMaand[m.maandMax.naam].slice(1)} is de drukste maand`;
+    ? `${hoofd(VOLUIT[m.maandMax.naam])} levert ruim dubbel zoveel reviews op als ${VOLUIT[m.maandMin.naam]}`
+    : `${hoofd(VOLUIT[m.maandMax.naam])} is de drukste maand`;
 
   k.spreiding = `Waar de ${m.vakMv} zitten`;
   return k;
@@ -313,24 +323,20 @@ function render(m) {
   const datumNL = new Date(m.peildatum).toLocaleDateString('nl-BE',
     { day: 'numeric', month: 'long', year: 'numeric' });
 
-  // --- trechter -----------------------------------------------------
   const trechter = [
-    [`${m.vakMvCap} gevonden in de regio`, m.aantal, false],
-    [`Minstens ${m.drempelRecent} reviews in 24 maanden`, m.genoegRecent, false],
-    [`Minstens ${m.drempelReviews} reviews in totaal`, m.genoegReviews, false],
-    ['Beide drempels &mdash; rankbaar', m.rankbaar, false],
+    ['Zoekresultaten in het zoekgebied', m.gevonden, false],
+    [`Genoeg reviews om te beoordelen`, m.beoordeelbaar, false],
+    [`Daarvan echte ${esc(m.vakMv)}`, m.aantal, false],
   ];
-  if (m.gepubliceerd) trechter.push([`Gepubliceerd op Keurwijzer`, m.gepubliceerd, true]);
+  if (m.gepubliceerd) trechter.push(['Gepubliceerd op Keurwijzer', m.gepubliceerd, true]);
   const trechterHTML = trechter.map(([t, v, laatste]) =>
-    `    <div class="frow"><span class="fill" style="width:${dec(v / m.aantal * 100, 1)}%` +
+    `    <div class="frow"><span class="fill" style="width:${dec(v / m.gevonden * 100, 1)}%` +
     `${laatste ? ';border-left-color:var(--ink)' : ''}"></span>` +
     `<div class="f"><span class="t">${t}</span><span class="v">${nl(v)}</span></div></div>`).join('\n');
 
-  // --- jaren --------------------------------------------------------
   const jaarKolommen = m.jaren.map((j) => {
-    const isLopend = j.jaar === m.peilJaar;
     const hoogte = j.aantal / m.jaarMax * 100;
-    if (isLopend && m.raming !== null) {
+    if (j.jaar === m.peilJaar && m.raming !== null) {
       const totaal = m.raming / m.jaarMax * 100;
       const echt = totaal ? hoogte / totaal * 100 : 0;
       return `      <div class="vcol"><span class="stack" style="height:${dec(totaal, 1)}%">` +
@@ -338,51 +344,50 @@ function render(m) {
         `<span class="ghost" style="height:${dec(100 - echt, 1)}%"></span>` +
         `<span class="bar" style="height:${dec(echt, 1)}%"></span></span></div>`;
     }
-    const label = j.jaar === m.peilJaar - 1
-      ? `<span class="lab strong">${nl(j.aantal)}</span>` : '';
+    const label = j.jaar === m.peilJaar - 1 ? `<span class="lab strong">${nl(j.aantal)}</span>` : '';
     return `      <div class="vcol"><span class="stack" style="height:${dec(hoogte, 1)}%">` +
       `${label}<span class="bar"></span></span></div>`;
   }).join('\n');
   const jaarLabels = m.jaren.map((j) =>
     `<span${j.jaar >= m.peilJaar - 1 ? ' class="on"' : ''}>${j.jaar}</span>`).join('');
 
-  // --- maanden ------------------------------------------------------
   const maandKolommen = m.maanden.map((mm) => {
-    const hoogte = mm.aandeel / m.maandMax.aandeel * 100;
     const toon = mm.naam === m.maandMax.naam || mm.naam === m.maandMin.naam;
-    return `      <div class="vcol"><span class="stack" style="height:${dec(hoogte, 1)}%">` +
+    return `      <div class="vcol"><span class="stack" style="height:${dec(mm.aandeel / m.maandMax.aandeel * 100, 1)}%">` +
       `${toon ? `<span class="lab strong">${dec(mm.aandeel, 1)}%</span>` : ''}` +
       `<span class="bar"></span></span></div>`;
   }).join('\n');
-  const maandLabels = m.maanden.map((mm) => {
-    const uit = mm.naam === m.maandMax.naam || mm.naam === m.maandMin.naam;
-    return `<span${uit ? ' class="on"' : ''}>${mm.naam}</span>`;
-  }).join('');
+  const maandLabels = m.maanden.map((mm) =>
+    `<span${mm.naam === m.maandMax.naam || mm.naam === m.maandMin.naam ? ' class="on"' : ''}>${mm.naam}</span>`).join('');
 
-  // --- gemeenten ----------------------------------------------------
   const gemeenteRijen = m.gemeenten.map((g) =>
-    `        <tr><td class="name">${esc(g.naam)}</td>` +
-    `<td class="num r">${g.bedrijven}</td><td class="num r">${g.rankbaar}</td>` +
-    `<td class="share"><span class="minibar"><i style="width:${dec(g.rankbaar / g.bedrijven * 100, 0)}%"></i></span></td></tr>`
+    `        <tr><td class="name">${esc(g.naam)}</td><td class="num r">${g.specialisten}</td>` +
+    `<td class="share"><span class="minibar"><i style="width:${dec(g.specialisten / m.gemeenteMax * 100, 0)}%"></i></span></td></tr>`
   ).join('\n');
 
   // --- verantwoording -----------------------------------------------
   const caveats = [];
-  caveats.push(`<strong>De groeicurve overdrijft de klim.</strong> We zien alleen bedrijven die ` +
-    `vandaag nog bestaan. Wie in het verleden stopte, telt in die oudere jaren niet mee &mdash; ` +
-    `waardoor die kunstmatig laag ogen. De vergelijking tussen ${m.peilJaar - 1} en ${m.peilJaar} ` +
-    `is w&eacute;l betrouwbaar: dat zijn dezelfde bedrijven.`);
-  if (m.afgekapt > 0) {
-    caveats.push(`<strong>${m.afgekapt === 1 ? 'E&eacute;n export is' : nl(m.afgekapt) + ' exports zijn'} ` +
-      `afgekapt.</strong> Bij ${m.afgekapt === 1 ? 'één groot bedrijf' : nl(m.afgekapt) + ' grote spelers'} ` +
-      `werden minder reviews opgehaald dan er bestaan. Voor de volumecijfers maakt dat niets uit &mdash; ` +
-      `daar telt het echte totaal van Google. Uit de jaar- en maandgrafieken ` +
-      `${m.afgekapt === 1 ? 'is dat bedrijf' : 'zijn die bedrijven'} weggelaten.`);
+  caveats.push(`<strong>Dit rapport gaat over ${nl(m.aantal)} bedrijven, niet over de hele ` +
+    `sector.</strong> Om erin te staan moet een bedrijf minstens ${m.drempelReviews} Google-reviews ` +
+    `hebben, waarvan ${m.drempelRecent} in de voorbije twee jaar, én bij beoordeling van zijn eigen ` +
+    `website blijken dat ${esc(m.vakEv)} zijn echte vak is. Bedrijven met minder reviews vallen ` +
+    `erbuiten &mdash; en over hen zeggen we bewust niets, ook niet hoeveel het er zijn. Ze zijn nooit ` +
+    `beoordeeld, dus we weten van hen niet eens of het ${esc(m.vakMv)} zijn.`);
+  if (m.geenSpecialist > 0) {
+    caveats.push(`<strong>${nl(m.geenSpecialist)} bedrijven met genoeg reviews vielen af omdat ze iets ` +
+      `anders doen.</strong> Bij een zoektocht naar ${esc(m.vakMv)} komen ook aannemers, ` +
+      `dakgootreinigers, groothandels en winkels bovendrijven. Zij tellen hier niet mee, want ` +
+      `anders zou dit rapport iets beweren over een markt die het niet meet.`);
   }
-  if (m.zonderWebsite === 0) {
-    caveats.push(`<strong>${m.vakMvCap} zonder website ontbreken.</strong> Alle ${nl(m.aantal)} ` +
-      `gevonden bedrijven hebben er een. Over vakmensen die enkel via mond-tot-mondreclame ` +
-      `werken, zegt dit rapport niets.`);
+  caveats.push(`<strong>De groeicurve overdrijft de klim.</strong> We zien alleen bedrijven die vandaag ` +
+    `nog bestaan. Wie in het verleden stopte, telt in die oudere jaren niet mee &mdash; waardoor die ` +
+    `kunstmatig laag ogen. De vergelijking tussen ${m.peilJaar - 1} en ${m.peilJaar} is w&eacute;l ` +
+    `betrouwbaar: dat zijn dezelfde bedrijven.`);
+  if (m.afgekapt > 0) {
+    caveats.push(`<strong>${m.afgekapt === 1 ? 'Bij één bedrijf is de reviewlijst' : 'Bij ' + nl(m.afgekapt) +
+      ' bedrijven is de reviewlijst'} afgekapt.</strong> Er werden minder reviews opgehaald dan er ` +
+      `bestaan. Voor de aantallen maakt dat niets uit &mdash; daar telt het echte totaal van Google. ` +
+      `Uit de jaar- en maandgrafieken ${m.afgekapt === 1 ? 'is dat bedrijf' : 'zijn die bedrijven'} weggelaten.`);
   }
   if (m.opgehaald) {
     caveats.push(`<strong>Een deel van de reviews is enkel een sterrenscore.</strong> Van de ` +
@@ -390,13 +395,15 @@ function render(m) {
       `(${pct(m.zonderTekst, m.opgehaald)}%) geen geschreven tekst. Ze tellen mee in het aantal, ` +
       `maar ze vertellen niets over het werk.`);
   }
+  caveats.push(`<strong>Het vak wordt beoordeeld op de eigen website.</strong> Een vakman zonder ` +
+    `website kan op dat punt niet beoordeeld worden en valt dus buiten dit rapport, hoe goed hij ` +
+    `ook werkt.`);
 
   return `<!doctype html>
 <html lang="nl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex">
 <title>Marktbeeld ${esc(m.vakMv)} ${esc(m.kern)}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap">
 <style>
@@ -407,9 +414,9 @@ function render(m) {
     --sans:"IBM Plex Sans","Segoe UI",Helvetica,Arial,sans-serif;
     --mono:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
   }
-  /* Donker thema. Twee keer opgeschreven, met opzet: de mediaquery vangt wie zijn
-     toestel op donker heeft staan, het [data-theme]-blok vangt een lezer die het
-     zelf omzet. De :not() zorgt dat een bewuste keuze voor licht altijd wint. */
+  /* Donker thema, twee keer opgeschreven met opzet: de mediaquery vangt wie zijn
+     toestel op donker heeft staan, het [data-theme]-blok een lezer die het zelf
+     omzet. De :not() zorgt dat een bewuste keuze voor licht altijd wint. */
   @media (prefers-color-scheme:dark){
     :root:not([data-theme="light"]){
       --ground:#10171A; --ink:#E5EBEA; --ink-2:#BAC6C7; --muted:#8E9CA1;
@@ -431,6 +438,8 @@ function render(m) {
   h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,5.2vw,50px);
      line-height:1.1;letter-spacing:-.015em;text-wrap:balance;margin:0 0 18px}
   .standfirst{font-size:19px;line-height:1.55;color:var(--ink-2);max-width:56ch;margin:0}
+  .scope{font-size:14.5px;color:var(--muted);line-height:1.55;max-width:60ch;
+         border-left:2px solid var(--accent);padding-left:14px;margin:24px 0 0}
   .meta{display:flex;flex-wrap:wrap;gap:8px 26px;font-family:var(--mono);font-size:12px;
         color:var(--muted);margin:26px 0 0;padding:16px 0 0;border-top:1px solid var(--rule)}
   .meta b{color:var(--ink-2);font-weight:500}
@@ -495,7 +504,7 @@ function render(m) {
   .frow .f .v{font-family:var(--mono);font-size:16px;font-weight:500;color:var(--ink);
               font-variant-numeric:tabular-nums;white-space:nowrap}
   .tablewrap{overflow-x:auto;margin:28px 0 0}
-  table{border-collapse:collapse;width:100%;min-width:480px;font-size:14.5px}
+  table{border-collapse:collapse;width:100%;min-width:420px;font-size:14.5px}
   th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
      color:var(--muted);text-align:left;font-weight:400;padding:0 12px 9px 0;
      border-bottom:1px solid var(--ink)}
@@ -503,7 +512,7 @@ function render(m) {
   td{padding:9px 12px 9px 0;border-bottom:1px solid var(--rule-soft);font-variant-numeric:tabular-nums}
   td.name{color:var(--ink)}
   td.num{font-family:var(--mono);font-size:13.5px;color:var(--ink-2)}
-  td.share{width:160px;padding-right:0}
+  td.share{width:200px;padding-right:0}
   .minibar{display:block;background:var(--track);height:7px;border-radius:2px;overflow:hidden}
   .minibar i{display:block;height:100%;background:var(--accent);border-radius:0 2px 2px 0}
   tbody tr:last-child td{border-bottom:0}
@@ -522,95 +531,100 @@ function render(m) {
 <header class="top">
   <p class="eyebrow">Keurwijzer &middot; marktrapport</p>
   <h1>${esc(m.vakMvCap)} in de ${esc(m.regio)}</h1>
-  <p class="standfirst">Wat de Google-reviews van ${nl(m.aantal)} ${esc(m.vakMv)} zeggen over de
-  markt waarin ze werken &mdash; omvang, activiteit, en hoe scheef het speelveld ligt.</p>
+  <p class="standfirst">Wat de openbare Google-reviews zeggen over de ${nl(m.aantal)}
+  ${esc(m.vakMv)} in deze regio die genoeg sporen nalaten om te beoordelen.</p>
+  <p class="scope">Dit rapport telt alleen bedrijven mee met minstens ${m.drempelReviews} reviews,
+  waarvan ${m.drempelRecent} in de voorbije twee jaar, en waarvan hun eigen website bevestigt dat
+  ${esc(m.vakEv)} hun echte vak is. Wie daaronder valt, komt hier niet in voor &mdash; en daarover
+  doen we ook geen uitspraak.</p>
   <div class="meta">
     <span>Peildatum <b>${datumNL}</b></span>
     <span>Bron <b>openbare Google-reviews</b></span>
-    <span>Bereik <b>${m.gemeentenOfficieel ? m.gemeentenOfficieel + ' gemeenten' : esc(m.regio)}</b></span>
+    ${m.gemeentenOfficieel ? `<span>Regio <b>${m.gemeentenOfficieel} gemeenten</b></span>` : ''}
     <span>Bedrijven <b>${nl(m.aantal)}</b></span>
   </div>
 </header>
 
 <div class="keyfig">
-  <div><span class="n">${nl(m.aantal)}</span><span class="l">${esc(m.vakMv)} gevonden in de regio</span></div>
+  <div><span class="n">${nl(m.aantal)}</span><span class="l">${esc(m.vakMv)} in het rapport</span></div>
   <div><span class="n">${nl(m.medianeVolume)}</span><span class="l">reviews heeft de doorsnee ${esc(m.vakEv)}</span></div>
-  <div><span class="n">${dec(m.medianeScore, 2)}</span><span class="l">mediaan Google-score vanaf ${m.drempelReviews}&nbsp;reviews</span></div>
-  <div><span class="n">${pct(m.traag, m.aantal)}%</span><span class="l">haalt geen ${m.drempelRecent} reviews per 2&nbsp;jaar</span></div>
+  <div><span class="n">${dec(m.medianeScore, 2)}</span><span class="l">mediaan Google-score</span></div>
+  <div><span class="n">${nl(m.medianRecent)}</span><span class="l">nieuwe reviews per 2&nbsp;jaar, mediaan</span></div>
 </div>
 
 <section>
-  <p class="sec-label">Omvang</p>
+  <p class="sec-label">Afbakening</p>
   <div class="col">
     <h2>${k.omvang}</h2>
-    <p class="lede">Niet elk bedrijf dat in de regio als ${esc(m.vakEv)} te vinden is, valt te
-    beoordelen. Zonder voldoende reviews, of zonder recente, is er te weinig om op te steunen.
-    Wie beide drempels haalt, is rankbaar.</p>
+    <p class="lede">Een zoektocht naar ${esc(m.vakMv)} in deze regio levert ${nl(m.gevonden)}
+    bedrijven op. Lang niet allemaal leggen ze daadwerkelijk daken, en lang niet allemaal laten
+    ze genoeg publiek spoor na om er iets over te kunnen zeggen. Zo blijft de groep over waar
+    dit rapport over gaat.</p>
   </div>
   <div class="funnel">
 ${trechterHTML}
   </div>
-  <p class="note">${m.genoegReviews < m.aantal / 2
-    ? `De helft van de ${esc(m.vakMv)} in de regio haalt de drempel van ${m.drempelReviews} reviews niet.`
-    : `${nl(m.aantal - m.genoegReviews)} van de ${nl(m.aantal)} ${esc(m.vakMv)} halen de drempel van ${m.drempelReviews} reviews niet.`}
-  Dat betekent niet dat ze slecht werk leveren &mdash; het betekent dat er publiek te weinig over
-  hen te vinden is om er iets zinnigs over te zeggen.</p>
+  <p class="note">De grootste stap is de eerste: ${nl(m.gevonden - m.beoordeelbaar)} bedrijven hebben
+  te weinig reviews om te beoordelen. Dat betekent niet dat ze slecht werk leveren &mdash; het
+  betekent dat er publiek te weinig over hen te vinden is${m.geenSpecialist > 0
+    ? `. Van wie wél genoeg reviews heeft, vielen er nog eens ${nl(m.geenSpecialist)} af omdat hun
+  eigen website laat zien dat ze hoofdzakelijk iets anders doen` : ''}.</p>
 </section>
 
 <section>
   <p class="sec-label">Reviewvolume</p>
   <div class="col">
     <h2>${k.volume}</h2>
-    <p class="lede">Samen verzamelden de ${nl(m.aantal)} ${esc(m.vakMv)}
-    <span class="fig">${nl(m.totaalReviews)}</span> reviews. Die liggen bijzonder ongelijk
-    verdeeld: het gemiddelde bedrijf heeft er ${nl(Math.round(m.gemiddeldVolume))}, de
-    d&oacute;&oacute;rsnee ${esc(m.vakEv)} ${nl(m.medianeVolume)}. Dat verschil is het hele verhaal.</p>
+    <p class="lede">Samen verzamelden deze ${nl(m.aantal)} ${esc(m.vakMv)}
+    <span class="fig">${nl(m.totaalReviews)}</span> reviews. Het gemiddelde bedrijf heeft er
+    ${nl(Math.round(m.gemiddeldVolume))}, de d&oacute;&oacute;rsnee ${esc(m.vakEv)}
+    ${nl(m.medianeVolume)} &mdash; en de drukste ${nl(m.hoogsteVolume)}.</p>
   </div>
   <div class="hbars">
 ${m.volumeVerdeling.rijen.map((r) => staafRij(r.label, r.aantal, m.volumeVerdeling.max)).join('\n')}
   </div>
-  <p class="axis-note">Aantal bedrijven per schijf &middot; schaal 0 &ndash; ${m.volumeVerdeling.max} &middot; de drukst beoordeelde ${esc(m.vakEv)} telt ${nl(m.hoogsteVolume)} reviews</p>
-  <p class="note">De tien drukst beoordeelde bedrijven hebben samen <strong>${dec(m.aandeelTop10, 0)}%</strong>
-  van alle reviews in de regio. De 25 drukste hebben er <strong>${dec(m.aandeelTop25, 0)}%</strong>.
-  De helft van de bedrijven met de minste reviews heeft er samen <strong>${dec(m.aandeelOnderhelft, 0)}%</strong>.</p>
+  <p class="axis-note">Aantal bedrijven per schijf &middot; schaal 0 &ndash; ${m.volumeVerdeling.max}</p>
+  <p class="note">De drukste ${nl(m.kwartGrootte)} bedrijven &mdash; een kwart van de groep &mdash;
+  hebben samen <strong>${dec(m.aandeelDrukste, 0)}%</strong> van alle reviews in dit rapport.
+  Bij een gelijke verdeling zou dat 25% zijn.</p>
 </section>
 
 <section>
   <p class="sec-label">Sterren</p>
   <div class="col">
     <h2>${k.sterren}</h2>
-    <p class="lede">Onder de ${nl(m.beoordeelbaar)} bedrijven met minstens ${m.drempelReviews} reviews
-    ligt de mediaan op <span class="fig">${dec(m.medianeScore, 2)}</span>.
-    ${m.perfect} bedrijven staan op een perfecte 5,0 &mdash; maar slechts ${m.perfectStevig} daarvan
-    halen die met 25 reviews of meer. Een vlekkeloze score zegt vooral iets zolang er genoeg
-    reviews onder liggen.</p>
+    <p class="lede">De mediaan ligt op <span class="fig">${dec(m.medianeScore, 2)}</span>.
+    ${m.perfect === 0 ? 'Geen enkel bedrijf staat op een perfecte 5,0.'
+      : `${nl(m.perfect)} ${m.perfect === 1 ? 'bedrijf staat' : 'bedrijven staan'} op een perfecte 5,0
+    &mdash; waarvan ${nl(m.perfectStevig)} met 25 reviews of meer. Een vlekkeloze score zegt vooral
+    iets zolang er genoeg reviews onder liggen.`}</p>
   </div>
   <div class="hbars">
 ${m.sterVerdeling.rijen.map((r) => staafRij(r.label, r.aantal, m.sterVerdeling.max)).join('\n')}
   </div>
-  <p class="axis-note">Aantal bedrijven per scoreschijf &middot; enkel bedrijven vanaf ${m.drempelReviews} reviews (n = ${nl(m.beoordeelbaar)}) &middot; schaal 0 &ndash; ${m.sterVerdeling.max}</p>
+  <p class="axis-note">Aantal bedrijven per scoreschijf &middot; n = ${nl(m.aantal)} &middot; schaal 0 &ndash; ${m.sterVerdeling.max}</p>
 </section>
 
 <section>
   <p class="sec-label">Activiteit</p>
   <div class="col">
     <h2>${k.activiteit}</h2>
-    <p class="lede">Reviews vergaan niet, maar ze verouderen wel. Over de 24 maanden tot de
-    peildatum kreeg de doorsnee ${esc(m.vakEv)} er <span class="fig">${nl(m.medianRecent)}</span> bij.
-    ${nl(m.stil)} bedrijven kregen er nul.</p>
+    <p class="lede">Reviews vergaan niet, maar ze verouderen wel. Iedereen in dit rapport haalt
+    minstens ${m.drempelRecent} nieuwe reviews in twee jaar &mdash; dat is de toegangseis. De vraag
+    is hoe ver de actieven onderling uiteenlopen. De drukste haalde er ${nl(m.drukste)}.</p>
   </div>
   <div class="hbars">
 ${m.activiteitVerdeling.rijen.map((r) => staafRij(r.label, r.aantal, m.activiteitVerdeling.max)).join('\n')}
   </div>
-  <p class="axis-note">Nieuwe reviews in de 24 maanden tot de peildatum &middot; alle ${nl(m.aantal)} bedrijven &middot; schaal 0 &ndash; ${m.activiteitVerdeling.max}</p>
+  <p class="axis-note">Nieuwe reviews in de 24 maanden tot de peildatum &middot; n = ${nl(m.aantal)} &middot; schaal 0 &ndash; ${m.activiteitVerdeling.max}</p>
 </section>
 
 <section>
   <p class="sec-label">Groei</p>
   <div class="col">
     <h2>${k.groei}</h2>
-    <p class="lede">Er komen elk jaar reviews bij over ${esc(m.vakMv)} in deze regio. Hoeveel
-    precies, en of dat tempo aanhoudt, staat hieronder.</p>
+    <p class="lede">Hoeveel reviews klanten er elk jaar bij schrijven over de ${esc(m.vakMv)} in
+    dit rapport, en of dat tempo aanhoudt.</p>
   </div>
   <div class="vchart">
     <div class="vcols">
@@ -619,17 +633,17 @@ ${jaarKolommen}
     <div class="vlabels">${jaarLabels}</div>
   </div>
   <p class="axis-note">Nieuwe reviews per jaar &middot; schaal 0 &ndash; ${nl(m.jaarMax)}${m.raming !== null ? ' &middot; gearceerd = raming voor de rest van ' + m.peilJaar : ''}</p>
-${m.raming !== null ? `  <p class="note">Op de peildatum was ${pct(m.verstreken, 1)}% van ${m.peilJaar} verstreken,
-  met ${nl(m.dit)} reviews. Doorgetrokken komt dat op ongeveer <strong>${nl(m.raming)}</strong> &mdash;
-  tegenover ${nl(m.vorig)} in ${m.peilJaar - 1}.</p>` : ''}
+${m.raming !== null ? `  <p class="note">Op de peildatum was ${pct(m.verstreken, 1)}% van ${m.peilJaar}
+  verstreken, met ${nl(m.dit)} reviews. Doorgetrokken komt dat op ongeveer
+  <strong>${nl(m.raming)}</strong> &mdash; tegenover ${nl(m.vorig)} in ${m.peilJaar - 1}.</p>` : ''}
 </section>
 
 <section>
   <p class="sec-label">Seizoen</p>
   <div class="col">
     <h2>${k.seizoen}</h2>
-    <p class="lede">Over alle jaren heen samengeteld zit er een duidelijk ritme in wanneer
-    klanten hun ${esc(m.vakEv)} beoordelen.</p>
+    <p class="lede">Over alle jaren heen samengeteld zit er een ritme in wanneer klanten hun
+    ${esc(m.vakEv)} beoordelen.</p>
   </div>
   <div class="vchart">
     <div class="vcols">
@@ -644,25 +658,22 @@ ${maandKolommen}
   <p class="sec-label">Spreiding</p>
   <div class="col">
     <h2>${k.spreiding}</h2>
-    <p class="lede">Waar de bedrijven gevestigd zijn, en hoeveel er per gemeente genoeg
-    reviews hebben om beoordeeld te kunnen worden.</p>
+    <p class="lede">In welke gemeenten de ${nl(m.aantal)} ${esc(m.vakMv)} uit dit rapport
+    gevestigd zijn.</p>
   </div>
   <div class="tablewrap">
     <table>
       <thead><tr>
-        <th>Gemeente</th><th class="r">Bedrijven</th><th class="r">Rankbaar</th>
-        <th style="width:160px">Aandeel rankbaar</th>
+        <th>Gemeente</th><th class="r">${esc(m.vakMvCap)}</th><th style="width:200px">&nbsp;</th>
       </tr></thead>
       <tbody>
 ${gemeenteRijen}
       </tbody>
     </table>
   </div>
-  <p class="note">De ${nl(m.aantal)} bedrijven zijn gevestigd in
-  <strong>${m.gemeentenMetBedrijf} gemeenten</strong>${m.gemeentenOfficieel
-    ? `, terwijl de regio er ${m.gemeentenOfficieel} telt` : ''}. Het zoekgebied loopt bewust
-  iets ruimer dan de regio zelf, want een ${esc(m.vakEv)} uit een buurgemeente werkt hier net zo
-  goed &mdash; daardoor duiken hier ook gemeenten op die net buiten de regio vallen.</p>
+  <p class="note">Het zoekgebied loopt bewust iets ruimer dan de regio zelf, want een
+  ${esc(m.vakEv)} uit een buurgemeente werkt hier net zo goed. Daardoor duiken hier ook
+  gemeenten op die net buiten de regio vallen.</p>
 </section>
 
 <section>
@@ -679,8 +690,9 @@ ${caveats.map((c) => '    <li>' + c + '</li>').join('\n')}
 
 <footer>
   Marktbeeld ${esc(m.vakMv)} ${esc(m.regio)} &middot; peildatum ${datumNL}<br>
-  Samengesteld uit openbare Google-reviews van ${nl(m.aantal)} bedrijven in ${m.gemeentenMetBedrijf} gemeenten${m.oudste ? `.
-  Oudste review in de reeks: ${new Date(m.oudste).toLocaleDateString('nl-BE', { day: 'numeric', month: 'long', year: 'numeric' })}` : ''}.<br>
+  Samengesteld uit openbare Google-reviews van ${nl(m.aantal)} bedrijven in
+  ${m.gemeentenMetSpecialist} gemeenten${m.oudste ? `. Oudste review in de reeks: ` +
+    new Date(m.oudste).toLocaleDateString('nl-BE', { day: 'numeric', month: 'long', year: 'numeric' }) : ''}.<br>
   Keurwijzer &mdash; onafhankelijke kwaliteitsranking per vak en regio.
 </footer>
 
@@ -691,53 +703,64 @@ ${caveats.map((c) => '    <li>' + c + '</li>').join('\n')}
 }
 
 // =====================================================================
-// Terminalsamenvatting — zodat je niet hoeft te openen om te weten wat eruit kwam.
+// Terminalsamenvatting
 // =====================================================================
 function samenvatting(m) {
   const k = koppen(m);
   console.log('');
   console.log(`MARKTBEELD ${m.slug}  —  peildatum ${m.peildatum}`);
-  console.log(`  bedrijven in de regio     ${nl(m.aantal)}   (gevestigd in ${m.gemeentenMetBedrijf} gemeenten` +
-    `${m.gemeentenOfficieel ? `; de regio telt er ${m.gemeentenOfficieel}` : ''})`);
-  console.log(`  rankbaar                  ${nl(m.rankbaar)}   (>=${m.drempelReviews} reviews en >=${m.drempelRecent} recent)`);
+  console.log(`  zoekresultaten            ${nl(m.gevonden)}`);
+  console.log(`  genoeg reviews            ${nl(m.beoordeelbaar)}   (>=${m.drempelReviews} reviews en >=${m.drempelRecent} recent)`);
+  console.log(`  daarvan vakspecialist     ${nl(m.aantal)}   (vakfocus >= ${dec(m.vakfocusVloer, 1)}; ${nl(m.geenSpecialist)} doen iets anders)`);
   if (m.gepubliceerd) console.log(`  gepubliceerd              ${nl(m.gepubliceerd)}`);
   console.log(`  reviews totaal            ${nl(m.totaalReviews)}   mediaan ${nl(m.medianeVolume)} per bedrijf`);
-  console.log(`  top 10 heeft samen        ${dec(m.aandeelTop10, 0)}% van alle reviews`);
-  console.log(`  mediane score             ${dec(m.medianeScore, 2)}   (${m.perfect} bedrijven op 5,0)`);
-  console.log(`  stil (0 reviews in 24m)   ${nl(m.stil)}   = ${pct(m.stil, m.aantal)}%`);
+  console.log(`  drukste kwart (${String(m.kwartGrootte).padStart(2)}) heeft  ${dec(m.aandeelDrukste, 0)}% van alle reviews`);
+  console.log(`  mediane score             ${dec(m.medianeScore, 2)}   (${m.perfect} op 5,0)`);
+  console.log(`  mediaan recent (24m)      ${nl(m.medianRecent)}   drukste ${nl(m.drukste)}`);
   console.log(`  ${m.peilJaar - 1} -> ${m.peilJaar}              ${nl(m.vorig)} -> ${m.raming !== null ? nl(m.raming) + ' (raming)' : nl(m.dit)}`);
   console.log(`  drukste maand             ${m.maandMax.naam} (${dec(m.maandMax.aandeel, 1)}%), stilste ${m.maandMin.naam} (${dec(m.maandMin.aandeel, 1)}%)`);
-  if (m.afgekapt) console.log(`  ! afgekapte exports       ${m.afgekapt}  (weggelaten uit jaar- en maandgrafiek)`);
-  console.log(`  koppen: "${k.volume}" / "${k.groei}"`);
+  if (m.afgekapt) console.log(`  ! afgekapte reviewlijsten ${m.afgekapt}  (weg uit jaar- en maandgrafiek)`);
+  console.log(`  kop: "${k.volume}"`);
 }
 
 // =====================================================================
 // Uitvoeren
 // =====================================================================
-function maak(slug) {
-  const gevonden = vindConfig(slug);
-  if (!gevonden) {
+function maak(slug, { stil = false } = {}) {
+  const gevondenConfig = vindConfig(slug);
+  if (!gevondenConfig) {
     console.error(`Geen config gevonden voor "${slug}". Verwacht: config/<niche>/${slug}.json`);
     process.exit(1);
   }
-  const config = { slug, ...gevonden.config };
-
-  const reviewsPad = path.join(ROOT, 'data', slug, 'reviews.json');
-  if (!fs.existsSync(reviewsPad)) {
-    console.error(`data/${slug}/reviews.json bestaat niet. Draai eerst: node scripts/normalize.js ${slug}`);
-    process.exit(1);
-  }
-  const bedrijven = JSON.parse(fs.readFileSync(reviewsPad, 'utf8'));
-  if (!Array.isArray(bedrijven)) {
-    console.error(`data/${slug}/reviews.json heeft niet de verwachte vorm (een lijst bedrijven).`);
-    process.exit(1);
-  }
+  const config = { slug, ...gevondenConfig.config };
   if (!config.gemeenten || !config.gemeenten.length) {
     console.error(`config van ${slug} heeft geen gemeentelijst — zonder die filter klopt het rapport niet.`);
     process.exit(1);
   }
 
-  // Hoeveel er gepubliceerd staan weten we uit het selectieslot, niet uit een
+  const reviewsPad = path.join(ROOT, 'data', slug, 'reviews.json');
+  const beoordelingPad = path.join(ROOT, 'data', slug, 'beoordeling.json');
+  if (!fs.existsSync(reviewsPad)) {
+    console.error(`data/${slug}/reviews.json bestaat niet. Draai eerst: node scripts/normalize.js ${slug}`);
+    process.exit(1);
+  }
+  // Zonder beoordeling kennen we de vakfocus niet, en dan valt de enige eerlijke
+  // afbakening weg. Dan liever geen rapport dan een rapport over koffiehuizen.
+  if (!fs.existsSync(beoordelingPad)) {
+    console.error(`data/${slug}/beoordeling.json bestaat niet — zonder vakfocus kan dit rapport ` +
+      `niet weten wie een ${config.vak.ev} is. Geen rapport gemaakt.`);
+    process.exit(1);
+  }
+
+  const ruw = JSON.parse(fs.readFileSync(reviewsPad, 'utf8'));
+  if (!Array.isArray(ruw)) {
+    console.error(`data/${slug}/reviews.json heeft niet de verwachte vorm (een lijst bedrijven).`);
+    process.exit(1);
+  }
+  const beoordeling = JSON.parse(fs.readFileSync(beoordelingPad, 'utf8'));
+  const vakfocusVan = new Map((beoordeling.bedrijven || []).map((b) => [b.bedrijf, b.vakfocus]));
+
+  // Hoeveel er gepubliceerd staan komt uit het selectieslot, niet uit een
   // herberekening: dit rapport mag nooit zelf een selectie uitrekenen.
   let gepubliceerd = null;
   const selectiePad = path.join(ROOT, 'data', slug, 'selectie.json');
@@ -746,9 +769,17 @@ function maak(slug) {
     if (Array.isArray(sel.bedrijven)) gepubliceerd = sel.bedrijven.length;
   }
 
-  const m = bereken(bedrijven, config, gepubliceerd, officieelAantalGemeenten(config));
-  if (!m.aantal) {
-    console.error(`Geen enkel bedrijf van ${slug} valt binnen de gemeentelijst van de config.`);
+  const m = bereken({
+    ruw, vakfocusVan, config, gepubliceerd,
+    gemeentenOfficieel: officieelAantalGemeenten(config),
+  });
+
+  if (m.aantal < MIN_VOOR_RAPPORT) {
+    const regel = `${slug}: ${m.aantal} ${config.vak.mv} — te weinig voor een rapport ` +
+      `(ondergrens ${MIN_VOOR_RAPPORT}). Bij zo'n kleine groep wijst elk cijfer naar een ` +
+      `herkenbaar bedrijf en is elk aandeel bijna 100%.`;
+    if (stil) { console.log('  overgeslagen — ' + regel); return null; }
+    console.error(regel);
     process.exit(1);
   }
 
@@ -769,13 +800,14 @@ const slugs = argv.filter((a) => !a.startsWith('--'));
 if (argv.includes('--alle')) {
   const alle = alleSlugs();
   if (!alle.length) { console.error('Geen enkele regio met data gevonden.'); process.exit(1); }
-  for (const s of alle) maak(s);
-  console.log(`\n${alle.length} marktrapporten gemaakt.`);
+  let gemaakt = 0;
+  for (const s of alle) if (maak(s, { stil: true })) gemaakt++;
+  console.log(`\n${gemaakt} marktrapporten gemaakt, ${alle.length - gemaakt} overgeslagen (te klein).`);
 } else if (!slugs.length) {
   console.error('Gebruik: node scripts/marktbeeld.js <slug> [--open]   of   --alle');
   console.error('Beschikbaar: ' + alleSlugs().join(', '));
   process.exit(1);
 } else {
   const laatste = maak(slugs[0]);
-  if (open) execFile('cmd', ['/c', 'start', '', laatste], () => {});
+  if (open && laatste) execFile('cmd', ['/c', 'start', '', laatste], () => {});
 }

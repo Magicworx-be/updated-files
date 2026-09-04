@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex">
 <title>Marktbeeld dakwerkers Aalst</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap">
 <style>
@@ -14,11 +13,18 @@
     --sans:"IBM Plex Sans","Segoe UI",Helvetica,Arial,sans-serif;
     --mono:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
   }
+  /* Donker thema, twee keer opgeschreven met opzet: de mediaquery vangt wie zijn
+     toestel op donker heeft staan, het [data-theme]-blok een lezer die het zelf
+     omzet. De :not() zorgt dat een bewuste keuze voor licht altijd wint. */
   @media (prefers-color-scheme:dark){
-    :root{
+    :root:not([data-theme="light"]){
       --ground:#10171A; --ink:#E5EBEA; --ink-2:#BAC6C7; --muted:#8E9CA1;
       --rule:#2A3639; --rule-soft:#212C2F; --accent:#3DB6A2; --accent-soft:#1D3B38; --track:#263235;
     }
+  }
+  :root[data-theme="dark"]{
+    --ground:#10171A; --ink:#E5EBEA; --ink-2:#BAC6C7; --muted:#8E9CA1;
+    --rule:#2A3639; --rule-soft:#212C2F; --accent:#3DB6A2; --accent-soft:#1D3B38; --track:#263235;
   }
   *{box-sizing:border-box}
   body{background:var(--ground);color:var(--ink);font-family:var(--sans);
@@ -31,6 +37,8 @@
   h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,5.2vw,50px);
      line-height:1.1;letter-spacing:-.015em;text-wrap:balance;margin:0 0 18px}
   .standfirst{font-size:19px;line-height:1.55;color:var(--ink-2);max-width:56ch;margin:0}
+  .scope{font-size:14.5px;color:var(--muted);line-height:1.55;max-width:60ch;
+         border-left:2px solid var(--accent);padding-left:14px;margin:24px 0 0}
   .meta{display:flex;flex-wrap:wrap;gap:8px 26px;font-family:var(--mono);font-size:12px;
         color:var(--muted);margin:26px 0 0;padding:16px 0 0;border-top:1px solid var(--rule)}
   .meta b{color:var(--ink-2);font-weight:500}
@@ -95,7 +103,7 @@
   .frow .f .v{font-family:var(--mono);font-size:16px;font-weight:500;color:var(--ink);
               font-variant-numeric:tabular-nums;white-space:nowrap}
   .tablewrap{overflow-x:auto;margin:28px 0 0}
-  table{border-collapse:collapse;width:100%;min-width:480px;font-size:14.5px}
+  table{border-collapse:collapse;width:100%;min-width:420px;font-size:14.5px}
   th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
      color:var(--muted);text-align:left;font-weight:400;padding:0 12px 9px 0;
      border-bottom:1px solid var(--ink)}
@@ -103,7 +111,7 @@
   td{padding:9px 12px 9px 0;border-bottom:1px solid var(--rule-soft);font-variant-numeric:tabular-nums}
   td.name{color:var(--ink)}
   td.num{font-family:var(--mono);font-size:13.5px;color:var(--ink-2)}
-  td.share{width:160px;padding-right:0}
+  td.share{width:200px;padding-right:0}
   .minibar{display:block;background:var(--track);height:7px;border-radius:2px;overflow:hidden}
   .minibar i{display:block;height:100%;background:var(--accent);border-radius:0 2px 2px 0}
   tbody tr:last-child td{border-bottom:0}
@@ -122,190 +130,187 @@
 <header class="top">
   <p class="eyebrow">Keurwijzer &middot; marktrapport</p>
   <h1>Dakwerkers in de regio Aalst</h1>
-  <p class="standfirst">Wat de Google-reviews van 76 dakwerkers zeggen over de
-  markt waarin ze werken &mdash; omvang, activiteit, en hoe scheef het speelveld ligt.</p>
+  <p class="standfirst">Wat de openbare Google-reviews zeggen over de 25
+  dakwerkers in deze regio die genoeg sporen nalaten om te beoordelen.</p>
+  <p class="scope">Dit rapport telt alleen bedrijven mee met minstens 10 reviews,
+  waarvan 3 in de voorbije twee jaar, en waarvan hun eigen website bevestigt dat
+  dakwerker hun echte vak is. Wie daaronder valt, komt hier niet in voor &mdash; en daarover
+  doen we ook geen uitspraak.</p>
   <div class="meta">
     <span>Peildatum <b>23 juli 2026</b></span>
     <span>Bron <b>openbare Google-reviews</b></span>
-    <span>Bereik <b>10 gemeenten</b></span>
-    <span>Bedrijven <b>76</b></span>
+    <span>Regio <b>10 gemeenten</b></span>
+    <span>Bedrijven <b>25</b></span>
   </div>
 </header>
 
 <div class="keyfig">
-  <div><span class="n">76</span><span class="l">dakwerkers gevonden in de regio</span></div>
-  <div><span class="n">6,5</span><span class="l">reviews heeft de doorsnee dakwerker</span></div>
-  <div><span class="n">4,60</span><span class="l">mediaan Google-score vanaf 10&nbsp;reviews</span></div>
-  <div><span class="n">55%</span><span class="l">haalt geen 3 reviews per 2&nbsp;jaar</span></div>
+  <div><span class="n">25</span><span class="l">dakwerkers in het rapport</span></div>
+  <div><span class="n">20</span><span class="l">reviews heeft de doorsnee dakwerker</span></div>
+  <div><span class="n">4,80</span><span class="l">mediaan Google-score</span></div>
+  <div><span class="n">12</span><span class="l">nieuwe reviews per 2&nbsp;jaar, mediaan</span></div>
 </div>
 
 <section>
-  <p class="sec-label">Omvang</p>
+  <p class="sec-label">Afbakening</p>
   <div class="col">
-    <h2>Van 76 bedrijven blijven er 26 over</h2>
-    <p class="lede">Niet elk bedrijf dat in de regio als dakwerker te vinden is, valt te
-    beoordelen. Zonder voldoende reviews, of zonder recente, is er te weinig om op te steunen.
-    Wie beide drempels haalt, is rankbaar.</p>
+    <h2>25 dakwerkers met een aantoonbaar spoor</h2>
+    <p class="lede">Een zoektocht naar dakwerkers in deze regio levert 76
+    bedrijven op. Lang niet allemaal leggen ze daadwerkelijk daken, en lang niet allemaal laten
+    ze genoeg publiek spoor na om er iets over te kunnen zeggen. Zo blijft de groep over waar
+    dit rapport over gaat.</p>
   </div>
   <div class="funnel">
-    <div class="frow"><span class="fill" style="width:100,0%"></span><div class="f"><span class="t">Dakwerkers gevonden in de regio</span><span class="v">76</span></div></div>
-    <div class="frow"><span class="fill" style="width:44,7%"></span><div class="f"><span class="t">Minstens 3 reviews in 24 maanden</span><span class="v">34</span></div></div>
-    <div class="frow"><span class="fill" style="width:38,2%"></span><div class="f"><span class="t">Minstens 10 reviews in totaal</span><span class="v">29</span></div></div>
-    <div class="frow"><span class="fill" style="width:34,2%"></span><div class="f"><span class="t">Beide drempels &mdash; rankbaar</span><span class="v">26</span></div></div>
+    <div class="frow"><span class="fill" style="width:100,0%"></span><div class="f"><span class="t">Zoekresultaten in het zoekgebied</span><span class="v">76</span></div></div>
+    <div class="frow"><span class="fill" style="width:34,2%"></span><div class="f"><span class="t">Genoeg reviews om te beoordelen</span><span class="v">26</span></div></div>
+    <div class="frow"><span class="fill" style="width:32,9%"></span><div class="f"><span class="t">Daarvan echte dakwerkers</span><span class="v">25</span></div></div>
     <div class="frow"><span class="fill" style="width:13,2%;border-left-color:var(--ink)"></span><div class="f"><span class="t">Gepubliceerd op Keurwijzer</span><span class="v">10</span></div></div>
   </div>
-  <p class="note">De helft van de dakwerkers in de regio haalt de drempel van 10 reviews niet.
-  Dat betekent niet dat ze slecht werk leveren &mdash; het betekent dat er publiek te weinig over
-  hen te vinden is om er iets zinnigs over te zeggen.</p>
+  <p class="note">De grootste stap is de eerste: 50 bedrijven hebben
+  te weinig reviews om te beoordelen. Dat betekent niet dat ze slecht werk leveren &mdash; het
+  betekent dat er publiek te weinig over hen te vinden is. Van wie wél genoeg reviews heeft, vielen er nog eens 1 af omdat hun
+  eigen website laat zien dat ze hoofdzakelijk iets anders doen.</p>
 </section>
 
 <section>
   <p class="sec-label">Reviewvolume</p>
   <div class="col">
-    <h2>Tien bedrijven bezitten meer dan de helft van alle reviews</h2>
-    <p class="lede">Samen verzamelden de 76 dakwerkers
-    <span class="fig">1.288</span> reviews. Die liggen bijzonder ongelijk
-    verdeeld: het gemiddelde bedrijf heeft er 17, de
-    d&oacute;&oacute;rsnee dakwerker 6,5. Dat verschil is het hele verhaal.</p>
+    <h2>Een kwart van de dakwerkers heeft 53% van alle reviews</h2>
+    <p class="lede">Samen verzamelden deze 25 dakwerkers
+    <span class="fig">646</span> reviews. Het gemiddelde bedrijf heeft er
+    26, de d&oacute;&oacute;rsnee dakwerker
+    20 &mdash; en de drukste 70.</p>
   </div>
   <div class="hbars">
-    <div class="hbar"><span class="cat">0 &ndash; 4</span><span class="track"><span class="fill" style="width:100,0%"></span></span><span class="val">28</span></div>
-    <div class="hbar"><span class="cat">5 &ndash; 9</span><span class="track"><span class="fill" style="width:67,9%"></span></span><span class="val">19</span></div>
-    <div class="hbar"><span class="cat">10 &ndash; 24</span><span class="track"><span class="fill" style="width:64,3%"></span></span><span class="val">18</span></div>
-    <div class="hbar"><span class="cat">25 &ndash; 49</span><span class="track"><span class="fill" style="width:25,0%"></span></span><span class="val">7</span></div>
-    <div class="hbar"><span class="cat">50 &ndash; 99</span><span class="track"><span class="fill" style="width:10,7%"></span></span><span class="val">3</span></div>
-    <div class="hbar"><span class="cat">100 of meer</span><span class="track"><span class="fill" style="width:3,6%"></span></span><span class="val">1</span></div>
+    <div class="hbar"><span class="cat">10 &ndash; 19</span><span class="track"><span class="fill" style="width:100,0%"></span></span><span class="val">12</span></div>
+    <div class="hbar"><span class="cat">20 &ndash; 34</span><span class="track"><span class="fill" style="width:58,3%"></span></span><span class="val">7</span></div>
+    <div class="hbar"><span class="cat">35 &ndash; 49</span><span class="track"><span class="fill" style="width:25,0%"></span></span><span class="val">3</span></div>
+    <div class="hbar"><span class="cat">50 &ndash; 99</span><span class="track"><span class="fill" style="width:25,0%"></span></span><span class="val">3</span></div>
+    <div class="hbar"><span class="cat">100 of meer</span><span class="track"><span class="fill" style="width:0,0%"></span></span><span class="val">0</span></div>
   </div>
-  <p class="axis-note">Aantal bedrijven per schijf &middot; schaal 0 &ndash; 28 &middot; de drukst beoordeelde dakwerker telt 414 reviews</p>
-  <p class="note">De tien drukst beoordeelde bedrijven hebben samen <strong>64%</strong>
-  van alle reviews in de regio. De 25 drukste hebben er <strong>82%</strong>.
-  De helft van de bedrijven met de minste reviews heeft er samen <strong>9%</strong>.</p>
+  <p class="axis-note">Aantal bedrijven per schijf &middot; schaal 0 &ndash; 12</p>
+  <p class="note">De drukste 7 bedrijven &mdash; een kwart van de groep &mdash;
+  hebben samen <strong>53%</strong> van alle reviews in dit rapport.
+  Bij een gelijke verdeling zou dat 25% zijn.</p>
 </section>
 
 <section>
   <p class="sec-label">Sterren</p>
   <div class="col">
     <h2>Een hoge score is de norm, geen uitzondering</h2>
-    <p class="lede">Onder de 29 bedrijven met minstens 10 reviews
-    ligt de mediaan op <span class="fig">4,60</span>.
-    9 bedrijven staan op een perfecte 5,0 &mdash; maar slechts 3 daarvan
-    halen die met 25 reviews of meer. Een vlekkeloze score zegt vooral iets zolang er genoeg
-    reviews onder liggen.</p>
+    <p class="lede">De mediaan ligt op <span class="fig">4,80</span>.
+    9 bedrijven staan op een perfecte 5,0
+    &mdash; waarvan 3 met 25 reviews of meer. Een vlekkeloze score zegt vooral
+    iets zolang er genoeg reviews onder liggen.</p>
   </div>
   <div class="hbars">
     <div class="hbar"><span class="cat">5,0</span><span class="track"><span class="fill" style="width:100,0%"></span></span><span class="val">9</span></div>
     <div class="hbar"><span class="cat">4,8 &ndash; 4,9</span><span class="track"><span class="fill" style="width:44,4%"></span></span><span class="val">4</span></div>
     <div class="hbar"><span class="cat">4,5 &ndash; 4,7</span><span class="track"><span class="fill" style="width:55,6%"></span></span><span class="val">5</span></div>
-    <div class="hbar"><span class="cat">4,0 &ndash; 4,4</span><span class="track"><span class="fill" style="width:88,9%"></span></span><span class="val">8</span></div>
-    <div class="hbar"><span class="cat">onder 4,0</span><span class="track"><span class="fill" style="width:33,3%"></span></span><span class="val">3</span></div>
+    <div class="hbar"><span class="cat">4,0 &ndash; 4,4</span><span class="track"><span class="fill" style="width:55,6%"></span></span><span class="val">5</span></div>
+    <div class="hbar"><span class="cat">onder 4,0</span><span class="track"><span class="fill" style="width:22,2%"></span></span><span class="val">2</span></div>
   </div>
-  <p class="axis-note">Aantal bedrijven per scoreschijf &middot; enkel bedrijven vanaf 10 reviews (n = 29) &middot; schaal 0 &ndash; 9</p>
+  <p class="axis-note">Aantal bedrijven per scoreschijf &middot; n = 25 &middot; schaal 0 &ndash; 9</p>
 </section>
 
 <section>
   <p class="sec-label">Activiteit</p>
   <div class="col">
-    <h2>Bijna één op 4 kreeg twee jaar lang geen enkele review</h2>
-    <p class="lede">Reviews vergaan niet, maar ze verouderen wel. Over de 24 maanden tot de
-    peildatum kreeg de doorsnee dakwerker er <span class="fig">2</span> bij.
-    19 bedrijven kregen er nul.</p>
+    <h2>De doorsnee dakwerker krijgt 12 reviews per twee jaar</h2>
+    <p class="lede">Reviews vergaan niet, maar ze verouderen wel. Iedereen in dit rapport haalt
+    minstens 3 nieuwe reviews in twee jaar &mdash; dat is de toegangseis. De vraag
+    is hoe ver de actieven onderling uiteenlopen. De drukste haalde er 67.</p>
   </div>
   <div class="hbars">
-    <div class="hbar"><span class="cat">geen enkele</span><span class="track"><span class="fill" style="width:82,6%"></span></span><span class="val">19</span></div>
-    <div class="hbar"><span class="cat">1 &ndash; 2</span><span class="track"><span class="fill" style="width:100,0%"></span></span><span class="val">23</span></div>
-    <div class="hbar"><span class="cat">3 &ndash; 9</span><span class="track"><span class="fill" style="width:82,6%"></span></span><span class="val">19</span></div>
-    <div class="hbar"><span class="cat">10 of meer</span><span class="track"><span class="fill" style="width:65,2%"></span></span><span class="val">15</span></div>
+    <div class="hbar"><span class="cat">3 &ndash; 5</span><span class="track"><span class="fill" style="width:66,7%"></span></span><span class="val">6</span></div>
+    <div class="hbar"><span class="cat">6 &ndash; 9</span><span class="track"><span class="fill" style="width:55,6%"></span></span><span class="val">5</span></div>
+    <div class="hbar"><span class="cat">10 &ndash; 19</span><span class="track"><span class="fill" style="width:100,0%"></span></span><span class="val">9</span></div>
+    <div class="hbar"><span class="cat">20 of meer</span><span class="track"><span class="fill" style="width:55,6%"></span></span><span class="val">5</span></div>
   </div>
-  <p class="axis-note">Nieuwe reviews in de 24 maanden tot de peildatum &middot; alle 76 bedrijven &middot; schaal 0 &ndash; 23</p>
+  <p class="axis-note">Nieuwe reviews in de 24 maanden tot de peildatum &middot; n = 25 &middot; schaal 0 &ndash; 9</p>
 </section>
 
 <section>
   <p class="sec-label">Groei</p>
   <div class="col">
     <h2>2026 zet de groei door</h2>
-    <p class="lede">Er komen elk jaar reviews bij over dakwerkers in deze regio. Hoeveel
-    precies, en of dat tempo aanhoudt, staat hieronder.</p>
+    <p class="lede">Hoeveel reviews klanten er elk jaar bij schrijven over de dakwerkers in
+    dit rapport, en of dat tempo aanhoudt.</p>
   </div>
   <div class="vchart">
     <div class="vcols">
-      <div class="vcol"><span class="stack" style="height:2,6%"><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:11,7%"><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:16,3%"><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:17,2%"><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:18,4%"><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:29,7%"><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:33,2%"><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:65,6%"><span class="lab strong">225</span><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:100,0%"><span class="lab" style="bottom:55,7%">191</span><span class="ghost" style="height:44,3%"></span><span class="bar" style="height:55,7%"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:1,4%"><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:5,1%"><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:10,9%"><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:12,3%"><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:12,3%"><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:25,3%"><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:33,1%"><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:63,5%"><span class="lab strong">186</span><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:100,0%"><span class="lab" style="bottom:55,6%">163</span><span class="ghost" style="height:44,4%"></span><span class="bar" style="height:55,6%"></span></span></div>
     </div>
     <div class="vlabels"><span>2018</span><span>2019</span><span>2020</span><span>2021</span><span>2022</span><span>2023</span><span>2024</span><span class="on">2025</span><span class="on">2026</span></div>
   </div>
-  <p class="axis-note">Nieuwe reviews per jaar &middot; schaal 0 &ndash; 343 &middot; gearceerd = raming voor de rest van 2026</p>
-  <p class="note">Op de peildatum was 56% van 2026 verstreken,
-  met 191 reviews. Doorgetrokken komt dat op ongeveer <strong>343</strong> &mdash;
-  tegenover 225 in 2025.</p>
+  <p class="axis-note">Nieuwe reviews per jaar &middot; schaal 0 &ndash; 293 &middot; gearceerd = raming voor de rest van 2026</p>
+  <p class="note">Op de peildatum was 56% van 2026
+  verstreken, met 163 reviews. Doorgetrokken komt dat op ongeveer
+  <strong>293</strong> &mdash; tegenover 186 in 2025.</p>
 </section>
 
 <section>
   <p class="sec-label">Seizoen</p>
   <div class="col">
     <h2>Juni levert ruim dubbel zoveel reviews op als augustus</h2>
-    <p class="lede">Over alle jaren heen samengeteld zit er een duidelijk ritme in wanneer
-    klanten hun dakwerker beoordelen.</p>
+    <p class="lede">Over alle jaren heen samengeteld zit er een ritme in wanneer klanten hun
+    dakwerker beoordelen.</p>
   </div>
   <div class="vchart">
     <div class="vcols">
-      <div class="vcol"><span class="stack" style="height:73,3%"><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:72,4%"><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:73,3%"><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:63,8%"><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:76,2%"><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:100,0%"><span class="lab strong">12,0%</span><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:57,1%"><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:47,6%"><span class="lab strong">5,7%</span><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:47,6%"><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:76,2%"><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:71,4%"><span class="bar"></span></span></div>
-      <div class="vcol"><span class="stack" style="height:73,3%"><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:83,3%"><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:70,5%"><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:60,3%"><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:67,9%"><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:82,1%"><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:100,0%"><span class="lab strong">12,1%</span><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:57,7%"><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:41,0%"><span class="lab strong">5,0%</span><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:42,3%"><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:71,8%"><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:69,2%"><span class="bar"></span></span></div>
+      <div class="vcol"><span class="stack" style="height:82,1%"><span class="bar"></span></span></div>
     </div>
     <div class="vlabels"><span>jan</span><span>feb</span><span>mrt</span><span>apr</span><span>mei</span><span class="on">jun</span><span>jul</span><span class="on">aug</span><span>sep</span><span>okt</span><span>nov</span><span>dec</span></div>
   </div>
-  <p class="axis-note">Aandeel van alle reviews per maand &middot; alle jaren samen (n = 874) &middot; schaal 0 &ndash; 12,0%</p>
+  <p class="axis-note">Aandeel van alle reviews per maand &middot; alle jaren samen (n = 646) &middot; schaal 0 &ndash; 12,1%</p>
 </section>
 
 <section>
   <p class="sec-label">Spreiding</p>
   <div class="col">
     <h2>Waar de dakwerkers zitten</h2>
-    <p class="lede">Waar de bedrijven gevestigd zijn, en hoeveel er per gemeente genoeg
-    reviews hebben om beoordeeld te kunnen worden.</p>
+    <p class="lede">In welke gemeenten de 25 dakwerkers uit dit rapport
+    gevestigd zijn.</p>
   </div>
   <div class="tablewrap">
     <table>
       <thead><tr>
-        <th>Gemeente</th><th class="r">Bedrijven</th><th class="r">Rankbaar</th>
-        <th style="width:160px">Aandeel rankbaar</th>
+        <th>Gemeente</th><th class="r">Dakwerkers</th><th style="width:200px">&nbsp;</th>
       </tr></thead>
       <tbody>
-        <tr><td class="name">Aalst</td><td class="num r">16</td><td class="num r">6</td><td class="share"><span class="minibar"><i style="width:38%"></i></span></td></tr>
-        <tr><td class="name">Ninove</td><td class="num r">15</td><td class="num r">7</td><td class="share"><span class="minibar"><i style="width:47%"></i></span></td></tr>
-        <tr><td class="name">Geraardsbergen</td><td class="num r">14</td><td class="num r">3</td><td class="share"><span class="minibar"><i style="width:21%"></i></span></td></tr>
-        <tr><td class="name">Zottegem</td><td class="num r">8</td><td class="num r">3</td><td class="share"><span class="minibar"><i style="width:38%"></i></span></td></tr>
-        <tr><td class="name">Haaltert</td><td class="num r">7</td><td class="num r">3</td><td class="share"><span class="minibar"><i style="width:43%"></i></span></td></tr>
-        <tr><td class="name">Erpe-Mere</td><td class="num r">6</td><td class="num r">0</td><td class="share"><span class="minibar"><i style="width:0%"></i></span></td></tr>
-        <tr><td class="name">Denderleeuw</td><td class="num r">2</td><td class="num r">0</td><td class="share"><span class="minibar"><i style="width:0%"></i></span></td></tr>
-        <tr><td class="name">Herzele</td><td class="num r">2</td><td class="num r">1</td><td class="share"><span class="minibar"><i style="width:50%"></i></span></td></tr>
-        <tr><td class="name">Lede</td><td class="num r">2</td><td class="num r">2</td><td class="share"><span class="minibar"><i style="width:100%"></i></span></td></tr>
-        <tr><td class="name">Sint-Lievens-Houtem</td><td class="num r">2</td><td class="num r">0</td><td class="share"><span class="minibar"><i style="width:0%"></i></span></td></tr>
-        <tr><td class="name">Oombergen</td><td class="num r">1</td><td class="num r">0</td><td class="share"><span class="minibar"><i style="width:0%"></i></span></td></tr>
-        <tr><td class="name">Schendelbeke</td><td class="num r">1</td><td class="num r">1</td><td class="share"><span class="minibar"><i style="width:100%"></i></span></td></tr>
+        <tr><td class="name">Ninove</td><td class="num r">7</td><td class="share"><span class="minibar"><i style="width:100%"></i></span></td></tr>
+        <tr><td class="name">Aalst</td><td class="num r">6</td><td class="share"><span class="minibar"><i style="width:86%"></i></span></td></tr>
+        <tr><td class="name">Geraardsbergen</td><td class="num r">3</td><td class="share"><span class="minibar"><i style="width:43%"></i></span></td></tr>
+        <tr><td class="name">Zottegem</td><td class="num r">3</td><td class="share"><span class="minibar"><i style="width:43%"></i></span></td></tr>
+        <tr><td class="name">Haaltert</td><td class="num r">2</td><td class="share"><span class="minibar"><i style="width:29%"></i></span></td></tr>
+        <tr><td class="name">Lede</td><td class="num r">2</td><td class="share"><span class="minibar"><i style="width:29%"></i></span></td></tr>
+        <tr><td class="name">Herzele</td><td class="num r">1</td><td class="share"><span class="minibar"><i style="width:14%"></i></span></td></tr>
+        <tr><td class="name">Schendelbeke</td><td class="num r">1</td><td class="share"><span class="minibar"><i style="width:14%"></i></span></td></tr>
       </tbody>
     </table>
   </div>
-  <p class="note">De 76 bedrijven zijn gevestigd in
-  <strong>12 gemeenten</strong>, terwijl de regio er 10 telt. Het zoekgebied loopt bewust
-  iets ruimer dan de regio zelf, want een dakwerker uit een buurgemeente werkt hier net zo
-  goed &mdash; daardoor duiken hier ook gemeenten op die net buiten de regio vallen.</p>
+  <p class="note">Het zoekgebied loopt bewust iets ruimer dan de regio zelf, want een
+  dakwerker uit een buurgemeente werkt hier net zo goed. Daardoor duiken hier ook
+  gemeenten op die net buiten de regio vallen.</p>
 </section>
 
 <section>
@@ -316,17 +321,18 @@
     beperking makkelijk meer belooft dan het waarmaakt.</p>
   </div>
   <ul class="caveats">
+    <li><strong>Dit rapport gaat over 25 bedrijven, niet over de hele sector.</strong> Om erin te staan moet een bedrijf minstens 10 Google-reviews hebben, waarvan 3 in de voorbije twee jaar, én bij beoordeling van zijn eigen website blijken dat dakwerker zijn echte vak is. Bedrijven met minder reviews vallen erbuiten &mdash; en over hen zeggen we bewust niets, ook niet hoeveel het er zijn. Ze zijn nooit beoordeeld, dus we weten van hen niet eens of het dakwerkers zijn.</li>
+    <li><strong>1 bedrijven met genoeg reviews vielen af omdat ze iets anders doen.</strong> Bij een zoektocht naar dakwerkers komen ook aannemers, dakgootreinigers, groothandels en winkels bovendrijven. Zij tellen hier niet mee, want anders zou dit rapport iets beweren over een markt die het niet meet.</li>
     <li><strong>De groeicurve overdrijft de klim.</strong> We zien alleen bedrijven die vandaag nog bestaan. Wie in het verleden stopte, telt in die oudere jaren niet mee &mdash; waardoor die kunstmatig laag ogen. De vergelijking tussen 2025 en 2026 is w&eacute;l betrouwbaar: dat zijn dezelfde bedrijven.</li>
-    <li><strong>E&eacute;n export is afgekapt.</strong> Bij één groot bedrijf werden minder reviews opgehaald dan er bestaan. Voor de volumecijfers maakt dat niets uit &mdash; daar telt het echte totaal van Google. Uit de jaar- en maandgrafieken is dat bedrijf weggelaten.</li>
-    <li><strong>Dakwerkers zonder website ontbreken.</strong> Alle 76 gevonden bedrijven hebben er een. Over vakmensen die enkel via mond-tot-mondreclame werken, zegt dit rapport niets.</li>
-    <li><strong>Een deel van de reviews is enkel een sterrenscore.</strong> Van de 974 opgehaalde reviews bevatten er 208 (21%) geen geschreven tekst. Ze tellen mee in het aantal, maar ze vertellen niets over het werk.</li>
+    <li><strong>Een deel van de reviews is enkel een sterrenscore.</strong> Van de 646 opgehaalde reviews bevatten er 85 (13%) geen geschreven tekst. Ze tellen mee in het aantal, maar ze vertellen niets over het werk.</li>
+    <li><strong>Het vak wordt beoordeeld op de eigen website.</strong> Een vakman zonder website kan op dat punt niet beoordeeld worden en valt dus buiten dit rapport, hoe goed hij ook werkt.</li>
   </ul>
 </section>
 
 <footer>
   Marktbeeld dakwerkers regio Aalst &middot; peildatum 23 juli 2026<br>
-  Samengesteld uit openbare Google-reviews van 76 bedrijven in 12 gemeenten.
-  Oudste review in de reeks: 26 juli 2013.<br>
+  Samengesteld uit openbare Google-reviews van 25 bedrijven in
+  8 gemeenten. Oudste review in de reeks: 3 december 2015.<br>
   Keurwijzer &mdash; onafhankelijke kwaliteitsranking per vak en regio.
 </footer>
 
