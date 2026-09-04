@@ -97,6 +97,9 @@ function verdeling(waarden, schijven) {
   return { rijen, max: Math.max(1, ...rijen.map((r) => r.aantal)) };
 }
 
+// Nederlands telt anders bij één. Zonder dit staat er "vielen er nog eens 1 af".
+const viel = (aantal) => aantal === 1 ? 'viel er nog één af' : 'vielen er nog ' + nl(aantal) + ' af';
+
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
@@ -290,7 +293,7 @@ const hoofd = (s) => s[0].toUpperCase() + s.slice(1);
 
 function koppen(m) {
   const k = {};
-  k.omvang = `${nl(m.aantal)} ${m.vakMv} met een aantoonbaar spoor`;
+  k.omvang = `Van ${nl(m.gevonden)} zoekresultaten blijven er ${nl(m.aantal)} over`;
 
   // Geen oordeel in de kop, alleen het cijfer. Bij een gelijke verdeling zou een
   // kwart van de bedrijven 25% van de reviews hebben; de lezer ziet zelf hoever
@@ -332,10 +335,25 @@ function render(m) {
   const datumNL = new Date(m.peildatum).toLocaleDateString('nl-BE',
     { day: 'numeric', month: 'long', year: 'numeric' });
 
+  // De twee afvalredenen als lijstje: zo staat het werkwoord er één keer, en
+  // loopt de zin ook goed als er maar één reden van toepassing is.
+  const afvallers = [];
+  if (m.geenSpecialist > 0) {
+    afvallers.push(`${viel(m.geenSpecialist)} omdat op de eigen website te zien is dat er vooral ` +
+      `iets anders gedaan wordt`);
+  }
+  if (m.nietTeBeoordelen > 0) {
+    afvallers.push(afvallers.length
+      ? `nog ${nl(m.nietTeBeoordelen)} omdat er geen website was om dat aan te controleren`
+      : `${viel(m.nietTeBeoordelen)} omdat er geen website was om te zien wat hun vak is`);
+  }
+  const afvalZin = afvallers.length
+    ? `. Van wie w&eacute;l genoeg reviews heeft, ${afvallers.join(', en ')}` : '';
+
   const trechter = [
-    ['Zoekresultaten in het zoekgebied', m.gevonden, false],
-    [`Genoeg reviews om te beoordelen`, m.beoordeelbaar, false],
-    [`Daarvan echte ${esc(m.vakMv)}`, m.aantal, false],
+    ['Bedrijven die de zoektocht oplevert', m.gevonden, false],
+    ['Genoeg reviews om te vergelijken', m.beoordeelbaar, false],
+    [`Hiervan echte ${esc(m.vakMv)}`, m.aantal, false],
   ];
   if (m.gepubliceerd) trechter.push(['Gepubliceerd op Keurwijzer', m.gepubliceerd, true]);
   const trechterHTML = trechter.map(([t, v, laatste]) =>
@@ -547,12 +565,12 @@ function render(m) {
 <header class="top">
   <p class="eyebrow">Keurwijzer &middot; marktrapport</p>
   <h1>${esc(m.vakMvCap)} in de ${esc(m.regio)}</h1>
-  <p class="standfirst">Wat de openbare Google-reviews zeggen over de ${nl(m.aantal)}
-  ${esc(m.vakMv)} in deze regio die genoeg sporen nalaten om te beoordelen.</p>
-  <p class="scope">Dit rapport telt alleen bedrijven mee met minstens ${m.drempelReviews} reviews,
-  waarvan ${m.drempelRecent} in de voorbije twee jaar, en waarvan hun eigen website bevestigt dat
-  ${esc(m.vakEv)} hun echte vak is. Wie daaronder valt, komt hier niet in voor &mdash; en daarover
-  doen we ook geen uitspraak.</p>
+  <p class="standfirst">Een beeld van de markt voor ${esc(m.vakMv)} in deze regio, opgemaakt uit
+  de openbare Google-reviews van ${nl(m.aantal)} bedrijven.</p>
+  <p class="scope">Een bedrijf telt hier alleen mee als het minstens ${m.drempelReviews}
+  Google-reviews heeft, waarvan ${m.drempelRecent} uit de voorbije twee jaar, en als op zijn eigen
+  website te zien is dat dit echt zijn vak is. Haalt een bedrijf dat niet, dan staat het hier niet
+  in &mdash; en zeggen we er ook niets over.</p>
   <div class="meta">
     <span>Peildatum <b>${datumNL}</b></span>
     <span>Bron <b>openbare Google-reviews</b></span>
@@ -572,36 +590,33 @@ function render(m) {
   <p class="sec-label">Afbakening</p>
   <div class="col">
     <h2>${k.omvang}</h2>
-    <p class="lede">Een zoektocht naar ${esc(m.vakMv)} in deze regio levert ${nl(m.gevonden)}
-    bedrijven op. Lang niet allemaal leggen ze daadwerkelijk daken, en lang niet allemaal laten
-    ze genoeg publiek spoor na om er iets over te kunnen zeggen. Zo blijft de groep over waar
-    dit rapport over gaat.</p>
+    <p class="lede">Zoek je in deze regio naar ${esc(m.vakMv)}, dan krijg je ${nl(m.gevonden)}
+    bedrijven te zien. Daar zitten er heel wat tussen die eigenlijk iets anders doen, en nog meer
+    waarover te weinig bekend is om ze te kunnen vergelijken. Wat overblijft, is de groep uit dit
+    rapport.</p>
   </div>
   <div class="funnel">
 ${trechterHTML}
   </div>
-  <p class="note">De grootste stap is de eerste: ${nl(m.gevonden - m.beoordeelbaar)} bedrijven hebben
-  te weinig reviews om te beoordelen. Dat betekent niet dat ze slecht werk leveren &mdash; het
-  betekent dat er publiek te weinig over hen te vinden is${m.geenSpecialist > 0
-    ? `. Van wie wél genoeg reviews heeft, vielen er nog eens ${nl(m.geenSpecialist)} af omdat hun
-  eigen website laat zien dat ze hoofdzakelijk iets anders doen` : ''}${m.nietTeBeoordelen > 0
-    ? `, en ${nl(m.nietTeBeoordelen)} omdat er geen bruikbare website was om hun vak aan af te lezen`
-    : ''}.</p>
+  <p class="note">De grootste stap is meteen de eerste: ${nl(m.gevonden - m.beoordeelbaar)} bedrijven
+  hebben te weinig reviews om mee te vergelijken. Dat wil niet zeggen dat ze slecht werk leveren
+  &mdash; alleen dat er publiek te weinig over hen te vinden is${afvalZin}.</p>
 </section>
 
 <section>
   <p class="sec-label">Reviewvolume</p>
   <div class="col">
     <h2>${k.volume}</h2>
-    <p class="lede">Samen verzamelden deze ${nl(m.aantal)} ${esc(m.vakMv)}
-    <span class="fig">${nl(m.totaalReviews)}</span> reviews. Het gemiddelde bedrijf heeft er
-    ${nl(Math.round(m.gemiddeldVolume))}, de d&oacute;&oacute;rsnee ${esc(m.vakEv)}
-    ${nl(m.medianeVolume)} &mdash; en de drukste ${nl(m.hoogsteVolume)}.</p>
+    <p class="lede">Samen kregen deze ${nl(m.aantal)} ${esc(m.vakMv)}
+    <span class="fig">${nl(m.totaalReviews)}</span> reviews. Gemiddeld zijn dat er
+    ${nl(Math.round(m.gemiddeldVolume))} per bedrijf, maar de middelste ${esc(m.vakEv)} heeft er
+    ${nl(m.medianeVolume)} &mdash; en de drukste ${nl(m.hoogsteVolume)}. Dat verschil is het
+    hele verhaal.</p>
   </div>
   <div class="hbars">
 ${m.volumeVerdeling.rijen.map((r) => staafRij(r.label, r.aantal, m.volumeVerdeling.max)).join('\n')}
   </div>
-  <p class="axis-note">Aantal bedrijven per schijf &middot; schaal 0 &ndash; ${m.volumeVerdeling.max}</p>
+  <p class="axis-note">Aantal bedrijven per groep &middot; schaal 0 &ndash; ${m.volumeVerdeling.max}</p>
   <p class="note">De drukste ${nl(m.kwartGrootte)} bedrijven &mdash; een kwart van de groep &mdash;
   hebben samen <strong>${dec(m.aandeelDrukste, 0)}%</strong> van alle reviews in dit rapport.
   Bij een gelijke verdeling zou dat 25% zijn.</p>
@@ -620,7 +635,7 @@ ${m.volumeVerdeling.rijen.map((r) => staafRij(r.label, r.aantal, m.volumeVerdeli
   <div class="hbars">
 ${m.sterVerdeling.rijen.map((r) => staafRij(r.label, r.aantal, m.sterVerdeling.max)).join('\n')}
   </div>
-  <p class="axis-note">Aantal bedrijven per scoreschijf &middot; n = ${nl(m.aantal)} &middot; schaal 0 &ndash; ${m.sterVerdeling.max}</p>
+  <p class="axis-note">Aantal bedrijven per scoregroep &middot; n = ${nl(m.aantal)} &middot; schaal 0 &ndash; ${m.sterVerdeling.max}</p>
 </section>
 
 <section>
@@ -628,8 +643,8 @@ ${m.sterVerdeling.rijen.map((r) => staafRij(r.label, r.aantal, m.sterVerdeling.m
   <div class="col">
     <h2>${k.activiteit}</h2>
     <p class="lede">Reviews vergaan niet, maar ze verouderen wel. Iedereen in dit rapport haalt
-    minstens ${m.drempelRecent} nieuwe reviews in twee jaar &mdash; dat is de toegangseis. De vraag
-    is hoe ver de actieven onderling uiteenlopen. De drukste haalde er ${nl(m.drukste)}.</p>
+    minstens ${m.drempelRecent} nieuwe reviews in twee jaar &mdash; dat is de ondergrens om hier in te
+    staan. De vraag is dus hoe ver de actieve bedrijven onderling uiteenlopen. De drukste haalde er ${nl(m.drukste)}.</p>
   </div>
   <div class="hbars">
 ${m.activiteitVerdeling.rijen.map((r) => staafRij(r.label, r.aantal, m.activiteitVerdeling.max)).join('\n')}
