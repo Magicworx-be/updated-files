@@ -649,10 +649,21 @@ const opnameCriteria = methodiekVersie >= 5
     ' reviews in de laatste 24 maanden én een eigen website'
   : 'minstens ' + MIN_REVIEWS + ' Google-reviews én minstens ' + MIN_RECENT +
     ' reviews in de laatste 24 maanden';
+// LET OP het woord "bedrijven" in de eerste zin — dat was ooit config.vak.mv
+// ("119 dakwerkers"), en dat klopte niet. Die telling is het aantal ZOEKRESULTATEN
+// binnen de gemeentefilter, en daar zitten geen vakmensen tussen: bij een controle
+// op 4 september 2026 bleken van de 69 "dakwerkers" op de Veurne-pagina er 65 iets
+// anders te doen (asbestattesten, totaalrenovatie, ontmossing, zelfs een fotostudio).
+// In Antwerpen waren de tien bedrijven met de meeste reviews er nul die daken leggen.
+// De ranking zelf heeft daar nooit last van gehad — die filtert niet-vakmensen weg
+// via de vakfocus-eis — maar deze ene zin overdreef, tot een factor 17.
+// Zet er dus nooit weer een vaknaam op die telling. Het getal dat WEL iets over
+// vakmensen zegt, is eligible.length in de tweede zin.
 const samenvatting =
   'Keurwijzer analyseerde ' + totaalReviews + ' Google-reviews van ' +
-  inRegioComps.length + ' ' + config.vak.mv + ' in ' + config.regio.naam +
-  ' (peildatum ' + config.peildatum + '). ' + eligible.length +
+  inRegioComps.length + ' bedrijven die in ' + config.regio.naam + ' als ' +
+  config.vak.ev + ' te vinden zijn (peildatum ' + config.peildatum + '). ' +
+  eligible.length +
   ' bedrijven voldoen aan de opnamecriteria (' + opnameCriteria + '). ' +
   'De ' + nListed + ' sterkste daarvan vormen de selectie die op deze pagina verschijnt, ' +
   'geselecteerd volgens onze vaste, publieke kwaliteitsmethodiek.';
