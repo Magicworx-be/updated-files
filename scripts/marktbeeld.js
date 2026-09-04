@@ -147,8 +147,17 @@ function bereken({ ruw, vakfocusVan, config, gepubliceerd, gemeentenOfficieel })
 
   const haaltDrempels = (b) => b.googleReviews >= MIN_REVIEWS && b.recent24 >= MIN_RECENT;
   const beoordeelbaar = gevonden.filter(haaltDrempels);
-  const S = beoordeelbaar.filter((b) => (vakfocusVan.get(b.bedrijf) || 0) >= VAKFOCUS_FLOOR);
-  const geenSpecialist = beoordeelbaar.length - S.length;
+
+  // Drie uitkomsten, niet twee. Een bedrijf zonder bruikbare website heeft
+  // vakfocus null: dan is zijn vak ONBEKEND, niet "geen vakman". Die twee op
+  // één hoop gooien zou dit rapport stilzwijgend scheeftrekken — precies de
+  // fout die we hier vermijden. Ze vallen buiten de cijfers, maar het rapport
+  // zegt hardop hoeveel het er zijn.
+  const vakfocus = (b) => vakfocusVan.get(b.bedrijf);
+  const onbekend = beoordeelbaar.filter((b) => vakfocus(b) === null || vakfocus(b) === undefined);
+  const S = beoordeelbaar.filter((b) => vakfocus(b) >= VAKFOCUS_FLOOR);
+  const geenSpecialist = beoordeelbaar.length - S.length - onbekend.length;
+  const nietTeBeoordelen = onbekend.length;
 
   // Afgekapte exports: minder reviews opgehaald dan Google er heeft. Ze tellen
   // wel mee in het volume (googleReviews is het echte totaal) maar niet in de
@@ -252,7 +261,7 @@ function bereken({ ruw, vakfocusVan, config, gepubliceerd, gemeentenOfficieel })
     gemeentenOfficieel, gemeentenMetSpecialist: gemeenten.length,
     drempelReviews: MIN_REVIEWS, drempelRecent: MIN_RECENT, vakfocusVloer: VAKFOCUS_FLOOR,
     gevonden: gevonden.length, beoordeelbaar: beoordeelbaar.length,
-    aantal: S.length, geenSpecialist, gepubliceerd,
+    aantal: S.length, geenSpecialist, nietTeBeoordelen, gepubliceerd,
     totaalReviews,
     medianeVolume: mediaan(volumes),
     gemiddeldVolume: volumes.length ? totaalReviews / volumes.length : 0,
@@ -373,6 +382,13 @@ function render(m) {
     `website blijken dat ${esc(m.vakEv)} zijn echte vak is. Bedrijven met minder reviews vallen ` +
     `erbuiten &mdash; en over hen zeggen we bewust niets, ook niet hoeveel het er zijn. Ze zijn nooit ` +
     `beoordeeld, dus we weten van hen niet eens of het ${esc(m.vakMv)} zijn.`);
+  if (m.nietTeBeoordelen > 0) {
+    caveats.push(`<strong>Van ${nl(m.nietTeBeoordelen)} ${m.nietTeBeoordelen === 1 ? 'bedrijf' : 'bedrijven'} ` +
+      `met genoeg reviews konden we het vak niet vaststellen.</strong> Er was geen bruikbare website ` +
+      `om op te kijken. Ze staan hier niet in, maar dat is geen oordeel: sommige zijn vrijwel zeker ` +
+      `wél ${esc(m.vakMv)}. "Onbekend" en "geen vakman" zijn twee verschillende dingen, en we tellen ` +
+      `ze hier niet als hetzelfde.`);
+  }
   if (m.geenSpecialist > 0) {
     caveats.push(`<strong>${nl(m.geenSpecialist)} bedrijven met genoeg reviews vielen af omdat ze iets ` +
       `anders doen.</strong> Bij een zoektocht naar ${esc(m.vakMv)} komen ook aannemers, ` +
@@ -568,7 +584,9 @@ ${trechterHTML}
   te weinig reviews om te beoordelen. Dat betekent niet dat ze slecht werk leveren &mdash; het
   betekent dat er publiek te weinig over hen te vinden is${m.geenSpecialist > 0
     ? `. Van wie wél genoeg reviews heeft, vielen er nog eens ${nl(m.geenSpecialist)} af omdat hun
-  eigen website laat zien dat ze hoofdzakelijk iets anders doen` : ''}.</p>
+  eigen website laat zien dat ze hoofdzakelijk iets anders doen` : ''}${m.nietTeBeoordelen > 0
+    ? `, en ${nl(m.nietTeBeoordelen)} omdat er geen bruikbare website was om hun vak aan af te lezen`
+    : ''}.</p>
 </section>
 
 <section>
@@ -711,7 +729,7 @@ function samenvatting(m) {
   console.log(`MARKTBEELD ${m.slug}  —  peildatum ${m.peildatum}`);
   console.log(`  zoekresultaten            ${nl(m.gevonden)}`);
   console.log(`  genoeg reviews            ${nl(m.beoordeelbaar)}   (>=${m.drempelReviews} reviews en >=${m.drempelRecent} recent)`);
-  console.log(`  daarvan vakspecialist     ${nl(m.aantal)}   (vakfocus >= ${dec(m.vakfocusVloer, 1)}; ${nl(m.geenSpecialist)} doen iets anders)`);
+  console.log(`  daarvan vakspecialist     ${nl(m.aantal)}   (vakfocus >= ${dec(m.vakfocusVloer, 1)}; ${nl(m.geenSpecialist)} doen iets anders, ${nl(m.nietTeBeoordelen)} niet vast te stellen)`);
   if (m.gepubliceerd) console.log(`  gepubliceerd              ${nl(m.gepubliceerd)}`);
   console.log(`  reviews totaal            ${nl(m.totaalReviews)}   mediaan ${nl(m.medianeVolume)} per bedrijf`);
   console.log(`  drukste kwart (${String(m.kwartGrootte).padStart(2)}) heeft  ${dec(m.aandeelDrukste, 0)}% van alle reviews`);
