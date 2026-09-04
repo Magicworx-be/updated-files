@@ -117,6 +117,18 @@ const datumOf = (w) => w ? esc(w) : '<span class="leeg">—</span>';
 // WhatsApp Web, en dat is een omweg van twee klikken. Op de publieke pagina blijft
 // wa.me wél de juiste keuze — daar weet je niet wat de bezoeker geïnstalleerd heeft.
 // Staat WhatsApp niet geïnstalleerd, dan gebeurt er bij het klikken niets.
+// De eigen website van het bedrijf, als korte link met "website" als tekst.
+//
+// Het domein komt uit data/<slug>/reviews.json (de scrapedata) en staat in het
+// logboek; 132 van de 133 bedrijven hebben er een. Opent in een nieuw venster:
+// het dashboard draait in een app-venster zonder adresbalk, dus wie hier in
+// hetzelfde venster wegnavigeert, raakt niet makkelijk terug.
+function siteLink(domein) {
+  if (!domein) return '<span class="leeg">—</span>';
+  return '<a class="site" href="https://' + esc(domein) + '" target="_blank" rel="noopener"' +
+    ' title="' + esc(domein) + '">website</a>';
+}
+
 function waLink(nummer) {
   const cijfers = String(nummer).replace(/\D/g, '');
   const leesbaar = /^32\d{9}$/.test(cijfers)
@@ -141,12 +153,13 @@ function balk(telling, totaal) {
 const rijHtml = (r) => {
   const t = toestand(r);
   return '<tr data-toestand="' + t + '" data-zoek="' +
-    esc((r.bedrijf + ' ' + REGIO(r.slug) + ' ' + (r.email || '') + ' ' + (r.whatsapp.nummer || '') + (r.zelfAfhandelen ? ' olivier zelf' : '') + (r.historisch ? ' historisch' : '')).toLowerCase()) + '">' +
+    esc((r.bedrijf + ' ' + REGIO(r.slug) + ' ' + (r.email || '') + ' ' + (r.whatsapp.nummer || '') + ' ' + (r.domein || '') + (r.zelfAfhandelen ? ' olivier zelf' : '') + (r.historisch ? ' historisch' : '')).toLowerCase()) + '">' +
     '<td class="naam">' + esc(r.bedrijf) +
       (r.historisch ? ' <span class="vlag" title="Benaderd vóór het logboek bestond; details staan alleen in Gmail">historisch</span>' : '') +
       (r.zelfAfhandelen ? ' <span class="vlag zelf" title="Olivier voert dit gesprek zelf — de mailrondes maken hier nooit een draft">Olivier zelf</span>' : '') +
     '</td>' +
     '<td>' + esc(REGIO(r.slug)) + '</td>' +
+    '<td>' + siteLink(r.domein) + '</td>' +
     '<td><span class="stip" style="background:' + TOESTANDEN[t].kleur + '"></span>' + esc(TOESTANDEN[t].label) + '</td>' +
     '<td>' + datumOf(r.mail1.verstuurdOp) + '</td>' +
     '<td>' + (r.antwoord ? esc(r.antwoord.datum) + ' <span class="soort">' + esc(r.antwoord.soort) + '</span>' : '<span class="leeg">—</span>') + '</td>' +
@@ -210,6 +223,8 @@ const html = `<!doctype html>
   .wa { color: var(--s3); font-weight: 600; text-decoration: none; white-space: nowrap;
         border-bottom: 1px dotted var(--s3); }
   .wa:hover { border-bottom-style: solid; }
+  .site { color: var(--s1); text-decoration: none; border-bottom: 1px dotted var(--s1); }
+  .site:hover { border-bottom-style: solid; }
   .wacht { color: var(--s2); font-weight: 600; }
   .stip { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; vertical-align: baseline; }
 
@@ -267,7 +282,7 @@ const html = `<!doctype html>
   </div>
   <div class="kaart schuif">
     <table id="tabel">
-      <thead><tr><th>Bedrijf</th><th>Regio</th><th>Toestand</th><th>Mail 1</th><th>Antwoord</th><th>Opvolging</th><th>WhatsApp</th><th>Badge</th></tr></thead>
+      <thead><tr><th>Bedrijf</th><th>Regio</th><th>Website</th><th>Toestand</th><th>Mail 1</th><th>Antwoord</th><th>Opvolging</th><th>WhatsApp</th><th>Badge</th></tr></thead>
       <tbody>
         ${rijen.slice().sort((a, b) => a.slug.localeCompare(b.slug, 'nl') || a.bedrijf.localeCompare(b.bedrijf, 'nl')).map(rijHtml).join('\n        ')}
       </tbody>
