@@ -117,6 +117,11 @@ Dat document is ook wat Cowork leest.
   outreach-mailteksten in Fase 6 van de werkproces-prompt staan zelf al in het
   Nederlands. Zie je Engelse tekst verschijnen in `beoordeling.json`,
   `output/<slug>/index.html` of een Gmail-draft, dan is dat een fout — stoppen en melden.
+  **Hóé het moet klinken staat in de skill `keurwijzer-toon`** (`.claude/skills/`):
+  twee registers — de pagina spreekt als instituut, Olivier als mens — plus de
+  woorden die er niet in horen en de Nederlandse valkuilen die blijven terugkomen
+  (tellen bij één, tussenletter-s uit een variabele). Lees die vóór je tekst
+  schrijft of herschrijft die naar buiten gaat.
 
 ## Congruentieregel — METHODIEK.md meebijwerken
 
