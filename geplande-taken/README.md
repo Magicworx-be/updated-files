@@ -33,15 +33,20 @@ opnieuw met het bijbehorende schema uit de tabel hieronder.
 
 | Map | Draait | Schema |
 |---|---|---|
-| `keurwijzer-mailwacht` | **ja** | elke dag 08u15, 15u15 en 20u15 (`15 8,15,20 * * *`) |
+| `keurwijzer-mailwacht` | **ja** | elke dag 07u, 11u, 15u en 18u (`0 7,11,15,18 * * *`) |
 | `keurwijzer-opvolgmails-vrijdag` | **ja** | vrijdag 17u (`0 17 * * 5`) |
-| `keurwijzer-replies` | nee | verwijderd van de laptop op 3 september 2026 |
-| `keurwijzer-whatsapp-dagelijks` | nee | idem |
-| `keurwijzer-whatsapp-wekelijks` | nee | idem |
 
-De onderste drie zijn restanten van een oudere opzet. Ze waren nooit
-geregistreerd en deden dus niets; op 3 september 2026 zijn ze van de laptop
-gehaald. **Deze map is nu hun enige kopie** — dat is bewust, mocht er ooit iets
-uit nodig blijken. Het werk dat zij deden zit intussen in de skills
-`keurwijzer-mails` en `keurwijzer-opvolgmails` in `.claude/skills/`, die Olivier
-zelf start.
+Alles wat hier staat, draait ook echt. Er is precies één taak die zelf mails
+opstelt — de vrijdagse opvolgronde. De mailwacht is enkel een deurbel: ze kijkt
+of er antwoorden wachten, stuurt daar één melding over en veegt stickers weg.
+Het eigenlijke antwoorden gebeurt in de skills `keurwijzer-mails` en
+`keurwijzer-opvolgmails` in `.claude/skills/`, die Olivier zelf start.
+
+## Wat er niet meer in staat
+
+Drie mappen zijn hier op 4 september 2026 weggehaald: `keurwijzer-replies`,
+`keurwijzer-whatsapp-dagelijks` en `keurwijzer-whatsapp-wekelijks`. Dat waren
+kopieën van taken uit een oudere opzet, die op 3 september al van de laptop
+verdwenen waren; ze deden dus al niets meer, maar de mappen wekten nog de indruk
+van wel. Hun werk zit nu in de twee skills hierboven. Heb je er ooit toch iets
+uit nodig, dan staan ze nog in de geschiedenis van deze repo.
