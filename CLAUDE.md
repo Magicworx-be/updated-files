@@ -153,6 +153,7 @@ hetzelfde zeggen.
 |---|---|
 | `lib/rekenkern.js` | **De rekenkern.** Constanten, methodiek-versies, eligibility, de vier dimensies, composite en selectie. Doet geen I/O, dus los te draaien en te testen. Bindende bron voor alle getallen. |
 | `build.js` | Leest de bestanden, laat `lib/rekenkern.js` rekenen, bewaakt het selectieslot en rendert pagina, rapport, prospectie en badge-export. |
+| `scripts/marktbeeld.js` | **Het marktrapport per regio** → `reports/<slug>/<slug>-marktbeeld.html`. Aggregaten over de hele regio (omvang, volume, sterren, activiteit, groei, seizoen, spreiding). Bevat bewust géén bedrijfsnamen: daardoor is dit het enige rapport dat je mág delen met bedrijven. Drempels komen uit `lib/rekenkern.js`, het echte aantal gemeenten uit `regions.txt` via `lib/registry.js` — nooit uit `config.gemeenten` (dat zijn schrijfwijzen, geen gemeenten). Gebruik: `node scripts/marktbeeld.js <slug>` of `--alle`. |
 | `test/` | `npm test`: golden-tests op de 16 live pagina's (élk tussengetal), randgevallen, en de verschillen tussen methodiek v1 t/m v5. `test/README.md` zegt wanneer een snapshot vernieuwd mag worden — dat is zelden. |
 | `ARCHITECTUUR.md` | **Vogelperspectief:** wat waar staat (laptop, GitHub, Cloudflare) en hoe de keten van scrape tot live pagina loopt. Lees dit bij vragen over de opzet. |
 | `build-all.js` | Bouwt alles (pagina's, hubs, sitemap) + pusht `registry.json`, de badges én de site naar Cloudflare. Veilig eindcommando. |
