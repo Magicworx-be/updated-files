@@ -270,14 +270,23 @@ its badge and its number, and Olivier is asking for nothing in return.
 longer triggers Gmail's `google.com/url` Redirect Notice: there is nothing left to wrap.
 
 **The text is fixed — Olivier rewrote it himself on 2 September 2026, shorter and warmer
-than the first version, and reworded the opening line on 4 September 2026. Take it
-literally: add nothing, leave nothing out.** Only `{voornaam}` varies, and it rides in the
+than the first version, reworded the opening line on 4 September 2026, and added the
+"testberichtje" line that same day. Take it literally: add nothing, leave nothing out.**
+
+That second line is not decoration. An hour after this mail, Olivier sends the company a
+short WhatsApp message (see `scripts/whatsapp-nabericht.js`). Announcing it here is what
+turns that message from something unexpected into something the company is waiting for —
+and the company gave its number to be published on the page, not to be messaged. Remove
+this line and the WhatsApp arrives out of the blue. The mail still goes out on its own
+schedule: Olivier sends it, the WhatsApp follows only if he taps the link. Only `{voornaam}` varies, and it rides in the
 first line — **this mail has no greeting**, the same way the badge mail of scenario 1 has
 none. The line always closes with a full stop. No confirmed first name → drop the name and
-the comma with it: `Ik heb je WhatsApp-nummer toegevoegd.`
+the comma with it: `Ik heb je WhatsApp-nummer toegevoegd.` De tweede regel — *"Ik stuur je nog een
+testberichtje."* — verandert nooit en valt nooit weg.
 
 ```
 Ik heb je WhatsApp-nummer toegevoegd, {voornaam}.
+Ik stuur je nog een testberichtje.
 
 En mocht je ooit hulp nodig hebben met (meer) leads en klanten, laat t mij weten. Dan laat ik je zien hoe ik dat doe met o.a. Whatsapp en AI.
 
@@ -290,7 +299,8 @@ Olivier
 the one place where a break is *absent*: the middle paragraph runs its two sentences
 together on a single line. Olivier merged them on 4 September 2026 — do not split them
 back apart. So write the body as one `<div>` with `<br>` between the lines, exactly as
-above: three blocks, separated by a blank line, and nothing rewrapped.
+above. The opening block is two lines with a single break between them; then a blank line,
+the middle paragraph, a blank line, and the signature. Nothing rewrapped.
 
 **No badge block, no landing-page link, no attachment.** Everything has already been
 delivered earlier in this same thread.

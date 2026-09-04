@@ -56,3 +56,8 @@ reports/outreach-dashboard.html
 # De ruwe Gmail-feiten waarmee het logboek gevuld is (mailadressen, thread-ID's).
 # Zelfde reden. Zie scripts/outreach-gmail.md voor de vorm.
 data/outreach-gmail.json
+
+# De knoppenpagina van scripts/whatsapp-nabericht.js: bedrijfsnamen en
+# telefoonnummers, dus niet naar een publieke repo.
+reports/whatsapp-berichten.html
+reports/whatsapp-nabericht.log

@@ -26,6 +26,8 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 
+const gmail = require('../lib/gmail');
+
 const WORTEL = path.join(__dirname, '..');
 const DROOG = process.argv.includes('--droog');
 const VANDAAG = require('../lib/outreach').vandaagISO();   // Belgische tijd, niet UTC
@@ -58,157 +60,18 @@ function schrijfLog() {
   catch { /* een logboek mag de routine nooit breken */ }
 }
 
-// ───────────────────────────────────────────── .env
-
-function leesEnv() {
-  const uit = {};
-  let ruw = '';
-  try { ruw = fs.readFileSync(path.join(WORTEL, '.env'), 'utf8'); }
-  catch { return uit; }
-  for (const regel of ruw.split(/\r?\n/)) {
-    const m = regel.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/);
-    if (m) uit[m[1]] = m[2].replace(/^["']|["']$/g, '');
-  }
-  return uit;
-}
-
-// ───────────────────────────────────────────── netwerk met tijdslimiet
-
-/**
- * fetch met een harde tijdslimiet en herhalingen. Dit is de kern van de
- * robuustheid: geen enkele oproep mag ooit oneindig blijven hangen, want dat is
- * precies wat de oude routine deed vastlopen.
- */
-async function haal(url, opties = {}, { pogingen = 3, limiet = 20000, naam = 'oproep' } = {}) {
-  let laatsteFout;
-  for (let poging = 1; poging <= pogingen; poging++) {
-    const afbreker = new AbortController();
-    const klok = setTimeout(() => afbreker.abort(), limiet);
-    try {
-      const antwoord = await fetch(url, { ...opties, signal: afbreker.signal });
-      clearTimeout(klok);
-      if (antwoord.status >= 500 || antwoord.status === 429) {
-        throw new Error(`HTTP ${antwoord.status}`);
-      }
-      return antwoord;
-    } catch (e) {
-      clearTimeout(klok);
-      laatsteFout = e;
-      const oorzaak = e.name === 'AbortError' ? `geen antwoord binnen ${limiet / 1000}s` : e.message;
-      log(`  ⚠ ${naam}: poging ${poging} van ${pogingen} mislukt (${oorzaak})`);
-      if (poging < pogingen) await new Promise((r) => setTimeout(r, 1500 * poging));
-    }
-  }
-  throw new Error(`${naam} bleef mislukken: ${laatsteFout && laatsteFout.message}`);
-}
-
 // ───────────────────────────────────────────── Gmail
 
-async function verseSleutel(env) {
-  const antwoord = await haal('https://oauth2.googleapis.com/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      client_id: env.GOOGLE_CLIENT_ID,
-      client_secret: env.GOOGLE_CLIENT_SECRET,
-      refresh_token: env.GOOGLE_REFRESH_TOKEN,
-      grant_type: 'refresh_token',
-    }),
-  }, { naam: 'Google-sleutel vernieuwen' });
-  const data = await antwoord.json();
-  if (!data.access_token) {
-    throw new Error('Google gaf geen toegangssleutel: ' + JSON.stringify(data));
-  }
-  return data.access_token;
-}
-
-function gmailKop(sleutel) {
-  return { Authorization: `Bearer ${sleutel}`, 'Content-Type': 'application/json' };
-}
-
-async function zoekThreadIds(sleutel) {
-  const ids = new Set();
-  for (const q of ZOEKOPDRACHTEN) {
-    const url = 'https://gmail.googleapis.com/gmail/v1/users/me/threads?'
-      + new URLSearchParams({ q, maxResults: '100' });
-    const antwoord = await haal(url, { headers: gmailKop(sleutel) }, { naam: 'threads zoeken' });
-    const data = await antwoord.json();
-    for (const t of data.threads || []) ids.add(t.id);
-  }
-  return [...ids];
-}
-
-/**
- * Let op: we halen élke thread volledig op. De zoekopdracht dient alleen om
- * kandidaten te vínden, nooit om te beoordelen wat erin staat — die lijst kan
- * berichten weglaten. Op 1 september 2026 ontbrak zo het antwoord van DWG
- * Projects, met een gemist nummer tot gevolg.
- */
-async function haalThread(sleutel, id) {
-  const url = `https://gmail.googleapis.com/gmail/v1/users/me/threads/${id}?format=full`;
-  const antwoord = await haal(url, { headers: gmailKop(sleutel) }, { naam: `thread ${id}` });
-  return antwoord.json();
-}
-
-async function verstuurMail(sleutel, onderwerp, tekst) {
-  const rfc822 = [
-    `To: ${VERSLAG_NAAR}`,
-    `Subject: =?UTF-8?B?${Buffer.from(onderwerp, 'utf8').toString('base64')}?=`,
-    'MIME-Version: 1.0',
-    'Content-Type: text/plain; charset="UTF-8"',
-    'Content-Transfer-Encoding: base64',
-    '',
-    Buffer.from(tekst, 'utf8').toString('base64'),
-  ].join('\r\n');
-  const raw = Buffer.from(rfc822, 'utf8').toString('base64')
-    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-  const antwoord = await haal('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
-    method: 'POST', headers: gmailKop(sleutel), body: JSON.stringify({ raw }),
-  }, { naam: 'verslag mailen' });
-  if (!antwoord.ok) throw new Error('mail versturen mislukte: HTTP ' + antwoord.status);
-  return antwoord.json();
-}
-
-// ───────────────────────────────────────────── bericht uitpakken
-
-function decodeer(data) {
-  if (!data) return '';
-  return Buffer.from(data.replace(/-/g, '+').replace(/_/g, '/'), 'base64').toString('utf8');
-}
-
-function platteTekst(payload) {
-  if (!payload) return '';
-  if (payload.mimeType === 'text/plain' && payload.body && payload.body.data) {
-    return decodeer(payload.body.data);
-  }
-  for (const deel of payload.parts || []) {
-    const gevonden = platteTekst(deel);
-    if (gevonden) return gevonden;
-  }
-  // Geen platte tekst? Dan de HTML ontdoen van opmaak.
-  if (payload.mimeType === 'text/html' && payload.body && payload.body.data) {
-    return decodeer(payload.body.data)
-      .replace(/<br\s*\/?>/gi, '\n').replace(/<\/p>/gi, '\n')
-      .replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ')
-      .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
-  }
-  return '';
-}
-
-function kop(bericht, naam) {
-  const h = (bericht.payload && bericht.payload.headers) || [];
-  const gevonden = h.find((x) => x.name.toLowerCase() === naam.toLowerCase());
-  return gevonden ? gevonden.value : '';
-}
-
-function pakBericht(bericht) {
-  return {
-    id: bericht.id,
-    van: kop(bericht, 'From'),
-    datum: new Date(Number(bericht.internalDate)),
-    tekst: platteTekst(bericht.payload),
-  };
-}
+// De netwerkcode met tijdslimiet, het vernieuwen van de sleutel en het uitpakken
+// van berichten staan in lib/gmail.js. Gedeeld met scripts/whatsapp-nabericht.js:
+// twee kopieën van dezelfde netwerkcode betekent dat een verbetering aan de ene
+// stilzwijgend langs de andere gaat, en juist deze code draait onbemand.
+const haal = (url, opties, meer = {}) => gmail.haal(url, opties, { log, ...meer });
+const haalThread = (sleutel, id) => gmail.haalThread(sleutel, id, { log });
+const zoekThreadIds = (sleutel) => gmail.zoekThreadIds(sleutel, ZOEKOPDRACHTEN, { log });
+const verstuurMail = (sleutel, onderwerp, tekst) =>
+  gmail.verstuurMail(sleutel, VERSLAG_NAAR, onderwerp, tekst, { log });
+const pakBericht = gmail.pakBericht;
 
 const VAN_OLIVIER = /olivier@magicworx\.net/i;
 
@@ -508,16 +371,15 @@ async function hoofdlijn() {
   let sleutel = null;
 
   try {
-    const env = leesEnv();
-    for (const nodig of ['GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET', 'GOOGLE_REFRESH_TOKEN']) {
-      if (!env[nodig]) {
-        console.error(`\n✗ ${nodig} ontbreekt in .env.\n  Draai eerst:  node scripts/google-toegang.js\n`);
-        process.exit(2);
-      }
+    const env = gmail.leesEnv(WORTEL);
+    const ontbreekt = gmail.keurEnv(env);
+    if (ontbreekt.length) {
+      console.error(`\n✗ ${ontbreekt.join(', ')} ontbreekt in .env.\n  Draai eerst:  node scripts/google-toegang.js\n`);
+      process.exit(2);
     }
 
     log(`— WhatsApp-routine ${VANDAAG}${DROOG ? ' (DROOG — er wordt niets gewijzigd)' : ''}`);
-    sleutel = await verseSleutel(env);
+    sleutel = await gmail.verseSleutel(env, { log });
 
     const ids = await zoekThreadIds(sleutel);
     log(`  ${ids.length} gesprekken om na te kijken`);

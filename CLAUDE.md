@@ -160,10 +160,12 @@ hetzelfde zeggen.
 | `build.js` | Leest de bestanden, laat `lib/rekenkern.js` rekenen, bewaakt het selectieslot en rendert pagina, rapport, prospectie en badge-export. |
 | `lib/outreach.js` | **Het outreach-logboek.** Schema, validatie en de afgeleide vragen (opvolgkandidaten, werkdagen, domeinkoppeling). Bron: `data/outreach.json` — staat bewust NIET in git. |
 | `lib/antwoord.js` | Mens of machine? Beslist op tekst, nooit op de klok. |
+| `lib/gmail.js` | **De mailbox lezen zonder taalmodel.** Sleutel, harde tijdslimiet, threads ophalen, één mail versturen. Gedeeld door `scripts/whatsapp-routine.js` en `scripts/whatsapp-nabericht.js`; beslist zelf nooit iets. |
 | `scripts/outreach-seed.js` | Legt het logboek aan, vult nieuwe regio's bij en zet de **rang** uit `selectie.json` op elke rij (die stuurt de top 5-grens van de opvolgronde). Draai dit na elke nieuwe pagina. Feiten uit Gmail voeg je toe met `--gmail data/outreach-gmail.json`; zie `scripts/outreach-gmail.md`. |
 | `scripts/outreach-lijst.js` | De werklijst: `--vrijdag` (de volledige opvolgronde: top 5 zonder antwoord + open WhatsApp-vragen + wie op Olivier wacht), `--zelf`, `--opvolg`, `--nieuw`, `--nummer-open`, `--badge-open`, `--bedrijf`. De mailrondes lezen hier, niet meer in Gmail. |
 | `scripts/impactcheck.js` | **Hangt alles nog aan elkaar?** Controleert verwijzingen, commando's + vlaggen, getallen die in code én uitleg staan, de vaste zinnen waar de mailrondes op steunen, en geplande taken vs hun repo-kopie. Draait mee met `npm test` en `build-all.js`. |
 | `scripts/outreach-noteer.js` | Legt een gemaakte opvolgdraft vast in het logboek (`--thread <id> --lijst 1\|2`) en weigert een tweede op hetzelfde bedrijf. `--controleer` sluit de ronde af. Nooit `data/outreach.json` met de hand bewerken. |
+| `scripts/whatsapp-nabericht.js` | **Het WhatsApp-bericht na de bevestigingsmail.** Vindt de mail "Ik heb je WhatsApp-nummer toegevoegd", wacht een uur, en mailt Olivier één klaarstaande `wa.me`-link per bedrijf — hij tikt erop en verstuurt zelf. Verstuurt nooit zelf een WhatsApp. Zet er `reports/whatsapp-berichten.html` bij: knoppen die WhatsApp Desktop rechtstreeks openen, zonder het tussenscherm van de browser (niet in git — bedrijfsnamen en nummers). `--droog` toont wat het zou doen; `--overslaan` boekt alles wat klaarstaat af zonder bericht, voor bedrijven die er geen horen te krijgen. |
 | `scripts/deurbel.js` | Deterministische deurbel: `--vraag` geeft de Gmail-zoekopdracht, `--verwerk` beslist en logt. |
 | `scripts/outreach-dashboard.js` | Maakt `reports/outreach-dashboard.html` — dubbelklikken. Niet in git (bedrijfsgegevens). |
 | `scripts/marktbeeld.js` | **Het marktrapport per regio** → `reports/<slug>/<slug>-marktbeeld.html`. Het enige rapport dat je **publiek mag verspreiden**: het bevat geen enkele bedrijfsnaam, alleen aggregaten. Het gaat bewust over één groep — bedrijven die de reviewdrempels halen **én** vakspecialist zijn (`vakfocus ≥ VAKFOCUS_FLOOR`). Dat is de enige afbakening die in élke regio volledig gekend is; wie onder de drempel zit is nooit beoordeeld, dus van hen weten we niet eens of het vakmensen zijn — daarover doet het rapport geen enkele uitspraak. Zonder die filter telt het rapport koffiehuizen en kledingzaken mee (in Antwerpen 296 "dakwerkers" i.p.v. 68). Regio's met minder dan 15 specialisten worden geweigerd: daar wijst elk cijfer naar een herkenbaar bedrijf. Drempels uit `lib/rekenkern.js`, gemeenteaantal uit `regions.txt` via `lib/registry.js` — nooit uit `config.gemeenten` (dat zijn schrijfwijzen). Gebruik: `node scripts/marktbeeld.js <slug>` of `--alle`. |
@@ -211,6 +213,13 @@ hetzelfde zeggen.
   `node scripts/outreach-lijst.js --adres <mail>` vóór élke eerste mail in Fase 6.
   Verzwak er nooit één zonder dat Olivier daar uitdrukkelijk om vraagt. Zie METHODIEK.md
   § Opvolgmails.
+- **Datzelfde geldt op WhatsApp, en daar weegt het zwaarder.** Een bedrijf krijgt na de
+  bevestigingsmail precies één WhatsApp-bericht van Olivier, nooit twee. `alNabericht()` in
+  `lib/outreach.js` is de enige plek waar die rem staat; `scripts/whatsapp-nabericht.js`
+  schrijft `nabericht.klaargezetOp` weg zodra de link gemaild is. Het script verstuurt zelf
+  nooit een WhatsApp — dat zou de WhatsApp Business Platform van Meta vergen, met een
+  goedgekeurd sjabloon, een apart nummer en een kost per bericht, terwijl het bedrijf zijn
+  nummer gaf om op de pagina te zetten en niet om er berichten op te krijgen.
 - **Het outreach-logboek is de bron voor "wat is er al gedaan".** Mailrondes halen hun
   kandidaten uit `scripts/outreach-lijst.js`, niet uit een Gmail-brede zoektocht, en
   schrijven de uitkomst terug. Vóór een draft altijd nog `get_thread` doen — de

@@ -574,6 +574,28 @@ in de thread zelf nagekeken (staat de zin "Gebruik deze badges gerust" erin?) en
 het logboek — dat veld is leeg voor iedereen die vóór 4 september 2026 een badge kreeg.
 Zo krijgt niemand er twee, en niemand geen.
 
+**Het WhatsApp-bericht na de bevestigingsmail (4 september 2026).** Staat het nummer live
+en is de bevestigingsmail vertrokken, dan hoort daar één kort WhatsApp-bericht bij, een uur
+later. Het bevestigt dat de knop werkt en laat Oliviers eigen nummer achter; het vraagt
+niets. De bevestigingsmail kondigt het een uur eerder aan ("Ik stuur je nog een
+testberichtje"), zodat het niet uit de lucht komt vallen bij een bedrijf dat zijn nummer
+gaf om het op de pagina te zetten. `scripts/whatsapp-nabericht.js` herkent die mail aan haar vaste openingszin ("Ik heb
+je WhatsApp-nummer toegevoegd"), wacht `NABERICHT_WACHT_MINUTEN` (60) af en zet het bericht
+klaar als een `wa.me`-link in één mail aan Olivier.
+
+**Het verstuurt nooit zelf.** Geautomatiseerd versturen kan alleen via de WhatsApp Business
+Platform van Meta: een vooraf goedgekeurd sjabloon, een apart nummer en een kost per
+bericht. En het bedrijf gaf zijn nummer om op de pagina te zetten — dat is geen toestemming
+om er berichten van Keurwijzer op te ontvangen. Olivier tikt de link aan en verstuurt vanaf
+zijn eigen nummer, waar het bedrijf hem later ook kan terugvinden.
+
+Dezelfde harde regel geldt als bij de mails, en ze weegt hier zwaarder: **nooit twee keer
+hetzelfde bedrijf**. Een mail te veel verdwijnt in een postvak; een bericht te veel staat op
+hun telefoon, tussen de berichten van hun klanten. `alNabericht()` in `lib/outreach.js` is
+de enige plek waar die rem staat, en het script schrijft `nabericht.klaargezetOp` weg zodra
+de link gemaild is. Een bedrijf kan ook bewust worden overgeslagen (`--overslaan`); dat telt
+als behandeld en levert dezelfde toestand op — geen bericht, en het komt niet meer terug. Ook dit raakt selectie noch ranking (zie §7).
+
 **Herinnering voor een WhatsApp-nummer (staande regel sinds 3 september 2026).** Een
 bedrijf dat wél antwoordde en zijn badge kreeg, maar de vraag naar zijn zakelijk
 WhatsApp-nummer onbeantwoord liet, krijgt daarover **hoogstens één** herinnering, opnieuw
@@ -683,6 +705,12 @@ slug plus genormaliseerde bedrijfsnaam. Het nummer mag in elk formaat staan —
 **slaat die ene regiopagina over**; de overige pagina's worden wél gebouwd en
 gepubliceerd. Een tikfout laat dus niet stilzwijgend één knop verdwijnen, maar zet
 wel een hele pagina stil — de build-uitvoer hoort daarom altijd nagelezen te worden.
+**Het nummer wordt ook één keer in de andere richting gebruikt.** Zodra het live staat,
+krijgt het bedrijf één kort WhatsApp-bericht van Olivier — een bevestiging dat de knop
+werkt, en zo staat zijn nummer ook bij hen in de telefoon. Eén per bedrijf, nooit meer, en
+altijd met de hand verstuurd; zie § Opvolgmails. Ook dat verandert niets aan de selectie of
+de volgorde.
+
 Regel weghalen = link weg bij de volgende build.
 
 ---

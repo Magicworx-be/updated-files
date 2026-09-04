@@ -33,11 +33,25 @@ transportmiddel.
 
 ### 2. GitHub — drie repo's met drie verschillende rollen
 
-| Repo | Rol | Richting |
-|---|---|---|
-| `Magicworx-be/keurwijzer-data` | Scrapedata binnen; `registry.json` en badges buiten | beide |
-| `Magicworx-be/updated-files` | Back-up van de broncode | uit |
-| `Magicworx-be/keurwijzer-site` | De gepubliceerde website | uit |
+| Repo | Rol | Richting | Zichtbaar |
+|---|---|---|---|
+| `Magicworx-be/keurwijzer-data` | `registry.json` en badges buiten | uit | **publiek — moet** |
+| `Magicworx-be/updated-files` | Back-up van de broncode; scrapedata binnen | beide | publiek |
+| `Magicworx-be/keurwijzer-site` | De gepubliceerde website | uit | privé |
+
+Gemeten op 4 september 2026 (onaangemelde GitHub-API: 200 = publiek, 404 = privé).
+
+**`keurwijzer-data` moet publiek blijven.** De badges en `registry.json` worden
+opgehaald via `cdn.jsdelivr.net/gh/...` en `raw.githubusercontent.com`, en die
+serveren alleen publieke repo's. Zet je hem op privé, dan zijn álle badges dood —
+ook die in mails die al verstuurd zijn en op sites van bedrijven. Er staan in die
+repo geen mailadressen: enkel `README.md`, `badges/` en `registry.json`.
+
+**`updated-files` mag wél op privé.** Niets leest hem automatisch. Twee dingen
+moeten dan blijven werken: de SSH-push van de laptop (werkt ongewijzigd op een
+privérepo) en het GitHub-token van de n8n-scraper, dat de repo uitdrukkelijk moet
+mogen schrijven. **`keurwijzer-site` staat al op privé** en de site werkt — dat is
+meteen het bewijs dat Cloudflare geen publieke repo nodig heeft.
 
 ### 3. Cloudflare — waar de site staat
 
@@ -60,8 +74,11 @@ Dit is een echte volgorde — elke stap hangt van de vorige af.
 
 1. **Status op "todo"** in de Google Sheet. Dat is het startschot.
 2. **De n8n-scraper draait** en haalt via Apify de Google-plaatsen en reviews op.
-3. **n8n pusht naar `keurwijzer-data`**, in `data/<slug>/` — twee bestanden per
-   regio: `*-places.json` en `*-reviews.json`.
+3. **n8n pusht naar `updated-files`**, in `data/<slug>/` — twee bestanden per
+   regio: `*-places.json` en `*-reviews.json`. (Hier stond tot 4 september 2026
+   `keurwijzer-data`; dat klopt niet. Nagemeten: `keurwijzer-data` bevat enkel
+   `README.md`, `badges/` en `registry.json` — geen enkele scrapefile — en de
+   scrape-commits staan alleen op `updated-files/main`.)
 4. **`git pull` op de laptop** haalt die data binnen.
 5. **`scripts/normalize.js`** zet de Apify-export om naar `data/<slug>/reviews.json`,
    met afgeleide velden als `recent24` en `rankbaar`.
@@ -114,6 +131,34 @@ Die is bewust een **deurbel**: ze zoekt in Gmail, telt hoeveel antwoorden er wac
 stuurt in dat geval één melding "draai /keurwijzer-mails". Ze maakt geen concepten, zet
 geen labels, leest geen bestanden en draait geen commando's. Wachten er nul, dan stuurt
 ze niets.
+
+#### Het WhatsApp-bericht dat op de bevestigingsmail volgt
+
+Sinds 4 september 2026 hoort er één kort WhatsApp-bericht bij een nummer dat live gaat.
+Olivier stuurt de bevestigingsmail ("Ik heb je WhatsApp-nummer toegevoegd"); een uur later
+staat het bericht klaar.
+
+Klaar, niet verstuurd. `scripts/whatsapp-nabericht.js` zoekt die mail in Gmail, wacht het
+uur af en mailt Olivier één `wa.me`-link per bedrijf. Hij tikt de link aan op zijn
+telefoon, WhatsApp opent met de tekst er al in, hij drukt op verzenden.
+
+Op de laptop zit er bij een `wa.me`-link nog een scherm van WhatsApp zelf tussen. Daarom
+schrijft het script er `reports/whatsapp-berichten.html` bij: één knop per bedrijf, met een
+`whatsapp://`-link die WhatsApp Desktop meteen opent. Zo'n link werkt niet vanuit een mail
+(Gmail maakt er geen klikbare link van), vandaar dat losse bestand. Het wordt elke ronde
+overschreven, staat niet in git, en is géén logboek — dat blijft `data/outreach.json`. Zelf versturen zou
+de WhatsApp Business Platform van Meta vergen — goedgekeurd sjabloon, apart nummer, kost
+per bericht — en het bedrijf gaf zijn nummer om op de pagina te zetten, niet om er
+berichten van Keurwijzer op te ontvangen.
+
+Dit is een **programma, geen geplande Claude-taak**, en om precies de reden die hieronder
+staat: een onbemande beurt hangt op de eerste toestemmingsvraag. Het draait dus via de
+Windows-taakplanner, met `scripts/whatsapp-nabericht.cmd` als startpunt, en het gebruikt
+dezelfde Google-sleutel uit `.env` als `scripts/whatsapp-routine.js` — één keer opzetten
+met `node scripts/google-toegang.js`. De gedeelde mailbox-code staat in `lib/gmail.js`.
+
+De rem staat in het logboek: `alNabericht()` in `lib/outreach.js`. Eén bericht per bedrijf,
+nooit twee — op WhatsApp weegt dat zwaarder dan in een postvak.
 
 #### Waarom het niet meer vanzelf gaat
 
