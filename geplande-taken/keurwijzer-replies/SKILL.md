@@ -76,17 +76,21 @@ Een thread is een kandidaat als ALLE volgende dingen kloppen:
 > er geantwoord is, niet wie het laatst schreef, niet wat er in staat. Open elke
 > kandidaat-thread met `get_thread`; alleen dat geeft alle berichten.
 
-### Uitsluitlijst — deze threads nooit behandelen
+### Gesprekken die Olivier zelf voert
 
-Olivier heeft deze gesprekken zelf al persoonlijk afgehandeld. Sla ze altijd over, ongeacht wie het laatste bericht stuurde:
+Olivier voert een paar gesprekken zelf. Wélke, staat niet meer hier maar in het
+outreach-logboek, als `zelfAfhandelen` op de rij van het bedrijf:
 
-- `1a047f391d4505d7` — Dakwerken Vermeersch (Brugge)
-- `1a0436f627b19643` — Dakwerken Hofman bvba (Dendermonde)
-- `1a0436f303053a93` — Dakwerken SD Projects (Dendermonde)
-- `1a0470a8d2d8490c` — Dakwerken Devlin (Oudenaarde)
-- `1a047f329442ed6a` — D&G Dakwerken (Brugge)
+```bash
+node scripts/outreach-lijst.js --zelf
+```
 
-Komt er ná vandaag een volledig nieuw bericht binnen in zo'n thread waar duidelijk een antwoord op verwacht wordt, meld dat dan aan Olivier in plaats van zelf iets te schrijven.
+Schrijf in die threads **nooit** een draft. Komt er een volledig nieuw bericht binnen
+waar duidelijk een antwoord op wordt verwacht, meld dat dan aan Olivier in plaats van
+zelf iets te schrijven.
+
+Waarom dit verhuisd is: tot 4 september 2026 stonden dezelfde vijf thread-ID's letterlijk
+in vier promptbestanden. Wie er één aanpaste, vergat de andere drie.
 
 ### Automatische antwoorden — nooit een draft
 
@@ -129,7 +133,9 @@ Kan je het bedrijf niet eenduidig vastpinnen, maak dan géén badge-draft. Behan
 
 ## Stap 3 — schrijf de draft
 
-Lees `prompts/reply-scenarios.md` in de projectmap. Dat bestand is bindend: het bevat de toon, de begroetingsregels voor voornamen, de exacte sjablonen voor scenario 1 (badge-vraag) en scenario 2 (is het gratis), en de behandeling van scenario 3 (al de rest).
+Lees `prompts/reply-scenarios.md` in de projectmap. Dat bestand is bindend: het bevat de toon, de begroetingsregels voor voornamen, de exacte sjablonen voor scenario 1 (badge-vraag) en scenario 2 (is het gratis), de behandeling van scenario 3 (al de rest), en scenario 4 (alleen een WhatsApp-nummer, als antwoord op de wekelijkse opvolgmail).
+
+Scenario 4 vergt één extra controle: zoek in de volledige thread naar de zin **"Gebruik deze badges gerust"**. Ontbreekt die, dan kreeg dit bedrijf nooit een badge — de opvolgmail biedt er immers geen meer aan — en gaat het vaste badgeblok mee onder de bevestigingsmail. Staat ze er wel, dan verandert er niets. Beslis dit nooit op `badge.gevraagdOp` in het logboek: dat veld is leeg voor iedereen die vóór het logboek een badge kreeg.
 
 Lees ook de paragraaf "Answering a reply" in `prompts/directory-page-emails-prompt.md`.
 

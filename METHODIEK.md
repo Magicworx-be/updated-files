@@ -17,7 +17,7 @@ dit document verouderd — zie [Onderhoud](#onderhoud-1-bron-2-lezers).
 | **Waarom-beslissingen** | `WIJZIGINGEN.md` |
 | **Nieuwste methodiek-versie** | v5 (zie [Methodiek-versies](#methodiek-versies)) |
 | **Vangnet onder de berekening** | het selectieslot in `build.js` én de tests in `test/` (`npm test`) |
-| **Laatst gelijkgezet met de code** | 3 september 2026 |
+| **Laatst gelijkgezet met de code** | 4 september 2026 |
 
 ---
 
@@ -519,14 +519,60 @@ selectie noch ranking, net zoals de WhatsApp-nummers in §7.
 **Opvolgmails bij stilte (staande regel sinds 1 september 2026).** De meeste bedrijven
 antwoorden niet op de eerste mail. Daarop volgen hoogstens **twee** opvolgmails, telkens
 als **antwoord in dezelfde thread** (nooit een nieuwe mail met een nieuw onderwerp):
-de eerste na minstens 3 werkdagen met één ja/nee-vraag, de tweede na nog eens 10
-werkdagen als afsluiter. Ze bevatten **geen links, geen afbeelding en geen rangvermelding**
+de eerste na minstens 3 werkdagen, de tweede na nog eens 10 werkdagen als afsluiter. Ze bevatten **geen links, geen afbeelding en geen rangvermelding**
 — de landingspagina staat al in de geciteerde eerste mail eronder. Er wordt geen
 kunstmatige deadline of "laatste kans" gebruikt: de pagina heeft er geen, en een bedrijf
 kan dat nakijken. Wie "nee" antwoordt of eerder om rust vroeg, krijgt niets meer; wie al
 antwoordde, valt vanzelf uit de reeks. Ook dit staat **buiten de methodiek**: opvolging
 raakt selectie noch ranking, en de pagina van een bedrijf verandert niet door wel of niet
 te antwoorden. Zie fase 7 in `prompts/directory-page-emails-prompt.md`.
+
+**Nooit twee keer dezelfde mail (harde regel, 4 september 2026).** Geen enkel bedrijf
+krijgt twee keer dezelfde vraag. Niet in twee opeenvolgende weken, en niet omdat het in
+twee regio's gepubliceerd staat. Dat is geen stijlvoorkeur maar een
+geloofwaardigheidskwestie: Keurwijzer presenteert zich als een zorgvuldige, onafhankelijke
+vergelijking, en twee identieke mails uit dezelfde bron spreken dat tegen bij precies de
+bedrijven waar het om draait. Er zijn vier remmen, en ze staan met opzet niet allemaal op
+dezelfde plek:
+
+1. **Het logboek** (`data/outreach.json`). Een rij met een ingevulde `opvolg1` of
+   `opvolg2` — verstuurd óf als draft — valt uit allebei de vrijdaglijsten.
+   `alOpgevolgd()` in `lib/outreach.js` is de enige plek waar die regel staat.
+2. **Het noteercommando** (`scripts/outreach-noteer.js`). De ronde schrijft haar drafts
+   niet met de hand in het logboek maar via dit script, dat een tweede notitie op
+   hetzelfde bedrijf weigert. Het sluit af met `--controleer`, dat nul openstaande
+   kandidaten hoort te tonen.
+3. **De vingerafdruk in de thread.** Allebei de opvolgteksten beginnen met "Ik wou je
+   opname op Keurwijzer graag afwerken." Staat die zin al in de thread, dan is er al
+   opgevolgd — ook als het logboek iets anders beweert. Dit is de enige rem die een
+   achterlopend logboek overleeft.
+4. **De adrescontrole vóór mail 1** (`node scripts/outreach-lijst.js --adres <mail>`).
+   Het logboek houdt één rij per bedrijf **per regio** bij, dus een bedrijf in twee
+   regio's heeft twee rijen en de tweede lijkt onbenaderd. Fase 6 controleert daarom elk
+   mailadres vóór ze een kennismakingsmail opstelt.
+
+Sinds 4 september 2026 gaat de **eerste** opvolgmail alleen naar de bedrijven op plek 1
+t.e.m. 5 van hun regio, en niet dieper, en **vraagt ze niet langer naar de badge maar naar
+het zakelijk WhatsApp-nummer**. De reden is praktisch: de eerste mail bood die badge al
+aan en werd genegeerd; een vraag naar hun WhatsApp-nummer is een andere call to action met
+een kleinere drempel. De badge blijft gewoon beschikbaar, er wordt alleen niet meer naar
+gevraagd in de opvolging. Zo'n nummer staat sowieso **buiten de methodiek** (zie §7): het
+komt in geen enkele berekening voor en verandert de plaats van een bedrijf niet. Die grens is gemeten: de top 3 antwoordt op 21%
+van de eerste mail, plek 4 t.e.m. 10 op 11% (meting van 2 september 2026 over 133
+gepubliceerde bedrijven; reviews en sterrenscore verschillen niet tussen wie antwoordt en
+wie niet — alleen de plaats doet ertoe). De plaats komt rechtstreeks uit
+`data/<slug>/selectie.json`, dus uit wat er werkelijk op de pagina staat. Ook dit raakt
+selectie noch ranking: een bedrijf zakt of stijgt niet doordat het wel of geen opvolgmail
+krijgt. Wie zijn WhatsApp-nummer nog niet doorgaf of bevestigde, krijgt daarnaast één
+herinnering, ongeacht plaats — dat gesprek liep al.
+
+Omdat de opvolgmail geen badge meer aanbiedt, ontstaat er een groep die haar
+WhatsApp-nummer doorgeeft zonder ooit een badge gekregen te hebben. Die krijgt hem
+alsnog: scenario 4 in `prompts/reply-scenarios.md` hangt het vaste badgeblok onder de
+bevestigingsmail zodra het nummer live staat. Of een bedrijf zijn badge al had, wordt
+in de thread zelf nagekeken (staat de zin "Gebruik deze badges gerust" erin?) en niet in
+het logboek — dat veld is leeg voor iedereen die vóór 4 september 2026 een badge kreeg.
+Zo krijgt niemand er twee, en niemand geen.
 
 **Herinnering voor een WhatsApp-nummer (staande regel sinds 3 september 2026).** Een
 bedrijf dat wél antwoordde en zijn badge kreeg, maar de vraag naar zijn zakelijk

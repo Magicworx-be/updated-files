@@ -45,3 +45,14 @@ reports/watchdog-taken.log
 # laptop. Die mag je niet negeren of untracken, anders breekt het proces van
 # een nieuwe regio. Zie de regel "Ruwe scrapedata" in CLAUDE.md.
 data/*/*dataset_*.json
+
+# Outreach-logboek: bevat mailadressen van bedrijven. De repos zijn publiek
+# leesbaar (gecontroleerd 2026-09-04), dus dit bestand blijft lokaal.
+# Aanleggen/bijwerken: node scripts/outreach-seed.js
+data/outreach.json
+data/outreach.json.tmp
+reports/outreach-dashboard.html
+
+# De ruwe Gmail-feiten waarmee het logboek gevuld is (mailadressen, thread-ID's).
+# Zelfde reden. Zie scripts/outreach-gmail.md voor de vorm.
+data/outreach-gmail.json

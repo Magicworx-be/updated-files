@@ -28,7 +28,7 @@ const { execFileSync } = require('child_process');
 
 const WORTEL = path.join(__dirname, '..');
 const DROOG = process.argv.includes('--droog');
-const VANDAAG = new Date().toISOString().slice(0, 10);
+const VANDAAG = require('../lib/outreach').vandaagISO();   // Belgische tijd, niet UTC
 
 const WHATSAPP_JSON = path.join(WORTEL, 'data', 'whatsapp.json');
 const MARKERING = path.join(WORTEL, 'reports', 'whatsapp-dagelijks.json');
@@ -382,7 +382,7 @@ function beoordeel(thread, slugs, alGedaan) {
   const basis = {
     threadId: thread.id,
     afzender: (laatste.van.match(/[\w.+-]+@[\w.-]+/) || [laatste.van])[0],
-    datum_mail: laatste.datum.toISOString().slice(0, 10),
+    datum_mail: require('../lib/outreach').lokaleDatum(laatste.datum),
     slug: wie.slug || null,
     bedrijf: wie.bedrijf || null,
   };

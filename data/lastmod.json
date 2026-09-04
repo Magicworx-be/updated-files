@@ -2,68 +2,68 @@
   "_uitleg": "Per pagina: de md5 van output/<slug>/index.html bij de vorige build en de datum waarop die voor het laatst veranderde. build-site.js gebruikt dat als sitemap-lastmod, zodat alleen echt gewijzigde pagina's een nieuwe datum krijgen. Niet met de hand bijwerken.",
   "paginas": {
     "dakwerkers-aalst": {
-      "md5": "97dc71e152cd52d9af605e19b9b1492e",
-      "datum": "2026-07-23"
+      "md5": "3acd154db9504aa215b434cc8dd53346",
+      "datum": "2026-09-04"
     },
     "dakwerkers-antwerpen": {
-      "md5": "12e7ebb977eb1e4cd70fec199cd20016",
-      "datum": "2026-08-31"
+      "md5": "7b6fb54c6894e27a47cd78ff9f9742aa",
+      "datum": "2026-09-04"
     },
     "dakwerkers-brasschaat": {
-      "md5": "2d74b2554c0f2006a6e71f81680daa68",
-      "datum": "2026-09-01"
+      "md5": "7f2272c127d7b74e4e1e3fe81eddf09d",
+      "datum": "2026-09-04"
     },
     "dakwerkers-brugge": {
-      "md5": "413f10b653655d3bf37f054d4f25b47c",
-      "datum": "2026-08-28"
+      "md5": "32b565e3f33d1b80d566e7f36d4d746f",
+      "datum": "2026-09-04"
     },
     "dakwerkers-dendermonde": {
-      "md5": "0a348c45302e5a0a31598cdbf8ba54d2",
-      "datum": "2026-08-27"
+      "md5": "18fd09fee895ab57c0f3abc04f818b1d",
+      "datum": "2026-09-04"
     },
     "dakwerkers-gent": {
-      "md5": "318aacb42ef7051577e73a7d2a23065d",
-      "datum": "2026-07-17"
+      "md5": "50640a7987370bf15e600d6e824f0f3e",
+      "datum": "2026-09-04"
     },
     "dakwerkers-ieper": {
-      "md5": "4e68f6a6c16cd0f5bbd7bbf901ef24ac",
-      "datum": "2026-08-28"
+      "md5": "2d6e724474a20247bbf1be971580f344",
+      "datum": "2026-09-04"
     },
     "dakwerkers-kortrijk": {
-      "md5": "aee3b8cc14c04d898d7b6b37ef4f2fff",
-      "datum": "2026-08-31"
+      "md5": "c44cc10bd95a2c1e5ce3189087295bcd",
+      "datum": "2026-09-04"
     },
     "dakwerkers-mechelen": {
-      "md5": "285c2f60c03aaf4caef80778e13830b8",
-      "datum": "2026-09-01"
+      "md5": "2f0f11c681bd6ae0bdd51072de064f6c",
+      "datum": "2026-09-04"
     },
     "dakwerkers-meetjesland": {
-      "md5": "2abbd9328e80262d060be8b28928fec9",
-      "datum": "2026-07-23"
+      "md5": "391d581666fe6ab3296775d39fbdee57",
+      "datum": "2026-09-04"
     },
     "dakwerkers-oostende": {
-      "md5": "15771035dbc63885852476d87017682f",
-      "datum": "2026-08-28"
+      "md5": "d28c7a65fa8044a408c01ea6b7ace5fc",
+      "datum": "2026-09-04"
     },
     "dakwerkers-oudenaarde": {
-      "md5": "14768837ef851be7bbf19d46e9cfda9b",
-      "datum": "2026-08-27"
+      "md5": "1decd5e52c0e11ba05dc49957c325a44",
+      "datum": "2026-09-04"
     },
     "dakwerkers-roeselare": {
-      "md5": "0cca37d1825a26f0643256cf7281855c",
-      "datum": "2026-08-28"
+      "md5": "8b29b8b1881e65aa14766ec9e775534c",
+      "datum": "2026-09-04"
     },
     "dakwerkers-sint-niklaas": {
-      "md5": "f44f312baf0456b7d0de2b7cb52906e9",
-      "datum": "2026-08-19"
+      "md5": "4604055ec98bd00cc97192068aad8d95",
+      "datum": "2026-09-04"
     },
     "dakwerkers-tielt": {
-      "md5": "2bfbe8b73768c0f746d1d1916c889bf8",
-      "datum": "2026-08-28"
+      "md5": "77265a82fc810ff5f76920abf2d93b8d",
+      "datum": "2026-09-04"
     },
     "dakwerkers-veurne-diksmuide": {
-      "md5": "67ce33087ea20aa74fc2ca4bae537732",
-      "datum": "2026-08-28"
+      "md5": "43cb9b83e53ae2bde24d43e1b802d9db",
+      "datum": "2026-09-04"
     }
   }
 }

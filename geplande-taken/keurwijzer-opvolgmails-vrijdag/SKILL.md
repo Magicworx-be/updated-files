@@ -1,6 +1,6 @@
 ---
 name: keurwijzer-opvolgmails-vrijdag
-description: Zet elke vrijdag om 17u de opvolgmails klaar: top 3-bedrijven die na drie werkdagen niet reageerden op de outreachmail, plus bedrijven die de vraag naar hun WhatsApp-nummer onbeantwoord lieten.
+description: Zet elke vrijdag om 17u de opvolgmails klaar - top 5-bedrijven die na drie werkdagen niet reageerden op de outreachmail, plus bedrijven die hun WhatsApp-nummer niet doorgaven of bevestigden. Allebei vragen ze naar het zakelijk WhatsApp-nummer.
 ---
 
 Draai de wekelijkse Keurwijzer-opvolgronde.
@@ -14,50 +14,72 @@ Lukt geen van beide, stop dan en meld dat — improviseer niet.
 
 De ronde bestaat uit twee losse lijsten met eigen regels. Behandel ze allebei.
 
-Waar het op neerkomt (de skill is bindend, dit is enkel de samenvatting):
+**Begin met dit commando. Het geeft je allebei de lijsten in één keer:**
 
-**Deel A — bedrijven die nooit antwoordden:**
+```
+node scripts/outreach-lijst.js --vrijdag
+```
 
-- Zoek in Gmail: `in:sent subject:vergeleken older_than:2d newer_than:90d`. Blader álle
-  pagina's af, niet enkel de eerste. De wachttijd is drie werkdagen; omdat deze ronde op
-  vrijdag draait, komt dat neer op alles wat t.e.m. dinsdag verstuurd is, en `2d` is
-  precies die grens. Gebruik géén `3d` — dat laat de hele dinsdagbatch vallen.
-- Open elke kandidaat met `get_thread`, nooit beoordelen op de zoeklijst — die laat soms
-  het nieuwste bericht weg.
-- Houd een thread alleen als: precies één bericht, van olivier@magicworx.net; geen
-  antwoord van het bedrijf (een autoresponder telt niet als antwoord); geen bestaande
-  draft in die thread; niet in de uitsluitlijst van de skill; nog geen `Label_5`.
-- Houd daarvan alleen de bedrijven waarvan de outreachmail zegt "op de eerste plaats" of
-  "in de top 3". Bij "top 5" of "top 10": overslaan.
-- Neem de aanhef letterlijk over uit de outreachmail in die thread. Zoek nooit zelf een
-  voornaam op een website: bij de eerste mail is dat al geprobeerd, en een neutrale aanhef
-  betekent dat er toen niets gevonden is. Bezoek dus geen enkele website.
-- Maak per bedrijf één draft als antwoord in die thread, met de tekst uit de skill, en
-  neem de rangzin letterlijk over uit de oorspronkelijke mail. Verzin nooit een rang.
-- Label de thread met `Label_5` (Keurwijzer/4. Weekend opvolgen).
+Dat is de enige bron voor wie er in aanmerking komt. Zoek niet zelf in Gmail naar
+kandidaten: het logboek past de regels al toe (top 5, drie werkdagen, geen antwoord,
+geen bestaande draft, geen opt-out, geen `zelfAfhandelen`, nummer nog niet live, en
+het bedrijf schreef niet het laatst). Is een lijst leeg, dan is er voor die lijst
+niets te doen — dat is een geldige uitkomst.
 
-**Deel B — bedrijven die hun WhatsApp-nummer niet doorgaven:**
+De uitvoer heeft drie blokken:
 
-- Zoek in Gmail: `in:sent subject:vergeleken whatsapp older_than:2d newer_than:90d`.
-  Zelfde wachttijd, zelfde grens.
-- Houd een thread alleen als het laatste bericht van Olivier is én de vraag naar het
-  WhatsApp-nummer bevat, er daarna niets terugkwam, er geen draft staat, de thread niet in
-  de uitsluitlijst staat en nog geen `Label_5` draagt.
-- Lees `data/whatsapp.json` en sla het bedrijf over als het nummer daar al in staat — dan
-  is het al live op hun pagina.
-- Bevat jouw vraag een telefoonnummer, gebruik dan de bevestigingsmail met dat nummer
-  letterlijk overgenomen; bevat ze er geen, gebruik dan de open vraag. Nooit een nummer
-  verzinnen.
-- Ook deze drafts krijgen `Label_5`. Eén herinnering per bedrijf, nooit een tweede.
+- **LIJST 1** — top 5, nooit geantwoord op mail 1. Deze krijgen de **open vraag** naar
+  hun WhatsApp-nummer. Er is nooit een nummer genoemd, dus er valt niets te bevestigen.
+  (Sinds 4 september 2026 vraagt deze mail niet meer naar de badge maar naar het
+  WhatsApp-nummer: een andere call to action, met een kleinere drempel.)
+- **LIJST 2** — WhatsApp-nummer gevraagd, niet gekregen of bevestigd. Deze krijgen de
+  **bevestigingsmail** met het nummer uit jouw eigen vraag in die thread — of de open
+  vraag als daar geen leesbaar nummer in stond.
+- **NIET MAILEN** — deze bedrijven wachten op Oliviers antwoord. Nooit een draft, wel
+  vermelden in je verslag; dat is werk voor `/keurwijzer-mails`.
+
+Daarna, per kandidaat:
+
+- Open de thread met `get_thread`. Nooit beoordelen op de zoeklijst — die laat soms het
+  nieuwste bericht weg. Wijkt de thread af van het logboek, sla over en meld het.
+- Controleer met `list_drafts` dat er nog geen draft in die thread staat, en dat de
+  thread nog geen `Label_5` draagt.
+- **De vingerafdruk.** Zoek in de volledige thread naar de zin *"Ik wou je opname op
+  Keurwijzer graag afwerken."* Staat die er al — verstuurd of als draft — dan is er al
+  opgevolgd: overslaan en melden. Dit is de enige rem die ook werkt als het logboek
+  achterloopt, en bij lijst 2 is het de enige echte tweede rem, want de opvolgmail
+  bevat zelf een nummervraag.
+- Een autoresponder telt niet als antwoord.
+- Neem de aanhef **letterlijk** over uit de outreachmail in die thread. Verzin nooit een
+  naam of een telefoonnummer. Bezoek geen enkele website: bij de eerste mail is een naam
+  al gezocht, en een toestemmingsvraag laat een geplande run vastlopen.
+- Geen van beide mails vermeldt een rang. Je hoeft dus geen rangzin te zoeken.
+- Maak één draft als antwoord in die thread, met de tekst uit de skill, en label de
+  thread met `Label_5` (Keurwijzer/4. Weekend opvolgen).
+- **Noteer de draft meteen**, vóór je aan de volgende kandidaat begint:
+  `node scripts/outreach-noteer.js --thread <threadId> --lijst 1` (of `--lijst 2`).
+  Bewerk `data/outreach.json` nooit met de hand. Zonder die notitie maakt de ronde van
+  volgende week er nóg een.
+
+Sluit de ronde af met `node scripts/outreach-noteer.js --controleer`. Dat toont wat er
+vandaag genoteerd is en hoeveel kandidaten er nog openstaan — **dat laatste hoort 0 te
+zijn**. Is het dat niet, dan staat er een draft die niet genoteerd is; zoek uit welke en
+noteer alsnog vóór je je verslag schrijft.
 
 Harde regels:
 
 - VERSTUUR NOOIT een mail. Uitsluitend drafts — Olivier verstuurt ze zelf in het weekend.
 - Verstuur ook geen verslagmail aan Olivier. Het verslag komt in het gesprek.
-- Wie ooit "nee" of "stop" antwoordde, valt permanent af. Meld dat, doe verder niets.
+- Geen enkele link in een opvolgmail.
+- Wie ooit "nee" of "stop" antwoordde, valt permanent af. Meld dat zodat Olivier het als
+  `optOut` laat noteren, doe verder niets.
+- ÉÉN opvolgmail per bedrijf. Ooit — niet per lijst, niet per week. Twee keer dezelfde
+  vraag kost Keurwijzer zijn geloofwaardigheid bij precies de bedrijven die het meest
+  opleveren. Staat er in de uitvoer een blok `!! STOP — hetzelfde mailadres staat twee
+  keer in deze ronde`, maak er dan maar één draft voor en meld het.
 
 Sluit af met een verslag waarin de twee lijsten **streng gescheiden** staan — ze dragen
 hetzelfde label, dus het verslag is de enige plek waar Olivier ziet welke draft waarover
 gaat. Begin met één samenvattende regel ("8 koude opvolgingen + 3 WhatsApp-vragen = 11
-drafts"), daarna per deel een tabel en wat er afviel met de reden. Meld apart welke
-bedrijven op Oliviers eigen antwoord wachten: dat is werk voor `/keurwijzer-mails`.
+drafts"), daarna per lijst een tabel en wat er afviel met de reden. Meld apart welke
+bedrijven op Oliviers eigen antwoord wachten.

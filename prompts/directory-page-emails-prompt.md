@@ -269,6 +269,27 @@ of rankable companies, Top 10 or Top 5, and exactly which pages went live.
 Prepare **one Gmail draft per company** (the contact email), plus **one region note**
 for Olivier that holds the whole batch. **Never send automatically — drafts only.**
 
+> **Hard rule — never a second first email to the same mailbox.** Before you draft
+> anything for a company, run this with the address you just found on their website:
+>
+> ```bash
+> node scripts/outreach-lijst.js --adres "<their email>"
+> ```
+>
+> It prints `NIET MAILEN` and exits non-zero when that address (or that website domain)
+> already received email 1, or belongs to a company that opted out or that Olivier
+> handles himself. In that case: **skip the company, do not draft, and report it to
+> Olivier.** Otherwise it prints `OK` and you continue.
+>
+> Why this check has to exist: the logbook keeps one row per company *per region*, so a
+> company published in two regions has two rows, and the second row looks untouched.
+> Without this check it would get a second "we compared all roofers in your region"
+> email — the same firm, the same sender, a different region. That is exactly the kind
+> of mistake that costs Keurwijzer its credibility with the companies it needs most.
+>
+> Run `node scripts/outreach-seed.js` first, right after the page went live, so the new
+> region's rows exist before you start drafting.
+
 1. **Email 1 — contact email to the company.** Clean and short: exactly one link (the
    landing page), no badge link and no image. The badge is *offered* as a reason to
    reply. One draft per company.
@@ -533,6 +554,25 @@ At the end, report:
 Runs **separately from Phase 0–6**, days or weeks after the batch went out. It is never
 part of building a region; Olivier asks for it explicitly ("stuur de opvolgmails voor
 {regio}").
+
+> **Since 4 September 2026 the weekly round is a skill, and it is binding.**
+> `.claude/skills/keurwijzer-opvolgmails/SKILL.md` runs every Friday and prepares
+> follow-up 1 for the **top 5** of each region. It takes its candidates from the
+> outreach logbook (`node scripts/outreach-lijst.js --vrijdag`), not from a Gmail
+> search: the logbook already applies the rank, the three working days, the "already
+> replied", the "draft already there" and the opt-out rules, and it records every
+> draft so the next round cannot stack a second one.
+>
+> **Follow that skill for follow-up 1 — including its wording.** Since 4 September 2026
+> follow-up 1 no longer asks about the badge; it asks for the company's business WhatsApp
+> number, because the badge was already offered in email 1 and ignored, and a phone
+> number is a lower-threshold call to action. The Dutch text below is the **old**
+> follow-up 1 and is kept only as a record of the reasoning; the skill has the live one.
+>
+> What is still current here: the reasoning behind the follow-up emails, and **follow-up
+> 2** — the closing email after another 10 working days, which the weekly round does not
+> send. Do not run the Gmail search in step 1 below for follow-up 1; it predates the
+> logbook and it has no notion of rank.
 
 Most companies never answer email 1. The reason is not the timing but the frame: email
 1 *offers a gift*, and a gift can be ignored at no cost. The follow-ups flip that — the

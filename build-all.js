@@ -56,6 +56,24 @@ if (lock.genegeerd) {
 // onafgevangen fout (bv. een kapotte config die loadRegistry laat throwen).
 process.on('exit', () => T.laatLockLos());
 
+// ---- Impactcheck: hangt alles nog aan elkaar? ------------------------------
+// Olivier vroeg op 4 september 2026 om de gevolgen van een wijziging niet meer
+// achteraf te ontdekken. Deze check kijkt na of tekst en code elkaar nog
+// dekken — verwijzingen, commando's, getallen, vaste zinnen, geplande taken.
+//
+// Bewust een WAARSCHUWING en geen harde stop. Een verouderde verwijzing in een
+// promptbestand mag nooit verhinderen dat een correcte pagina live gaat; dat
+// zou op het slechtste moment een publicatie blokkeren om een reden die de
+// bezoeker niet raakt. In `npm test` faalt dezelfde check wél hard — dáár hoor
+// je het te merken, vóór het ertoe doet.
+try {
+  execFileSync(process.execPath, [path.join(ROOT, 'scripts', 'impactcheck.js'), '--stil'],
+    { stdio: 'inherit' });
+} catch (e) {
+  console.warn('! De impactcheck meldt losse eindjes (zie hierboven). De build gaat door,');
+  console.warn('  maar tekst en code lopen ergens uit elkaar. Draai `npm test` en zet het recht.');
+}
+
 function deployFiles(dir) {
   if (!fs.existsSync(dir)) return [];
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap(e => {

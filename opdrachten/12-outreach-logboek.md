@@ -11,6 +11,33 @@ test, `lib/whatsapp.js`, `data/whatsapp.json`, `scripts/zoek-bedrijf.js` en
 `scripts/check-nummer.js`. Gmail bereik je via de Gmail-MCP-tools (laad ze met
 ToolSearch). Antwoord in het Nederlands.
 
+## Correcties na hercontrole (4 september 2026)
+
+De bevindingen hieronder zijn op 4 september nagerekend. De structurele punten kloppen;
+drie cijfers niet:
+
+1. **"0 opvolgmails ooit verstuurd" is onjuist.** Grembergse dakwerken van Walsem kreeg
+   op 1 september 11u25 een echte opvolgmail ("Antwoord gewoon met OK op deze mail"), en
+   de juli-batch kreeg Re:-mails op 17, 18 en 20 augustus. Wat wél klopt: de
+   opvolgmail-*skill* heeft nooit een verstuurde mail opgeleverd.
+2. **De uitsluitlijst stond in vier bestanden, niet drie** — `keurwijzer-mails`,
+   `keurwijzer-opvolgmails`, `keurwijzer-mailwacht` en `keurwijzer-replies`. Ze staan er
+   nu in geen enkel meer: het is `zelfAfhandelen` in het logboek geworden.
+3. **De juli-batch telt 14 mails, niet 15** (9 Gent + 5 Meetjesland, alle op 23 juli).
+4. **De cijfers waren een momentopname.** Op 3 september gingen er nog ±21 mails uit. Op
+   4 september: 113 threads op `subject:vergeleken` plus 14 uit juli, ±20 antwoorden.
+   De dubbele drafts van Tectora/EPDMshop zijn niet meer te controleren — de mailbox
+   heeft nu nul drafts.
+5. **Er is nergens een opt-out.** Een gerichte zoekopdracht over alle outreach-threads
+   ("niet meer", "geen interesse", "verwijder", "afmelden", "uitschrijven", …) gaf nul
+   resultaten. Niemand heeft ooit gevraagd om verwijderd te worden.
+
+Op Oliviers vraag is de **inhoudelijke backfill geschrapt**: de geschiedenis is met de
+hand geschreven en drie keer van vorm veranderd, dus daar valt geen betrouwbare
+categorisering uit te halen. In plaats daarvan dragen de 133 bestaande rijen
+`historisch: true` — genoeg om te voorkomen dat iemand een tweede kennismakingsmail
+krijgt, zonder te doen alsof we meer weten dan we weten.
+
 ## Wat gemeten is (3 september 2026)
 
 - 126 outreachmails verstuurd (van 133 gepubliceerde bedrijven), 21 echte

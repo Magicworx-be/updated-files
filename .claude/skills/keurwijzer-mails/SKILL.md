@@ -52,18 +52,21 @@ volledige naam tussen aanhalingstekens, `label:"Keurwijzer/1. Verzenden"`. Op
 2 september 2026 leken de mapjes daardoor leeg terwijl er een thread in zat. Een lege
 uitkomst op een labelzoekopdracht is dus pas geloofwaardig als je de naam gebruikt hebt.
 
-## Uitsluitlijst — deze threads nooit behandelen
+## Gesprekken die Olivier zelf voert
 
-Olivier heeft die gesprekken zelf afgehandeld. Overslaan, ongeacht wie het laatst schreef:
+Olivier voert een paar gesprekken zelf. Wélke, staat niet meer hier maar in het
+outreach-logboek, als `zelfAfhandelen` op de rij van het bedrijf:
 
-- `1a047f391d4505d7` — Dakwerken Vermeersch (Brugge)
-- `1a0436f627b19643` — Dakwerken Hofman bvba (Dendermonde)
-- `1a0436f303053a93` — Dakwerken SD Projects (Dendermonde)
-- `1a0470a8d2d8490c` — Dakwerken Devlin (Oudenaarde)
-- `1a047f329442ed6a` — D&G Dakwerken (Brugge)
+```bash
+node scripts/outreach-lijst.js --zelf
+```
 
-Komt er in zo'n thread een volledig nieuw bericht waar duidelijk een antwoord op wordt
-verwacht, meld dat dan in plaats van zelf iets te schrijven.
+Schrijf in die threads **nooit** een draft. Komt er een volledig nieuw bericht binnen
+waar duidelijk een antwoord op wordt verwacht, meld dat dan aan Olivier in plaats van
+zelf iets te schrijven.
+
+Waarom dit verhuisd is: tot 4 september 2026 stonden dezelfde vijf thread-ID's letterlijk
+in vier promptbestanden. Wie er één aanpaste, vergat de andere drie.
 
 ---
 
@@ -79,7 +82,29 @@ het label dan staan. Threads in `Label_3` komen verderop nog aan bod (stap 5).
 
 # STAP 2 — Zoek nieuwe antwoorden
 
-Zoek: `(in:inbox OR label:Keurwijzer) subject:vergeleken newer_than:14d`
+Vraag de zoekopdracht op — die houdt rekening met wat het logboek al gezien heeft, en
+met álle onderwerpregels die Keurwijzer ooit gebruikt heeft (de juli-batch had een
+andere, en viel daardoor maandenlang buiten elke zoekopdracht):
+
+```bash
+node scripts/deurbel.js --vraag
+```
+
+Voer die ene zoekopdracht uit met `search_threads`, zet het antwoord onbewerkt in een
+bestand, en laat de code beslissen wie er een mens is en wie een machine:
+
+```bash
+node scripts/deurbel.js --verwerk <bestand.json>
+```
+
+Je krijgt per bedrijf terug: de naam, de regio, de thread en het laatste bericht — en
+apart wat er genegeerd is (autoresponders, ontvangstbevestigingen) en welke afzenders het
+logboek niet kent. Behandel alleen wat onder MELDEN staat.
+
+Vraag je je af waarom dit niet meer met de hand gaat: de oude aanpak
+(`(in:inbox OR label:Keurwijzer) subject:vergeleken newer_than:14d`, daarna elke thread
+openen) deed er tot 100 tool-calls en negen minuten over, en stierf op 3 september
+stilzwijgend op een API-fout.
 
 Het label staat er bewust naast het postvak: een Gmail-filter labelt inkomende
 antwoorden als `Keurwijzer` en haalt ze uit het Postvak IN. Zonder dat filter blijven
@@ -129,8 +154,17 @@ Kan je het bedrijf niet eenduidig vastpinnen → geen badge-draft, scenario 3.
 
 **Schrijf dan de draft.** Lees `prompts/reply-scenarios.md` (Read-tool) — dat bestand is
 bindend voor toon, begroeting en de sjablonen van scenario 1 (badge-vraag), scenario 2
-(is het gratis) en scenario 3 (al de rest). Lees ook "Answering a reply" in
+(is het gratis), scenario 3 (al de rest) en scenario 4 (alleen een WhatsApp-nummer, als
+antwoord op de wekelijkse opvolgmail). Lees ook "Answering a reply" in
 `prompts/directory-page-emails-prompt.md`.
+
+**Kreeg dit bedrijf ooit zijn badge?** Zoek in de volledige thread naar de zin
+**"Gebruik deze badges gerust"**. Die opent het vaste badgeblok, dus ze staat in elke
+thread waar de badge ooit bezorgd is. Ontbreekt ze, dan heeft dit bedrijf nooit een badge
+gehad — dat is de groep die op de opvolgmail antwoordde, want die mail biedt geen badge
+meer aan. Onthoud dat: het bepaalt in stap 5 of de bevestigingsmail het badgeblok
+meekrijgt. Beslis dit **nooit** op `badge.gevraagdOp` in het logboek; dat veld is leeg
+voor iedereen die vóór het logboek een badge kreeg.
 
 Let op:
 - De mail moet klinken alsof Olivier hem snel zelf tikte. Kort, persoonlijk, Nederlands.
@@ -281,6 +315,13 @@ staat:
      letterlijk over, als `htmlBody` met `<br>` per regel (niet als platte tekst —
      zie de reden daar). Enkel `{voornaam}` wisselt; geen naam gevonden → `Hi,`. Nooit
      versturen.
+
+     **Ontbreekt "Gebruik deze badges gerust" in de thread** (zie stap 3), dan is dit
+     scenario 4: dit bedrijf antwoordde op de opvolgmail en heeft nooit een badge gehad.
+     Zet dan het vaste badgeblok van scenario 1 onder de bevestigingsmail — na de
+     ondertekening, met `<p>—</p>` ertussen — en noteer `badge.gevraagdOp` op vandaag.
+     Anders geven ze hun nummer en krijgen ze niets terug, en blijft de badge voorgoed
+     buiten hun bereik. Staat de zin er wél, dan verandert er niets: geen badgeblok.
   2. `unlabel_thread` `Label_3` en `label_thread` `Label_2`.
   3. Meld het uitdrukkelijk: de draft staat klaar, Olivier hoeft enkel te versturen.
 
@@ -319,3 +360,34 @@ Was er niets: zeg dat in één zin. Dat is de gewoonste uitkomst.
 
 Achtergrond: `METHODIEK.md` §7 legt uit waarom een WhatsApp-nummer buiten de methodiek
 valt — het is contactinformatie en komt in geen enkele berekening voor.
+
+---
+
+# TOT SLOT — schrijf de uitkomst terug in het logboek
+
+Werk per behandeld bedrijf `data/outreach.json` bij:
+
+- `antwoord`: `{ "datum": "JJJJ-MM-DD", "soort": "…" }` — kies uit `badge`, `gratis`,
+  `nummer`, `lead`, `nee`, `autoresponder`, `anders`. Zei het bedrijf "nee" of "stop",
+  vul dan óók `optOut` in; dat is permanent en sluit élke verdere mail uit.
+- `badge.gevraagdOp` als ze de kwaliteitsbadge willen — én in scenario 4, waar je hem
+  ongevraagd meestuurt. Het veld betekent "toegezegd of bezorgd, nog niet op hun site
+  gezien"; zonder die datum valt het bedrijf uit `--badge-open` en ziet niemand ooit of
+  de badge er echt op komt.
+- `whatsapp.gevraagdOp` zodra je ernaar gevraagd hebt, en `whatsapp.nummer` +
+  `whatsapp.liveSinds` zodra het nummer echt op de pagina staat. `data/whatsapp.json`
+  blijft de bron voor de knop zelf — die twee moeten gelijk lopen.
+- `mail1.draftOp` / `opvolg1.draftOp` zodra je een draft aanmaakt, zodat de volgende
+  ronde er geen tweede maakt.
+
+Controleer daarna dat het logboek nog klopt:
+
+```bash
+node scripts/outreach-lijst.js
+```
+
+Heb je het logboek met de hand aangepast, ververs dan het dashboard — de scripts doen dat vanzelf, een handmatige bewerking niet:
+
+```bash
+node scripts/outreach-dashboard.js
+```

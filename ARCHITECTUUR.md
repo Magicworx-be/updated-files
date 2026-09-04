@@ -144,6 +144,42 @@ sluit een taakrun af die meer dan tien minuten stilligt én nog op een tool-antw
 wacht. Er is nu veel minder voor haar te doen, maar ze vangt de deurbel op als die ooit
 zou blijven hangen. Zie `scripts/watchdog-taken.js`.
 
+#### Het outreach-logboek
+
+`data/outreach.json` is sinds 4 september 2026 de bindende bron voor **wat er al gedaan
+is**: per bedrijf of mail 1 vertrok, of er geantwoord is en wat voor soort antwoord, of
+er een opvolgmail klaarstaat of verstuurd is, of er een WhatsApp-nummer of badge gevraagd
+is, en of Olivier het gesprek zelf voert. Gmail blijft de waarheid over de mails zelf;
+het logboek is de waarheid over de stand van zaken.
+
+Daarvóór was er niets: elke ronde leidde uit een Gmail-zoekopdracht opnieuw af wat er te
+doen was. Dat kostte honderden tool-calls, het faalde stil (op 3 september stierf een
+deurbel-run op een API-fout en bleef een antwoord vijf uur liggen), en het gaf
+tegenstrijdige uitkomsten — Tectora en EPDMshop kregen elk twee drafts.
+
+Het logboek **staat niet in git**: er staan mailadressen in en de repo's zijn publiek
+leesbaar. Het wordt lokaal aangelegd en bijgewerkt:
+
+| Commando | Doet |
+|---|---|
+| `node scripts/outreach-seed.js` | legt het logboek aan of vult nieuw gepubliceerde bedrijven bij |
+| `node scripts/outreach-lijst.js` | de werklijst: `--zelf`, `--opvolg`, `--nieuw`, `--nummer-open`, `--badge-open`, `--bedrijf "<naam>"` |
+| `node scripts/deurbel.js --vraag` | drukt de Gmail-zoekopdracht af die alleen nieuws kan opleveren |
+| `node scripts/deurbel.js --verwerk <bestand>` | beslist mens-of-machine in code en werkt het logboek bij |
+| `node scripts/outreach-dashboard.js` | maakt `reports/outreach-dashboard.html` om te bekijken |
+
+**Rijen met `historisch: true`** zijn de 133 bedrijven die vóór 8 september 2026 al
+benaderd waren, in de weken waarin de mails met de hand geschreven werden en de
+onderwerpregel drie keer veranderde. Van hen weet het logboek dát ze benaderd zijn, niet
+wanneer of met welk resultaat — dat staat alleen in Gmail. Ze krijgen daarom nooit
+opnieuw een kennismakingsmail. Alles vanaf die datum wordt wél volledig gelogd.
+
+De koppeling tussen een binnenkomend antwoord en een bedrijf loopt over drie sleutels, in
+die volgorde: het thread-ID, het genoteerde mailadres, en anders het **websitedomein** uit
+`data/<slug>/reviews.json` (info@heitodakwerken.be hoort bij heitodakwerken.be). Gedeelde
+postbussen — gmail, telenet, outlook — koppelen bewust aan niemand. Lukt geen van drieën,
+dan meldt de deurbel "afzender onbekend" in plaats van te gokken.
+
 #### De werklijst in Gmail
 
 De ronde houdt Oliviers werklijst bij als **Gmail-labels**, zodat een leeg mapje "niets

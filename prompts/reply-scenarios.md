@@ -270,29 +270,37 @@ its badge and its number, and Olivier is asking for nothing in return.
 longer triggers Gmail's `google.com/url` Redirect Notice: there is nothing left to wrap.
 
 **The text is fixed — Olivier rewrote it himself on 2 September 2026, shorter and warmer
-than the first version. Take it literally: add nothing, leave nothing out.** Only
-`{voornaam}` varies, and it rides in the first line — **this mail has no greeting**, the
-same way the badge mail of scenario 1 has none. No confirmed first name → drop the name and
-close that line with a full stop: `Je WhatsApp-nummer staat erbij.`
+than the first version, and reworded the opening line on 4 September 2026. Take it
+literally: add nothing, leave nothing out.** Only `{voornaam}` varies, and it rides in the
+first line — **this mail has no greeting**, the same way the badge mail of scenario 1 has
+none. The line always closes with a full stop. No confirmed first name → drop the name and
+the comma with it: `Ik heb je WhatsApp-nummer toegevoegd.`
 
 ```
-Je WhatsApp-nummer staat erbij, {voornaam}
+Ik heb je WhatsApp-nummer toegevoegd, {voornaam}.
 
-En mocht je ooit hulp nodig hebben met leads en klanten, laat t mij weten.
-Dan laat ik je zien hoe ik dat doe met o.a. Whatsapp en AI.
+En mocht je ooit hulp nodig hebben met (meer) leads en klanten, laat t mij weten. Dan laat ik je zien hoe ik dat doe met o.a. Whatsapp en AI.
 
 Groeten en alle succes,
 Olivier
 0470 12 44 61
 ```
 
-**Send it as `htmlBody`, not as plain text.** Every line break is intentional — one
-thought per line reads faster on a phone, and that is where these owners read their mail.
-So write the body as one `<div>` with `<br>` between the lines, exactly as above, and
-never pull the lines back into paragraphs.
+**Send it as `htmlBody`, not as plain text.** Every line break is intentional, and so is
+the one place where a break is *absent*: the middle paragraph runs its two sentences
+together on a single line. Olivier merged them on 4 September 2026 — do not split them
+back apart. So write the body as one `<div>` with `<br>` between the lines, exactly as
+above: three blocks, separated by a blank line, and nothing rewrapped.
 
 **No badge block, no landing-page link, no attachment.** Everything has already been
 delivered earlier in this same thread.
+
+**One exception, since 4 September 2026: scenario 4.** A company that replied to the
+weekly follow-up never got the badge offer, so for them "everything has already been
+delivered" is false. Check the thread for the sentence *"Gebruik deze badges gerust"* —
+absent means they never received it, and then the badge block of scenario 1 does go
+underneath this mail. See scenario 4 for the full rule. In every other thread the line
+above stands unchanged.
 
 ---
 
@@ -376,6 +384,91 @@ This covers, among others: complaints, questions about the methodology or their
 position, requests to be removed, press or partnership questions, and anything where
 you are not certain which scenario applies. **Uncertain = scenario 3.** A wrongly
 auto-answered email is worse than one that waited an hour.
+
+---
+
+## Scenario 4 — ze sturen alleen hun WhatsApp-nummer
+
+New since 4 September 2026. This is the reply to the **weekly follow-up**, which no
+longer offers the badge but asks for the business WhatsApp number (see
+`.claude/skills/keurwijzer-opvolgmails/SKILL.md`). A company answering that mail typically
+sends one line: a phone number, maybe a "ja hoor" in front of it. Nothing about a badge,
+because nothing was offered.
+
+Before 4 September such a reply fell under scenario 3 — an empty draft for Olivier to
+fill in himself. That was a deliberate choice back when it was a handful of mails. It no
+longer is: the follow-up now goes to the top 5 of every region, every week, so every
+reply it earns would land on his desk by hand. That defeats the point of choosing a
+lower-threshold call to action.
+
+### What is different about this group
+
+**They have never received their badge.** Everyone in scenarios 1 and 2 asked for the
+badge and got it in the same mail. This company never got the offer. If you only publish
+their number, they gave something and got nothing back — and the badge, which is the one
+thing Keurwijzer has to give, stays permanently out of their reach.
+
+So this scenario delivers **both**: the number goes live, and the badge comes along in
+the confirmation mail.
+
+### How to recognise them — read the thread, not the logbook
+
+**Search the whole thread for the sentence "Gebruik deze badges gerust".** That line
+opens the fixed badge block of scenario 1, so it is present in every thread where the
+badge has ever been delivered.
+
+- **Sentence absent** → they never got their badge → this is scenario 4.
+- **Sentence present** → they already have it → the ordinary confirmation mail, no badge
+  block. Nothing changes for them.
+
+Do **not** decide this on `badge.gevraagdOp` in the logbook. That field is empty for the
+133 companies approached before the logbook existed, including everyone who did receive a
+badge back then — you would send it to them a second time, and a repeated delivery reads
+as a mistake.
+
+### The mail
+
+There is no new text to write. Scenario 4 is the **confirmation mail** (see *Na
+publicatie — de bevestigingsmail*) with the **fixed badge block of scenario 1** appended
+below the sign-off. Both blocks are Olivier's own wording; take each one literally and
+change nothing about either.
+
+The rules of the confirmation mail all still apply, and one of them changes:
+
+- It runs **after** the number is live on the page, never before — same as always.
+- It has **no greeting**; the first name rides in the first line.
+- **The "no badge block" rule is lifted for this group, and only for this group.** That
+  rule exists because everything had already been delivered earlier in the thread. Here
+  it has not.
+- **The closing paragraph about leads and customers stays — Olivier confirmed this
+  explicitly on 4 September 2026, for this group too.** Its condition — "no ask is left
+  open: the company has had its page, its badge and its number" — is exactly true at the
+  moment this mail goes out: all three land in this one mail. Do not raise it again as
+  something to soften or drop because the relationship is younger here than in
+  scenario 1.
+
+Order in the body: the three fixed blocks of the confirmation mail, then `<p>—</p>`, then
+the badge block. Same layout as scenario 1: the personal part first, the badges at the
+bottom.
+
+### The logbook
+
+On top of the ordinary `whatsapp.*` fields, set **`badge.gevraagdOp`** to today. That
+field is read as "badge promised or delivered, still to appear on their site" — see
+`badgeBeloofd()` in `lib/outreach.js` — so setting it puts the company in
+`node scripts/outreach-lijst.js --badge-open`, where Olivier can see whether the badge
+ever shows up on their website. Leave it empty and this group falls out of that list
+entirely.
+
+Set `antwoord.soort` to `nummer`.
+
+### When the number cannot be published this round
+
+No landline, two numbers with none marked, no company that can be pinned down: then
+there is no publication and therefore no confirmation mail — same rule as scenario 1
+case 3. Write the one-line thank-you there, **and in this case do append the badge
+block**, because they still have not received it and there is no later mail that will
+carry it. Report to Olivier that he has to add the number by hand.
 
 ---
 

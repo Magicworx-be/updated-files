@@ -153,6 +153,14 @@ hetzelfde zeggen.
 |---|---|
 | `lib/rekenkern.js` | **De rekenkern.** Constanten, methodiek-versies, eligibility, de vier dimensies, composite en selectie. Doet geen I/O, dus los te draaien en te testen. Bindende bron voor alle getallen. |
 | `build.js` | Leest de bestanden, laat `lib/rekenkern.js` rekenen, bewaakt het selectieslot en rendert pagina, rapport, prospectie en badge-export. |
+| `lib/outreach.js` | **Het outreach-logboek.** Schema, validatie en de afgeleide vragen (opvolgkandidaten, werkdagen, domeinkoppeling). Bron: `data/outreach.json` — staat bewust NIET in git. |
+| `lib/antwoord.js` | Mens of machine? Beslist op tekst, nooit op de klok. |
+| `scripts/outreach-seed.js` | Legt het logboek aan, vult nieuwe regio's bij en zet de **rang** uit `selectie.json` op elke rij (die stuurt de top 5-grens van de opvolgronde). Draai dit na elke nieuwe pagina. Feiten uit Gmail voeg je toe met `--gmail data/outreach-gmail.json`; zie `scripts/outreach-gmail.md`. |
+| `scripts/outreach-lijst.js` | De werklijst: `--vrijdag` (de volledige opvolgronde: top 5 zonder antwoord + open WhatsApp-vragen + wie op Olivier wacht), `--zelf`, `--opvolg`, `--nieuw`, `--nummer-open`, `--badge-open`, `--bedrijf`. De mailrondes lezen hier, niet meer in Gmail. |
+| `scripts/impactcheck.js` | **Hangt alles nog aan elkaar?** Controleert verwijzingen, commando's + vlaggen, getallen die in code én uitleg staan, de vaste zinnen waar de mailrondes op steunen, en geplande taken vs hun repo-kopie. Draait mee met `npm test` en `build-all.js`. |
+| `scripts/outreach-noteer.js` | Legt een gemaakte opvolgdraft vast in het logboek (`--thread <id> --lijst 1\|2`) en weigert een tweede op hetzelfde bedrijf. `--controleer` sluit de ronde af. Nooit `data/outreach.json` met de hand bewerken. |
+| `scripts/deurbel.js` | Deterministische deurbel: `--vraag` geeft de Gmail-zoekopdracht, `--verwerk` beslist en logt. |
+| `scripts/outreach-dashboard.js` | Maakt `reports/outreach-dashboard.html` — dubbelklikken. Niet in git (bedrijfsgegevens). |
 | `scripts/marktbeeld.js` | **Het marktrapport per regio** → `reports/<slug>/<slug>-marktbeeld.html`. Het enige rapport dat je **publiek mag verspreiden**: het bevat geen enkele bedrijfsnaam, alleen aggregaten. Het gaat bewust over één groep — bedrijven die de reviewdrempels halen **én** vakspecialist zijn (`vakfocus ≥ VAKFOCUS_FLOOR`). Dat is de enige afbakening die in élke regio volledig gekend is; wie onder de drempel zit is nooit beoordeeld, dus van hen weten we niet eens of het vakmensen zijn — daarover doet het rapport geen enkele uitspraak. Zonder die filter telt het rapport koffiehuizen en kledingzaken mee (in Antwerpen 296 "dakwerkers" i.p.v. 68). Regio's met minder dan 15 specialisten worden geweigerd: daar wijst elk cijfer naar een herkenbaar bedrijf. Drempels uit `lib/rekenkern.js`, gemeenteaantal uit `regions.txt` via `lib/registry.js` — nooit uit `config.gemeenten` (dat zijn schrijfwijzen). Gebruik: `node scripts/marktbeeld.js <slug>` of `--alle`. |
 | `test/` | `npm test`: golden-tests op de 16 live pagina's (élk tussengetal), randgevallen, en de verschillen tussen methodiek v1 t/m v5. `test/README.md` zegt wanneer een snapshot vernieuwd mag worden — dat is zelden. |
 | `ARCHITECTUUR.md` | **Vogelperspectief:** wat waar staat (laptop, GitHub, Cloudflare) en hoe de keten van scrape tot live pagina loopt. Lees dit bij vragen over de opzet. |
@@ -175,9 +183,35 @@ hetzelfde zeggen.
 
 ## Werkafspraken
 
+- **Meld altijd zelf wat een wijziging elders raakt — vóór Olivier ernaar vraagt.**
+  Hij weet niet altijd waar dingen aan elkaar hangen; daar heeft hij deze code voor.
+  Sluit elke wijziging af met wat er meeverandert en wat er stuk kán gaan, ook als de
+  vraag daar niet over ging. Zeg het expliciet als je niets gevonden hebt.
+  Draai daarbij `node scripts/impactcheck.js`: die controleert mechanisch wat je anders
+  moet onthouden — verwijzingen naar bestanden, commando's met hun vlaggen, getallen die
+  in code én uitleg staan, de vaste zinnen waar de mailrondes op steunen, en of een
+  geplande taak nog gelijk loopt met haar kopie in `geplande-taken/`. Hij draait mee met
+  `npm test` (faalt hard) en met `node build-all.js` (waarschuwt, blokkeert niet).
+  Vindt de check niets, dan vervangt dat je eigen oordeel niet: hij kijkt naar verbanden,
+  niet naar betekenis.
 - Bouwen: `node build.js <slug>` voor één pagina, `node build-all.js` voor alles
   (incl. registry.json push).
 - Raak `data/<slug>/beoordeling.json` niet aan zonder expliciete vraag.
+- **Nooit twee keer dezelfde mail naar hetzelfde bedrijf.** Niet in twee opeenvolgende
+  weken, en niet omdat het in twee regio's staat. Dit is een geloofwaardigheidsregel, geen
+  stijlkwestie. Vier remmen, alle vier verplicht: `alOpgevolgd()` in `lib/outreach.js`
+  (één plek voor de regel), `scripts/outreach-noteer.js` (noteert elke draft en weigert
+  een tweede), de vingerafdruk *"Ik wou je opname op Keurwijzer graag afwerken."* in de
+  thread (werkt ook als het logboek achterloopt), en
+  `node scripts/outreach-lijst.js --adres <mail>` vóór élke eerste mail in Fase 6.
+  Verzwak er nooit één zonder dat Olivier daar uitdrukkelijk om vraagt. Zie METHODIEK.md
+  § Opvolgmails.
+- **Het outreach-logboek is de bron voor "wat is er al gedaan".** Mailrondes halen hun
+  kandidaten uit `scripts/outreach-lijst.js`, niet uit een Gmail-brede zoektocht, en
+  schrijven de uitkomst terug. Vóór een draft altijd nog `get_thread` doen — de
+  Gmail-zoeklijst laat soms het nieuwste bericht weg. Nieuwe regio gebouwd? Draai
+  `node scripts/outreach-seed.js`. Rijen met `historisch: true` krijgen nooit opnieuw
+  mail 1: dat zijn de 133 bedrijven die vóór 8 september 2026 al benaderd waren.
 - Bij twijfel over een niche-term, synoniem of hero-afbeelding: vragen, niet
   verzinnen.
 - **Publiceren gebeurt vanzelf.** Een nieuwe regio staat na `node build-all.js`
