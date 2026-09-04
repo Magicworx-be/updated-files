@@ -679,6 +679,14 @@ Een bedrijf dat op Keurwijzer staat mag zélf een WhatsApp-nummer doorgeven. Doe
 het dat, dan krijgt zijn kaart een tekstlink "WhatsApp" naast "Naar website", die
 een gesprek opent met de openingszin *"Hallo, ik vond u via Keurwijzer."*
 
+**Alleen WhatsApp — nooit een gewoon telefoonnummer.** Geeft een bedrijf een vaste
+lijn door, dan komt die **niet** op de pagina en **niet** in `data/whatsapp.json`,
+ook niet als het bedrijf hem zelf zijn WhatsApp-nummer noemt. Dat is een
+strategische keuze van 4 september 2026, geen technische beperking: het gesprek met
+de klant hoort op WhatsApp te beginnen. Zo'n bedrijf krijgt in de plaats een mail
+die zegt dat het geen WhatsApp-nummer is en vraagt of ze er wél een hebben — geval 4
+in `prompts/reply-scenarios.md`.
+
 **Dit staat volledig los van de methodiek:**
 
 - Het nummer komt in **geen enkele** berekening voor — niet in de vier dimensies,

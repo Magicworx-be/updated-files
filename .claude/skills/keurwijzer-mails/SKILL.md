@@ -182,12 +182,22 @@ hetzelfde gesprek — "dat nummer voeg ik toe" én "je nummer staat erbij". Oliv
 die korte briefjes zelf weggooien. Ze spreken elkaar bovendien tegen: het ene belooft
 iets wat het andere al gedaan heeft.
 
-- Geef je het nummer **niet** door aan stap 4 — geen naam teruggevonden, vast nummer,
-  twee nummers zonder aanduiding — dan volgt er deze ronde géén publicatie en dus ook
-  geen bevestigingsmail. Schrijf dan wél de ene zin uit reply-scenarios.md, scenario 1
-  geval 3: "Top, dat nummer voeg ik toe aan je listing." Met `Hi {voornaam},` ervoor en
-  `Groeten,<br>Olivier` erna. **Geen badgeblok** — dat kregen ze al; het nog eens sturen
-  leest als een fout. Meld in stap 6 dat jij het nummer nog met de hand moet toevoegen.
+- Geef je het nummer **niet** door aan stap 4, dan volgt er deze ronde géén publicatie
+  en dus ook geen bevestigingsmail. Er zijn twee soorten, met een **verschillende** mail:
+
+  - **Gaven ze een VAST nummer** (geen `324…`), dan wordt het **nooit** toegevoegd —
+    op een listing komt alleen WhatsApp, dat is een strategische keuze. Schrijf de mail
+    van **geval 4** in reply-scenarios.md: zeg dat het geen WhatsApp-nummer is en vraag
+    of ze er wél een hebben. Beloof niets. Kreeg dit bedrijf nooit een badge, zet het
+    badgeblok er dan wél onder — dit is de enige mail waarin die hen nog bereikt.
+  - **Lukte het om een andere reden niet** — naam niet teruggevonden in `reviews.json`,
+    of twee nummers zonder aanduiding — dan deugt het nummer wél en schrijf je de ene
+    zin uit reply-scenarios.md: "Top, dat nummer voeg ik toe aan je listing." Met
+    `Hi {voornaam},` ervoor en `Groeten,<br>Olivier` erna. **Geen badgeblok** — dat
+    kregen ze al. Meld in stap 6 dat jij het nummer met de hand moet toevoegen.
+
+  Haal die twee nooit door elkaar: op 4 september 2026 kreeg Optek (Dendermonde) een
+  draft die beloofde een vast nummer toe te voegen, en Olivier moest hem herschrijven.
 
 Maak de draft als **antwoord in dezelfde thread** (reply), nooit als nieuwe mail.
 
@@ -222,8 +232,11 @@ Zeggen ze nee, of noemen ze een ánder nummer, dan gelden de gewone regels:
   `toestemming`.
 - **Meerdere** nummers → alleen het nummer dat er uitdrukkelijk bij staat als WhatsApp.
   Niet uitdrukkelijk aangeduid → niets schrijven, melden.
-- **Vast nummer** (geen `324…`) → niets schrijven, melden. WhatsApp op een vaste lijn is
-  te zeldzaam om te gokken.
+- **Vast nummer** (geen `324…`) → niets schrijven, melden. Niet omdat het onzeker is,
+  maar omdat er op een listing **alleen WhatsApp-nummers** komen — een strategische
+  keuze van Olivier. Een vaste lijn gaat dus nooit in `data/whatsapp.json`, ook niet
+  als het bedrijf hem zelf "ons WhatsApp-nummer" noemt. Antwoord met geval 4 uit
+  reply-scenarios.md.
 
 Controleer het nummer:
 

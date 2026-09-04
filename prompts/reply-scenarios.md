@@ -176,7 +176,7 @@ names describe the *text colour*, not the background:
 So the "lichte achtergrond" anchor links to `badgeDonker`, and the "donkere
 achtergrond" anchor links to `badgeLicht`.
 
-### The WhatsApp question — three cases
+### The WhatsApp question — four cases
 
 **De vraag naar het nummer valt nooit weg.** Ook niet wanneer het bedrijf al via WhatsApp
 contact opnam en Olivier dat nummer dus zelf zou kunnen opzoeken. Hij stelde dat vast op
@@ -207,6 +207,39 @@ Write the number the way a Fleming reads it out: `0470 49 23 82`, in pairs, neve
 
 **3. They explicitly hand over their WhatsApp number.** Drop the question.
 
+**4. Ze geven een VAST nummer** — een gsm herken je aan `324…` na normalisatie
+(`node scripts/check-nummer.js "<ruw nummer>"` zegt het), al de rest is een vaste lijn.
+
+**Op een Keurwijzer-listing komt nooit een telefoonnummer, alleen WhatsApp.** Dat is
+een strategische keuze van Olivier, geen technische beperking: het hele aanbod steunt
+op WhatsApp als kanaal. Een vaste lijn wordt dus **niet** gepubliceerd, gaat **niet**
+in `data/whatsapp.json`, en er wordt ook niet beloofd dat hij toegevoegd wordt.
+
+Zeg in de plaats dat het geen WhatsApp-nummer is, en vraag of ze er wél een hebben.
+**Deze tekst is van Olivier zelf** — zijn mail aan Optek (Dendermonde) van
+4 september 2026, nadat dat bedrijf `052/50.82.10` als WhatsApp-nummer opgaf:
+
+```html
+<p>Dag {voornaam},</p>
+
+<p>{nummer} is geen WhatsApp-nummer.<br>
+Mocht je ook een zakelijk WhatsApp-nummer hebben, bezorg gerust.</p>
+
+<p>Groeten,<br>Olivier</p>
+```
+
+Schrijf het nummer zoals een Vlaming het uitspreekt (`052 50 82 10`), niet aaneen.
+Geen voornaam gevonden → `Dag,`.
+
+Dit is de enige plek in de reply-scenario's die met `Dag` opent in plaats van `Hi` —
+zo schreef Olivier ze. Er volgt **geen** bevestigingsmail en **geen** WhatsApp-bericht,
+want er gaat niets live. Kreeg dit bedrijf nooit een badge (de zin *"Gebruik deze badges
+gerust"* ontbreekt in de thread), zet het vaste badgeblok er dan wél onder, met
+`<p>—</p>` ertussen — dat deed Olivier bij Optek ook, en het is de enige mail waarin
+die badge hen nog kan bereiken.
+
+Meld het bedrijf in je verslag, zodat Olivier weet dat daar een vraag openstaat.
+
 **One mail per thread, never two.** If the number can be written to `data/whatsapp.json`
 this same round, it goes live within minutes — so write **no** mail here at all and let
 the bevestigingsmail below do the work. It already says everything this one would.
@@ -216,14 +249,24 @@ On 3 September 2026 Tectora and EPDMshop each ended up with two drafts in one th
 one himself. They also contradict each other: one promises what the other has already
 done.
 
-Only when the number **cannot** be written this round — no matching company name, a
-landline, two numbers with none marked — is there no publication and therefore no
-bevestigingsmail. That is the one case where you thank them here instead:
+Only when the number **cannot** be written this round is there no publication and
+therefore no bevestigingsmail. Twee soorten, en ze krijgen **niet** dezelfde mail:
 
-> Top, dat nummer voeg ik toe aan je listing.
+- **Een gsm die nu niet weggeschreven kan worden** — de bedrijfsnaam is niet terug te
+  vinden in `reviews.json`, of er staan twee nummers zonder dat één ervan als WhatsApp
+  is aangeduid. Het nummer deugt, alleen de koppeling niet. Bedank ze hier:
 
-Then say in your report that Olivier has to add it by hand. Never add it yourself
-without asking.
+  > Top, dat nummer voeg ik toe aan je listing.
+
+  Zeg in je verslag dat Olivier het met de hand moet toevoegen. Voeg het nooit zelf toe
+  zonder te vragen.
+
+- **Een vaste lijn** — die wordt **nooit** toegevoegd, niet vandaag en niet later. Zie
+  geval 4 hierboven; die belofte hoort daar dus niet thuis.
+
+Het verschil is niet cosmetisch. Op 4 september 2026 kreeg Optek (Dendermonde) een draft
+die zei "dat nummer voeg ik toe aan je listing" op een vast nummer dat nooit toegevoegd
+zou worden. Olivier moest die mail zelf herschrijven.
 
 ### Ze vragen er meteen bij hoe de ranking bepaald wordt
 
